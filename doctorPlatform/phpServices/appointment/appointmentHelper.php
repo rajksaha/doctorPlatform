@@ -24,7 +24,7 @@ if($query_no== 0){
 
 if($query_no==1){
 	$sql = "SELECT 
-				app.appointmentID, app.doctorCode, app.patientCode, app.date, app.time, app.status, app.addedBy, p.name, p.age, p.address, p.phone, p.sex, IFNULL(p.name, 0) AS patientState
+				app.appointmentID, app.doctorCode, app.patientCode, app.date, app.time, app.status, app.addedBy, p.patientID, p.name, p.age, p.address, p.phone, p.sex, IFNULL(p.name, 0) AS patientState
 			FROM `appointment` app
 			LEFT JOIN patient p ON app.patientCode = p.patientCode 
 			WHERE app.doctorCode = '$username' AND app.date='$date' order by app.time";
@@ -40,7 +40,7 @@ if($query_no==1){
 
 if($query_no==2){
 	
-	$patientCode = mysql_escape_String($_POST['patientCode']);
+	$patientCode = mysql_real_escape_string($_POST['patientCode']);
 	$name = $_POST['name'];
 	$address = $_POST['address'];
 	$age = $_POST['age'];
