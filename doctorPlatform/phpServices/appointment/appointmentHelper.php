@@ -40,7 +40,7 @@ if($query_no==1){
 
 if($query_no==2){
 	
-	$patientCode = mysql_escape_String($_POST['patientCode']);
+	$patientCode = mysql_real_escape_string($_POST['patientCode']);
 	$name = $_POST['name'];
 	$address = $_POST['address'];
 	$age = $_POST['age'];
