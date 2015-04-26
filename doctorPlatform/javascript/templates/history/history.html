@@ -1,12 +1,11 @@
-<div class="panel  col-md-12 filter-panel" style="padding-top: 20px">
+<div class="panel  col-md-12 filter-panel" style="padding-top: 20px" id="historySetting">
 	<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
 		             <div class="panel">	                 
 		                 <div class="panel-body">
 		                 	
 		                    <div class="room-desc  form-group" >
-		                    	<label for="inputName">{{pageName}} Name</label>
-		                         <input type="text" data-ng-model="vitalData.vitalName" typeahead="patients.name for patients in getPatients($viewValue)"  class="form-control" placeholder="Search Patients" typeahead-on-select='onSelectPatient($item, $model, $label)'/>
-		                         <button data-ng-show="addByName" data-ng-click="addAppByName">Add</button>
+		                    	<label for="inputName">{{typeCode}} Name</label>
+		                         <input type="text" data-ng-model="historySetteingData.historyName" typeahead="historyData.name for historyData in getHistory($viewValue)"  class="form-control" placeholder="Search {{typeCode}}" typeahead-on-select='onSelectHistory($item, $model, $label)'/>
 		                         
 		                    </div>
 		                 </div>
@@ -17,34 +16,36 @@
 		             <div class="panel">	                 
 		                 <div class="panel-body">
 		                    <div class="room-desc  form-group">	
-		                         <label for="inputName">Prescription Display name</label><span class="pull-right"><input type="checkbox" data-ng-model="vitalSameAS" data-ng-click="vitalData.shortName = vitalData.vitalName">Same AS Vital Name</span> 
-		                         <input type="text" class="form-control input-sm typeahead" data-ng-model="vitalData.shortName" maxlength="45" />
+		                         <label for="inputName">Prescription Display name</label><span class="pull-right"><input type="checkbox" data-ng-model="historySetteingData.historySameAS" data-ng-click="historySetteingData.shortName = historySetteingData.historyName">Same AS {{typeCode}} Name</span> 
+		                         <input type="text" class="form-control input-sm typeahead" data-ng-model="historySetteingData.shortName" maxlength="45" />
 		                    </div>
 		                 </div>
 		             </div>
 		         </div>
 		         
 		
-		<button class="pull-right">ADD to List</button>
+		<button class="pull-right" data-ng-click="addHistoryToDoctorPref()">ADD to List</button>
 </div>
 
 			<div class="row geninfo">
 				<div class="col-xs-12">
 					<div class="panel" style="margin-top:20px">  
 						<div class="panel-body" >
-							<div class="text-muted form-group">{{pageName}}<span><button class="pull-right" data-ng-click="saveVital(prescribedVitalData)">Save</button></div>                             
-								<div class="list-item col-sm-6 col-md-6 col-lg-6" data-ng-repeat="vital in prescribedVitalData">
+							<div class="text-muted form-group">{{typeCode}}<span><button class="pull-right" data-ng-click="saveHistory()">Save</button></span></div>                             
+								<div class="list-item col-sm-6 col-md-6 col-lg-6" data-ng-repeat="history in paientHistoryList">
 									<div>
 										<table>
 											<tbody>
 												<tr>
-													<td>{{vital.vitalName}}</td>
-													<td><input type="text" data-ng-model="vital.vitalResult"><button data-ng-click="bringVitalOption(vital)">+</button></td>
+													<td ><input type="checkbox" data-ng-show="history.historyResult" data-ng-model="history.fiff" data-ng-checked="history.addToPrescription" data-ng-change="history.addToPrescription = !history.addToPrescription">{{history.name}}</td>
 													<td>
-														<select size="5" data-ng-model="vital.optionSelector" data-ng-show="vital.optionListON" ng-options="vitalOption.name for vitalOption in vital.optionList" data-ng-click="performVital(vital)"></select>
-														<input type="text" data-ng-show="vital.optionAdderON" data-ng-model="vital.optionAdder">
-														<button data-ng-show="vital.optionAdderON" data-ng-click="addVitalOption(vital)">ADD</button>
-														<button data-ng-show="vital.optionAdderON" data-ng-click="vital.optionAdderON = false">Cancel</button>
+														<input type="text" data-ng-model="history.historyResult"><button data-ng-click="bringHistoryOption(history)">+</button>
+													</td>
+													<td>
+														<select size="5" data-ng-model="history.optionSelector" data-ng-show="history.optionListON" ng-options="historyOption.optionName for historyOption in history.optionList" data-ng-click="performHistory(history)"></select>
+														<input type="text" data-ng-show="history.optionAdderON" data-ng-model="history.optionAdder">
+														<button data-ng-show="history.optionAdderON" data-ng-click="addHistoryOption(history)">ADD</button>
+														<button data-ng-show="history.optionAdderON" data-ng-click="history.optionAdderON = false">Cancel</button>
 													</td>
 												</tr>
 											</tbody>
@@ -52,7 +53,7 @@
 									</div>
 									
 								</div>
-								<button class="pull-right" data-ng-show="prescribedVitalData.length > 20" data-ng-click="saveVital(prescribedVitalData)">Save</button>
+								<button class="pull-right" data-ng-show="paientHistoryList.length > 20" data-ng-click="saveHistory(paientHistoryList)">Save</button>
 						</div>
 					</div>
 				</div>

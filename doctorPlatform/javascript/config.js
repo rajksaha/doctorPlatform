@@ -248,6 +248,27 @@ app.config(function($stateProvider, $urlRouterProvider, $compileProvider, $contr
             }
         };
     
+    var obsHistory = {
+            name : 'root.obsHistory',
+            url : '/obsHistory',
+            views : {
+                'container@' : {
+                    templateUrl : 'javascript/templates/history/history.html',
+                    controller : 'PrescribeHistoryController'
+                }
+            },
+            resolve : {
+                loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+                  // you can lazy load files for an existing module
+                  return $ocLazyLoad.load(
+                    {
+                      name: 'ktrTablet',
+                      files: ['javascript/controllers/history/history.js' ]
+                    });
+                  }]
+            }
+        };
+    
     
 	
 	
@@ -261,6 +282,7 @@ app.config(function($stateProvider, $urlRouterProvider, $compileProvider, $contr
         .state(genInfo)
         .state(vital)
         .state(history)
+        .state(obsHistory)
     	.state(appointment);
     
 

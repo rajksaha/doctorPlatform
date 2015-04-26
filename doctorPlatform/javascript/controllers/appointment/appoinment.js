@@ -96,7 +96,7 @@ app.controller('AppointmentController', function($scope, $http, $modal, $rootSco
     $scope.letsPrescribe = function (appointMentData){
     	
 
-        var  dataString = 'patientCode='+ appointMentData.patientCode  +'&appointmentID='+ appointMentData.appointmentID +'&query='+4;
+        var  dataString = 'patientCode='+ appointMentData.patientCode  +'&patientID='+ appointMentData.patientID +'&appointmentID='+ appointMentData.appointmentID +'&query='+4;
         
 
         $http({
