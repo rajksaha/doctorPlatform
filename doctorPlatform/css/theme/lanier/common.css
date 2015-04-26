@@ -1,0 +1,14 @@
+/* Lanier */
+
+/*------------ Page title -----------*/
+
+.page .page-title {
+    background-color: #5bb5b6;
+    margin: 0 -30px 30px;
+    padding: 12px 30px 12px 30px;
+    color: #fff;
+}
+
+.page .page-title > h3 {
+	margin: 0;
+}

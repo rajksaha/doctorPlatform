@@ -1,0 +1,112 @@
+<div class="modal-header modalHead">
+	<h3 class="modal-title">Completion</h3>
+</div>
+<div class="modal-body clearfix">
+	<div class=" panel panel-primary col-md-12 keyPanelStyle" style="padding:8px;margin-bottom:0px">
+		<span style="padding-left:5px;"><strong>Key</strong></span>
+		<div style="display:inline;padding-left:20px"><img ng-src="{{url.fullCircle}}" /><span style="padding-left:12px;">Completed</span></div>
+		<div style="display:inline;padding-left:25px"><img ng-src="{{url.halfCircle}}" /><span style="padding-left:12px;">In Progress</span></div>
+		<div style="display:inline;padding-left:25px"><img ng-src="{{url.blankCircle}}" /><span style="padding-left:12px;">Not Started</span></div>
+    </div>
+    <div class=" panel panel-primary col-md-12 keyPanelStyle" style="margin-top:20px; margin-bottom:0px;  padding:0px;">
+	    <table class="table table-condensed table-responsive">
+	        <tbody>
+	            <tr>
+	                <td class="tableDark leftCellBorder tblWidthHeight" style="padding-left:12px;line-height:25px">
+	                    <img ng-src="{{url.fullCircle}}" ng-show="approvalStatus.generalInfo == 2"/>
+	                    <img ng-src="{{url.halfCircle}}" ng-show="approvalStatus.generalInfo == 1"/>
+	                 	<img ng-src="{{url.blankCircle}}" ng-show="approvalStatus.generalInfo == 0"/>
+	                </td>
+	                <td class="tableDark" style="padding-left:20px;line-height:25px">
+	                	<span href="#/approvalCenter/generalInfo">General Information</span>
+	                </td>
+	            </tr>
+	            <tr >
+	                <td  class="tableLight leftCellBorder tblWidthHeight" style="padding-left:12px;line-height:25px">
+	                    <img ng-src="{{url.fullCircle}}" ng-show="approvalStatus.description == 2"/>
+	                    <img ng-src="{{url.halfCircle}}" ng-show="approvalStatus.description == 1"/>
+	                    <img ng-src="{{url.blankCircle}}" ng-show="approvalStatus.description == 0"/>
+	                </td>
+	                <td class="tableLight cellBorder" style="padding-left:20px;line-height:25px">
+	                	<span href="#/approvalCenter/description">Description</span>
+	                </td>
+	            </tr>
+	            <tr>
+	                <td  class="tableDark leftCellBorder tblWidthHeight" style="padding-left:12px;line-height:25px">
+	                    <img ng-src="{{url.fullCircle}}" ng-show="approvalStatus.location == 2"/>
+	                    <img ng-src="{{url.halfCircle}}" ng-show="approvalStatus.location == 1"/>
+	                    <img ng-src="{{url.blankCircle}}" ng-show="approvalStatus.location == 0"/>
+	                </td>
+	                <td class="tableDark cellBorder" style="padding-left:20px;line-height:25px">
+	                	<span href="#/approvalCenter/location">Location</span>
+	                </td>
+	            </tr>
+	            <tr >
+	                <td  class="tableLight leftCellBorder tblWidthHeight" style="padding-left:12px;line-height:25px">
+	                    <img ng-src="{{url.fullCircle}}" ng-show="approvalStatus.policies == 2"/>
+	                    <img ng-src="{{url.halfCircle}}" ng-show="approvalStatus.policies == 1"/>
+	                    <img ng-src="{{url.blankCircle}}" ng-show="approvalStatus.policies == 0"/>
+	                </td>
+	                <td  class="tableLight" style="padding-left:20px;line-height:25px">
+	                	<span href="#/approvalCenter/policy">Policies</span>
+	                </td>
+	            </tr>
+	            <tr>
+	                <td  class="tableDark leftCellBorder tblWidthHeight" style="padding-left:12px;line-height:25px">
+	                    <img ng-src="{{url.fullCircle}}" ng-show="approvalStatus.photos == 2"/>
+	                    <img ng-src="{{url.halfCircle}}" ng-show="approvalStatus.photos == 1"/>
+	                    <img ng-src="{{url.blankCircle}}" ng-show="approvalStatus.photos == 0"/>
+	                </td>
+	                <td class="tableDark" style="padding-left:20px;line-height:25px">
+	               		 <span href="#/approvalCenter/propertyPhoto">Photos</span>
+	                </td>
+	            </tr>
+	            <tr >
+	                <td  class="tableLight leftCellBorder tblWidthHeight" style="padding-left:12px;line-height:25px">
+	                    <img ng-src="{{url.fullCircle}}" ng-show="approvalStatus.rooms == 2"/>
+	                    <img ng-src="{{url.halfCircle}}" ng-show="approvalStatus.rooms == 1"/>
+	                    <img ng-src="{{url.blankCircle}}" ng-show="approvalStatus.rooms == 0"/>
+	                </td>
+	                <td  class="tableLight" style="padding-left:20px;line-height:25px">
+	                	<span href="#/approvalCenter/roomConfiguration">Rooms</span>
+	                </td>
+	            </tr>
+	            <tr >
+	                <td class="tableDark leftCellBorder tblWidthHeight" style="padding-left:12px;line-height:25px">
+	                    <img ng-src="{{url.fullCircle}}" ng-show="approvalStatus.rates == 2"/>
+	                    <img ng-src="{{url.halfCircle}}" ng-show="approvalStatus.rates == 1"/>
+	                    <img ng-src="{{url.blankCircle}}" ng-show="approvalStatus.rates == 0"/>
+	                </td>
+	
+	                <td style="padding-left:20px;line-height:25px" class="tableDark">
+	                	<span href="#/approvalCenter/rateConfiguration">Rates</span>
+	                </td>
+	
+	            </tr>
+	            <tr >
+	                <td  class="tableLight leftCellBorder tblWidthHeight" style="padding-left:12px;line-height:25px">
+	                    <img ng-src="{{url.fullCircle}}" ng-show="approvalStatus.gtdcxl == 2"/>
+	                    <img ng-src="{{url.halfCircle}}" ng-show="approvalStatus.gtdcxl == 1"/>
+	                    <img ng-src="{{url.blankCircle}}" ng-show="approvalStatus.gtdcxl == 0"/>
+	                </td>
+	                <td style="padding-left:20px;line-height:25px" class="tableLight">
+	                	<span href="#/approvalCenter/gtdcxl">Gtd/Cxl Policies</span>
+	                </td>
+	            </tr>    
+	            <tr >
+	                <td  class="tableDark leftCellBorder bottomCellBorder tblWidthHeight" style="padding-left:12px;line-height:25px">
+	                    <img ng-src="{{url.fullCircle}}" ng-show="approvalStatus.revenuemgt == 2"/>
+	                    <img ng-src="{{url.halfCircle}}" ng-show="approvalStatus.revenuemgt == 1"/>
+	                    <img ng-src="{{url.blankCircle}}" ng-show="approvalStatus.revenuemgt == 0"/>                            
+	                </td>
+	                <td style="padding-left:20px;line-height:25px" class="tableDark bottomCellBorder">
+	                	<span href="#/approvalCenter/propertyRestriction">Revenue Management</span>
+	                </td>
+	            </tr>
+	        </tbody>
+	    </table>    
+	</div>
+</div>
+<div class="modal-footer modalFoot">
+    <button class="btn btn-warning" ng-click="cancelModal()" ><i class="fa fa-close"></i> Close</button>
+</div>

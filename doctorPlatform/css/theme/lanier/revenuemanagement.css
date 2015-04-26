@@ -1,0 +1,75 @@
+.button-bar{
+   
+    margin-top: 12px;
+}
+
+.dtPickerParent .dropdown-menu{z-index:2147483645!important;}
+
+DIV.room-calendar{
+/*     float:left; */
+/*     margin-left:60px !important;    */
+}
+
+DIV.cal-wrapper{
+    background-size: 100% 100%;
+}
+
+SPAN.green-checkmark{
+    background:url(../images/check-mark-green.png) no-repeat; 
+    width:20px; 
+    height:20px;    
+    display: block;
+    float: left;    
+}
+
+.modalpropertyRestrictionEdit .modal-dialog
+{
+	width:440px;
+}
+
+.modal-foot-restriction {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    margin-top: 99% !important;
+}
+
+.modal-foot-room-view {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    margin-top: 95% !important;
+}
+
+/* calendar header */
+#calendar .ui-widget-header { 
+	background: #5BB5B6!important; 
+	border-color: #dddddd;
+}
+.fc th
+{
+	vertical-align:middle!important;
+	font-size:18px;
+	height:40px;
+}
+
+/* font colors */
+.fc-event
+{
+	border: 0 none !important;
+	border-radius: 0 !important;
+	background-color: transparent !important;
+	/* color:#ffffff !important; */
+	text-align: center;
+	padding:0 !important;
+	margin:0 0 1px 0 !important;
+}
+
+.fc-content { padding: 1px 0 !important;}
+.fc-content.orange { background-color: #f7941d !important; }
+.fc-content.aquagreen { background-color: #00a651 !important; }
+.fc-content.none { background-color: transparent !important; }
+
+.fc-day { background: #ffffff; }
+.fc-day.fc-today { background: #fff568; border-color: #dddddd; }
+.fc-toolbar h2 { font-size: 21px; }
+
+.red { color:red!important; }

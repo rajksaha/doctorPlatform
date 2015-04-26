@@ -1,0 +1,175 @@
+<div class="geninfo bgBodyDark tableRow">	             
+	             <div class="panel panel-default">
+	                <div class="panel-body" id="diningDiv">
+	                	<div class="form-group">
+	                		Drugs
+	                	</div>
+	                	<div >
+		                    <table class="table table-responsive table-striped table-condensed ">
+		                        <thead>
+		                            <tr>
+		                                <th width="20%">Type</th>
+                                        <th width="25%">Name</th>
+                                        <th width="10%">Times a day</th>
+                                        <th width="35%">Interval Wise Dose</th>
+										<th width="15%">Dose Initial</th>
+		                            </tr>
+		                        </thead>
+		                        <tbody>
+		                            <tr>
+		                             <td>
+		                             	<select size="10" data-ng-model="drugData.drugType" data-ng-change="fixDose(drugData.timesADay,drugData.drugType, 0)" data-ng-options="drugType.name for drugType in drugTypeList">
+		                             	</select>
+		                             </td>
+		                             <td>
+		                             	<input type="text" data-ng-model="patientName" typeahead="patients.name for patients in getPatients($viewValue)"  class="form-control" placeholder="Search Patients" typeahead-on-select='onSelectPatient($item, $model, $label)'/>
+		                             	<button data-ng-show="drugData.delDrug" data-ng-click="deleteDrugFromDB()">Delete</button>
+		                             	<button data-ng-show="drugData.delEdit" data-ng-click="editDrugName()">Edit</button>
+		                             </td>
+		                             <td>
+		                             	<select size="10"data-ng-model="drugData.timesADay" data-ng-options="drugTime.name for drugTime in drugtimesADay" data-ng-change="fixDose(drugData.timesADay,drugData.drugType,0)" >
+		                             	</select>
+		                             	<select size="10"data-ng-show="drugData.timesADay.code == -1" data-ng-model="drugData.preodicValue"  data-ng-change="fixPredoicDose(drugData.preodicValue,drugData.drugType.unit)" >
+		                             		<option value="2">2</option>
+		                             		<option value="3">3</option>
+		                             		<option value="4">4</option>
+		                             	</select>
+		                             </td>
+		                             <td >
+		                             	<div data-ng-show="drugData.timesADay.code > 0">
+		                             		<button data-ng-click="fixDose(drugData.timesADay,drugData.drugType, .5)" >+</button>
+			                             		<span data-ng-repeat="drugDose in drugDoseList">
+			                             			<span data-ng-show="$index != 0 && $index % 3 == 0"><br></span>
+			                             			<input type="text" size="5" data-ng-model="drugDose.value">
+		                             			</span>
+		                             		<button data-ng-click="fixDose(drugData.timesADay,drugData.drugType, -.5)">-</button>
+	                             		</div>
+	                             		<div data-ng-show="drugData.timesADay.code == -1">
+	                             			<div data-ng-repeat="drugPeriodRow in drugPeriodicDoseList" class="predoicRow">
+	                             				<span data-ng-repeat="drugPeriodCol in drugPeriodRow.predoicRow" class="predoicCol">
+	                             					<input type="text" size="5" data-ng-model="drugPeriodCol.predoicCol.value">
+	                             				</span>
+	                             				<select  data-ng-model="drugPeriodRow.numOFDay"  data-ng-show="drugPeriodRow.dayType.id != 5" data-ng-options="drugDay.name for drugDay in drugNumOfDayList" />
+												<select  data-ng-model="drugPeriodRow.dayType" data-ng-options="drugTime.bangla for drugTime in drugDayTypeList" />
+			                             			
+											</div>
+	                             		</div>
+	                             		<div data-ng-show="drugData.timesADay.code == -2">
+		                             		<input type="text"  data-ng-model="drugData.sameAsDose">
+	                             		</div>
+		                             </td>
+									<td>
+		                             	<span data-ng-model="drugData.doseUnitInitial" data-ng-show="!drugData.drugType.optionalUnitInitial">{{drugData.drugType.unitInitial || "No intial"}}</span>
+		                             	<div data-ng-show="drugData.drugType.optionalUnitInitial" >
+		                             			<input type="checkbox" data-ng-model="drugData.doseUnitInitial" data-ng-checked="!drugData.optionalInitial" ng-click="drugData.optionalInitial = !drugData.optionalInitial">
+													{{drugData.drugType.unitInitial}}
+											&nbsp;&nbsp;
+												<input type="checkbox" data-ng-model="drugData.doseOptionalUnitInitial" data-ng-checked="drugData.optionalInitial" ng-click="drugData.optionalInitial = !drugData.optionalInitial">
+												{{drugData.drugType.optionalUnitInitial}} 
+										</div>
+		                             </td>
+		                            </tr>
+								</tbody>
+							</table>
+							<table class="table table-responsive table-striped table-condensed ">
+								<thead>
+									<tr>
+		                            	<th width="20%">No Of Days</th>
+										<th width="25%">When</th>
+										<th width="10%">&nbsp;&nbsp;</th>
+										<th width="35%">Advice</th>
+										<th width="15%">Action</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>
+											<select data-ng-hide="drugData.timesADay.code == -1 || drugData.dayType.id == 5" size="10" data-ng-model="drugData.numOFDay"  data-ng-options="drugDay.name for drugDay in drugNumOfDayList">
+		                             		</select>
+											<select data-ng-show="drugData.timesADay.code != -1" size="10" data-ng-model="drugData.dayType" data-ng-options="drugTime.bangla for drugTime in drugDayTypeList">
+		                             		</select>
+										</td>
+										<td>
+											<select size="10" data-ng-model="drugData.whatType" data-ng-options="drugTime.bangla || '--select--' for drugTime in drugWhatTypeList">
+		                             		</select>
+										</td>
+										<td>
+											&nbsp;&nbsp;
+										</td>
+										<td>
+											<select size="10" data-ng-model="drugData.adviceType" data-ng-options="drugTime.bangla || '--select--' for drugTime in drugAdviceTypeList">
+		                             		</select>
+										</td>
+										<td>
+											<button data-ng-click="saveDrug()">Save</button>
+										</td>
+									</tr>
+		                        </tbody>
+		                    </table>
+	                    </div>
+	                 </div>
+	             </div>
+	         </div>
+	         
+	         <br></br><br></br><br></br>
+	         
+			<div class="row geninfo">
+				<div class="col-xs-12">
+					<div class="panel" style="margin-top:20px">  
+						<div class="panel-body" >
+							<div class="text-muted form-group">Prescribed Drugs <span> <span class="badge pull-right">Total:{{numberOfPrescribedDrugs}}</span></span></div>                             
+							<div id="appList" >
+								<table id="content-data-list" class="table table-condensed table-bordered">
+									<thead>
+										<tr >
+											<th width="10%"><strong>Sl.</strong></th>
+											<th width="20%"><strong>Name</strong></th>
+											<th width="10%"><strong>Dose</strong></th>
+											<th width="10%"><strong>Times A day</strong></th>
+											<th width="15%"><strong>When</strong></th>
+											<th width="15%"><strong>How to</strong></th>
+											<th width="10%"><strong>Action</strong></th>									
+										</tr>
+									</thead>
+									<tbody>
+										<tr class="appointment" data-ng-repeat="drugPres in prescribedDrugList" style="height: 50px;cursor: pointer;">
+											<td class="nowrap" >
+												{{$index + 1}}
+											</td>
+												
+											<td >
+												<span>{{drugPres.typeInitial}}. {{drugPres.drugName}} </span>
+											</td>
+											<td  >
+												<span>{{drugPres.drugDose}}</span>
+											</td>
+											<td ng-if="drugPres.drugNoOfDay > 0">
+												<span>{{drugPres.drugNoOfDay}} -  {{drugPres.dayTypeName}}</span>
+											</td>
+											<td ng-if="drugPres.drugNoOfDay < 1">
+												<span>{{drugPres.dayTypeName}}</span>
+											</td>
+											<td  >
+												<span>{{drugPres.whenTypeName}}</span>
+											</td>
+											<td  >
+												<span>{{drugPres.adviceTypeName}}</span>
+											</td>
+											<td  >
+												<button data-ng-click="editPresCribedDrug(drugPres)">Edit</button>
+												<a class="btn btn-danger btn-sm btnLanier"
+		                                            ktr-confirmation="deletePrescribedDrug(item)" 
+		                                            confirmation-message="Are you sure to remove?"
+		                                            confirmation-title="Confirmation"
+		                                            item="drugPres.id">
+		                                            <i class="fa fa-trash"></i>
+	                                          </a>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>

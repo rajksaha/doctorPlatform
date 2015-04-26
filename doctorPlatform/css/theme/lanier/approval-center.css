@@ -1,0 +1,190 @@
+	
+/* 	Lanier */
+	/*### Steps ###*/
+	
+	ul.steps { /* background-color: #c7b299; */ padding: 0; margin: 0; height: 39px; overflow: hidden; }	
+	ul.steps li.step { color:#fff; background-color: #c7b299; float:left; list-style: none; line-height: 39px; }
+	
+	ul.steps li.step > label { display: block; line-height: 39px; font-weight: normal; margin: 0; padding: 0; color:#F2F2F3; }
+	ul.steps li.step > label { background: #000 url("images/steps-devider.png") no-repeat scroll right top; }	   
+    ul.steps li.step:last-child > label { background: #000; color:#F2F2F3 }   
+    
+    ul.steps li.step > label > span { 
+    	background: transparent url("images/steps-icon-cross.png") no-repeat scroll left 50%; 
+    	display: block;
+	    line-height: 39px;
+	    margin: 0 21px 0 8px;
+	    overflow: hidden;
+	    padding: 0 0 0 32px;
+	    white-space: nowrap; 
+    }
+    
+    ul.steps li.active > label { background: #000 url("images/steps-devider.png") no-repeat scroll right top; color:#F2AE30;}
+    ul.steps li.active:last-child > label { background: #000; color:#F2AE30;}
+	ul.steps li.active > label > span { background: transparent url("images/steps-icon-active1.png") no-repeat scroll left 50% !important; }	
+	
+	ul.steps li.completed > label { background: #000 url("images/steps-devider.png") no-repeat scroll right top; }	
+	ul.steps li.completed:last-child > label { background: #60b760; }
+	ul.steps li.completed > label > span { background: transparent url("images/steps-icon-completed.png") no-repeat scroll left 50% !important; }
+	
+	ul.steps li.done > label { background: #000 url("images/steps-devider.png") no-repeat scroll right top; }	
+	ul.steps li.done:last-child > label { background: #60b760; }
+	ul.steps li.done > label > span { background: transparent url("images/steps-icon-completed.png") no-repeat scroll left 50% !important; }
+	
+	/*### Dashboard ###///////////////////////////////////////*/
+	
+	.dashboard .panel1 { border-radius:5px;background:#fcf1d9;padding:10px;margin-bottom:0px}
+	.dashboard .panel2 { margin-top:20px;padding:0px;}
+	
+	.keyPanelStyle strong{ padding-left:5px;}
+	.keyPanelStyle a{ color:black!important;}
+	
+	.tableDark{border-left:#B8B8B8 1px solid;border-bottom:#B8B8B8 1px solid;}
+	.tableLight{background:rgba(148, 148, 148, 0.13)!important;border-left:#B8B8B8 1px solid;border-bottom:#B8B8B8 1px solid;}
+	.leftCellBorder{border-left:black 0px solid;}
+	.bottomCellBorder{border-bottom:black 0px solid;}
+	
+	/*### Guided Tour ###///////////////////////////////////////*/
+	
+	.guidedTour { position: fixed; bottom: 58px; width: 81px; }
+	.guidedTourText { }
+	.guidedTourImage {  }
+	
+	/*### General Information ###///////////////////////////////////////*/
+	
+	.geninfo ul.steps li.step { width: 16.66666667%; }
+	
+	.geninfo > .contacts { }
+	.geninfo > .address { }
+	.geninfo > .long-lat { }
+	.geninfo > .website { }
+	.geninfo > .email-address { }
+	.geninfo > .ratings { }
+	
+	/* Override bootstraps UI components */
+	
+    .geninfo .panel {  box-shadow: none; -webkit-box-shadow: none; -moz-box-shadow:none;border:rgb(215,215,215) solid 1px; border-radius:0px;}
+	.geninfo .panel-body { padding: 28px; }
+	
+	/* General Info > Ratings */
+	
+	.ratings > aside { margin-bottom: 30px; }
+	.ratings .rate-box {padding: 18px; text-align: center; border:rgb(215,215,215) solid 1px;}
+	.ratings label { color:#736357; }
+	.ratings .rating {  border-radius: 25px; box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.1); margin: 0 auto; padding: 10px; width: 90%; }
+	
+	
+	/*### Description ###///////////////////////////////////////*/
+	
+	.apc-desc ul.steps li.step { width: 25%; }
+	
+	/*### Location ###///////////////////////////////////////*/
+	
+	.apc-location ul.steps li.step { width: 25%; }
+	.apc-cxlpolicy ul.steps li.step { width: 33.33333333%; }
+	
+	 .photo .modal-dialog{ width:380px;padding:0;}
+     .photo .modal-body{ padding:0;}
+     .photo .panel-body, .photo .panel{ border-radius:0;margin:0;padding-bottom:0}
+     .photo .alert{margin-bottom:0; border-radius:0}
+	
+	
+	/*### Gtd Cxl ###///////////////////////////////////////*/
+    #addGuaranteeBlock .form-group, #addCancelBlock .form-group{margin-bottom:0}
+	.taxPad .form-group{margin-bottom:0}
+	/*### Revenue Mng ###///////////////////////////////////////*/
+	
+	.apc-revMng ul.steps li.step { width: 33.33333333%; }
+	
+	/*### generic ###///////////////////////////////////////*/
+		/*### Width for buttons ###///////////////////////////////////////*/
+		.midBtnWidth{ width:71px; }
+		.bigBtnWidth{ width:277px; }
+		.smallBtnWidth{ width:40px; }
+		
+		/*### alignment ###///////////////////////////////////////*/
+		.vertAlignMiddle { vertical-align:middle!important; }
+		/*### space before footer ###///////////////////////////////////////*/
+		.sectionFooter{ height:35px; }
+		
+		/* Fixed table header */
+		
+		.header-fixed {
+		    width: 100% 
+		}
+		
+		.header-fixed > thead,
+		.header-fixed > tbody,
+		.header-fixed > thead > tr,
+		.header-fixed > tbody > tr,
+		.header-fixed > thead > tr > th,
+		.header-fixed > tbody > tr > td {
+		    display: block;
+		}
+		
+		.header-fixed > tbody > tr:after,
+		.header-fixed > thead > tr:after {
+		    content: ' ';
+		    display: block;
+		    visibility: hidden;
+		    clear: both;
+		}
+		
+		.header-fixed > tbody {
+		    overflow-y: auto;
+		    height: 360px;
+		}
+		
+		.header-fixed > tbody > tr > td,
+		.header-fixed > thead > tr > th {
+		    max-width: 100%;
+		    float: left;
+		}
+		
+		.header-fixed > tbody > tr:nth-child(2n+1) {
+			background: #FFFCEF;
+		}
+		
+	/*### Rates ###///////////////////////////////////////*/
+	
+	.rate-seasons { margin-bottom:15px; padding:0px; background-color:white ; }
+	.season { padding: 10px; margin-bottom: 15px; border:1px solid #d7d7d7;}
+	.season:last-child { margin-bottom: 0px; }
+	.season-header { margin-bottom: 15px; }
+	.season-start-date { width: 140px; }
+	.season-end-date { width: 140px; }
+	.season-room { background-color: #f9f9f9; }
+	.season-room-name { font-size:1.142857142857em; padding: 10px; border-top: 1px solid #c3c3c3; }	
+	.season-room-data table { margin-bottom: 10px; font-size: 0.9285714285714em }	
+	.season-room:last-child .season-room-data table { margin-bottom: 0px; }
+	.season-room-data table tr > td { vertical-align: middle; white-space: nowrap; }
+	.season-room-data table tr > td .form-group { margin-bottom: 0; }
+	.season-room-data table > thead > tr > td:first-child { background-color: #f2f2f2; width: 250px; }
+	.season-room-data table > tbody > tr > td:first-child { background-color: #f2f2f2; width: 250px; }
+	.season-room-data table > tbody > tr > td:first-child .btn { line-height: 1.3em; padding: 6px 7px; }
+	
+	.filter-panel { background-color: rgba(249, 195, 80, 0.5); margin: 0 auto 15px auto; padding: 10px; }
+	.rate-list-header { background:#428bca; }
+	.rate-list-cell{ line-height:45px; text-align:right; }
+	.bgBlue, .bgBlue:hover {  border-width: 2px; cursor: default; padding: 5px 6px !important; } 
+	.bgYellow, .bgYellow:hover { border-width: 1px; cursor: default; box-shadow: none;  padding: 6px 7px !important; }
+	
+	.animate-switch.ng-animate {
+	  -webkit-transition: all 0.5s ease;
+	  transition: all 0.5s ease; 
+	  opacity:1;
+	}
+	
+	.animate-switch.ng-leave.ng-leave-active,
+	.animate-switch.ng-enter {
+	  opacity:0;
+	}
+	
+	.animate-switch.ng-leave,
+	.animate-switch.ng-enter.ng-enter-active {
+	  opacity:1;
+	}
+	
+	/*### Arrival ###///////////////////////////////////////*/
+	
+	.arrival-steps ul.steps li.step { width: 20%; }

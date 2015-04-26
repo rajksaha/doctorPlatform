@@ -1,0 +1,45 @@
+/*!
+ * Bootstrap v3.1.1 (http://getbootstrap.com)
+ * Copyright 2011-2014 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ */
+
+
+.navbar-ktr {
+  background-image: -webkit-linear-gradient(top, #3b3835 0%, #3b3835 100%);
+  background-image:         linear-gradient(to bottom, #3b3835 0%, #3b3835 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff3b3835', endColorstr='#ff3b3835', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+  background-repeat: repeat-x;
+  height: 38px !important;
+  margin-bottom: 0;
+  max-height: 38px !important;
+  min-height: 38px !important;
+}
+.navbar-ktr-footer {
+	background-color: #3b3835;
+	background-image: -webkit-linear-gradient(top, #3b3835 0%, #3b3835 100%);
+  	background-image:         linear-gradient(to bottom, #3b3835 0%, #3b3835 100%);
+  	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff3b3835', endColorstr='#ff3b3835', GradientType=0);
+  	filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+  	background-repeat: repeat-x;
+  	
+	color: #fff;
+	font-size: 12px;
+    line-height: 38px;
+    min-height: 38px;
+}
+
+.popover {
+	max-width: 520px;
+	min-width: 520px;
+	font-size: 0.9em;
+}
+
+/*/////////// Bootstrap 3.x Bug Fixing /////////*/
+
+.input-group-sm > .form-control, .input-group-sm > .input-group-addon, .input-group-sm > .input-group-btn > .btn {
+	height: auto;
+    max-height: 30px;    
+}
+

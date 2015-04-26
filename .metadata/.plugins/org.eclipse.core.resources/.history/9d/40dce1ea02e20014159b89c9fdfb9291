@@ -1,0 +1,109 @@
+<?php
+
+session_start();
+include('../../../config.inc');
+if (!isset($_SESSION['username'])) {
+	header('Location: index.php');
+}
+$username=$_SESSION['username'];
+$query_no=  mysql_escape_String($_POST['query']);
+
+
+if($query_no== 0){
+	
+	$_SESSION['pid']="null";	
+	$sql=mysql_query("SELECT di.name, di.d_id, di.id, ds.state,dt.name AS doctorCatg 
+						FROM doc_info di 
+						JOIN doc_set ds ON di.id= ds.id
+						JOIN doctor_type dt ON di.id=dt.id 
+						WHERE di.d_id ='$username'");
+	$rec=mysql_fetch_array($sql);
+	echo json_encode($rec);
+}
+
+if($query_no==1){
+	$date=date("Y-m-d");
+	
+	$sql = "SELECT p.name,a.seen, a.status, a.time, p.phone, p.dob, p.address, a.id AS patientID
+				FROM app a 
+				JOIN doc_info di ON a.doctor_id = di.d_id
+				LEFT JOIN person p ON a.pid = p.phone
+				where di.d_id ='$username' and date='$date' order by a.time";
+	$result=mysql_query($sql);
+	
+	$data = array();
+	while ($row=mysql_fetch_array($result)){
+		array_push($data,$row);
+	}
+	
+	echo json_encode($data);
+}
+
+if($query_no==2){
+	$phone=mysql_escape_String($_POST['phone']);
+	$name=mysql_escape_String($_POST['name']);
+	$address=mysql_escape_String($_POST['address']);
+	$zip=1000;
+	$dob=mysql_escape_String($_POST['dob']);
+	$nid=mysql_escape_String($_POST['nid']);
+
+	$sex=mysql_escape_String($_POST['sex']);
+	$sql="insert into `person`(`nid`,`name`,`address`,`zip`,`sex`,`dob`,`phone`) values ($nid,'$name','$address','$zip','$sex','$dob','$phone')";
+	if(mysql_query($sql)){
+		$sql1 = "update app set status=1 where pid='$phone'";
+		mysql_query($sql1);
+		//  $sql1="insert into `alergy`(`p_id`,`food`,`dust`,`smell`) values ('$phone',0,0,0)";
+		//  $sql2="insert into `food_al`(`pid`,`cow_meat`,`mutton_meat`,`chicken_meat`,`prawn`,`nut`,`elish`) values ('$phone',0,0,0,0,0,0)";
+		/* For Gayne Doctor*/ $sql3="INSERT INTO `common_risk`(`pid`, `blood`, `rubella`, `mc`, `hiv`, `folk`, `period`, `mp`, `lmp`, `std`, `cervical`, `other`, `edd`, `usg`, `cycle`, `hepataisis`, `m_status`) VALUES ('$phone','','','','','','','','','','','','','','','','')";
+		/* For Gayne Doctor*/ $sql5="INSERT INTO `current_pat`(`pid`, `tri`, `tri_status`, `edb`) VALUES ('$phone',0,0,'0000-00-00')";
+		/* For Gayne Doctor*/ $sql6="INSERT INTO `obs_history`(`pid`, `para`, `lucs`, `vd`, `forcps`, `gravida`, `abortion`, `1tri`, `2tri`, `3tri`, `mr`) VALUES ($phone,0,0,0,0,0,0,0,0,0,0)";
+		/* For All Doctor*/  $sql7="INSERT INTO `patient`(`pid`, `status`,`assign_id`) VALUES ($phone,0,'')";
+		// mysql_query($sql1);
+		// mysql_query($sql2);
+		mysql_query($sql3);
+		mysql_query($sql5);
+		mysql_query($sql6);
+		mysql_query($sql7);
+		echo 1;
+	}else{
+		echo 1;
+	}
+}
+else if($query_no==3){
+	$id=$_POST['id'];
+	$username=$_SESSION['username'];
+	$time_now=mktime(date('h')+6,date('i'),date('s'));
+	$time=date('h:i:s',$time_now);
+	$date=date("y-m-d");
+	$sql=  mysql_query("insert into `app` (`doctor_id`,`pid`,`date`,`time`,`status`,`seen`) values ('$username','$id','$date','$time',0,0)");
+	mysql_query($sql);
+
+	$sql= "SELECT max( id ) as pres_id FROM app";
+	$ad = mysql_query($sql);
+	$row = mysql_fetch_array($ad);
+	$pres_id = $row['pres_id'];
+	$sql="INSERT INTO `comment`(`pres_id`,`history`,`family`,`c_fact`) VALUES ($pres_id,'','',' ')";
+	mysql_query($sql);
+
+	$sql=mysql_query("SELECT * FROM doc_info WHERE d_id='$username'");
+	$rec=mysql_fetch_array($sql);
+	$doc_id=$rec['id'];
+	$new_id=$id+1;
+	mysql_query("UPDATE `doctor`.`doc_set` SET `num` = '$new_id' WHERE `doc_set`.`id` =$doc_id;");
+}
+else if($query_no==4){
+            $_SESSION['pres']=$_POST['presID'];
+            $_SESSION['pid']=$_POST['patientID'];
+	
+}else if($query_no==5){
+	$queryString=$_POST['data'];
+	$sql ="SELECT * FROM `doc_info` WHERE name Like '" . $queryString . "%' ";
+$result=mysql_query($sql);
+	
+	$data = array();
+	while ($row=mysql_fetch_array($result)){
+		array_push($data,$row);
+	}
+	
+}
+?>

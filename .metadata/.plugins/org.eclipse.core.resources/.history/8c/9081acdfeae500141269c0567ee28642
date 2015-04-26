@@ -1,0 +1,806 @@
+'use strict';
+
+var httpHeaders;
+
+var jsVersion = "?v=007";
+
+// This will store the original URL before login sequence
+var originalLocation = "/menu";
+
+app.config(function($stateProvider, $urlRouterProvider, $compileProvider, $controllerProvider, $filterProvider, $provide, $ocLazyLoadProvider, $analyticsProvider, datepickerConfig, datepickerPopupConfig) {
+	
+	// turn off automatic tracking
+	$analyticsProvider.virtualPageviews(false);
+	
+    // For any unmatched url, redirect to /login
+    $urlRouterProvider.otherwise("/login");
+    
+    // datepicker hide week
+    datepickerConfig.showWeeks = false;
+
+    var login = {
+        name : 'login',
+        url : '/login',
+        views : {
+            'container@' : {
+                templateUrl : 'javascript/templates/login.html',
+                controller : 'LoginController'
+            },
+            'footer' : {
+                templateUrl : 'javascript/templates/footer-lg.html',
+                controller : 'FooterController'
+            }
+        },
+        resolve : {
+            loadMyService: ['$ocLazyLoad', function($ocLazyLoad) {
+              return $ocLazyLoad.load(
+              {
+                name: 'ktrTablet',
+                files: ['javascript/services/user.js' + jsVersion]
+              });
+            }],
+            loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+              // you can lazy load files for an existing module
+              return $ocLazyLoad.load(
+                {
+                  name: 'ktrTablet',
+                  files: ['javascript/controllers/login.js' + jsVersion, 'javascript/controllers/footer.js'  + jsVersion]
+                });
+            }]
+        }
+    };
+
+
+    var root = {
+        name : 'root',
+        url : '',
+        abstract : true,
+        views : {
+            'header' : {
+                templateUrl : 'javascript/templates/header.html',
+                controller : 'HeaderController'
+            },
+            'status' : {
+                templateUrl : 'javascript/templates/status.html'
+            },
+            'footer' : {
+                templateUrl : 'javascript/templates/footer.html',
+                controller : 'FooterController'
+            }
+        },
+        resolve : {
+          loadMyService: ['$ocLazyLoad', function($ocLazyLoad) {
+            return $ocLazyLoad.load(
+              {
+                name: 'ktrTablet',
+                files: ['javascript/services/user.js' + jsVersion, 'javascript/services/guidedTourService.js' + jsVersion, 'javascript/services/applicationService.js' + jsVersion, 'javascript/services/approvalCenter/approvalCenterService.js' + jsVersion]
+              });
+            }],
+            loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+              // you can lazy load files for an existing module
+              return $ocLazyLoad.load(
+                {
+                  name: 'ktrTablet',
+                  files: ['javascript/controllers/header.js' + jsVersion, 'javascript/controllers/header/contentCompletionStatusController.js' + jsVersion, 'javascript/controllers/footer.js' + jsVersion]
+                });
+              }]
+        }
+    };
+
+    var propertySelector = {
+        name : 'root.propertySelector',
+        url : '/propertyselector',
+        views : {
+            'container@' : {
+                templateUrl : 'javascript/templates/propertySelector.html',
+                controller : 'PropertySelectorController'
+            }
+        },
+        resolve : {
+          loadMyService: ['$ocLazyLoad', function($ocLazyLoad) {
+            return $ocLazyLoad.load(
+              {
+                name: 'ktrTablet',
+                files: ['javascript/services/user.js' + jsVersion, 'javascript/services/hotelSupplier.js' + jsVersion]
+              });
+            }],
+            loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+              // you can lazy load files for an existing module
+              return $ocLazyLoad.load(
+                {
+                  name: 'ktrTablet',
+                  files: ['javascript/controllers/propertySelector.js' + jsVersion]
+                });
+              }]
+        }
+    };
+
+    var menu = {
+        name : 'root.menu',
+        url : '/menu',
+        views : {
+        	'container@' : {
+                templateUrl : 'javascript/templates/menu.html',
+                controller : 'MenuController'
+            }
+        },
+        resolve : {
+          loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+            // you can lazy load files for an existing module
+            return $ocLazyLoad.load(
+              {
+                name: 'ktrTablet',
+                files: ['javascript/controllers/menu.js' + jsVersion]
+              });
+            }],
+            loadMyService: ['$ocLazyLoad', function($ocLazyLoad) {
+                return $ocLazyLoad.load(
+                  {
+                    name: 'ktrTablet',
+                    files: ['javascript/services/menu/menu.js' + jsVersion,]
+                  });
+                }]
+        
+        
+        }
+    };
+
+    var guests = {
+        name : 'root.guests',
+        url : '/guests',
+        views : {
+            'container@' : {
+                templateUrl : 'javascript/templates/guestBooking/guestBooking.html',
+                controller : 'GusetBookingController'
+            }
+        },
+        resolve : {
+          loadMyService: ['$ocLazyLoad', function($ocLazyLoad) {
+            return $ocLazyLoad.load(
+              {
+                name: 'ktrTablet',
+                files: ['javascript/services/guestBooking.js' + jsVersion, 'javascript/services/bookingInformation.js' + jsVersion, 'javascript/services/room/roomConfigurationService.js' + jsVersion, 'javascript/services/property.js' + jsVersion, 'javascript/services/updateReservationService.js']
+              });
+            }],
+            loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+              // you can lazy load files for an existing module
+              return $ocLazyLoad.load(
+                {
+                  name: 'ktrTablet',
+                  files: ['javascript/controllers/guestBooking.js' + jsVersion, 'javascript/controllers/bookingInformation.js' + jsVersion]
+                });
+              }]
+        }
+    };
+    
+    var arrival = {
+            name : 'root.arrival',
+            url : '/arrival',
+            views : {
+                'container@' : {
+                    templateUrl : 'javascript/templates/arrival/arrival.html',
+                    controller : 'ArrivalController'
+                }
+            },
+            resolve : {
+                loadMyService: ['$ocLazyLoad', function($ocLazyLoad) {
+                  return $ocLazyLoad.load(
+                    {
+                      name: 'ktrTablet',
+                      files: ['javascript/services/guestBooking.js' + jsVersion, 'javascript/services/bookingInformation.js' + jsVersion ]
+                    });
+                  }]
+            }
+     };
+    var arrivalCheckin = {
+            name : 'root.arrivalCheckin',
+            url : '/arrivalCheckin',
+            views : {
+                'container@' : {
+                    templateUrl : 'javascript/templates/arrival/arrivalCheckin.html',
+                    controller : 'CheckinController'
+                }
+            },
+            resolve : {
+                loadMyService: ['$ocLazyLoad', function($ocLazyLoad) {
+                  return $ocLazyLoad.load(
+                    {
+                      name: 'ktrTablet',
+                      files: ['javascript/services/codes.js' + jsVersion , 'javascript/services/creditCardService.js', 'javascript/services/updateReservationService.js' + jsVersion , 'javascript/services/jsonService.js' + jsVersion]
+                    });
+                  }]
+              }
+
+    };
+
+	var propertyInformation = {
+        name : 'root.propertyInformation',
+        url : '/propertyInformation',
+        views : {
+            'container@' : {
+                templateUrl : 'javascript/templates/property/propertyInformation.html',
+                controller : 'PropertyInformationController'
+            }
+        },
+        resolve : {
+          loadMyService: ['$ocLazyLoad', function($ocLazyLoad) {
+            return $ocLazyLoad.load(
+              {
+                name: 'ktrTablet',
+                files: ['javascript/services/propertyInformation.js' + jsVersion, 'javascript/services/codes.js' + jsVersion]
+              });
+            }],
+            loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+              // you can lazy load files for an existing module
+              return $ocLazyLoad.load(
+                {
+                  name: 'ktrTablet',
+                  files: ['javascript/controllers/propertyInformation.js' + jsVersion]
+                });
+              }]
+        }
+	};
+
+	var bookingInformation = {
+        name : 'root.bookingInformation',
+        url : '/bookingInformation',
+        views : {
+            'container@' : {
+                templateUrl : 'javascript/templates/booking/bookingInformation.html',
+                controller : 'BookingInformationController'
+            }
+        },
+        resolve : {
+          loadMyService: ['$ocLazyLoad', function($ocLazyLoad) {
+            return $ocLazyLoad.load(
+              {
+                name: 'ktrTablet',
+                files: ['javascript/services/bookingInformation.js' + jsVersion, 'javascript/services/property.js' + jsVersion, 'javascript/services/guestBooking.js' + jsVersion, 'javascript/services/updateReservationService.js']
+              });
+            }],
+            loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+              // you can lazy load files for an existing module
+              return $ocLazyLoad.load(
+                {
+                  name: 'ktrTablet',
+                  files: ['javascript/controllers/bookingInformation.js' + jsVersion]
+                });
+              }]
+        }
+	};
+
+
+	var rooms = {
+        name : 'root.roomConfiguration',
+        url : '/{locationName}/roomConfiguration',
+        views : {
+            'container@' : {
+                templateUrl : 'javascript/templates/room/rooms.html',
+                controller : 'RoomConfigurationController'
+            }
+        },
+        resolve : {
+          loadMyService: ['$ocLazyLoad', function($ocLazyLoad) {
+            return $ocLazyLoad.load(
+              {
+                name: 'ktrTablet',
+                files: ['javascript/services/room/roomConfigurationService.js' + jsVersion, 'javascript/services/approvalCenter/approvalCenterService.js' + jsVersion]
+              });
+            }],
+            loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+              // you can lazy load files for an existing module
+              return $ocLazyLoad.load(
+                {
+                  name: 'ktrTablet',
+                  files: ['javascript/controllers/room/roomConfiguration.js' + jsVersion]
+                });
+              }]
+        }
+	};
+	var rates = {
+	        name : 'root.rateConfiguration',
+	        url : '/{locationName}/rateConfiguration',
+	        views : {
+	            'container@' : {
+	                templateUrl : 'javascript/templates/approvalCenter/rate/rateAssignment.html',
+	                controller : 'RateController'
+	            }
+	        },
+          resolve : {
+            loadMyService: ['$ocLazyLoad', function($ocLazyLoad) {
+              return $ocLazyLoad.load(
+                {
+                  name: 'ktrTablet',
+                  files: ['javascript/services/property.js' + jsVersion, 'javascript/services/room/roomConfigurationService.js' + jsVersion,
+                          'javascript/services/applicationService.js' + jsVersion, 'javascript/services/authentication.js'  + jsVersion,
+                          'javascript/services/guidedTourService.js' + jsVersion, 'javascript/services/approvalCenter/approvalCenterService.js' + jsVersion,
+                          'javascript/services/approvalCenter/rateService.js' + jsVersion, 'javascript/services/jsonService.js' + jsVersion]
+                });
+              }],
+              loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load(
+                  {
+                    name: 'ktrTablet',
+                    files: ['javascript/controllers/approvalCenter/rateController.js' + jsVersion]
+                  });
+                }]
+          }
+		};
+
+	var approvalCenter = {
+        name : 'root.approvalCenter',
+        url : '/approvalCenter',
+        views : {
+            'container@' : {
+                templateUrl : 'javascript/templates/approvalCenter/approvalCenter.html',
+                controller : 'ApprovalCenterController'
+            }
+        },
+        resolve : {
+          loadMyService: ['$ocLazyLoad', function($ocLazyLoad) {
+            return $ocLazyLoad.load(
+              {
+                name: 'ktrTablet',
+                files: ['javascript/services/approvalCenter/approvalCenterService.js' + jsVersion, 'javascript/services/user.js' + jsVersion]
+              });
+            }],
+            loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+              // you can lazy load files for an existing module
+              return $ocLazyLoad.load(
+                {
+                  name: 'ktrTablet',
+                  files: ['javascript/controllers/approvalCenter/approvalCenter.js' + jsVersion]
+                });
+              }]
+        }
+	};
+
+	var generalInfo = {
+	    name : 'root.generalInfo',
+	    url : '/{locationName}/generalInfo',
+	    views : {
+	        'container@' : {
+	            templateUrl : 'javascript/templates/approvalCenter/generalInfo/generalInfo.html',
+	            controller : 'GeneralInfoController'
+	        }
+	    },
+      resolve : {
+        loadMyService: ['$ocLazyLoad', function($ocLazyLoad) {
+          return $ocLazyLoad.load(
+            {
+              name: 'ktrTablet',
+              files: ['javascript/services/jsonService.js' + jsVersion, 'javascript/services/generalInfoService.js' + jsVersion, 'javascript/services/approvalCenter/approvalCenterService.js' + jsVersion , 'javascript/services/codes.js' + jsVersion ]
+            });
+          }],
+          loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+            // you can lazy load files for an existing module
+            return $ocLazyLoad.load(
+              {
+                name: 'ktrTablet',
+                files: ['javascript/controllers/approvalCenter/generalInfo.js' + jsVersion, 'javascript/controllers/approvalCenter/generalInfoMapController.js' + jsVersion]
+              });
+            }]
+      }
+	};
+
+	var description = {
+        name : 'root.description',
+        url : '/{locationName}/description',
+        views : {
+            'container@' : {
+                templateUrl : 'javascript/templates/approvalCenter/description/description.html',
+                controller : 'DescriptionController'
+            }
+        },
+        resolve : {
+          loadMyService: ['$ocLazyLoad', function($ocLazyLoad) {
+            return $ocLazyLoad.load(
+              {
+                name: 'ktrTablet',
+                files: ['javascript/services/approvalCenter/descriptionService.js' + jsVersion, 'javascript/services/approvalCenter/approvalCenterService.js' + jsVersion]
+              });
+            }],
+            loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+              // you can lazy load files for an existing module
+              return $ocLazyLoad.load(
+                {
+                  name: 'ktrTablet',
+                  files: ['javascript/controllers/approvalCenter/description.js' + jsVersion]
+                });
+              }]
+        }
+	};
+
+	var location = {
+        name : 'root.location',
+        url : '/{locationName}/location',
+        views : {
+            'container@' : {
+                templateUrl : 'javascript/templates/approvalCenter/location/location.html',
+                controller : 'LocationController'
+            }
+        },
+        resolve : {
+          loadMyService: ['$ocLazyLoad', function($ocLazyLoad) {
+            return $ocLazyLoad.load(
+              {
+                name: 'ktrTablet',
+                files: ['javascript/services/approvalCenter/locationService.js' + jsVersion, 'javascript/services/approvalCenter/approvalCenterService.js' + jsVersion]
+              });
+            }],
+            loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+              // you can lazy load files for an existing module
+              return $ocLazyLoad.load(
+                {
+                  name: 'ktrTablet',
+                  files: ['javascript/controllers/approvalCenter/locationController.js' + jsVersion]
+                });
+              }]
+        }
+	};
+
+	var policy = {
+        name : 'root.policy',
+        url : '/{locationName}/policy',
+        views : {
+            'container@' : {
+                templateUrl : 'javascript/templates/approvalCenter/policy/policy.html',
+                controller : 'PolicyController'
+            }
+        },
+        resolve : {
+          loadMyService: ['$ocLazyLoad', function($ocLazyLoad) {
+            return $ocLazyLoad.load(
+              {
+                name: 'ktrTablet',
+                files: ['javascript/services/approvalCenter/policyService.js' + jsVersion, 'javascript/services/approvalCenter/approvalCenterService.js' + jsVersion]
+              });
+            }],
+            loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+              // you can lazy load files for an existing module
+              return $ocLazyLoad.load(
+                {
+                  name: 'ktrTablet',
+                  files: ['javascript/controllers/approvalCenter/policyController.js' + jsVersion]
+                });
+              }]
+        }
+	};
+
+	var propertyPhoto = {
+        name : 'root.propertyPhoto',
+        url : '/{locationName}/propertyPhoto',
+        views : {
+            'container@' : {
+                templateUrl : 'javascript/templates/approvalCenter/propertyPhoto/propertyPhoto.html',
+                controller : 'PropertyPhotoController'
+            }
+        },
+        resolve : {
+          loadMyService: ['$ocLazyLoad', function($ocLazyLoad) {
+            return $ocLazyLoad.load(
+              {
+                name: 'ktrTablet',
+                files: ['javascript/services/approvalCenter/propertyPhotoService.js' + jsVersion, 'javascript/services/approvalCenter/approvalCenterService.js' + jsVersion, 'javascript/services/approvalCenter/approvalCenterService.js' + jsVersion]
+              });
+            }],
+            loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+              // you can lazy load files for an existing module
+              return $ocLazyLoad.load(
+                {
+                  name: 'ktrTablet',
+                  files: ['javascript/controllers/approvalCenter/propertyPhotoController.js' + jsVersion]
+                });
+              }]
+        }
+	};
+
+	var gtdcxl = {
+        name : 'root.gtdcxl',
+        url : '/{locationName}/gtdcxl',
+        views : {
+            'container@' : {
+                templateUrl : 'javascript/templates/approvalCenter/policies/policies.html',
+                controller : 'PoliciesController'
+            }
+        },
+        resolve : {
+          loadMyService: ['$ocLazyLoad', function($ocLazyLoad) {
+            return $ocLazyLoad.load(
+              {
+                name: 'ktrTablet',
+                files: ['javascript/services/approvalCenter/policiesService.js','javascript/services/jsonService.js' + jsVersion, 'javascript/services/approvalCenter/approvalCenterService.js' + jsVersion]
+              });
+            }],
+            loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+              // you can lazy load files for an existing module
+              return $ocLazyLoad.load(
+                {
+                  name: 'ktrTablet',
+                  files: ['javascript/controllers/approvalCenter/policies.js' + jsVersion]
+                });
+              }]
+        }
+	};
+
+	var propertyRestriction = {
+        name : 'root.propertyRestriction',
+        url : '/{locationName}/propertyRestriction',
+        views : {
+            'container@' : {
+                templateUrl : 'javascript/templates/approvalCenter/revenueManagement/propertyRestriction.html',
+                controller : 'PropertyRestrictionController'
+            }
+        },
+        resolve : {
+          loadMyService: ['$ocLazyLoad', function($ocLazyLoad) {
+            return $ocLazyLoad.load(
+              {
+                name: 'ktrTablet',
+                files: ['javascript/services/jsonService.js' + jsVersion, 'javascript/services/revenueManagement.js' + jsVersion, 'javascript/services/approvalCenter/revenueManagementService.js' + jsVersion, 'javascript/services/jsonService.js' + jsVersion, 'javascript/services/approvalCenter/approvalCenterService.js' + jsVersion]
+              });
+            }],
+            loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+              // you can lazy load files for an existing module
+              return $ocLazyLoad.load(
+                {
+                  name: 'ktrTablet',
+                  files: ['javascript/controllers/approvalCenter/propertyRestrictionController.js' + jsVersion]
+                });
+              }]
+        }
+	};
+
+	var revenueMgmtRateView = {
+        name : 'root.revenueMgmtRateView',
+        url : '/{locationName}/revenueMgmtRateView',
+        views : {
+            'container@' : {
+                templateUrl : 'javascript/templates/approvalCenter/revenueManagement/rateView.html',
+                controller : 'RevenueMgmtRateViewController'
+            }
+        },
+        resolve : {
+          loadMyService: ['$ocLazyLoad', function($ocLazyLoad) {
+            return $ocLazyLoad.load(
+              {
+                name: 'ktrTablet',
+                files: ['javascript/services/jsonService.js' + jsVersion, 'javascript/services/revenueManagement.js' + jsVersion, 'javascript/services/approvalCenter/revenueManagementService.js' + jsVersion, 'javascript/services/approvalCenter/approvalCenterService.js' + jsVersion, 'javascript/services/approvalCenter/approvalCenterService.js' + jsVersion]
+              });
+            }],
+            loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+              // you can lazy load files for an existing module
+              return $ocLazyLoad.load(
+                {
+                  name: 'ktrTablet',
+                  files: ['javascript/controllers/approvalCenter/revenueMgmtRateViewController.js' + jsVersion]
+                });
+              }]
+        }
+	};
+
+	var revenueMgmtRoomView = {
+        name : 'root.revenueMgmtRoomView',
+        url : '/{locationName}/revenueMgmtRoomView',
+        views : {
+            'container@' : {
+                templateUrl : 'javascript/templates/approvalCenter/revenueManagement/roomView.html',
+                controller : 'RevenueMgmtRoomViewController'
+            }
+        },
+        resolve : {
+          loadMyService: ['$ocLazyLoad', function($ocLazyLoad) {
+            return $ocLazyLoad.load(
+              {
+                name: 'ktrTablet',
+                files: ['javascript/services/jsonService.js' + jsVersion, 'javascript/services/revenueManagement.js' + jsVersion, 'javascript/services/approvalCenter/revenueManagementService.js' + jsVersion, 'javascript/services/jsonService.js' + jsVersion, 'javascript/services/approvalCenter/approvalCenterService.js' + jsVersion]
+              });
+            }],
+            loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+              // you can lazy load files for an existing module
+              return $ocLazyLoad.load(
+                {
+                  name: 'ktrTablet',
+                  files: ['javascript/controllers/approvalCenter/revenueMgmtRoomViewController.js' + jsVersion]
+                });
+              }]
+        }
+	};
+	
+	var pricingDynamic = {
+        name : 'root.pricingDynamic',
+        url : '/{locationName}/pricingdynamic',
+        views : {
+            'container@' : {
+                templateUrl : 'javascript/templates/pricing-dynamic/pricing-dynamic.html',
+            }
+        }
+	};
+	
+	var competition = {
+        name : 'root.competition',
+        url : '/{locationName}/competition',
+        views : {
+            'container@' : {
+                templateUrl : 'javascript/templates/competition/competition.html',
+                controller : 'CompetitionGraphController'
+            }
+        },
+        resolve : {
+	          loadMyService: ['$ocLazyLoad', function($ocLazyLoad) {
+	            return $ocLazyLoad.load(
+	              {
+	                name: 'ktrTablet',
+	                files: ['javascript/controllers/competition/competitionGraphController.js' + jsVersion ]
+	              });
+	            }],
+	            loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+	              // you can lazy load files for an existing module
+	              return $ocLazyLoad.load(
+	                {
+	                  name: 'ktrTablet',
+	                  files: ['javascript/templates/competition/js/google_chart_comp.js' + jsVersion ]
+	                });
+	              }]
+	        }
+	};
+	
+	var guestaccounting = {
+	        name : 'root.guestaccounting',
+	        url : '/guestaccounting',
+	        views : {
+	            'container@' : {
+	                templateUrl : 'javascript/templates/guestAccounting/guestAccounting.html',
+	                controller : 'GuestAccountingController'
+	            }
+	        },
+	        resolve : {
+	          loadMyService: ['$ocLazyLoad', function($ocLazyLoad) {
+	            return $ocLazyLoad.load(
+	              {
+	                name: 'ktrTablet',
+	                files: ['javascript/services/guestAccounting/guestAccountingService.js' + jsVersion, 'javascript/services/bookingInformation.js' + jsVersion, 'javascript/services/property.js' + jsVersion]
+	              });
+	            }],
+	            loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+	              // you can lazy load files for an existing module
+	              return $ocLazyLoad.load(
+	                {
+	                  name: 'ktrTablet',
+	                  files: ['javascript/controllers/guestAccounting/guestAccountingController.js' + jsVersion]
+	                });
+	              }]
+	        }
+		};
+	
+	var houseKeepingTaskView = {
+	        name : 'root.houseKeepingTaskView',
+	        url : '/houseKeepingSchedule',
+	        views : {
+	            'container@' : {
+	                templateUrl : 'javascript/templates/housekeeping/houseKeepingTask.html',
+	                controller : 'HouseKeepingTaskController'
+	            }
+	        },
+			resolve : {
+		        loadMyService: ['$ocLazyLoad', function($ocLazyLoad) {
+		          return $ocLazyLoad.load(
+		            {
+		              name: 'ktrTablet',
+		              files: ['javascript/services/housekeeping/houseKeepingService.js' + jsVersion]
+		            });
+		          }],
+		        loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+		            // you can lazy load files for an existing module
+		            return $ocLazyLoad.load(
+		              {
+		                name: 'ktrTablet',
+		                files: ['javascript/controllers/housekeeping/houseKeepingTaskController.js' + jsVersion]
+		              });
+		            }]
+		      }
+	};
+	
+	var houseKeepingStatusView = {
+        name : 'root.houseKeepingStatusView',
+        url : '/houseKeepingStatus',
+        views : {
+            'container@' : {
+                templateUrl : 'javascript/templates/housekeeping/houseKeepingStatus.html',
+                controller : 'HouseKeepingStatusController'
+            }
+        },
+		resolve : {
+	        loadMyService: ['$ocLazyLoad', function($ocLazyLoad) {
+	          return $ocLazyLoad.load(
+	            {
+	              name: 'ktrTablet',
+	              files: ['javascript/services/housekeeping/houseKeepingService.js' + jsVersion]
+	            });
+	          }],
+	        loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+	            // you can lazy load files for an existing module
+	            return $ocLazyLoad.load(
+	              {
+	                name: 'ktrTablet',
+	                files: ['javascript/controllers/housekeeping/houseKeepingStatusController.js' + jsVersion]
+	              });
+	            }]
+	      }
+	};
+	
+	
+    $stateProvider
+        .state(root)
+        .state(login)
+        .state(forgotPassword)
+        .state(propertySelector)
+        .state(menu)
+        .state(guests)
+        .state(arrival)
+        .state(arrivalCheckin)
+        .state(propertyInformation)
+        .state(bookingInformation)
+        .state(rooms)
+        .state(approvalCenter)
+        .state(generalInfo)
+        .state(description)
+        .state(rates)
+        .state(propertyPhoto)
+        .state(gtdcxl)
+        .state(propertyRestriction)
+        .state(revenueMgmtRateView)
+        .state(revenueMgmtRoomView)
+        .state(location)
+        .state(policy)
+        .state(resetExpiredUserView)
+        .state(resetPassword)
+        .state(guestaccounting)
+        .state(houseKeepingTaskView)
+    	.state(houseKeepingStatusView)
+    	.state(useractivation)
+    	.state(competition)
+    	.state(pricingDynamic);
+    
+
+	$ocLazyLoadProvider.config({debug:true, events:true});
+	
+});
+
+app.config(function ($httpProvider) {
+    //configure $http to view a login whenever a 401 unauthorized response arrives
+    $httpProvider.responseInterceptors.push(function ($rootScope, $q) {
+        return function (promise) {
+            return promise.then(
+                //success -> don't intercept
+                function (response) {
+                    return response;
+                },
+                //error -> if 401 save the request and broadcast an event
+                function (response) {
+                    if (response.status === 401) {
+                        // Set the message why is unauthorized
+                        $rootScope.warn = true;
+                        //$rootScope.warnMessage = response.data.message;
+                        $rootScope.warnMessage = response.data.message;
+
+                        var deferred = $q.defer(),
+                            req = {
+                                config: response.config,
+                                deferred: deferred
+                            };
+                        $rootScope.requests401.push(req);
+                        //Hide and remove all open dialog.
+                        $('.modal-backdrop').hide();
+                        $(".modal").remove();
+                        $rootScope.$broadcast('event:loginRequired');
+                        return deferred.promise;
+                    }
+                    return $q.reject(response);
+                }
+            );
+        };
+    });
+    httpHeaders = $httpProvider.defaults.headers;
+});

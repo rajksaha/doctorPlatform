@@ -1,0 +1,18 @@
+'use strict';
+
+var app = angular.module('ktrTablet', [
+    'roomPictureDirective',
+    // Third party libs declare here
+	  // We going to use ocLazyLoad with ui.router
+    'ui.router',
+    'oc.lazyLoad',
+    'ui.bootstrap',
+    'ui.event',
+    'blockUI',
+    'ui.calendar',
+    
+    // Google Analytics
+    'angulartics',
+    'angulartics.google.analytics'
+    
+]);

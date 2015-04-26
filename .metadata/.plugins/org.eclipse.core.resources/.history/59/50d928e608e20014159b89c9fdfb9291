@@ -1,0 +1,17 @@
+app.service('ItemService', function ($resource) {
+	 
+	this.service = {
+			
+			search: $resource('javascript/controllers/appointment/appointmentHelper.php', {}, { 
+				query: {
+					method: 'POST', 
+					isArray: true 
+				}
+			}),
+			
+			
+
+		};
+
+		return this.service;
+});

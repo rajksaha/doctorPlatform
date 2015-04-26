@@ -1,0 +1,120 @@
+/* lanier */
+/*------------ Basic Background colors -----------*/
+body{
+	background:white!important;
+}
+
+.bgBody {}
+	
+.bgBodyDark {}
+	
+.bgBodyMedium{}
+
+/*---------------- Panel bg colors -----------------------*/
+/* Panel Bg for non-Bootstrap panels */
+.keyPanelColor{
+	background-color:#E0E1E1!important;
+}
+
+/* Panel Bg for Bootstrap panels */
+.geninfo .panel, .ratings .rate-box, .season-room-name{
+	background-color: #E0E1E1;
+}
+
+/* Panel Bg for Ratings (approval center) panels */
+.ratings .rate-box{
+	background-color: #E0E1E1;
+}
+.ratings .rating{
+	background-color: rgba(90, 90, 90, 0.15);
+}
+
+/* ---------------Bookings---------------- */
+/* booking table header bg */
+#booking tr{}
+
+/* booking table alternate row bg */
+#booking .table-striped>tbody>tr:nth-child(even)>td,.table-striped>tbody>tr:nth-child(even)>th{
+	background: #ececec;
+}
+
+
+/* ----------------- Rates ---------------------- */
+.season-room-name{
+	background-color: #E0E1E1;
+}
+.season{
+	background-color: white; 
+}
+/* Rates week buttons */
+.bgYellow, .bgYellow:hover{
+	background-color: #ffffff; border-color: #B8BBBB; 
+} 
+.bgBlue, .bgBlue:hover{ 
+	background-color: #A8E0E0; border-color: #57c4c4;  
+}
+
+/*----------------- Property Selector Heading ----------------------*/
+.panelHeadingColor {
+	background-color:#5BB5B6!important; border-color:#5BB5B6!important;
+}
+
+/*---------------- Header--------- */
+.hLogout, .hLogout > i{
+	color: white;
+}
+.hPropertyName{ 
+	color: #EFAC4D;
+}
+.help-link i{ 
+	color: #EFAC4D;
+}
+.navbar-ktr {
+	background-image: -webkit-linear-gradient(top, #6E7070 0%, #6E7070 100%);
+}
+#infoText{
+	color: #EFAC4D;
+}
+
+/*------------- Modal Colors ------------*/
+.modalHead{
+	background-color:#5BB5B6;
+}
+.modalHead .modal-title{
+	color:white;
+}
+.modalBody, .modalBody .panel-body {
+	background: white!important;
+}
+.modalFoot{
+	background-color:#E0E1E1;
+}
+.booking-tble table td{
+	background-color: white; 
+}
+
+/*-------------- Button Lanier -------------------------*/
+.btnLanier{
+	background-color:#EFAC4D!important;
+	border:1px solid #EEA236!important;
+	color:white;
+}
+
+.btnLanier.active, .btnLanier.focus, .btnLanier:active, .btnLanier:focus, .btnLanier:hover{
+	background-color: #EC971F!important;
+	border-color: #D58512!important;
+	color:white;
+}
+
+/*------------------- table --------------- */
+/* general table settings */
+.header-fixed > tbody > tr:nth-child(2n+1) {background: #F9F9F9;}
+.tableRow > tbody > tr:nth-child(2n+1){background:#F9F9F9;}
+.tableRow .table-striped>tbody>tr:nth-child(odd)>td, .tableRow .table-striped>tbody>tr:nth-child(odd)>th {background:#F9F9F9;}
+
+/* gtd cxl table settings */
+#cancelBlock .table-striped>tbody>tr:nth-child(odd)>td, #cancelBlock.table-striped>tbody>tr:nth-child(odd)>th {background:#E0E1E1;}
+#cancelBlock .table-striped>tbody>tr:nth-child(even)>td, #cancelBlock.table-striped>tbody>tr:nth-child(even)>th {background:#f1f1f1;}
+#guranteeBlock .table-striped>tbody>tr:nth-child(odd)>td, #guranteeBlock.table-striped>tbody>tr:nth-child(odd)>th {background:#E0E1E1;}
+#guranteeBlock .table-striped>tbody>tr:nth-child(even)>td, #guranteeBlock.table-striped>tbody>tr:nth-child(even)>th {background:#f1f1f1;}
+

@@ -1,0 +1,46 @@
+<div class="modal-header modalHead ">
+	<h4 class="modal-title">Add New Patient</h4>
+</div>
+<div class="modal-body modalBody"  style="position:relative; z-index:1;">
+	<div class="alert alert-danger alert-dismissable" data-ng-show="error">
+        <div>{{errorMessage}}</div>
+        <div id="lblMsg_modal"></div>
+    </div>
+
+
+    	<div  class="row step4Width" id="validateReq">
+   			<div class="form-group col-xs-12 col-sm-12">
+   				<label>Patient  Name: <span class="red" >*</span></label>
+   				<input type="text" class="form-control required" data-ng-model="patientData.name" errmsg="Please enter patient name">
+			</div>
+			
+			<div class="form-group col-xs-12 col-sm-12" >
+				<label>Age:</label> 
+				<input class="form-control decimal" type="text" maxlength="16" data-ng-model="patientData.age" errmsg="Please enter patient age">
+			</div>
+			
+			<div class="form-group col-xs-12 col-sm-12 ">
+				<label>Gender:</label> 
+				<select data-ng-model="patientData.sex" class="form-control">
+					<option value="MALE">Male</option>
+					<option value="FEMALE">Fe-male</option>
+					<option value="OTHER">Other</option>
+				</select>
+			</div>
+			
+			<div class="form-group col-xs-12 col-sm-12">
+				<label>Phone:</label> 
+				<input class="form-control phnnr" type="text" maxlength="16" data-ng-model="patientData.phone">
+			</div>
+			
+			<div class="form-group col-xs-12 col-sm-12 ">
+				<label>Address:</label> 
+				<input class="form-control" type="text" data-ng-model="patientData.address">
+			</div>
+    	</div>
+	
+</div>
+<div class="modal-footer modalFoot">
+	<button class="btn btnLanier btn-success" data-ng-click="createNewPatient()" ><i class="fa"></i> Save</button>
+	<button class="btn btnLanier btn-warning" data-ng-click="cancelNewPatient()" ><i class="fa"></i> Cancel</button>
+</div>

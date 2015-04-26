@@ -1,0 +1,17 @@
+.propSelect button:first-child{text-align:left}
+.propSelect .dropdown-menu{max-height:190px;overflow:auto;}
+.selectorCont .form-group{width:350px;}
+.propertySelectorSize {
+	margin-left: auto;
+	margin-right: auto;
+	width: 425px;
+	/* background: #cdcdcd; */
+	margin-top: 6%;
+}
+
+.propertySelector {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 6%;
+    width: 425px;
+}

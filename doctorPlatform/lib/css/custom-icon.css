@@ -1,0 +1,20 @@
+@font-face {
+	font-family: 'icomoon';
+	src:url('../fonts/icomoon.eot?-ir5of6');
+	src:url('../fonts/icomoon.eot?#iefix-ir5of6') format('embedded-opentype'),
+		url('../fonts/icomoon.woff?-ir5of6') format('woff'),
+		url('../fonts/icomoon.ttf?-ir5of6') format('truetype'),
+		url('../fonts/icomoon.svg?-ir5of6#icomoon') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'lanier';
+	src:url('../fonts/lanier.eot?-stwtef');
+	src:url('../fonts/lanier.eot?#iefix-stwtef') format('embedded-opentype'),
+		url('../fonts/lanier.woff?-stwtef') format('woff'),
+		url('../fonts/lanier.ttf?-stwtef') format('truetype'),
+		url('../fonts/lanier.svg?-stwtef#lanier') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}

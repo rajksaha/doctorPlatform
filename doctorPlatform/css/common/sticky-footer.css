@@ -1,0 +1,25 @@
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  /* Margin bottom by footer height */
+  padding-top: 38px; 
+  margin-bottom: 38px;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 38px;  
+  z-index: 9999;
+}
+
+.footer .client-logo {
+	max-height: 30px; 
+	margin-top: 4px;
+}

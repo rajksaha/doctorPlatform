@@ -1,0 +1,57 @@
+// Code goes here
+
+var app = angular.module('example', ['ui.bootstrap']);
+
+app.controller('TypeaheadExample', function($scope, limitToFilter,$http, ItemService) {
+  
+  $scope.products = [];
+  $scope.docName = "";
+  
+  $scope.getProducts = function(term) {
+    $scope.products = [];
+    
+    var  dataString='data='+  $scope.docName +'&query='+5;
+    
+    ItemService.search.query({}, $scope.propertySearchData).$promise.then(function(result) {
+    	$scope.products = result;
+    	return $scope.products;
+        });
+        return $scope.products;
+      });
+
+    $http({
+        method: 'POST',
+        url: "javascript/controllers/appointment/appointmentHelper.php",
+        data: dataString,
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    }).then(function(result) {
+    	$scope.products = result;
+    	return $scope.products;
+    });
+
+    
+    
+  };
+  
+  $scope.onSelectProduct = function(item, model, label) {
+    console.log(item);
+  }
+});
+
+app.service('ItemService', function ($resource) {
+	 
+	this.service = {
+			
+			search: $resource('rest/guestbooking/getAvailableData', {}, { 
+				query: {
+					method: 'POST', 
+					isArray: true 
+				}
+			}),
+			
+			
+
+		};
+
+		return this.service;
+});

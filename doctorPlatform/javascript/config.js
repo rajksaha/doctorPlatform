@@ -1,0 +1,306 @@
+'use strict';
+
+var httpHeaders;
+
+var jsVersion = "?v=007";
+
+// This will store the original URL before login sequence
+var originalLocation = "/menu";
+
+app.config(function($stateProvider, $urlRouterProvider, $compileProvider, $controllerProvider, $filterProvider, $provide, $ocLazyLoadProvider, $analyticsProvider, datepickerConfig, datepickerPopupConfig) {
+	
+	// turn off automatic tracking
+	$analyticsProvider.virtualPageviews(false);
+	
+    // For any unmatched url, redirect to /login
+    $urlRouterProvider.otherwise("/login");
+    
+    // datepicker hide week
+    datepickerConfig.showWeeks = false;
+
+    var login = {
+        name : 'login',
+        url : '/login',
+        views : {
+            'container@' : {
+                templateUrl : 'javascript/templates/login.html',
+                controller : 'LoginController'
+            },
+            'footer' : {
+                templateUrl : 'javascript/templates/footer-lg.html',
+                controller : 'FooterController'
+            }
+        },
+        resolve : {
+            loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+              // you can lazy load files for an existing module
+              return $ocLazyLoad.load(
+                {
+                  name: 'ktrTablet',
+                  files: ['javascript/controllers/login.js' + jsVersion, 'javascript/controllers/footer.js'  + jsVersion]
+                });
+            }]
+        }
+    };
+
+    var root = {
+        name : 'root',
+        url : '',
+        abstract : true,
+        views : {
+            'header' : {
+                templateUrl : 'javascript/templates/header.html',
+                controller : 'HeaderController'
+            },
+            'status' : {
+                templateUrl : 'javascript/templates/status.html'
+            },
+            'footer' : {
+                templateUrl : 'javascript/templates/footer.html',
+                controller : 'FooterController'
+            }
+        },
+        resolve : {
+            loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+              // you can lazy load files for an existing module
+              return $ocLazyLoad.load(
+                {
+                  name: 'ktrTablet',
+                  files: ['javascript/controllers/header.js' + jsVersion, 'javascript/controllers/footer.js' + jsVersion]
+                });
+              }]
+        }
+    };
+
+
+    var appointment = {
+        name : 'root.appointment',
+        url : '/appointment',
+        views : {
+            'container@' : {
+                templateUrl : 'javascript/templates/appointment/appointment.php',
+                controller : 'AppointmentController'
+            }
+        },
+        resolve : {
+            loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+              // you can lazy load files for an existing module
+              return $ocLazyLoad.load(
+                {
+                  name: 'ktrTablet',
+                  files: ['javascript/controllers/appointment/appoinment.js' ]
+                });
+              }]
+        }
+    };
+    
+    var prescription = {
+            name : 'root.prescription',
+            url : '/prescription',
+            views : {
+                'container@' : {
+                    templateUrl : 'javascript/templates/prescription/prescription.php',
+                    controller : 'PrescriptionController'
+                }
+            },
+            resolve : {
+                loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+                  // you can lazy load files for an existing module
+                  return $ocLazyLoad.load(
+                    {
+                      name: 'ktrTablet',
+                      files: ['javascript/controllers/prescription/prescriotion.js' ]
+                    });
+                  }]
+            }
+        };
+    
+    var drugs = {
+            name : 'root.drugs',
+            url : '/drugs',
+            views : {
+                'container@' : {
+                    templateUrl : 'javascript/templates/drugs/drugs.html',
+                    controller : 'PrescribeDrugsController'
+                }
+            },
+            resolve : {
+            	loadMyService: ['$ocLazyLoad', function($ocLazyLoad) {
+                    return $ocLazyLoad.load(
+                    {
+                      name: 'ktrTablet',
+                      files: ['javascript/services/jsonService.js' + jsVersion]
+                    });
+                  }],
+                loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+                  // you can lazy load files for an existing module
+                  return $ocLazyLoad.load(
+                    {
+                      name: 'ktrTablet',
+                      files: ['javascript/controllers/drugs/drugs.js' ]
+                    });
+                  }]
+            }
+        };
+    
+    var inv = {
+            name : 'root.inv',
+            url : '/inv',
+            views : {
+                'container@' : {
+                    templateUrl : 'javascript/templates/inv/inv.html',
+                    controller : 'PrescribeInvController'
+                }
+            },
+            resolve : {
+                loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+                  // you can lazy load files for an existing module
+                  return $ocLazyLoad.load(
+                    {
+                      name: 'ktrTablet',
+                      files: ['javascript/controllers/inv/inv.js' ]
+                    });
+                  }]
+            }
+        };
+    
+    var complain = {
+            name : 'root.complain',
+            url : '/complain',
+            views : {
+                'container@' : {
+                    templateUrl : 'javascript/templates/complain/complain.html',
+                    controller : 'PrescribeComplainController'
+                }
+            },
+            resolve : {
+                loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+                  // you can lazy load files for an existing module
+                  return $ocLazyLoad.load(
+                    {
+                      name: 'ktrTablet',
+                      files: ['javascript/controllers/complain/complain.js' ]
+                    });
+                  }]
+            }
+        };
+    
+    var genInfo = {
+            name : 'root.genInfo',
+            url : '/genInfo',
+            views : {
+                'container@' : {
+                    templateUrl : 'javascript/templates/genInfo/genInfo.html',
+                    controller : 'PrescribeGenInfoController'
+                }
+            },
+            resolve : {
+                loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+                  // you can lazy load files for an existing module
+                  return $ocLazyLoad.load(
+                    {
+                      name: 'ktrTablet',
+                      files: ['javascript/controllers/genInfo/genInfo.js' ]
+                    });
+                  }]
+            }
+        };
+    
+    var vital = {
+            name : 'root.vital',
+            url : '/vital',
+            views : {
+                'container@' : {
+                    templateUrl : 'javascript/templates/vital/vital.html',
+                    controller : 'PrescribeVitalController'
+                }
+            },
+            resolve : {
+                loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+                  // you can lazy load files for an existing module
+                  return $ocLazyLoad.load(
+                    {
+                      name: 'ktrTablet',
+                      files: ['javascript/controllers/vital/vital.js' ]
+                    });
+                  }]
+            }
+        };
+    
+    var history = {
+            name : 'root.history',
+            url : '/history',
+            views : {
+                'container@' : {
+                    templateUrl : 'javascript/templates/history/history.html',
+                    controller : 'PrescribeHistoryController'
+                }
+            },
+            resolve : {
+                loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+                  // you can lazy load files for an existing module
+                  return $ocLazyLoad.load(
+                    {
+                      name: 'ktrTablet',
+                      files: ['javascript/controllers/history/history.js' ]
+                    });
+                  }]
+            }
+        };
+    
+    
+	
+	
+    $stateProvider
+        .state(root)
+        .state(login)
+        .state(prescription)
+        .state(drugs)
+        .state(inv)
+        .state(complain)
+        .state(genInfo)
+        .state(vital)
+        .state(history)
+    	.state(appointment);
+    
+
+	$ocLazyLoadProvider.config({debug:true, events:true});
+	
+});
+
+app.config(function ($httpProvider) {
+    //configure $http to view a login whenever a 401 unauthorized response arrives
+    $httpProvider.responseInterceptors.push(function ($rootScope, $q) {
+        return function (promise) {
+            return promise.then(
+                //success -> don't intercept
+                function (response) {
+                    return response;
+                },
+                //error -> if 401 save the request and broadcast an event
+                function (response) {
+                    if (response.status === 401) {
+                        // Set the message why is unauthorized
+                        $rootScope.warn = true;
+                        //$rootScope.warnMessage = response.data.message;
+                        $rootScope.warnMessage = response.data.message;
+
+                        var deferred = $q.defer(),
+                            req = {
+                                config: response.config,
+                                deferred: deferred
+                            };
+                        $rootScope.requests401.push(req);
+                        //Hide and remove all open dialog.
+                        $('.modal-backdrop').hide();
+                        $(".modal").remove();
+                        $rootScope.$broadcast('event:loginRequired');
+                        return deferred.promise;
+                    }
+                    return $q.reject(response);
+                }
+            );
+        };
+    });
+    httpHeaders = $httpProvider.defaults.headers;
+});

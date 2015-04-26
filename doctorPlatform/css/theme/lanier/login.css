@@ -1,0 +1,70 @@
+
+	html, body { min-height: 100%; }
+	
+	body { 
+		/*background-color: #999;
+		 background-image: url("../images/slide1.jpg"); */ 
+		background-position: center top;
+		background-size: cover; 
+		padding-top: 0px;
+	}
+	
+	.login-container {
+		position: absolute;
+		left: 0;
+		top: 0; 
+		z-index: 111;
+	}	
+	
+	/* footer */
+	
+	.navbar-footer-login { 
+		background-color: rgba(255, 255, 255, 0.5);	    
+	    height: 38px !important;
+	    line-height: 38px;
+	    min-height: 38px !important;
+	    text-align: center;
+	}
+	
+	a:link, a:visited { color: #252525; }
+	a:hover, a:focus { color: #252525; }
+	
+	.user-activation a:link, .user-activation a:visited, .changePassSize a:link, .changePassSize a:visited { 
+		color: #428BCA; text-decoration: none;  
+	}
+	
+	.user-activation a:hover, .user-activation a:focus, .changePassSize a:hover, .changePassSize a:focus { 
+		color: #2A6496; text-decoration: underline; 
+	}
+	
+	.ktr-powerby {
+		position: absolute;
+		bottom: 53px;
+		/* right: 28px; */
+		left: 0;
+		z-index: 333;
+		width: 100%;
+	}
+	
+	.ktr-client {
+		margin-top: 4px;
+		max-height: 30px;
+	}
+	
+	/* Media Queries */
+	
+	@media (max-width: 767px) {
+		.bbconnect-logo { padding: 30% 0 10% 0 !important; }
+	}
+	
+	@media (min-width: 768px) and (max-width: 991px) {
+		.bbconnect-logo { padding: 30% 0 10% 0 !important; }
+	}
+	
+	@media (min-width: 992px) and (max-width: 1199px) {
+		.bbconnect-logo { padding: 15% 0 5% 0 !important; }
+	}
+	
+	@media (min-width: 1200px){
+		.bbconnect-logo { padding: 10% 0 4% 0 !important; }
+	}

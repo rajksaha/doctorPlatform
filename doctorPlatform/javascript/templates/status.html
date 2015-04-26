@@ -1,0 +1,14 @@
+<div>
+    <div class="alert alert-danger alert-dismissable" data-ng-show="error">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true" ng-click="error=false">&times;</button>
+        <strong>Error : </strong>{{errorMessage}}
+    </div>
+    <div class="alert alert-warning alert-dismissable" data-ng-show="warn">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true" ng-click="warn=false">&times;</button>
+        <strong>Warning : </strong>{{warnMessage}}
+    </div>
+    <div class="alert alert-success alert-dismissable" data-ng-show="success">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true" ng-click="success=false">&times;</button>
+        <!-- <strong>Success : </strong> -->{{successMessage}}
+    </div>
+</div>

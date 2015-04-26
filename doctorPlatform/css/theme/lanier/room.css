@@ -1,0 +1,565 @@
+/* lanier */
+/* CSS3 ANIMATIONS +++============= */
+div#fade_photo_bg {
+	z-index: 100 !important;
+}
+
+.btn-upload-photo {
+	margin-left: 15px;
+	margin-top: 40px;
+}
+
+.room-photos-wrapper {
+	position: relative;
+}
+
+.room-photos-wrapper .fade-photo-bg {
+	z-index: 1;
+	width: 100%;
+	height: 700px;
+	overflow: hidden;
+	background-color: #222;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+	filter: alpha(opacity = 80);
+	-moz-opacity: 0.8;
+	-khtml-opacity: 0.8;
+	opacity: 0.8;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+}
+
+.room-photos-wrapper #room_photo_selected_frame {
+	border: 6px solid #cc0000;
+	height: 194px;
+	left: 237px;
+	top: 212px;
+	position: absolute;
+	width: 219px;
+	z-index: 2;
+	-webkit-box-shadow: 3px 3px 4px #111111;
+	-moz-box-shadow: 3px 3px 4px #111111;
+	box-shadow: 3px 3px 4px #111111;
+}
+
+.room-photo-block {
+	width: 205px;
+	height: 180px;
+	border: solid 1px #999;
+	background-color: #fff1cc;
+	position: relative;
+	float: left;
+	margin: 8px;
+	padding: 6px;
+	cursor: pointer
+}
+
+.room-photo-block .delete {
+	position: absolute;
+	top: -6px;
+	right: -3px;
+	width: 28px;
+	height: 28px;
+	font: normal 15px verdana;
+	color: #ffffcc;
+	background-color: #7d0008;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+	filter: alpha(opacity = 80);
+	-moz-opacity: 0.8;
+	-khtml-opacity: 0.8;
+	opacity: 0.8;
+	/*padding: 10px 0px 0px 20px;*/
+	/*text-shadow: 0px 1px 1px #333333;*/
+	z-index: 5;
+	display: block;
+	border-radius: 20%;
+}
+
+.room-photo-block .sp-num-wrap {
+	position: absolute;
+	top: -16px;
+	left: -18px;
+	width: 74px;
+	height: 65px;
+	font: normal 15px verdana;
+	color: #ffffcc;
+	padding: 10px 0px 0px 20px;
+	text-shadow: 0px 1px 1px #333333;
+	z-index: 4;
+	display: block;
+	/*background:url(../images/room-number-ribbon-bg.gif) no-repeat 0 0;*/
+}
+
+.room-photo-block .sp-num-bg {
+	position: absolute;
+	display: block;
+	top: -12px;
+	left: -9px;
+	width: 30px;
+	height: 30px;
+	z-index: 3;
+	background-color: #7d7907;
+	-webkit-box-shadow: 3px 3px 3px black;
+	-moz-box-shadow: 3px 3px 3px black;
+	box-shadow: 3px 3px 3px black;
+	-webkit-border-radius: 24px;
+	-moz-border-radius: 24px;
+	border-radius: 24px;
+	border: outset 4px #fff;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+	filter: alpha(opacity = 80);
+	-moz-opacity: 0.8;
+	-khtml-opacity: 0.8;
+	opacity: 0.8;
+}
+
+.room-photo-block .sp-num-frame {
+	background: #cc0000 !important;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+	filter: alpha(opacity = 80);
+	-moz-opacity: 0.8;
+	-khtml-opacity: 0.8;
+	opacity: 0.8;
+}
+
+.room-photo-block .room-photo-inner {
+	width: 199px;
+	height: 174px;
+	/*background: url(../images/slash-bg.gif) repeat;*/
+	border: solid 3px #3c3c3c;
+	overflow: hidden;
+	position: relative;
+	-webkit-box-shadow: 1px 1px 1px #8c6705;
+	-moz-box-shadow: 1px 1px 1px #8c6705;
+	box-shadow: 1px 1px 1px #8c6705;
+}
+
+.room-photo-block .room-photo-inner .ui-btn {
+	margin-top: 60px;
+}
+
+.room-photo-block .room-photo-inner img.photo-room {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 205px;
+	height: 180px;
+	border: 0;
+	z-index: 1;
+}
+
+.room-photo-block .room-photo-inner .room-photo-fade {
+	background-color: #222;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+	filter: alpha(opacity = 80);
+	-moz-opacity: 0.8;
+	-khtml-opacity: 0.8;
+	opacity: 0.8;
+	border-top: solid 1px #000;
+	width: 205px;
+	height: 180px;
+	position: absolute;
+	top: 100px;
+	left: 0px;
+	z-index: 1;
+}
+
+.room-photo-block .room-photo-inner .room-photo-desc {
+	width: 205px;
+	height: 180px;
+	padding: 0px 5px 4px 5px;
+	position: absolute;
+	color: #fff;
+	text-shadow: 0px 1px 1px black;
+	z-index: 2;
+	top: 100px;
+	left: 0px;
+}
+
+.room-photo-block .room-photo-inner .room-photo-desc p.txt-photo-desc {
+	line-height: 140%;
+}
+
+.room-photo-block .room-photo-inner .room-photo-desc p.txt-photo-title {
+	margin-bottom: 4px;
+	margin-top: 5px;
+	font: bold 12px verdana;
+}
+
+.pop-upload-box-wrapper .upload-photo-wrapper {
+	width: 640px;
+	height: 36px;
+	position: relative;
+	margin: 12px 0px 0px 24px;
+}
+
+.pop-upload-box-wrapper {
+	width: 800px;
+	height: 440px;
+	position: fixed;
+	top: 20%;
+	left: 20%;
+	/*top: 30px;*/
+	/*left: 100px;*/
+	z-index: 100;
+	background: #D9D9D9;
+	/*background: -ms-linear-gradient(top, #d57600, #7c2800);*/
+	/*background: -o-linear-gradient(top, #d57600, #7c2800);*/
+	/*background: linear-gradient(top, #d57600, #7c2800);*/
+	/*background: -webkit-gradient(linear, center top, center bottom, from(#d57600), to(#7c2800));*/
+	/*background: -moz-linear-gradient(top, #d57600, #7c2800);*/
+	border: 4px solid #ffffcc;
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	border-radius: 8px;
+	box-shadow: 5px 5px 2px #222222;
+}
+
+.btn-edit-room-img { 	
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    padding: 4px 7px;
+    border-radius: 50%; 
+}
+
+.btn-del-room-img { 	
+    position: absolute;
+    right: 5px;
+    bottom: 6px;
+    padding: 4px 7px;
+    border-radius: 50%; 
+}
+
+.pop-upload-box-wrapper hr {
+	height: 1px;
+	color: #d57600;
+	background-color: #d57600;
+	border-bottom: solid 1px #7c2800;
+	margin: 12px 4px;
+}
+
+.pop-upload-box-wrapper #pop_upload_box_inner,.pop-upload-box-wrapper #pop_inner_upload,.pop-upload-box-wrapper #pop_inner_edit
+	{
+	width: 700px;
+	height: 380px;
+	overflow: hidden;
+	position: absolute;
+	/*text-align: center;*/
+	top: 0px;
+	/*left: -700px;*/
+}
+
+.pop-upload-box-wrapper #pop_upload_box_inner {
+	left: 0px;
+	top: 10px;
+	color: #666;
+	text-shadow: 0px 1px 1px white;
+}
+
+.pop-upload-box-wrapper a.close-win-box {
+	/*background: url(../images/btn-close-block.png) no-repeat scroll 0 0 transparent;*/
+	height: 39px;
+	position: absolute;
+	top: -18px;
+	left: 781px;
+	width: 40px;
+	z-index: 101;
+}
+
+.sho {
+	display: block;
+}
+
+.hid {
+	display: none;
+}
+
+.newRow {
+	clear: left;
+}
+
+.bg {
+	background: #d7d5d8;
+}
+/* property selector page */
+.text_center {
+	text-align: center;
+	color: white;
+}
+
+.customPanelHead {
+	/* background: #428bca !important; */
+}
+
+.form-padding {
+	padding: 40px;
+}
+
+
+/* booking info page */
+#booking .table-striped>tbody>tr:nth-child(odd)>td,.table-striped>tbody>tr:nth-child(odd)>th
+	{
+	
+}
+
+
+
+.formPaddingBooking {
+	padding: 15px;
+	margin: 10px 0;
+}
+
+.bookingInfoSize {
+	width: 330px;
+	height: 265px;
+}
+
+.floatRight {
+	float: right;
+}
+
+.ng-table th {
+	text-align: left;
+}
+
+
+.h3Width {
+	width: 50%;
+}
+
+.floatRight {
+	position: relative;
+	right: 0px;
+}
+
+.notif {
+	background: url("../images/mail.png") no-repeat scroll 0 center
+		transparent;
+}
+
+.cancel {
+	background: url("../images/cancel.png") no-repeat scroll 0 center
+		transparent;
+}
+
+.details {
+	background: url("../images/details.png") no-repeat scroll 0 center
+		transparent;
+}
+
+.edit {
+	background: url("../images/editPen.png") no-repeat scroll 0 center
+		transparent;
+}
+
+.iconPadding ul li {
+	padding-left: 30px;
+}
+
+.noMargin {
+	margin-left: 0px;
+}
+
+.arrDateWidth {
+	width: 60px;
+}
+
+.depDateWidth {
+	width: 60px;
+}
+
+.stsWidth {
+	width: 80px;
+}
+
+.btnsWidth {
+	width: 200px;
+}
+
+.encloseDates .half {
+	width: 39.2%;
+	display: inline-block;
+}
+
+.modalBookingEdit .modal-dialog {
+	/* width: 380px; */
+	width: 90%;
+}
+
+.arrive {
+	display: inline-block;
+	float: left;
+}
+
+.departure {
+	display: inline-block;
+	float: left;
+	padding-left: 5px;
+}
+
+.single {
+	width: 90px;
+	display: inline-block;
+	float: left;
+	padding-left: 10px;
+}
+
+.modalPadding {
+	padding-bottom: 15px;
+}
+
+p.fourtabs {
+	text-align: justify;
+}
+
+.panelMrginPdd {
+	padding: 10px 15px;
+	border-bottom: 1px solid transparent;
+	border-top-left-radius: 3px;
+	border-top-right-radius: 3px;
+	color: #428bca;
+}
+
+.wrapword {
+	white-space: -moz-pre-wrap !important; /* Mozilla, since 1999 */
+	white-space: -pre-wrap; /* Opera 4-6 */
+	white-space: -o-pre-wrap; /* Opera 7 */
+	white-space: pre-wrap; /* css-3 */
+	word-wrap: break-word; /* Internet Explorer 5.5+ */
+	text-align: left;
+	white-space: normal;
+}
+/*Guest Booking Page*/
+.widthTblGuest {
+	width: 105px !important;
+}
+
+.modalGuestBookingEdit .modal-dialog {
+	width: 330px;
+}
+
+.modalGuestBookingDetails .modal-dialog {
+	width: 90%;
+}
+
+.modalGuestBookingRes .modal-dialog {
+	width: 400px;
+}
+
+.modalConfirmation .modal-dialog {
+    width: 400px;
+}
+
+/*Guest Booking Page---steps*/
+/*Default step*/
+.defaultStepWidth .modal-dialog{width: 360px!important;}
+.defaultStepWidth{width:600px;}
+.step2Width{width: 600px;}
+.step3Width{width:600px;}
+.step4Width{width:600px;}
+.finalStepWidth{width:80%!important;}
+
+.modalGuestBookingSearch .modal-dialog {
+	width: 350px;
+}
+
+.encloseDates .half2 {
+	width: 49.2%;
+	display: inline-block;
+}
+
+.modalGuestInfoEdit .modal-dialog {
+	width: 400px;
+}
+/* Approval center */
+.tblWidthHeight {
+	width: 50px;
+	height: 38px;
+}
+
+/* Approval Center: Photos */
+.btn-file {
+	position: relative;
+}
+
+.btn-file input[type=file] {
+	position: absolute;
+	top: 0;
+	right: 0;
+	min-width: 100%;
+	min-height: 100%;
+	font-size: 10px;
+	text-align: right;
+	filter: alpha(opacity = 0);
+	opacity: 0;
+	background: red;
+	cursor: inherit;
+	display: block;
+	width: 0;
+}
+
+.rate-label-color {
+	color: #008B00 !important;
+}
+
+/* styles for operations- guest info */
+.step2tblWidth {
+	width: 450px;
+}
+
+.btnDisabled {
+	background: rgb(194, 194, 194);
+	color:#666;
+}
+
+@media ( min-width : 768px) {
+	.fixedWidthBooking {
+		width: 220px !important;
+	}
+	.fixedWidthBookingName {
+		width: 140px !important;
+	}
+	.fixedWidthBookingDate {
+		width: 155px !important;
+	}
+	.breakElemBooking {
+		display: block;
+	}
+	.paddingForIpad {
+		padding-top: 5px;
+		padding-bottom: 5px;
+	}
+}
+
+@media only screen and (min-device-width : 768px) and (max-device-width
+	: 1024px) and (orientation : portrait) {
+	.rotated {
+		width: 80px !important;
+		height: 74px !important;
+	}
+	.rotatedHeight {
+		height: 74px !important;
+		width: 100%;
+	}
+}
+
+@media only screen and (min-device-width : 768px) and (max-device-width
+	: 1024px) and (orientation : landscape) {
+	.fluidImgPanel {
+		width: 55% !important;
+		float: left;
+	}
+	.rotatedHeight {
+		height: 54px !important;
+		width: 99% !important;
+	}
+}
+
+@media ( min-width :960px) {
+	.fullTableWd {
+		width: 900px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+}

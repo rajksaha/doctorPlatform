@@ -1,0 +1,108 @@
+// Code goes here
+
+var app = angular.module('example', ['ui.bootstrap']);
+
+app.controller('TypeaheadExample', function($scope, limitToFilter,$http, ItemService) {
+  
+  $scope.products = [];
+  $scope.docName = "";
+  
+  $scope.getProducts = function(term) {
+    $scope.products = [];
+    
+    var  dataString='data='+  $scope.docName +'&query='+5;
+    
+    ItemService.search(CompanyService.getCompany()._id, skuValue).then(function(response) {
+        var skus = response.data.items.map(function(e) {
+          return e.sku;
+        });
+        return skus;
+      });
+
+    $http({
+        method: 'POST',
+        url: "javascript/controllers/appointment/appointmentHelper.php",
+        data: dataString,
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    }).then(function(result) {
+    	$scope.products = result;
+    	return $scope.products;
+    });
+
+    
+    
+  };
+  
+  $scope.onSelectProduct = function(item, model, label) {
+    console.log(item);
+  }
+});
+
+app.service('GuestBookingService', function ($resource) {
+	 
+	this.service = {
+			
+			bookings: $resource('rest/guestbooking/startdate/:startdate/enddate/:enddate?confirmationnumber=:confirmationnumber&guestname=:guestname', {}, { 
+				query: {
+					method: 'GET', 
+					params: {startdate: '@startdate', enddate: '@enddate', confirmationnumber: '@confirmationnumber', guestname: '@guestname'}, 
+					isArray: true 
+				}
+			}),
+			getConfirmed: $resource('rest/guestbooking/startdate/:startdate/enddate/:enddate/search/:search?confirmationnumber=:confirmationnumber&guestname=:guestname', {}, { 
+				query: {
+					method: 'GET', 
+					params: {startdate: '@startdate', enddate: '@enddate', confirmationnumber: '@confirmationnumber', guestname: '@guestname', search: 'true'}, 
+					isArray: true 
+				}
+			}),
+			getPropertyAvailability: $resource('rest/guestbooking/getroomStayData', {}, { 
+				query: {
+					method: 'POST', 
+					isArray: true 
+				}
+			}),
+			createNewReservation: $resource('rest/guestbooking/requestForNewReservation', {}, { 
+				query: {
+					method: 'POST', 
+					isArray: false 
+				}
+			}),
+			getAllRestrictions: $resource('rest/guestbooking/getAllRestrictions/startdate/:startdate/enddate/:enddate', {}, { 
+                query: {
+                    method: 'GET', 
+                    params: {startdate: '@startdate', enddate: '@enddate'}, 
+                    isArray: true 
+                }
+            }),
+            getRoomInventoryInformation: $resource('rest/guestbooking/inventory/startdate/:startdate/enddate/:enddate', {}, { 
+                query: {
+                    method: 'GET', 
+                    params: {startdate: '@startdate', enddate: '@enddate'}, 
+                    isArray: true 
+                }
+            }),
+            getAvailability: $resource('rest/guestbooking/getAvailableData', {}, { 
+				query: {
+					method: 'POST', 
+					isArray: true 
+				}
+			}),
+			getAvailableDataForUpdate: $resource('rest/guestbooking/getAvailableDataForUpdate', {}, { 
+				query: {
+					method: 'POST', 
+					isArray: true 
+				}
+			}),
+			getRoomPolicy: $resource('rest/guestbooking/getRoomPolicy', {}, 
+            		{'query': {
+        	                    method: 'POST', 
+        	                    isArray: false
+                            }
+                    }),
+			
+
+		};
+
+		return this.service;
+});

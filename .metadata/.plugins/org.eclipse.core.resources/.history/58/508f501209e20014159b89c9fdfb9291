@@ -1,0 +1,11 @@
+'use strict';
+
+var app = angular.module('ktrTablet', [
+    // Third party libs declare here
+	  // We going to use ocLazyLoad with ui.router
+    'ui.bootstrap',
+    'ui.tinymce',
+    'ui.event',
+    
+    
+]);
