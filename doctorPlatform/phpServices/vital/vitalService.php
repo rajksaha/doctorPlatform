@@ -10,7 +10,7 @@ $doctorID = $_SESSION['doctorID'];
 $appointmentID = $_SESSION['appointmentID'];
 $patientCode = $_SESSION['patientCode'];
 $date=date("Y-m-d");
-$query_no=  mysql_escape_String($_POST['query']);
+$query_no=  mysql_real_escape_String($_POST['query']);
 
 
 if($query_no== 0){
