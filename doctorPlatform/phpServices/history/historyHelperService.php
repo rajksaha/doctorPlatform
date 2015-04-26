@@ -77,6 +77,8 @@ if($query_no== 0){
 }
 else if($query_no==5){
 	
+	echo "githubTest";
+	
 }else if($query_no==6){
 	
 	
