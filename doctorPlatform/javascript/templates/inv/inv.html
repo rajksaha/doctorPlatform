@@ -1,14 +1,118 @@
-<div>
-    <div class="alert alert-danger alert-dismissable" data-ng-show="error">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true" ng-click="error=false">&times;</button>
-        <strong>Error : </strong>{{errorMessage}}
-    </div>
-    <div class="alert alert-warning alert-dismissable" data-ng-show="warn">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true" ng-click="warn=false">&times;</button>
-        <strong>Warning : </strong>{{warnMessage}}
-    </div>
-    <div class="alert alert-success alert-dismissable" data-ng-show="success">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true" ng-click="success=false">&times;</button>
-        <!-- <strong>Success : </strong> -->{{successMessage}}
-    </div>
+<div class="panel  col-md-12 filter-panel" style="padding-top: 20px">
+		<button class="pull-right btn btn-info" data-ng-click="docTorINVAdder = !docTorINVAdder"><span class="glyphicon glyphicon glyphicon-wrench" aria-hidden="true"></span> Setteing</button>
+		<!-- <button data-ng-show="docTorINVAdder" class="pull-right btn btn-info" data-ng-click="docTorINVAdder = !docTorINVAdder"><span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> ADD INV</button> -->
+</div>
+<section  data-ng-show="docTorINVAdder" class=" contacts row" id="generalInfoContact">
+     <div  class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
+         <div class="panel">	                 
+             <div class="panel-body">
+             	<div class="text-muted form-group">By Name</div>	                    
+                <div class="room-desc">	
+                     <input type="text" data-ng-model="invName" typeahead="invNameData.name for invNameData in getInvName($viewValue)"  class="form-control" placeholder="Add Inv to Setting" typeahead-on-select='onSelectInvName($item, $model, $label)'/>
+                </div>
+             </div>
+         </div>
+     </div>
+     <div  class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
+         <div class="panel">	                 
+             <div class="panel-body">
+             	<div class="text-muted form-group">Action</div>	                    
+                <div class="room-desc">	
+                     <button  data-ng-click="prepareDoctorSettingData()" class="btn btn-primary" > <span class='glyphicon glyphicon glyphicon-plus' aria-hidden='true'></span> Add</button>
+                </div>
+             </div>
+         </div>
+     </div>
+</section>
+
+<div class="panel  col-md-12 filter-panel" style="padding-top: 20px">
+	<div class="list-item col-sm-4 col-md-4 col-lg-4" data-ng-repeat="inv in invSettingData" style="padding-bottom: 10px">
+		<span><button data-ng-click="delINVFromSetting(inv.invSettingID)" class="btn btn-warning"><span class="glyphicons  glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span></button></span>
+		<button class="btn btn-default" data-ng-model="none"   data-ng-click="addORDelINV(!inv.addedToPrescription,inv)">
+			<span class="glyphicon  glyphicon"  data-ng-class="{'glyphicon-check': inv.addedToPrescription == true,'glyphicon-unchecked': inv.addedToPrescription == false}"></span>
+		</button>
+		<span>{{inv.name}}</span>
+	</div>
+</div>
+
+
+<section  class=" contacts row" id="generalInfoContact">
+		         
+      <div  class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
+          <div class="panel" >	                 
+              <div class="panel-body">
+              	<div class="text-muted form-group">Name</div> 
+                  <div class="room-desc">
+						<input type="text" data-ng-model="invAdderData.name" typeahead="invsttingNameData.name for invsttingNameData in getInvNameForMaster($viewValue)"  class="form-control" placeholder="Add Inv to Prescriotion" typeahead-on-select='onSelectInvNameMaster($item, $model, $label)'/>
+                  </div>
+              </div>
+          </div>
+      </div>
+      
+      <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
+          <div class="panel" >	                 
+              <div class="panel-body">
+              	<div class="text-muted form-group">Note</div> 
+                  <div class="room-desc">
+						<input type="text" data-ng-model="invAdderData.note"  class="form-control" placeholder="Note" />
+                  </div>
+              </div>
+          </div>
+      </div>
+      
+           <div  class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
+         <div class="panel">	                 
+             <div class="panel-body">
+             	<div class="text-muted form-group">Action</div>	                    
+                <div class="room-desc">
+                     <button  data-ng-show="!invAdderData.editMode" data-ng-click="prepareInvAdderData(invAdderData)" class="btn btn-success" data-ng-disabled="!invAdderData.name.length"> <span class="glyphicon  glyphicon-floppy-save" aria-hidden="true"></span>Save</button>
+                     <button  data-ng-show="invAdderData.editMode" data-ng-click="prepareInvEditData(invAdderData)" class="btn btn-success" data-ng-disabled="!invAdderData.name.length"> <span class="glyphicon  glyphicon-floppy-save" aria-hidden="true"></span>Save</button>
+                </div>
+             </div>
+         </div>
+     </div>
+</section>
+
+<div class="row geninfo" data-ng-show="!invAdderData.editMode">
+	<div class="col-xs-12">
+		<div class="panel" style="margin-top:20px">  
+			<div class="panel-body" >
+				<div class="text-muted form-group">Appointments <span> <span class="badge pull-right">Total:{{numberOfInvAdded}}</span></span></div>                             
+				<div id="appList" scroller="addMoreItems()">
+					<table id="content-data-list" class="table table-condensed table-bordered">
+						<thead>
+							<tr >
+								<th width="5%"><strong>Sl.</strong></th>
+								<th width="40%"><strong>Inv Name</strong></th>
+								<th width="40%"><strong>Note</strong></th>
+								<th width="15%"><strong>Action</strong></th>									
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="appointment" data-ng-repeat="invData in prescribedInvData" style="height: 50px;cursor: pointer;">
+								<td class="nowrap" >
+									{{$index + 1}}
+								</td>
+									
+								<td >
+									<span>{{invData.invName}}</span>
+								</td>
+								<td >
+									<span>{{invData.note}}</span>
+								</td>
+								<td >
+									<button class="btn btn-primary" data-ng-click="editFromPresciption(invData)">
+										<span class="glyphicon glyphicon-floppy-open" aria-hidden="true"></span>
+									</button>
+									<button class="btn btn-danger" data-ng-click="deleteInvFromPrescibtion(invData.invID)">
+										<span class="glyphicon glyphicon-floppy-remove" aria-hidden="true"></span>
+									</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

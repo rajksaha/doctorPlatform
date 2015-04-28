@@ -91,7 +91,7 @@ app.controller('PrescribeHistoryController', function($scope, $http, $modal, $ro
         	$scope.bringHistoryDetail();
         });
 		
-	}
+	};
 	
 	
 	$scope.bringHistoryDetail = function (){

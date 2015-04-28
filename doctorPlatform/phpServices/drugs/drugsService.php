@@ -164,6 +164,52 @@ else if($query_no==4){
 	$drugPrescribeID = $_POST['drugPrescribeID'];
 	
 	mysql_query("DELETE FROM `drug_prescription` WHERE id='$drugPrescribeID'");
+}elseif ($query_no == 8){
+	
+	$queryString=$_POST['drugName'];
+	$drugType = $_POST['drugType'];
+	
+	$sql ="SELECT d.`drugID`, d.`typeID`, d.`companyID`, d.`drugName`, d.`strength`
+			FROM `drug` d 
+			LEFT JOIN drug_prescription dp  ON d.drugID = dp.drugID AND dp.appointMentID = '$appointmentID' AND  IFNULL(dp.appointMentID , 0)  = 0
+			WHERE d.`drugName` LIKE '" . $queryString . "%' AND d.typeID = '$drugType'
+			LIMIT 10";
+	$result=mysql_query($sql);
+	 $data = array();
+	while ($row=mysql_fetch_array($result)){
+		array_push($data,$row);
+	}
+	echo json_encode($data); 
+}elseif ($query_no == 9){
+	
+	$queryString=$_POST['drugName'];
+	$drugType = $_POST['drugType'];
+	$drugName = "";
+	$drugStr = "";
+	$drugNameStr = explode(",",$queryString);
+	for ($i = 0; $i< sizeof($drugNameStr);$i++){
+		if($i == 0){
+			$drugName = $drugNameStr[$i];
+		}else if($i == 1){
+			$drugStr = $drugNameStr[$i];
+		}
+	}
+	
+	$sql ="INSERT INTO `drug`( `typeID`, `companyID`, `drugName`, `strength`) VALUES ('$drugType',0,'$drugName','$drugStr')";
+	mysql_query($sql);
+	echo mysql_insert_id();
+}elseif ($query_no == 10){
+	
+	$drugID = $_POST['drugID'];
+	
+	$sql ="DELETE FROM `drug` WHERE `drugID` = '$drugID'";
+	mysql_query($sql);
+}elseif ($query_no == 11){
+	
+	$drugID = $_POST['drugID'];
+	$queryString=$_POST['drugName'];
+	$sql ="UPDATE `drug` SET `drugName`='$queryString'  WHERE `drugID` = '$drugID'";
+	mysql_query($sql);
 }
 	
 ?>

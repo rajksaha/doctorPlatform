@@ -2,7 +2,104 @@ app.controller('PrescribeVitalController', function($scope, $http, $modal, $root
 	
 	
 	$scope.vitalData = {};
+	$scope.vitalNameData = {};
 	$scope.prescribedVitalData = [];
+	 $scope.addByName = false;
+	
+	
+    $scope.getVital = function(term) {
+        
+    	var dataString = 'query=5'+ '&name=' + term;
+        
+        return $http({
+            method: 'POST',
+            url: "phpServices/vital/vitalService.php",
+            data: dataString,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).then(function(result) {
+        	$scope.vitalNameData = result.data;
+        	return limitToFilter($scope.vitalNameData, 10);
+        });
+
+        
+       // return $scope.products;
+      };
+      
+	  $scope.onSelectVital = function(item, model, label){
+		  $scope.vitalNameData.vitalId = item.vitalId;
+		  $scope.vitalData.shortName = item.shortName;
+		  $scope.vitalData.unit = item.unit;
+		  $scope.addByName = true;
+	  };
+	  
+	  
+		$scope.addVitalToDoctorPref = function (){
+			
+			if(validator.validateForm("#historySetting","#lblMsg",null)) {
+				
+				
+				if($scope.addByName == false){
+					
+					var dataString = 'query=6'+ '&vitalName=' + $scope.vitalData.vitalName + '&shortName=' + $scope.vitalData.shortName + '&unit=' + $scope.vitalData.unit;
+
+			        $http({
+			            method: 'POST',
+			            url: "phpServices/vital/vitalService.php",
+			            data: dataString,
+			            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+			        }).success(function (result) {
+			        	$scope.addToDoctorPreference(result);
+			        });
+					
+				}else{
+					
+					$scope.addToDoctorPreference($scope.vitalNameData.vitalId);
+				}
+				
+				
+				
+			}else{
+				alert("what");
+			}
+		};
+		
+		$scope.addToDoctorPreference = function (vitalID){
+			
+			$scope.vitalData = {};
+			$scope.vitalNameData = {};
+			 $scope.addByName = false;
+			var vitID = parseInt(vitalID);
+			var displayOrder = 1;
+			if($scope.prescribedVitalData != undefined && $scope.prescribedVitalData.length > 0){
+				displayOrder = parseInt($scope.prescribedVitalData[$scope.prescribedVitalData.length -1].displayOrder) + 1;
+			}
+			
+			var dataString = 'query=7'+ '&vitalID=' + vitID + '&displayOrder=' + displayOrder;
+
+	        $http({
+	            method: 'POST',
+	            url: "phpServices/vital/vitalService.php",
+	            data: dataString,
+	            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+	        }).success(function (result) {
+	        	$scope.bringVitalDetail();
+	        });
+			
+		};
+		
+		$scope.deleteVitalFromSetting = function (vitalSettingID){
+			
+			var dataString = 'query=8'+ '&vitalSettingID=' + vitalSettingID;
+
+	        $http({
+	            method: 'POST',
+	            url: "phpServices/vital/vitalService.php",
+	            data: dataString,
+	            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+	        }).success(function (result) {
+	        	$scope.bringVitalDetail();
+	        });
+		};
 	
 	$scope.bringVitalDetail = function (){
 		
@@ -81,7 +178,7 @@ app.controller('PrescribeVitalController', function($scope, $http, $modal, $root
 	$scope.saveVital = function(prescribedVital){
 		
 		angular.forEach(prescribedVital, function(value, key) {
-			if(value.prescribedVitalID && value.vitalResult){
+			if(parseInt(value.prescribedVitalID) > 0 && value.vitalResult){ // update
 				var dataString = 'query=4'+ '&vitalID=' + value.vitalId + '&vitalResult=' + value.vitalResult ;
 		        $http({
 		            method: 'POST',
@@ -90,8 +187,18 @@ app.controller('PrescribeVitalController', function($scope, $http, $modal, $root
 		            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 		        }).success(function (result) {
 		        });
-			}else if(value.vitalResult){
+			}else if(!(parseInt(value.prescribedVitalID) > 0) &&  value.vitalResult){// inssert
 				var dataString = 'query=3'+ '&vitalID=' + value.vitalId + '&vitalResult=' + value.vitalResult ;
+		        $http({
+		            method: 'POST',
+		            url: "phpServices/vital/vitalService.php",
+		            data: dataString,
+		            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+		        }).success(function (result) {
+		        });
+			}else if(parseInt(value.prescribedVitalID) > 0 && value.vitalResult == ""){
+				
+				var dataString = 'query=9'+ '&prescribedVitalID=' + value.prescribedVitalID;
 		        $http({
 		            method: 'POST',
 		            url: "phpServices/vital/vitalService.php",

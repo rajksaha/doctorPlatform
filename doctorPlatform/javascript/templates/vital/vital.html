@@ -5,8 +5,7 @@
 		                 	
 		                    <div class="room-desc  form-group" >
 		                    	<label for="inputName">Vital Name</label>
-		                         <input type="text" data-ng-model="vitalData.vitalName" typeahead="patients.name for patients in getPatients($viewValue)"  class="form-control" placeholder="Search Patients" typeahead-on-select='onSelectPatient($item, $model, $label)'/>
-		                         <button data-ng-show="addByName" data-ng-click="addAppByName">Add</button>
+		                         <input type="text" data-ng-model="vitalData.vitalName" typeahead="vitalNameData.vitalName for vitalNameData in getVital($viewValue)"  class="form-control" placeholder="Add vital to your settings" typeahead-on-select='onSelectVital($item, $model, $label)'/>
 		                         
 		                    </div>
 		                 </div>
@@ -35,7 +34,7 @@
 		             </div>
 		         </div>
 		
-		<button class="pull-right">ADD to List</button>
+		<button class="pull-right" data-ng-click="addVitalToDoctorPref()">ADD to List</button>
 </div>
 
 			<div class="row geninfo">
@@ -48,6 +47,7 @@
 										<table>
 											<tbody>
 												<tr>
+													<td><button data-ng-click="deleteVitalFromSetting(vital.vitalSettingID)" >X</button> </td>
 													<td>{{vital.vitalName}}</td>
 													<td><input type="text" data-ng-model="vital.vitalResult"><button data-ng-click="bringVitalOption(vital)">+</button></td>
 													<td>

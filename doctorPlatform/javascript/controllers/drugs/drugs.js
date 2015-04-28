@@ -11,6 +11,9 @@ app.controller('PrescribeDrugsController', function($scope, $http, $modal, $root
 	$scope.drugData = {};
 	$scope.drugPeriodicDoseList = [];
 	$scope.enteredDrugDoseList = [];
+	$scope.addByName = false;
+	
+	$scope.drugNameList = {};
 	
 	$scope.initializeDrugData = function (drugType, selIndexTimeADay, selIndexNumfDay){
 		
@@ -174,10 +177,11 @@ app.controller('PrescribeDrugsController', function($scope, $http, $modal, $root
 		
 	};
 	
-	$scope.saveDrug = function() {
+	$scope.prepareDrugSaveData = function(drugID){
+		
 		var drugType = $scope.drugData.drugType.id;
-		var drugID = 3;
-		//var drugID = $scope.drugData.drugnameData.drugID;
+		var drugID =  parseInt(drugID);
+		
 		var drugTime = $scope.drugData.timesADay.code;
 		var drugDose = "";
 		if(drugTime > 0){
@@ -235,6 +239,60 @@ app.controller('PrescribeDrugsController', function($scope, $http, $modal, $root
         });
 	};
 	
+	$scope.saveDrug = function() {
+		
+		if(!$scope.addByName){
+			
+			var dataString = "query=9" + '&drugName=' + $scope.drugName + '&drugType=' + $scope.drugData.drugType.id;
+
+	        $http({
+	            method: 'POST',
+	            url: "phpServices/drugs/drugsService.php",
+	            data: dataString,
+	            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+	        }).success(function (result) {
+	        	$scope.prepareDrugSaveData(result);
+	        	
+	        });
+	        
+		}else{
+			$scope.prepareDrugSaveData($scope.drugData.drugID);
+		}
+		
+	};
+	
+	$scope.deleteDrugFromDB = function(){
+		
+		var dataString = "query=10" + '&drugID=' + $scope.drugData.drugID;
+
+        $http({
+            method: 'POST',
+            url: "phpServices/drugs/drugsService.php",
+            data: dataString,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (result) {
+        	$scope.bringPresCribedDrugs();
+        	
+        });
+		
+	};
+	
+	$scope.editDrugName = function(){
+		
+        
+        var dataString = "query=11" + '&drugID=' + $scope.drugData.drugID + '&drugName=' + $scope.drugName;
+
+        $http({
+            method: 'POST',
+            url: "phpServices/drugs/drugsService.php",
+            data: dataString,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (result) {
+        	$scope.bringPresCribedDrugs();
+        	
+        });
+	};
+	
 	
 	// listView Code starts
 	
@@ -245,6 +303,7 @@ app.controller('PrescribeDrugsController', function($scope, $http, $modal, $root
 		
 		$scope.drugData = {};
 		$scope.drugData.addMood = false;
+		$scope.drugName = drugData.drugName;
 		$scope.drugData.drugPrescribeID = drugData.id;
 		$scope.enteredDrugDoseList = drugData.drugDose.split(' - ')
 		$scope.bringdrugsType(false,drugData.drugTypeID,drugData.drugTimeID, drugData.drugNoOfDay);
@@ -284,7 +343,10 @@ app.controller('PrescribeDrugsController', function($scope, $http, $modal, $root
         	$scope.numberOfPrescribedDrugs = $scope.prescribedDrugList.length;
         	
         	//call for reset to AddMode
+        	$scope.drugName = "";
         	$scope.drugData.addMood = true; 
+        	$scope.drugData.delDrug = false;
+  		  	$scope.drugData.editName = false;
         	$scope.bringdrugsType(true, null, 3, 7);
     		$scope.bringdrugsDayType(true , null);
     		$scope.bringdrugsWhatType(true, null);
@@ -292,6 +354,31 @@ app.controller('PrescribeDrugsController', function($scope, $http, $modal, $root
         	
         });
 	};
+	
+    $scope.getDrugName = function(term) {
+        
+    	var dataString = 'query=8'+ '&drugName=' + term + '&drugType=' + $scope.drugData.drugType.id;
+        
+        return $http({
+            method: 'POST',
+            url: "phpServices/drugs/drugsService.php",
+            data: dataString,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).then(function(result) {
+        	$scope.drugNameList = result.data;
+        	return limitToFilter($scope.drugNameList, 10);
+        });
+
+        
+       // return $scope.products;
+      };
+      
+	  $scope.onSelectDrugName = function(item, model, label){
+		  $scope.drugData.drugID = item.drugID;
+		  $scope.addByName = true;
+		  $scope.drugData.delDrug = true;
+		  $scope.drugData.editName = true;
+	  };
 	
 	
 	(function(){

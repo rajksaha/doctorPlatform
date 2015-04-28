@@ -7,6 +7,7 @@ app.controller('AppointmentController', function($scope, $http, $modal, $rootSco
  	$scope.doctorData = {};
  	$scope.followUpSearch = false;
  	$scope.patientName = "";
+ 	$scope.addAppointMentData = {};
  	
  	
     $scope.bringDoctorInfo = function (){
@@ -25,6 +26,10 @@ app.controller('AppointmentController', function($scope, $http, $modal, $rootSco
     };
     
     $scope.bringAppointment = function (){
+    	
+    	$scope.followUpSearch = false;
+    	$scope.patientName = "";
+    	$scope.addByName = false;
     	
         var dataString = "query=1";
 
@@ -127,10 +132,34 @@ app.controller('AppointmentController', function($scope, $http, $modal, $rootSco
        // return $scope.products;
       };
       
-      $scope.onSelectPatient = function(item, model, label){
-    	  alert(item.phone);
+      $scope.onSelectNamePatient = function(item, model, label){
+    	  $scope.addAppointMentData.patientCode = item.patientCode;
     	  $scope.addByName = true;
       };
+      
+      $scope.onSelectPhonePatient = function(item, model, label){
+    	  $scope.addAppointMentData.patientCode = item.patientCode;
+    	  $scope.addByPhone = true;
+      };
+      
+      $scope.onSelectIDPatient = function(item, model, label){
+    	  $scope.addAppointMentData.patientCode = item.patientCode;
+    	  $scope.addByID = true;
+      };
+      
+     $scope.addAppFollowUP  = function (){
+    	 
+    	 var  dataString='doctorCode='+ $scope.doctorData.doctorCode +'&patientCode='+  $scope.addAppointMentData.patientCode +'&doctorID='+ $scope.doctorData.doctorID +'&query='+3;
+         
+          $http({
+             method: 'POST',
+             url: "phpServices/appointment/appointmentHelper.php",
+             data: dataString,
+             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+         }).then(function(result) {
+        	 $scope.bringAppointment();
+         });
+     };
     
 
 	

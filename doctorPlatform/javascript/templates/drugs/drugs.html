@@ -22,9 +22,9 @@
 		                             	</select>
 		                             </td>
 		                             <td>
-		                             	<input type="text" data-ng-model="patientName" typeahead="patients.name for patients in getPatients($viewValue)"  class="form-control" placeholder="Search Patients" typeahead-on-select='onSelectPatient($item, $model, $label)'/>
+		                             	<input type="text" data-ng-model="drugName" typeahead="drugNameList.drugName for drugNameList in getDrugName($viewValue)"  class="form-control" placeholder="Add Drugs" typeahead-on-select='onSelectDrugName($item, $model, $label)'/>
 		                             	<button data-ng-show="drugData.delDrug" data-ng-click="deleteDrugFromDB()">Delete</button>
-		                             	<button data-ng-show="drugData.delEdit" data-ng-click="editDrugName()">Edit</button>
+		                             	<button data-ng-show="drugData.editName" data-ng-click="editDrugName()">Edit</button>
 		                             </td>
 		                             <td>
 		                             	<select size="10"data-ng-model="drugData.timesADay" data-ng-options="drugTime.name for drugTime in drugtimesADay" data-ng-change="fixDose(drugData.timesADay,drugData.drugType,0)" >
@@ -101,7 +101,7 @@
 		                             		</select>
 										</td>
 										<td>
-											<button data-ng-click="saveDrug()">Save</button>
+											<button data-ng-click="saveDrug()" data-ng-disabled="drugName.length < 2">Save</button>
 										</td>
 									</tr>
 		                        </tbody>

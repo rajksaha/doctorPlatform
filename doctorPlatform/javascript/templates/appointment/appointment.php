@@ -15,7 +15,8 @@
 		                 	<div class="text-muted form-group">By ID</div>
 		                    <div class="room-desc form-group m-b-0" id="the-basics" >	
 		                         <label for="inputName">ID </label>
-		                         <input type="text" class="form-control input-sm typeahead" data-ng-model="followUpSearch.p_id" maxlength="45" />
+		                         <input type="text" data-ng-model="patientCode" typeahead="patients.patientCode for patients in getPatients($viewValue)"  class="form-control" placeholder="Search Patients" typeahead-on-select='onSelectIDPatient($item, $model, $label)'/>
+		                         <button data-ng-show="addByID" data-ng-click="addAppFollowUP()">Add</button>
 		                    </div>
 		                               
 		                 </div>
@@ -28,8 +29,8 @@
 		                 	<div class="text-muted form-group">By Name</div>	                    
 		                    <div class="room-desc">	
 		                         <label for="inputName"> Name</label>
-		                         <input type="text" data-ng-model="patientName" typeahead="patients.name for patients in getPatients($viewValue)"  class="form-control" placeholder="Search Patients" typeahead-on-select='onSelectPatient($item, $model, $label)'/>
-		                         <button data-ng-show="addByName" data-ng-click="addAppByName">Add</button>
+		                         <input type="text" data-ng-model="patientName" typeahead="patients.name for patients in getPatients($viewValue)"  class="form-control" placeholder="Search Patients" typeahead-on-select='onSelectNamePatient($item, $model, $label)'/>
+		                         <button data-ng-show="addByName" data-ng-click="addAppFollowUP()">Add</button>
 		                    </div>
 		                 </div>
 		             </div>
@@ -41,7 +42,8 @@
 		                 	<div class="text-muted form-group">By Phone</div> 
 		                     <div class="room-desc form-group">
 		                     	<label for="inputName">Phone</label>
-								<input type="text" class="form-control input-sm phnnr" data-ng-model="followUpSearch.nid" maxlength="16" placeholder="{{placeholder.reservation}}" errmsg="Please enter valid reservations phone number"/>
+								<input type="text" data-ng-model="patientPhone" typeahead="patients.phone for patients in getPatients($viewValue)"  class="form-control" placeholder="Search Patients" typeahead-on-select='onSelectPhonePatient($item, $model, $label)'/>
+								<button data-ng-show="addByPhone" data-ng-click="addAppFollowUP()">Add</button>
 		                     </div>
 		                 </div>
 		             </div>

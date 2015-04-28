@@ -14,7 +14,7 @@ $query_no=  mysql_real_escape_String($_POST['query']);
 
 
 if($query_no== 0){
-	$sql = "SELECT v.`vitalId` , v.`vitalName` , v.`shortName` , v.`vitalUnit` , vp.vitalResult, vp.id AS prescribedVitalID
+	$sql = "SELECT v.`vitalId` , v.`vitalName` , v.`shortName` , v.`vitalUnit` , vp.vitalResult, vp.id AS prescribedVitalID, dvs.displayOrder, dvs.id AS vitalSettingID
 			FROM `vital` v
 			JOIN `doctor_vital_settings` dvs ON v.vitalID = dvs.vitalID
 			LEFT JOIN vital_prescription vp ON v.vitalID = vp.vitalID AND vp.appointMentID ='$appointmentID'
@@ -69,13 +69,43 @@ if($query_no== 0){
 }
 else if($query_no==5){
 	
+	$result = mysql_query("SELECT v.`vitalId` , v.`vitalName` , v.`shortName` , v.`vitalUnit`, IFNULL(dvs.doctorID, 0) AS inDoctor
+								FROM `vital` v
+								LEFT JOIN doctor_vital_settings dvs ON v.vitalId = dvs.vitalID AND dvs.doctorID = '$doctorID'
+						WHERE 1 = 1 AND  IFNULL(dvs.doctorID, 0) = 0");
+	
+	$data = array();
+	while ($row=mysql_fetch_array($result)){
+		array_push($data,$row);
+	}
+	
+	echo json_encode($data);
+	
 }else if($query_no==6){
 	
+	$vitalName = $_POST['vitalName'];
+	$shortName = $_POST['shortName'];
+	$unit = $_POST['unit'];
+	
+	$sql =  mysql_query("INSERT INTO `vital`(`vitalName`, `shortName`, `vitalUnit`) VALUES ('$vitalName','$shortName','$unit')");
+	
+	echo mysql_insert_id();
 	
 }elseif ($query_no == 7){
-	$drugPrescribeID = $_POST['drugPrescribeID'];
+	$vitalID = $_POST['vitalID'];
+	$displayOrder = $_POST['displayOrder'];
 	
-	mysql_query("DELETE FROM `drug_prescription` WHERE id='$drugPrescribeID'");
+	mysql_query("INSERT INTO `doctor_vital_settings`( `doctorID`, `vitalID`, `displayOrder`) VALUES ('$doctorID','$vitalID','$displayOrder')");
+	 echo  true;
+}elseif ($query_no == 9){
+	
+	$prescribedVitalID = $_POST['prescribedVitalID'];
+	$sql = mysql_query("DELETE FROM `vital_prescription` WHERE `id` = '$prescribedVitalID'");
+}elseif ($query_no == 8){
+	
+	$vitalSettingID = $_POST['vitalSettingID'];
+	$sql = mysql_query("DELETE FROM `doctor_vital_settings` WHERE `id` = '$vitalSettingID'");
+	
 }
 	
 ?>
