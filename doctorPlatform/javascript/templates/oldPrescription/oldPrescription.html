@@ -1,0 +1,167 @@
+<div class="row geninfo" data-ng-show="!showPrescriptionView">
+	<div class="col-xs-12">
+		<div class="panel" style="margin-top:20px">  
+			<div class="panel-body" >
+				<div class="text-muted form-group">Old Prescriptions <span> <span class="badge pull-right">Total:{{numberOfPrescription}}</span></span></div>                             
+				<div id="appList" scroller="addMoreItems()">
+					<table id="content-data-list" class="table table-condensed table-bordered">
+						<thead>
+							<tr >
+								<th width="10%"><strong>Sl.</strong></th>
+								<th width="80%"><strong>Patient</strong></th>	
+								<th width="10%"><strong>Acion</strong></th>								
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="appointment" data-ng-repeat="data in oldAppoinmentList" style="height: 50px;cursor: pointer;">
+								<td class="nowrap" >
+									{{$index + 1}}
+								</td>
+									
+								<td >
+									<span>{{data.date}}</span>
+								</td>
+								<td>
+									<button class="pull-right btn btn-info" data-ng-click="viewPrescription(data)"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> View</button>
+								</td>
+								
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row clearfix" data-ng-show="showPrescriptionView">
+	    <div class="panel panel-primary col-md-12 keyPanelColor panel2">
+	    	<div class="row">
+	    		<div class="col-md-4">
+	    			    			<table id="" class="table">
+    				<tr data-ng-show="prescribedComplainData.length > 0"><td><a href="#/complain" >C.C</a></td><td>&nbsp;</td><td>&nbsp;</td></tr>
+    				<tr data-ng-repeat="copmplainData in prescribedComplainData" >
+    					<td>
+    						<button class="btn btn-default" data-ng-model="none"   data-ng-click="addORDelINV(!inv.addedToPrescription,inv)">
+								<span class="glyphicon  glyphicon"  data-ng-class="{'glyphicon-check': inv.addedToPrescription == true,'glyphicon-unchecked': !copmplainData.addedToPrescription}"></span>
+							</button>
+    					</td>
+    					<td>
+    						<span>{{copmplainData.symptomName}}</span>
+						</td>
+						<td >
+							<span>{{copmplainData.durationNum}} {{copmplainData.durationType}}</span>
+						</td>
+					</tr>
+					<tr data-ng-show="prescribedMHData.length > 0"><td><a href="#/history" >M.H</a></td><td></td><td>&nbsp;</td></tr>
+    				<tr data-ng-repeat="data in prescribedMHData" >
+    					<td>
+    						<button class="btn btn-default" data-ng-model="none"   data-ng-click="addORDelINV(!inv.addedToPrescription,inv)">
+								<span class="glyphicon  glyphicon"  data-ng-class="{'glyphicon-check': inv.addedToPrescription == true,'glyphicon-unchecked': !data.addedToPrescription}"></span>
+							</button>
+    					</td>
+    					<td>
+    						<span>{{data.historyName}}</span>
+						</td>
+						<td >
+							<span>{{data.historyResult}}</span>
+						</td>
+					</tr>
+					<tr data-ng-show="prescribedOBSData.length > 0"><td><a href="#/obsHistory">OBS History</a></td><td></td><td></td></tr>
+    				<tr data-ng-repeat="data in prescribedOBSData" >
+    					<td>
+    						<button class="btn btn-default" data-ng-model="none"   data-ng-click="addORDelINV(!inv.addedToPrescription,inv)">
+								<span class="glyphicon  glyphicon"  data-ng-class="{'glyphicon-check': inv.addedToPrescription == true,'glyphicon-unchecked': !data.addedToPrescription}"></span>
+							</button>
+    					</td>
+    					<td>
+    						<span>{{data.historyName}}</span>
+						</td>
+						<td >
+							<span>{{data.historyResult}}</span>
+						</td>
+					</tr>
+					<tr data-ng-show="prescribedVitalData.length > 0"><td><a href="#/vital" data-ng-show="prescribedVitalData.length > 0">O.E</a></td><td></td><td></td></tr>
+    				<tr data-ng-repeat="vitalData in prescribedVitalData" >
+    					<td>
+    						<button class="btn btn-default" data-ng-model="none"   data-ng-click="addORDelINV(!inv.addedToPrescription,inv)">
+								<span class="glyphicon  glyphicon"  data-ng-class="{'glyphicon-check': inv.addedToPrescription == true,'glyphicon-unchecked': !invData.addedToPrescription}"></span>
+							</button>
+    					</td>
+    					<td>
+    						<span>{{vitalData.vitalDisplayName}}</span>
+						</td>
+						<td >
+							<span>{{vitalData.vitalResult}}</span>
+						</td>
+					</tr>
+					<tr data-ng-show="prescribedInvData.length > 0"><td><a href="#/inv" data-ng-show="prescribedInvData.length > 0">INV</a></td><td></td></tr>
+    				<tr data-ng-repeat="invData in prescribedInvData" >
+						<td>
+    						<button class="btn btn-default" data-ng-model="none"   data-ng-click="addORDelINV(!inv.addedToPrescription,inv)">
+								<span class="glyphicon  glyphicon"  data-ng-class="{'glyphicon-check': inv.addedToPrescription == true,'glyphicon-unchecked': !invData.addedToPrescription}"></span>
+							</button>
+    					</td>
+    					<td>
+    						<span>{{invData.invName}}</span>
+						</td>
+						<td >
+							<span>&nbsp;</span>
+						</td>
+					</tr>
+    			</table>
+			</div>
+	    		
+	    		<div class="col-md-6">
+	    			<a href="#/drugs">RX</a>
+					<table id="content-data-list" class="table">
+						<tbody>
+							<tr class="appointment" data-ng-repeat="drugPres in prescribedDrugList" style="height: 50px;cursor: pointer;">
+								<td class="nowrap" >
+									{{$index + 1}}.
+								</td>
+												
+								<td >
+									<span>{{drugPres.typeInitial}}. {{drugPres.drugName}} </span>
+								</td>
+								<td  >
+									<span>{{drugPres.drugDose}}</span>
+								</td>
+								<td ng-if="drugPres.drugNoOfDay > 0">
+									<span>{{drugPres.drugNoOfDay}} -  {{drugPres.dayTypeName}}</span>
+								</td>
+								<td ng-if="drugPres.drugNoOfDay < 1">
+									<span>{{drugPres.dayTypeName}}</span>
+								</td>
+								<td  >
+									<span>{{drugPres.whenTypeName}}</span>
+								</td>
+								<td  >
+									<span>{{drugPres.adviceTypeName}}</span>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					
+					<a href="#/advice" data-ng-show="prescribedAdviceData.length > 0">Advice</a>
+	    			
+						<table id="" class="table">
+							<tbody>
+								<tr data-ng-repeat="adiviceData in prescribedAdviceData" style="height:50px;">
+									<td >
+										<span>{{adiviceData.advice}}</span>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+	    			
+	    		</div>
+	    		<div class="col-md-2">
+	    			<button class="btn btn-danger pull-right" data-ng-click="showPrescriptionView = fasle;">
+    					<span class="glyphicon glyphicon-eye-close" aria-hidden="true"> Close</span>
+    				</button>
+	    		</div>
+	    	</div>
+	    	    </div>
+	
+	</div>

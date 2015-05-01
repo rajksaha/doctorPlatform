@@ -151,4 +151,16 @@ function getPrescribedReffredDoctor($appointmentID){
 	return $result;
 
 }
+
+function getPatientOldPrecription($appointmentID, $patientID, $doctorCode){
+	$sql = "SELECT app.`appointmentID`, app.`doctorCode`, app.`patientCode`, app.`date`, app.`time`, app.`status`, app.`appointmentType`, app.`addedBy`, p.patientID, p.name
+			FROM `appointment` app
+			JOIN patient p ON app.patientCode = p.patientCode
+			WHERE p.patientID = '$patientID' AND app.doctorCode = '$doctorCode' AND app.appointmentID <> '$appointmentID'
+			ORDER BY app.date DESC";
+	
+	$result=mysql_query($sql);
+	
+	return $result;
+}
 ?>

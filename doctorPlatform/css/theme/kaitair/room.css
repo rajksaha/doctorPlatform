@@ -476,6 +476,7 @@ p.fourtabs {
 .step2Width{width: 600px;}
 .step3Width{width:600px;}
 .step4Width{width:600px;}
+.bigModal{width:80%!important;}
 .finalStepWidth{width:80%!important;}
 
 .modalGuestBookingSearch .modal-dialog {

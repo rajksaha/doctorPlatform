@@ -536,4 +536,7 @@ label.link-path:hover {
 .subContainer {
     padding: 1em;
 }
+.bigModal {
+	width: 80%;
+}
 	

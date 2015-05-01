@@ -290,6 +290,27 @@ app.config(function($stateProvider, $urlRouterProvider, $compileProvider, $contr
             }
         };
     
+    var oldPrescription = {
+            name : 'root.oldPrescription',
+            url : '/oldPrescription',
+            views : {
+                'container@' : {
+                    templateUrl : 'javascript/templates/oldPrescription/oldPrescription.html',
+                    controller : 'OldPrescriptionController'
+                }
+            },
+            resolve : {
+                loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+                  // you can lazy load files for an existing module
+                  return $ocLazyLoad.load(
+                    {
+                      name: 'ktrTablet',
+                      files: ['javascript/controllers/oldPrescription/oldPrescription.js' ]
+                    });
+                  }]
+            }
+        };
+    
     
 	
 	
@@ -305,6 +326,7 @@ app.config(function($stateProvider, $urlRouterProvider, $compileProvider, $contr
         .state(history)
         .state(obsHistory)
         .state(advice)
+        .state(oldPrescription)
     	.state(appointment);
     
 

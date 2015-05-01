@@ -50,129 +50,109 @@
     <div class="panel panel-primary col-md-10 keyPanelColor panel2">
     	<div class="row">
     		<div class="col-md-4">
-    			<a href="#/complain" data-ng-show="prescribedComplainData.length > 0">C.C</a>
     			<table id="" class="table">
-					<tbody>
-						<tr data-ng-repeat="copmplainData in prescribedComplainData" style="height:50px;">
-							<td >
-								<span>{{copmplainData.symptomName}}</span>
-							</td>
-							<td >
-								<span>{{copmplainData.durationNum}} {{copmplainData.durationType}}</span>
-							</td>
-							<td >
-								<span>
-									<a class="btn btn-danger btn-sm btnLanier"
-						                  ktr-confirmation="deleteInvFromPrescibtion(item)" 
-						                  confirmation-message="Are you sure to remove?"
-						                  confirmation-title="Confirmation"
-						                  item="copmplainData.id">
-						                  <span class="glyphicons glyphicon glyphicon-trash" aria-hidden="true"></span>
-									</a>
-								</span>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-				
-				<a href="#/history" data-ng-show="prescribedMHData.length > 0">M.H</a>
-    			<table id="" class="table">
-					<tbody>
-						<tr data-ng-repeat="data in prescribedMHData" style="height:50px;">
-							<td >
-								<span>{{data.historyName}}</span>
-							</td>
-							<td >
-								<span>{{data.historyResult}}</span>
-							</td>
-							<td >
-								<span>
-									<a class="btn btn-danger btn-sm btnLanier"
-						                  ktr-confirmation="deleteInvFromPrescibtion(item)" 
-						                  confirmation-message="Are you sure to remove?"
-						                  confirmation-title="Confirmation"
-						                  item="data.id">
-						                  <span class="glyphicons glyphicon glyphicon-trash" aria-hidden="true"></span>
-									</a>
-								</span>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-				
-				<a href="#/obsHistory" data-ng-show="prescribedOBSData.length > 0">OBS History</a>
-    			<table id="" class="table">
-					<tbody>
-						<tr data-ng-repeat="data in prescribedOBSData" style="height:50px;">
-							<td >
-								<span>{{data.historyName}}</span>
-							</td>
-							<td >
-								<span>{{data.historyResult}}</span>
-							</td>
-							<td >
-								<span>
-									<a class="btn btn-danger btn-sm btnLanier"
-						                  ktr-confirmation="deleteInvFromPrescibtion(item)" 
-						                  confirmation-message="Are you sure to remove?"
-						                  confirmation-title="Confirmation"
-						                  item="data.id">
-						                  <span class="glyphicons glyphicon glyphicon-trash" aria-hidden="true"></span>
-									</a>
-								</span>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-				
-    			<a href="#/vital" data-ng-show="prescribedVitalData.length > 0">O.E</a>
-    			
-    			<table id="" class="table">
-					<tbody>
-						<tr data-ng-repeat="vitalData in prescribedVitalData" style="height:50px;">
-							<td >
-								<span>{{vitalData.vitalDisplayName}}</span>
-							</td>
-							<td >
-								<span>{{vitalData.vitalResult}}</span>
-							</td>
-							<td >
-								<span>
-									<a class="btn btn-danger btn-sm btnLanier"
-						                  ktr-confirmation="deleteInvFromPrescibtion(item)" 
-						                  confirmation-message="Are you sure to remove?"
-						                  confirmation-title="Confirmation"
-						                  item="vitalData.id">
-						                  <span class="glyphicons glyphicon glyphicon-trash" aria-hidden="true"></span>
-									</a>
-								</span>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-					
-    			<a href="#/inv" data-ng-show="prescribedInvData.length > 0">INV</a>
-    			
-					<table id="" class="table">
-						<tbody>
-							<tr data-ng-repeat="invData in prescribedInvData" style="height:50px;">
-								<td >
-									<span>{{invData.invName}}</span>
-								</td>
-								<td >
-									<span>
-										<a class="btn btn-danger btn-sm btnLanier"
-							                  ktr-confirmation="deleteInvFromPrescibtion(item)" 
-							                  confirmation-message="Are you sure to remove?"
-							                  confirmation-title="Confirmation"
-							                  item="invData.invID">
-							                  <span class="glyphicons glyphicon glyphicon-trash" aria-hidden="true"></span>
-										</a>
-									</span>
-								</td>
-							</tr>
-						</tbody>
-					</table>
+    				<tr data-ng-show="prescribedComplainData.length > 0"><td><a href="#/complain" >C.C</a></td><td>&nbsp;</td><td>&nbsp;</td></tr>
+    				<tr data-ng-repeat="copmplainData in prescribedComplainData" >
+    					<td>
+    						<span>{{copmplainData.symptomName}}</span>
+						</td>
+						<td >
+							<span>{{copmplainData.durationNum}} {{copmplainData.durationType}}</span>
+						</td>
+						<td >
+							<span>
+								<a class="btn btn-danger btn-sm btnLanier"
+					                  ktr-confirmation="deleteInvFromPrescibtion(item)" 
+					                  confirmation-message="Are you sure to remove?"
+					                  confirmation-title="Confirmation"
+					                  item="copmplainData.id">
+					                  <span class="glyphicons glyphicon glyphicon-trash" aria-hidden="true"></span>
+								</a>
+							</span>
+						</td>
+					</tr>
+					<tr data-ng-show="prescribedMHData.length > 0"><td><a href="#/history" >M.H</a></td><td></td><td></td></tr>
+    				<tr data-ng-repeat="data in prescribedMHData" >
+    					<td>
+    						<span>{{data.historyName}}</span>
+						</td>
+						<td >
+							<span>{{data.historyResult}}</span>
+						</td>
+						<td >
+							<span>
+								<a class="btn btn-danger btn-sm btnLanier"
+					                  ktr-confirmation="deleteInvFromPrescibtion(item)" 
+					                  confirmation-message="Are you sure to remove?"
+					                  confirmation-title="Confirmation"
+					                  item="data.id">
+					                  <span class="glyphicons glyphicon glyphicon-trash" aria-hidden="true"></span>
+								</a>
+							</span>
+						</td>
+					</tr>
+					<tr data-ng-show="prescribedOBSData.length > 0"><td><a href="#/obsHistory">OBS History</a></td><td></td><td></td></tr>
+    				<tr data-ng-repeat="data in prescribedOBSData" >
+    					<td>
+    						<span>{{data.historyName}}</span>
+						</td>
+						<td >
+							<span>{{data.historyResult}}</span>
+						</td>
+						<td >
+							<span>
+								<a class="btn btn-danger btn-sm btnLanier"
+					                  ktr-confirmation="deleteInvFromPrescibtion(item)" 
+					                  confirmation-message="Are you sure to remove?"
+					                  confirmation-title="Confirmation"
+					                  item="data.id">
+					                  <span class="glyphicons glyphicon glyphicon-trash" aria-hidden="true"></span>
+								</a>
+							</span>
+						</td>
+					</tr>
+					<tr data-ng-show="prescribedVitalData.length > 0"><td><a href="#/vital" data-ng-show="prescribedVitalData.length > 0">O.E</a></td><td></td><td></td></tr>
+    				<tr data-ng-repeat="vitalData in prescribedVitalData" >
+    					<td>
+    						<span>{{vitalData.vitalDisplayName}}</span>
+						</td>
+						<td >
+							<span>{{vitalData.vitalResult}}</span>
+						</td>
+						<td >
+							<span>
+								<a class="btn btn-danger btn-sm btnLanier"
+					                  ktr-confirmation="deleteInvFromPrescibtion(item)" 
+					                  confirmation-message="Are you sure to remove?"
+					                  confirmation-title="Confirmation"
+					                  item="vitalData.id">
+					                  <span class="glyphicons glyphicon glyphicon-trash" aria-hidden="true"></span>
+								</a>
+							</span>
+						</td>
+					</tr>
+					<tr data-ng-show="prescribedInvData.length > 0"><td><a href="#/inv" data-ng-show="prescribedInvData.length > 0">INV</a></td><td></td><td></td></tr>
+    				<tr data-ng-repeat="invData in prescribedInvData" >
+    					<td>
+    						<span>{{invData.invName}}</span>
+						</td>
+						<td >
+							<span>&nbsp;</span>
+						</td>
+						<td >
+							<span>
+								<a class="btn btn-danger btn-sm btnLanier"
+					                  ktr-confirmation="deleteInvFromPrescibtion(item)" 
+					                  confirmation-message="Are you sure to remove?"
+					                  confirmation-title="Confirmation"
+					                  item="invData.invID">
+					                  <span class="glyphicons glyphicon glyphicon-trash" aria-hidden="true"></span>
+								</a>
+							</span>
+						</td>
+					</tr>
+    			</table>
+
     		</div>
     		
     		<div class="col-md-6">
