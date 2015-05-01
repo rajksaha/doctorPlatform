@@ -2,6 +2,8 @@
 
 session_start();
 include('../config.inc');
+include('../commonServices/prescriptionService.php');
+
 if (!isset($_SESSION['username'])) {
 	header('Location: index.php');
 }
@@ -110,23 +112,11 @@ if($query_no== 1){
 }
 else if($query_no==4){
 	
-	$sql = "SELECT  
-			dp.id, dp.appointMentID, dp.drugTypeID, dp.drugID, dp.drugTimeID, dp.drugDose, dp.drugDoseUnit, dp.drugNoOfDay, dp.drugDayTypeID, dp.drugWhenID, dp.drugAdviceID, dt.initial AS typeInitial, d.drugName AS drugName, d.strength AS drugStrength, ddt.bangla AS dayTypeName, dwt.bangla AS whenTypeName, dat.bangla AS adviceTypeName
-			FROM drug_prescription dp 
-				JOIN drugtype dt ON dp.drugTypeID = dt.id
-				JOIN drug d ON dp.drugID = d.drugID
-				JOIN drugdaytype ddt ON dp.drugDayTypeID = ddt.id
-				JOIN drugwhentype dwt ON dp.drugWhenID = dwt.id
-				JOIN drugadvicetype dat ON dp.drugAdviceID = dat.id
-			WHERE dp.appointMentID = '$appointmentID'";
-	
-	$result=mysql_query($sql);
-	
+	$result = getPresCribedDrugs($appointmentID);
 	$data = array();
 	while ($row=mysql_fetch_array($result)){
 		array_push($data,$row);
 	}
-	
 	echo json_encode($data);
             
 	

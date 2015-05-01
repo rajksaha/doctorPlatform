@@ -2,13 +2,17 @@
 
 session_start();
 include('../config.inc');
+include('../commonServices/appointmentService.php');
 if (!isset($_SESSION['username'])) {
 	header('Location: index.php');
 }
+
 $username=$_SESSION['username'];
 $date=date("Y-m-d");
 $query_no=  $_POST['query'];
-
+$time_now=mktime(date('h')+6,date('i'),date('s'));
+$time=date('h:i:s',$time_now);
+$date=date("y-m-d");
 
 if($query_no== 0){
 	
@@ -23,48 +27,44 @@ if($query_no== 0){
 }
 
 if($query_no==1){
-	$sql = "SELECT 
-				app.appointmentID, app.doctorCode, app.patientCode, app.date, app.time, app.status, app.addedBy, p.patientID, p.name, p.age, p.address, p.phone, p.sex, IFNULL(p.name, 0) AS patientState
-			FROM `appointment` app
-			LEFT JOIN patient p ON app.patientCode = p.patientCode 
-			WHERE app.doctorCode = '$username' AND app.date='$date' order by app.time";
-	$result=mysql_query($sql);
 	
-	$data = array();
-	while ($row=mysql_fetch_array($result)){
-		array_push($data,$row);
-	}
-	
-	echo json_encode($data);
+	echo getAppointment($username, $date);
 }
 
 if($query_no==2){
 	
-	$patientCode = mysql_real_escape_string($_POST['patientCode']);
+	$patientCode = mysql_real_escape_string($_POST['dotorPatInitial']);
+	$doctorCode=$_POST['doctorCode'];
+	$doctorID=$_POST['doctorID'];
 	$name = $_POST['name'];
 	$address = $_POST['address'];
 	$age = $_POST['age'];
 	$sex= $_POST['sex'];
 	$phone = $_POST['phone'];
 	
+	$appointmentType =  0;
+	
 	$sql="INSERT INTO `patient`( `patientCode`, `name`, `age`, `sex`, `address`, `phone`) VALUES ( '$patientCode', '$name', '$age' , '$sex', '$address', '$phone')";
-	if(mysql_query($sql)){
-		echo $sql;
-	}else{
-		echo $sql;
-	}
+	
+	mysql_query($sql);
+	
+	$data = addAppointMent($doctorCode, $patientCode, $appointmentType,$doctorID, $date, $time, $username);
+	
+	echo $data;
 }
 else if($query_no==3){
+	
 	$doctorCode=$_POST['doctorCode'];
 	$patientCode = $_POST['patientCode'];
-	$doctorID = $_POST['doctorID'];
-	$time_now=mktime(date('h')+6,date('i'),date('s'));
-	$time=date('h:i:s',$time_now);
-	$date=date("y-m-d");
-	$sql=  mysql_query("INSERT INTO `appointment`( `doctorCode`, `patientCode`, `date`, `time`, `status`, `addedBy`) VALUES ('$doctorCode','$patientCode','$date','$time',0,'$username')");
-	mysql_query($sql);
+	$doctorID=$_POST['doctorID'];
+	
+	$appointmentType =  1;
+	
+	$data = addAppointMent($doctorCode, $patientCode, $appointmentType,$doctorID, $date, $time, $username);
+	
+	echo $data;
 
-	mysql_query("UPDATE `doctorsettings` SET `personCodeInitial`=  personCodeInitial + 1 WHERE doctorID = $doctorID");
+	
 }
 else if($query_no==4){
             $_SESSION['appointmentID']=$_POST['appointmentID'];

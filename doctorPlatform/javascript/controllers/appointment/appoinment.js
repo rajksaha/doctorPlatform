@@ -10,6 +10,7 @@ app.controller('AppointmentController', function($scope, $http, $modal, $rootSco
  	$scope.addAppointMentData = {};
  	
  	
+ 	
     $scope.bringDoctorInfo = function (){
     	
         var dataString = "query=0";
@@ -44,16 +45,21 @@ app.controller('AppointmentController', function($scope, $http, $modal, $rootSco
         });
     };
     
-    $scope.saveNewPatient =  function(patientCode){
+    $scope.addNewAppointment = function () {
     	
-        var modalInstance = $modal.open({
+    	var addAppointAdderData = {};
+    		addAppointAdderData.doctorCode = $scope.doctorData.doctorCode;
+    		addAppointAdderData.personCodeInitial = $scope.doctorData.personCodeInitial;
+    	var modalInstance = $modal.open({
             templateUrl: 'javascript/templates/appointment/addNewPatient.html',
             windowClass: 'fade in',
             
             controller: 'AppointmentController.AddNewPatientController',
             resolve: {
-            	patientCode: function () {
-                    return patientCode;
+            	data: function () {
+                    return {
+                    	addAppointAdderData
+                    };
                 }
             },
             backdrop: 'static'
@@ -61,22 +67,6 @@ app.controller('AppointmentController', function($scope, $http, $modal, $rootSco
         modalInstance.result.then(function(result) {
         	$scope.bringAppointment();
          });
-    	
-    };
-    
-    $scope.addNewAppointment = function () {
-    	
-        var  dataString='doctorCode='+ $scope.doctorData.doctorCode +'&patientCode='+ $scope.doctorData.personCodeInitial +'&doctorID='+ $scope.doctorData.doctorID +'&query='+3;
-        
-
-        $http({
-            method: 'POST',
-            url: "phpServices/appointment/appointmentHelper.php",
-            data: dataString,
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-        }).success(function (result) {
-        	$scope.bringAppointment();
-        });
     };
     
     $scope.showHelp = function(){    	
@@ -190,7 +180,7 @@ app.controller('AppointmentController.InformationModalController', function($sco
 	
 });
 
-app.controller('AppointmentController.AddNewPatientController', function($scope, $modalInstance, patientCode, $http) {
+app.controller('AppointmentController.AddNewPatientController', function($scope, $modalInstance, data, $http) {
 	
 	$scope.patientData = {};
 	$scope.error = false;
@@ -200,7 +190,8 @@ app.controller('AppointmentController.AddNewPatientController', function($scope,
 	$scope.createNewPatient = function (){
 		
 		if(validator.validateForm("#validateReq","#lblMsg_modal",null)) {
-			var dataString = 'patientCode='+ patientCode +'&name='+ $scope.patientData.name +'&age='+ $scope.patientData.age +'&address='+ $scope.patientData.address + '&sex=' + $scope.patientData.sex +'&phone='+ $scope.patientData.phone +'&query=2';
+			var dataString = 'doctorCode='+ data.addAppointAdderData.doctorCode + '&dotorPatInitial='+ data.addAppointAdderData.personCodeInitial +'&doctorID='+ $scope.doctorData.doctorID +
+			'&name='+ $scope.patientData.name +'&age='+ $scope.patientData.age +'&address='+ $scope.patientData.address + '&sex=' + $scope.patientData.sex +'&phone='+ $scope.patientData.phone +'&query=2';
 
 	        $http({
 	            method: 'POST',

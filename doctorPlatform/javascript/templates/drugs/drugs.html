@@ -156,13 +156,13 @@
 												<span>{{drugPres.adviceTypeName}}</span>
 											</td>
 											<td  >
-												<button data-ng-click="editPresCribedDrug(drugPres)">Edit</button>
+												<button class="btn btn-primary" data-ng-click="editPresCribedDrug(drugPres)"><span class="glyphicon glyphicon-floppy-open" aria-hidden="true"></span></button>
 												<a class="btn btn-danger btn-sm btnLanier"
 		                                            ktr-confirmation="deletePrescribedDrug(item)" 
 		                                            confirmation-message="Are you sure to remove?"
 		                                            confirmation-title="Confirmation"
 		                                            item="drugPres.id">
-		                                            <i class="fa fa-trash"></i>
+		                                            <span class="glyphicons glyphicon glyphicon-trash" aria-hidden="true"></span>
 	                                          </a>
 											</td>
 										</tr>

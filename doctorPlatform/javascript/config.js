@@ -269,6 +269,27 @@ app.config(function($stateProvider, $urlRouterProvider, $compileProvider, $contr
             }
         };
     
+    var advice = {
+            name : 'root.advice',
+            url : '/advice',
+            views : {
+                'container@' : {
+                    templateUrl : 'javascript/templates/advice/advice.html',
+                    controller : 'PrescribeAdviceController'
+                }
+            },
+            resolve : {
+                loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+                  // you can lazy load files for an existing module
+                  return $ocLazyLoad.load(
+                    {
+                      name: 'ktrTablet',
+                      files: ['javascript/controllers/advice/advice.js' ]
+                    });
+                  }]
+            }
+        };
+    
     
 	
 	
@@ -283,6 +304,7 @@ app.config(function($stateProvider, $urlRouterProvider, $compileProvider, $contr
         .state(vital)
         .state(history)
         .state(obsHistory)
+        .state(advice)
     	.state(appointment);
     
 

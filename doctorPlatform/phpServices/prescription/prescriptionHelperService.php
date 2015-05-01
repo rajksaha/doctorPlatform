@@ -69,7 +69,11 @@ else if($query_no==3){
 	mysql_query($sql);
 }
 else if($query_no==4){
-	$sql = "SELECT `appointmentID`, `doctorCode`, `patientCode`, `date`, `time`, `status`, `appointmentType`, `addedBy` FROM `appointment` WHERE appointmentID = '$appointmentNO'";
+	
+	$sql = "SELECT a.`appointmentID`, a.`doctorCode`, a.`patientCode`, a.`date`, a.`time`, a.`status`, a.`appointmentType`, a.`addedBy`, p.patientID 
+			FROM `appointment` a
+			JOIN patient p ON a.patientCode = p.patientCode
+			WHERE appointmentID = '$appointmentNO'";
 	$result = mysql_query($sql);
 	$rec=mysql_fetch_array($result);
 	echo json_encode($rec);

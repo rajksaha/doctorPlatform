@@ -2,6 +2,7 @@
 
 session_start();
 include('../config.inc');
+include('../commonServices/prescriptionService.php');
 if (!isset($_SESSION['username'])) {
 	header('Location: index.php');
 }
@@ -99,18 +100,13 @@ if($query_no== 0){
 
 }else if ($query_no == 7){
 	
-	$sql = "SELECT ip.`id`, ip.`appointMentID`, ip.`invID`, ip.`note`, ip.`checked`, i.name AS invName 
-			FROM `inv_prescription` ip
-			JOIN inv i ON ip.invID = i.id
-			WHERE `appointMentID` = '$appointmentID'";
-	
-	$result=mysql_query($sql);
+	$result=getPrescribedInv($appointmentID);
 	$data = array();
 	while ($row=mysql_fetch_array($result)){
 		array_push($data,$row);
 	}
-	
 	echo json_encode($data);
+	
 	
 }else if($query_no== 8){
 	
