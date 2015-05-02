@@ -113,6 +113,28 @@ else if($query_no==4){
 	}
 	
 	echo json_encode($data);
+	
+}elseif ($query_no==7){
+
+	$appointmentID = $_POST['appointmentID'];
+
+
+	$result = getPrescribedNextVisit($appointmentID);
+	
+	$rec = mysql_fetch_assoc($result);
+	
+	echo json_encode($rec);
+	
+}elseif ($query_no==8){
+
+	$appointmentID = $_POST['appointmentID'];
+
+
+	$result = getPrescribedReffredDoctor($appointmentID);
+	
+	$rec = mysql_fetch_assoc($result);
+	
+	echo json_encode($rec);
 }
 	
 ?>

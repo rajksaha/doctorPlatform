@@ -2,6 +2,7 @@
 
 session_start();
 include('../config.inc');
+include('../commonServices/prescriptionInsertService.php');
 if (!isset($_SESSION['username'])) {
 	header('Location: index.php');
 }
@@ -16,7 +17,7 @@ $query_no=  $_POST['query'];
 
 if($query_no== 0){
 	$typeCode = $_POST['typeCode'];
-	$sql = "SELECT h.`id` AS historyID, h.`typeCode`, h.`name`, h.`shortName`, ph.historyResult, ph.historyID AS patientHistoryID, hp.id AS savedHistorysID, hp.appointMentID, dhs.displayOrder
+	$sql = "SELECT h.`id` AS historyID, h.`typeCode`, h.`name`, h.`shortName`, ph.historyResult, ph.historyID AS patientHistoryID, hp.id AS savedHistorysID, hp.appointMentID, dhs.displayOrder, dhs.id AS historySettingID
 			FROM `history` h
 			JOIN doctor_history_settings dhs ON h.id = dhs.historyID
 			LEFT JOIN patient_history ph ON h.id = ph.historyID AND ph.patientID = '$patientID'
@@ -65,14 +66,8 @@ if($query_no== 0){
 	$result = mysql_fetch_assoc($sql);
 	$patientHistoryID = $result['id'];
 	
+	insertPrescribedHistory($appointmentID, $patientHistoryID);
 	
-	
-	$sql = "INSERT INTO `history_prescription`( `appointMentID`, `patientHistoryID`) VALUES ('$appointmentID', '$patientHistoryID')";
-	if(mysql_query($sql)){
-		return true;
-	}else{
-		return false;
-	}
 }else if($query_no==4){
 	
 	$savedHistorysID = $_POST['savedHistorysID'];
@@ -143,6 +138,11 @@ else if($query_no==5){
 	$historyResult = $_POST['historyResult'];
 	
 	mysql_query("UPDATE `patient_history` SET `historyResult`= '$historyResult' WHERE `patientID` = '$patientID' AND `historyID`= '$historyID'");
+}elseif ($query_no == 12){
+	$historySettingID = $_POST['historySettingID'];
+	
+	mysql_query("DELETE FROM `doctor_history_settings` WHERE `id` = '$historySettingID'");
 }
+
 	
 ?>

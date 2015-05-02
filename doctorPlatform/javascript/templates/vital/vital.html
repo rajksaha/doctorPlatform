@@ -34,7 +34,9 @@
 		             </div>
 		         </div>
 		
-		<button class="pull-right" data-ng-click="addVitalToDoctorPref()">ADD to List</button>
+		<button class="pull-right btn btn-info" data-ng-disabled="!vitalData.vitalName" data-ng-click="addVitalToDoctorPref()">
+			<span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> ADD to List
+		</button>
 </div>
 
 			<div class="row geninfo">
@@ -44,17 +46,35 @@
 							<div class="text-muted form-group">Vitals<span><button class="pull-right" data-ng-click="saveVital(prescribedVitalData)">Save</button></div>                             
 								<div class="list-item col-sm-6 col-md-6 col-lg-6" data-ng-repeat="vital in prescribedVitalData">
 									<div>
-										<table>
+										<table class="table">
 											<tbody>
 												<tr>
-													<td><button data-ng-click="deleteVitalFromSetting(vital.vitalSettingID)" >X</button> </td>
-													<td>{{vital.vitalName}}</td>
-													<td><input type="text" data-ng-model="vital.vitalResult"><button data-ng-click="bringVitalOption(vital)">+</button></td>
-													<td>
-														<select size="5" data-ng-model="vital.optionSelector" data-ng-show="vital.optionListON" ng-options="vitalOption.name for vitalOption in vital.optionList" data-ng-click="performVital(vital)"></select>
-														<input type="text" data-ng-show="vital.optionAdderON" data-ng-model="vital.optionAdder">
-														<button data-ng-show="vital.optionAdderON" data-ng-click="addVitalOption(vital)">ADD</button>
-														<button data-ng-show="vital.optionAdderON" data-ng-click="vital.optionAdderON = false">Cancel</button>
+													<td width="10%">
+														<span><a class="btn btn-danger"
+												                 ktr-confirmation="deleteVitalFromSetting(item)" 
+												                 confirmation-message="Are you sure to remove?"
+												                 confirmation-title="Confirmation"
+												                 item="vital.vitalSettingID">
+												                 <span class="glyphicons glyphicon glyphicon-remove" aria-hidden="true"></span>
+												              </a>
+														</span>
+													</td>
+													<td width="20%">{{vital.vitalName}}</td>
+													<td width="60%">
+														<input type="text" class="form-control"  data-ng-model="vital.vitalResult" />
+														<select size="5" class="form-control" data-ng-model="vital.optionSelector" data-ng-show="vital.optionListON" ng-options="vitalOption.name for vitalOption in vital.optionList" data-ng-click="performVital(vital)"></select>
+														<input class="form-control" type="text" data-ng-show="vital.optionAdderON" data-ng-model="vital.optionAdder">
+														<button class="btn btn-success" data-ng-show="vital.optionAdderON" data-ng-click="addVitalOption(vital)">
+															<span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> Add Options
+														</button>
+														<button class="btn btn-danger" data-ng-show="vital.optionAdderON" data-ng-click="vital.optionAdderON = false">
+															<span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span> Cancel
+														</button>
+													</td>
+													<td width="10%">
+														<button class="btn btn-info" data-ng-click="bringVitalOption(vital)" class="btn btn-primary">
+															<span class='glyphicon glyphicon glyphicon-plus' aria-hidden='true'></span>
+														</button>
 													</td>
 												</tr>
 											</tbody>

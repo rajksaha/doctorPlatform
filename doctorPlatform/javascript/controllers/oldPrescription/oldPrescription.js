@@ -190,6 +190,24 @@ app.controller('OldPrescriptionController', function($scope, $http, $modal, $roo
     	
     	$scope.showPrescriptionView = true;
     };
+    
+    $scope.addToPrescription = function (state, requestedData, queryNo){
+    	
+    	requestedData.addedToPrescription = state;
+    	if(state){
+    		
+    		var dataString = "query="+ queryNo + '&requestedID=' + requestedData.id;
+
+            $http({
+                method: 'POST',
+                url: "phpServices/oldPrescription/oldPrescription.php",
+                data: dataString,
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            }).success(function (result) {
+            	
+            });
+    	}
+    };
 
 	$scope.inIt = function (){
 		$scope.bringPatientInfo();

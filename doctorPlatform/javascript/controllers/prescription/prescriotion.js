@@ -1,4 +1,4 @@
-app.controller('PrescriptionController', function($scope, $http, $modal, $rootScope, limitToFilter, $location) {
+app.controller('PrescriptionController', function($scope, $http, $modal, $rootScope, limitToFilter, $location, $filter) {
 	
 	$scope.menuDataList = [];
 	$scope.patientData = {};
@@ -6,6 +6,8 @@ app.controller('PrescriptionController', function($scope, $http, $modal, $rootSc
 	$scope.patientTypeList =[];
 	$scope.appoinmentData ={};
 	$scope.patientStateList = [];
+	
+	$scope.refferedAdderData = {};
 	
 	$scope.prescribedDrugList = [];
 	$scope.numberOfPrescribedDrugs = 0;
@@ -18,6 +20,112 @@ app.controller('PrescriptionController', function($scope, $http, $modal, $rootSc
 	$scope.prescribedVitalData = [];
 	
 	$scope.prescribedAdviceData = [];
+	
+	
+	$scope.fixNextVisit = function (){
+		
+		var filteredDate = $filter('date')($scope.nextVisitData.date, "yyyy-MM-dd"); 
+		
+		if($scope.nextVisitData.appointmentID){
+			
+			
+			
+			var dataString = "query=7" + "&nextVisitDate=" + filteredDate + "&appointmentID=" + $scope.nextVisitData.appointmentID;
+
+	        $http({
+	            method: 'POST',
+	            url: "phpServices/prescription/prescriptionHelperService.php",
+	            data: dataString,
+	            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+	        }).success(function (result) {
+	        });
+	        
+		}else{
+			
+			var dataString = "query=8" + "&nextVisitDate=" + filteredDate;
+
+	        $http({
+	            method: 'POST',
+	            url: "phpServices/prescription/prescriptionHelperService.php",
+	            data: dataString,
+	            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+	        }).success(function (result) {
+	        });
+	        
+		}
+	};
+	
+	$scope.refDoc = {};
+	
+    $scope.getRefDoctor = function(term) {
+        
+    	var dataString = 'query=9'+ '&refDocName=' + term;
+        
+        return $http({
+            method: 'POST',
+            url: "phpServices/prescription/prescriptionHelperService.php",
+            data: dataString,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).then(function(result) {
+        	$scope.refDoc = result.data;
+        	return limitToFilter($scope.refDoc, 10);
+        });
+
+        
+       // return $scope.products;
+      };
+      
+	  $scope.onSelectRefDocotor = function(item, model, label){
+		  $scope.refferedAdderData.doctorAdress = item.doctorAdress;
+		  $scope.refferedAdderData.refDocID = item.id;
+	  };
+	  
+	  $scope.saveReffredDoctor = function(refDocData){
+		  
+		  
+		  if(refDocData.refDocID){
+			  $scope.addReffredDoctor(refDocData.refDocID);
+		  }else{
+			  var dataString = 'query=10'+ '&refDocName=' + refDocData.doctorName + '&refDocAdress=' + refDocData.doctorAdress;
+		        
+			  $http({
+		            method: 'POST',
+		            url: "phpServices/prescription/prescriptionHelperService.php",
+		            data: dataString,
+		            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+		        }).success(function (result) {
+		        	$scope.addReffredDoctor(result);
+		        });
+		  }
+	  };
+	  
+	  $scope.addReffredDoctor = function(doctorID){
+		  
+		  var dataString = 'query=11'+ '&refDocID=' + parseInt(doctorID);
+	        
+		  $http({
+	            method: 'POST',
+	            url: "phpServices/prescription/prescriptionHelperService.php",
+	            data: dataString,
+	            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+	        }).success(function (result) {
+	        	$scope.bringPrescribedRefferedDoctor($scope.appoinmentData.appointmentID);
+	        });
+	  };
+	  
+	  $scope.deleteReffredDoctor = function(redDocID){
+		  
+		  var dataString = 'query=12';
+	        
+		  $http({
+	            method: 'POST',
+	            url: "phpServices/prescription/prescriptionHelperService.php",
+	            data: dataString,
+	            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+	        }).success(function (result) {
+	        	$scope.bringPrescribedRefferedDoctor($scope.appoinmentData.appointmentID);
+	        });
+	  };
 	
 	$scope.bringPatientInfo = function(){
 		
@@ -143,6 +251,8 @@ app.controller('PrescriptionController', function($scope, $http, $modal, $rootSc
     		$scope.bringPrescribedComplain($scope.appoinmentData.appointmentID);
     		$scope.bringPrescribedOBS($scope.appoinmentData.appointmentID, $scope.appoinmentData.patientID);
     		$scope.bringPrescribedMH($scope.appoinmentData.appointmentID, $scope.appoinmentData.patientID);
+    		$scope.bringPrescribedNextVisit($scope.appoinmentData.appointmentID);
+    		$scope.bringPrescribedRefferedDoctor($scope.appoinmentData.appointmentID);
         });
     };
     
@@ -272,6 +382,38 @@ app.controller('PrescriptionController', function($scope, $http, $modal, $rootSc
         	$scope.prescribedDiagnosisData = result;
         });
 		
+	};
+	
+	$scope.nextVisitData = {};
+	
+	$scope.bringPrescribedNextVisit = function (appointmentID){
+		
+		var dataString = "query=7" + '&appointmentID=' + appointmentID;
+
+        $http({
+            method: 'POST',
+            url: "phpServices/commonServices/prescriptionDetailService.php",
+            data: dataString,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (result) {
+        	$scope.nextVisitData = result;
+        });
+	};
+	
+	$scope.refferedDoctorData = {};
+	
+	$scope.bringPrescribedRefferedDoctor = function (appointmentID){
+		
+		var dataString = "query=8" + '&appointmentID=' + appointmentID;
+
+        $http({
+            method: 'POST',
+            url: "phpServices/commonServices/prescriptionDetailService.php",
+            data: dataString,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (result) {
+        	$scope.refferedDoctorData = result;
+        });
 	};
 
 	$scope.inIt = function (){

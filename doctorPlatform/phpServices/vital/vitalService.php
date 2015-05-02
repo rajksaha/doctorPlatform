@@ -2,6 +2,7 @@
 
 session_start();
 include('../config.inc');
+include('../commonServices/prescriptionInsertService.php');
 if (!isset($_SESSION['username'])) {
 	header('Location: index.php');
 }
@@ -50,12 +51,9 @@ if($query_no== 0){
 }else if($query_no==3){
 	$vitalID = $_POST['vitalID'];
 	$vitalResult = $_POST['vitalResult'];
-	$sql = "INSERT INTO `vital_prescription`( `appointMentID`, `vitalID`, `vitalResult`) VALUES ('$appointmentID','$vitalID','$vitalResult')";
-	if(mysql_query($sql)){
-		return true;
-	}else{
-		return false;
-	}
+	
+	insertPrescribedVital($appointmentID, $vitalID, $vitalResult);
+	
 }else if($query_no==4){
 	
 	$vitalID = $_POST['vitalID'];

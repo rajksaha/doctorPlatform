@@ -3,6 +3,7 @@
 session_start();
 include('../config.inc');
 include('../commonServices/prescriptionService.php');
+include('../commonServices/prescriptionInsertService.php');
 if (!isset($_SESSION['username'])) {
 	header('Location: index.php');
 }
@@ -74,11 +75,7 @@ if($query_no== 0){
 	$invID = $_POST['invID'];
 	$note = $_POST['note'];
 
-	$sql = "INSERT INTO `inv_prescription`(`appointMentID`, `invID`, `note`, `checked`) VALUES ('$appointmentID','$invID','$note',0)";
-
-	mysql_query($sql);
-
-	echo mysql_insert_id();
+	echo insertPrescriptionInv($appointmentID, $invID, $note);
 
 }else if ($query_no == 5){
 

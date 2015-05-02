@@ -3,6 +3,7 @@
 session_start();
 include('../config.inc');
 include('../commonServices/prescriptionService.php');
+include('../commonServices/prescriptionInsertService.php');
 if (!isset($_SESSION['username'])) {
 	header('Location: index.php');
 }
@@ -26,92 +27,84 @@ if($query_no== 0){
 	
 }else if($query_no==1){
 	
-	$appointmentID = $_POST['appointmentID'];
+	$requestedID = $_POST['requestedID'];
 	
+	$result = mysql_query("SELECT `id`, `appointMentID`, `vitalID`, `vitalResult` FROM `vital_prescription` WHERE `id` = $requestedID");
 	
-	$result = getPrescribedInv($appointmentID);
+	$row = mysql_fetch_assoc($result);
 	
-	$data = array();
-	while ($row=mysql_fetch_array($result)){
-		array_push($data,$row);
-	}
+	insertPrescribedVital($appointmentID, $row['vitalID'], $row['vitalResult']);
 	
-	echo json_encode($data);
 }
 
 if($query_no==2){
 	
-	$appointmentID = $_POST['appointmentID'];
+	$requestedID = $_POST['requestedID'];
 	
+	$result = mysql_query("SELECT `id`, `appointMentID`, `patientHistoryID` FROM `history_prescription` WHERE `id` = $requestedID");
 	
-	$result = getPrescribedAdvice($appointmentID);
+	$row = mysql_fetch_assoc($result);
 	
-	$data = array();
-	while ($row=mysql_fetch_array($result)){
-		array_push($data,$row);
-	}
-	
-	echo json_encode($data);
-	
+	insertPrescribedHistory($appointmentID, $row['patientHistoryID']);
 	
 }
 else if($query_no==3){
 	
-	$appointmentID = $_POST['appointmentID'];
 	
-	
-	$result = getPrescribedVital($appointmentID);
-	
-	$data = array();
-	while ($row=mysql_fetch_array($result)){
-		array_push($data,$row);
-	}
-	
-	echo json_encode($data);
 }
 else if($query_no==4){
 	
-	$appointmentID = $_POST['appointmentID'];
-	
-	
-	$result = getPrescribedComplain($appointmentID);
-	
-	$data = array();
-	while ($row=mysql_fetch_array($result)){
-		array_push($data,$row);
-	}
-	
-	echo json_encode($data);
-	
+		
 }else if($query_no==5){
 	
-	$appointmentID = $_POST['appointmentID'];
-	$typeCode = $_POST['typeCode'];
-	$patientID = $_POST['patientID'];
 	
-	
-	$result = getPrescribedHistory($appointmentID, $typeCode, $patientID);
-	
-	$data = array();
-	while ($row=mysql_fetch_array($result)){
-		array_push($data,$row);
-	}
-	
-	echo json_encode($data);
 	
 }elseif ($query_no==6){
 	
-	$appointmentID = $_POST['appointmentID'];
 	
 	
-	$result = getPrescribedDiagnosis($appointmentID);
+}elseif ($query_no == 7){
 	
-	$data = array();
-	while ($row=mysql_fetch_array($result)){
-		array_push($data,$row);
-	}
+	$requestedID = $_POST['requestedID'];
 	
-	echo json_encode($data);
+	$result = mysql_query("SELECT `id`, `appointMentID`, `drugTypeID`, `drugID`, `drugTimeID`, `drugDose`, `drugDoseUnit`, `drugNoOfDay`, `drugDayTypeID`, `drugWhenID`, `drugAdviceID` FROM `drug_prescription` WHERE `id` = '$requestedID'");
+	
+	$row = mysql_fetch_assoc($result);
+	
+	insertPrescriptionDrugs($appointmentID, $row['drugTypeID'], $row['drugID'], $row['drugTimeID'], $row['drugDose'], $row['drugDoseUnit'], $row['drugNoOfDay'], $row['drugDayTypeID'], $row['drugWhenID'], $row['drugAdviceID']);
+	
+}elseif ($query_no == 8){
+	
+	$requestedID = $_POST['requestedID'];
+	
+	$result = mysql_query("SELECT `id`, `appointMentID`, `invID`, `note`, `checked` FROM `inv_prescription` WHERE `id` = $requestedID");
+	
+	$row = mysql_fetch_assoc($result);
+	
+	insertPrescriptionInv($appointmentID, $row['invID'], $row['note']);
+	
+}elseif ($query_no == 9){
+	
+	$requestedID = $_POST['requestedID'];
+	
+	$result = mysql_query("SELECT `id`, `appointMentID`, `adviceID` FROM `prescription_advice` WHERE `id` = $requestedID");
+	
+	$row = mysql_fetch_assoc($result);
+	
+	insertPrescriptionAdvice($appointmentID, $row['adviceID']);
+	
+}elseif ($query_no == 10){
+	
+	$requestedID = $_POST['requestedID'];
+	
+	$result = mysql_query("SELECT `id`, `appointMentID`, `symptomID`, `durationNum`, `durationType` FROM `complain` WHERE `id` = $requestedID");
+	
+	$row = mysql_fetch_assoc($result);
+	
+	insertPrescribedCC($appointmentID, '', $durationNum, $durationType);
 }
+
+
+
 	
 ?>

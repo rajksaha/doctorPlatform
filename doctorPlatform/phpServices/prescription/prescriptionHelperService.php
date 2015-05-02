@@ -92,6 +92,51 @@ else if($query_no==4){
 }elseif ($query_no==6){
 	$patientState = $_POST['patientState'];
 	$sql = mysql_query("UPDATE `appointment` SET `appointmentType`= '$patientState'  WHERE  `appointmentID` = '$appointmentNO'");
+	
+}elseif ($query_no == 7){
+	
+	$nextVisitDate = mysql_real_escape_string($_POST['nextVisitDate']);
+	
+	$sql = mysql_query("UPDATE `next_visit` SET `date`= '$nextVisitDate' WHERE appointmentID = '$appointmentNO'");
+	
+	
+}elseif ($query_no == 8){
+	
+	$nextVisitDate = mysql_real_escape_string($_POST['nextVisitDate']);
+	
+	$sql = mysql_query("INSERT INTO `next_visit`(`appointmentID`, `date`) VALUES ('$appointmentNO',DATE('$nextVisitDate'))");
+}
+elseif ($query_no == 9){
+
+	$queryString=$_POST['refDocName'];
+	
+	$sql ="SELECT `id`, `doctorName`, `doctorAdress` FROM `reffered_doctor` WHERE doctorName LIKE '" . $queryString . "%' LIMIT 10";
+	$result=mysql_query($sql);
+	//echo $sql;
+	 $data = array();
+	while ($row=mysql_fetch_array($result)){
+		array_push($data,$row);
+	}
+	echo json_encode($data); 
+}elseif ($query_no == 10){
+	
+	$refDocName=$_POST['refDocName'];
+	$refDocAdress=$_POST['refDocAdress'];
+	
+	$sql = "INSERT INTO `reffered_doctor`( `doctorName`, `doctorAdress`) VALUES ('$refDocName','$refDocAdress')";
+	mysql_query($sql);
+	echo mysql_insert_id();
+}
+elseif ($query_no == 11){
+	
+	$refDocID=$_POST['refDocID'];
+	
+	$sql = "INSERT INTO `prescription_reference`( `appointMentID`, `refferedDoctorID`) VALUES ('$appointmentNO','$refDocID')";
+	
+	mysql_query($sql);
+}elseif ($query_no == 12){
+	
+	$sql = mysql_query("DELETE FROM `prescription_reference` WHERE `appointMentID` = '$appointmentNO'");
 }
 	
 ?>

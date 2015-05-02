@@ -24,7 +24,9 @@
 		         </div>
 		         
 		
-		<button class="pull-right" data-ng-click="addHistoryToDoctorPref()">ADD to List</button>
+		<button class="pull-right btn btn-info" data-ng-disabled="!historySetteingData.historyName" data-ng-click="addHistoryToDoctorPref()">
+			<span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> Add To List
+		</button>
 </div>
 
 			<div class="row geninfo">
@@ -34,18 +36,43 @@
 							<div class="text-muted form-group">{{typeCode}}<span><button class="pull-right" data-ng-click="saveHistory()">Save</button></span></div>                             
 								<div class="list-item col-sm-6 col-md-6 col-lg-6" data-ng-repeat="history in paientHistoryList">
 									<div>
-										<table>
+										<table class="table">
 											<tbody>
 												<tr>
-													<td ><input type="checkbox" data-ng-show="history.historyResult" data-ng-model="history.fiff" data-ng-checked="history.addToPrescription" data-ng-change="history.addToPrescription = !history.addToPrescription">{{history.name}}</td>
-													<td>
-														<input type="text" data-ng-model="history.historyResult"><button data-ng-click="bringHistoryOption(history)">+</button>
+													<td width="10%">
+														<span>
+															<a class="btn btn-danger"
+												                 ktr-confirmation="deleteHistoyFromSetting(item)" 
+												                 confirmation-message="Are you sure to remove?"
+												                 confirmation-title="Confirmation"
+												                 item="history.historySettingID">
+												                 <span class="glyphicons glyphicon glyphicon-remove" aria-hidden="true"></span>
+												              </a>
+														</span>
 													</td>
-													<td>
-														<select size="5" data-ng-model="history.optionSelector" data-ng-show="history.optionListON" ng-options="historyOption.optionName for historyOption in history.optionList" data-ng-click="performHistory(history)"></select>
-														<input type="text" data-ng-show="history.optionAdderON" data-ng-model="history.optionAdder">
-														<button data-ng-show="history.optionAdderON" data-ng-click="addHistoryOption(history)">ADD</button>
-														<button data-ng-show="history.optionAdderON" data-ng-click="history.optionAdderON = false">Cancel</button>
+													<td width="10%">
+														<button class="btn btn-default" data-ng-model="none"   data-ng-show="history.historyResult" data-ng-click="history.addToPrescription = !history.addToPrescription">
+															<span class="glyphicon  glyphicon"  data-ng-class="{'glyphicon-check': history.addToPrescription == true,'glyphicon-unchecked': !history.addToPrescription || history.addToPrescription == false}"></span>
+														</button>
+													</td>
+													<td width="20%">{{history.name}}</td>
+													<td width="50%">
+														<input type="text" class="form-control" data-ng-model="history.historyResult">
+														<select size="5" class="form-control" data-ng-model="history.optionSelector" data-ng-show="history.optionListON" ng-options="historyOption.optionName for historyOption in history.optionList" data-ng-click="performHistory(history)"></select>
+														<input type="text" class="form-control" data-ng-show="history.optionAdderON" data-ng-model="history.optionAdder">
+														
+														<button class="btn btn-success"data-ng-show="history.optionAdderON" data-ng-click="addHistoryOption(history)">
+															<span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> Add Options
+														</button>
+														
+														<button class="btn btn-danger" data-ng-show="history.optionAdderON" data-ng-click="history.optionAdderON = false">
+															<span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span> Cancel
+														</button>
+													</td>
+													<td width="10%">
+														<button class="btn btn-info" data-ng-click="bringHistoryOption(history)" class="btn btn-primary">
+															<span class='glyphicon glyphicon glyphicon-plus' aria-hidden='true'></span>
+														</button>
 													</td>
 												</tr>
 											</tbody>

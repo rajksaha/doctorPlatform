@@ -3,6 +3,7 @@
 session_start();
 include('../config.inc');
 include('../commonServices/prescriptionService.php');
+include('../commonServices/prescriptionInsertService.php');
 
 if (!isset($_SESSION['username'])) {
 	header('Location: index.php');
@@ -75,39 +76,9 @@ if($query_no== 1){
 	$drugWhen = $_POST['drugWhen'];
 	$drugAdvice = $_POST['drugAdvice'];
 	
-	$sql = "INSERT 
-				INTO `drug_prescription`
-					(
-						`appointMentID`,
-						 `drugTypeID`,
-						 `drugID`, 
-						`drugTimeID`, 
-						`drugDose`, 
-						`drugDoseUnit`, 
-						`drugNoOfDay`, 
-						`drugDayTypeID`, 
-						`drugWhenID`, 
-						`drugAdviceID`
-					)
-	 			VALUES 
-					(
-						'$appointmentID',
-						'$drugType',
-						'$drugID',
-						'$drugTime',
-						'$drugDose',
-						'$doseUnit',
-						'$drugNoOfDay',
-						'$drugDayType',
-						'$drugWhen',
-						'$drugAdvice'
-					)";
+	$result = insertPrescriptionDrugs($appointmentID, $drugType, $drugID, $drugTime, $drugDose, $doseUnit, $drugNoOfDay, $drugDayType, $drugWhen, $drugAdvice);
 	
-	if(mysql_query($sql)){
-		echo true;
-	}else{
-		echo false;
-	}
+	echo $result;
 	
 }
 else if($query_no==4){

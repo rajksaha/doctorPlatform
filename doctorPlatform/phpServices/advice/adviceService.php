@@ -85,11 +85,7 @@ if($query_no== 0){
 
 	$adviceID = $_POST['adviceID'];
 
-	$sql = "INSERT INTO `prescription_advice`( `appointMentID`, `adviceID`) VALUES ('$appointmentID','$adviceID')";
-
-	mysql_query($sql);
-
-	echo mysql_insert_id();
+	echo insertPrescriptionAdvice($appointmentID, $adviceID);
 
 }else if ($query_no == 5){
 

@@ -117,7 +117,7 @@ app.controller('PrescribeHistoryController', function($scope, $http, $modal, $ro
 	
 	$scope.bringHistoryOption = function(historydata){
 		
-		angular.forEach($scope.prescribedVitalData, function(value, key) {
+		angular.forEach($scope.paientHistoryList, function(value, key) {
 			value.optionListON = false;
 			value.optionAdderON = false;
 		});
@@ -257,6 +257,19 @@ app.controller('PrescribeHistoryController', function($scope, $http, $modal, $ro
 		});
 		
 		$location.path("/prescription");
+	};
+	
+	$scope.deleteHistoyFromSetting = function (id){
+		
+		var dataString = 'query=12'+ '&historySettingID=' + id;
+        $http({
+            method: 'POST',
+            url: "phpServices/history/historyHelperService.php",
+            data: dataString,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (result) {
+        	$scope.bringHistoryDetail();
+        });
 	};
 	
 	
