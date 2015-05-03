@@ -1,6 +1,6 @@
 <?php
 
-include('../config.inc');
+
 if (!isset($_SESSION['username'])) {
 	header('Location: index.php');
 }
@@ -35,5 +35,28 @@ function addAppointMent($doctorCode, $patientCode, $appointmentType, $doctorID, 
 	
 	mysql_query("UPDATE `doctorsettings` SET `personCodeInitial`=  personCodeInitial + 1 WHERE doctorID = $doctorID");
 	
+}
+function getAppointmentInfo($appointmentID){
+	
+	$sql = "SELECT a.`appointmentID`, a.`doctorCode`, a.`patientCode`, a.`date`, a.`time`, a.`status`, a.`appointmentType`, a.`addedBy`, p.patientID
+	FROM `appointment` a
+	JOIN patient p ON a.patientCode = p.patientCode
+	WHERE appointmentID = '$appointmentID'";
+	
+	$result = mysql_query($sql);
+	
+	return $result;
+}
+
+function getPatientInformaition($patientCode){
+	
+	$sql = "SELECT p.`patientID` , p.`patientCode` , p.`name` , p.`age` , p.`sex` , p.`address` ,p.`phone`,  pd.`type`, pd.`tri`, pd.`triStatus`, pd.`edb`, pd.id AS patientDetailID
+	FROM `patient` p
+	LEFT join patient_detail pd ON p.`patientID` = pd.`patientID`
+	WHERE `patientCode` = '$patientCode'";
+	
+	$result=mysql_query($sql);
+	
+	return $result;
 }
 ?>

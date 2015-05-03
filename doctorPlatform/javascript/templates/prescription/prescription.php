@@ -6,8 +6,9 @@
 			<span style="padding-left:40px">Gender:<span style="padding-left:12px;">{{patientData.sex}}</span></span>
 		</div>
 		<div class="col-md-4">
-			<a class="pull-right" href="#/appointment"><span class="glyphicon glyphicon-th-list" aria-hidden="true">Appointment</span></a>
+			<a class="pull-right  btn btn-info" href="#/appointment"><span class="glyphicon glyphicon-th-list" aria-hidden="true"> Appointment</span></a>
 			<button class="pull-right btn btn-info" data-ng-click="patientSetting = !patientSetting"><span class="glyphicon glyphicon glyphicon-wrench" aria-hidden="true"></span> Setteing</button>
+			<a class="pull-right  btn btn-info" href="tpdf/{{doctorData.pdfPage}}.php" target="_blank"><span class="glyphicon glyphicon-print" aria-hidden="true"> Print</span></a>
 		</div>
 	</div>
 </div>

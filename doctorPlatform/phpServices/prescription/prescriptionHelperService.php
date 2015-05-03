@@ -2,6 +2,7 @@
 
 session_start();
 include('../config.inc');
+include('../commonServices/appointmentService.php');
 if (!isset($_SESSION['username'])) {
 	header('Location: index.php');
 }
@@ -13,12 +14,10 @@ $query_no=  $_POST['query'];
 
 
 if($query_no== 0){
-	$sql = "SELECT p.`patientID` , p.`patientCode` , p.`name` , p.`age` , p.`sex` , p.`address` ,p.`phone`,  pd.`type`, pd.`tri`, pd.`triStatus`, pd.`edb`, pd.id AS patientDetailID
-			FROM `patient` p
-			LEFT join patient_detail pd ON p.`patientID` = pd.`patientID`
-			WHERE `patientCode` = '$patientCode'";
-	$result=mysql_query($sql);
-	$rec=mysql_fetch_array($result);
+	
+	$result = getPatientInformaition($patientCode);
+	
+	$rec=mysql_fetch_assoc($result);
 	
 	echo json_encode($rec);
 	
@@ -70,12 +69,9 @@ else if($query_no==3){
 }
 else if($query_no==4){
 	
-	$sql = "SELECT a.`appointmentID`, a.`doctorCode`, a.`patientCode`, a.`date`, a.`time`, a.`status`, a.`appointmentType`, a.`addedBy`, p.patientID 
-			FROM `appointment` a
-			JOIN patient p ON a.patientCode = p.patientCode
-			WHERE appointmentID = '$appointmentNO'";
-	$result = mysql_query($sql);
-	$rec=mysql_fetch_array($result);
+	$result  = getAppointmentInfo($appointmentNO);
+	
+	$rec=mysql_fetch_assoc($result);
 	echo json_encode($rec);
 	
 }else if($query_no==5){

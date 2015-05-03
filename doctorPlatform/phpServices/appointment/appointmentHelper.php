@@ -3,6 +3,7 @@
 session_start();
 include('../config.inc');
 include('../commonServices/appointmentService.php');
+
 if (!isset($_SESSION['username'])) {
 	header('Location: index.php');
 }
@@ -17,7 +18,8 @@ $date=date("y-m-d");
 if($query_no== 0){
 	
 	$sql=mysql_query("SELECT 
-						d.doctorID, d.doctorCode, d.password, d.name, d.sex, d.age, d.phone, ds.category, ds.state, ds.prescriptionStyle, ds.patientType, ds.patientState, ds.hospitalID, ds.photoSupport, ds.personCodeInitial, dc.name AS categoreyName
+						d.doctorID, d.doctorCode, d.password, d.name, d.sex, d.age, d.phone, ds.category, ds.state, ds.prescriptionStyle, 
+						ds.patientType, ds.patientState, ds.hospitalID, ds.photoSupport, ds.personCodeInitial, dc.name AS categoreyName, ds.pdfPage
 					FROM doctor d
 					JOIN doctorsettings ds ON d.doctorID = ds.doctorID
 					JOIN doctorcategory dc ON ds.category = dc.id

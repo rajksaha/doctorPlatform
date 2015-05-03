@@ -204,9 +204,9 @@ app.controller('PrescribeDrugsController', function($scope, $http, $modal, $root
 		}
 		var doseUnit = "";
 		if($scope.drugData.optionalInitial != undefined && $scope.drugData.optionalInitial){
-			doseUnit = $scope.drugData.doseOptionalUnitInitial;
-		}else if($scope.drugData.doseUnitInitial != undefined){
-			doseUnit = $scope.drugData.doseUnitInitial;
+			doseUnit = $scope.drugData.drugType.optionalUnitInitial;
+		}else{
+			doseUnit = $scope.drugData.drugType.unitInitial;
 		}
 		var drugNoOfDay = "";
 		var drugDayType = 6;
@@ -302,6 +302,8 @@ app.controller('PrescribeDrugsController', function($scope, $http, $modal, $root
 	$scope.editPresCribedDrug = function(drugData){
 		
 		$scope.drugData = {};
+		$scope.addByName = true;
+		$scope.drugData.drugID = drugData.drugID;
 		$scope.drugData.addMood = false;
 		$scope.drugName = drugData.drugName;
 		$scope.drugData.drugPrescribeID = drugData.id;
@@ -365,6 +367,7 @@ app.controller('PrescribeDrugsController', function($scope, $http, $modal, $root
             data: dataString,
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function(result) {
+        	$scope.addByName = false;
         	$scope.drugNameList = result.data;
         	return limitToFilter($scope.drugNameList, 10);
         });

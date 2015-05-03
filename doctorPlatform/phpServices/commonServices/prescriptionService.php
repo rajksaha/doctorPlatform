@@ -1,5 +1,5 @@
 <?php
-include('../config.inc');
+
 
 if (!isset($_SESSION['username'])) {
 	header('Location: index.php');
@@ -9,7 +9,9 @@ function getPresCribedDrugs($appointmentID){
 	
 	
 	$sql = "SELECT  
-			dp.id, dp.appointMentID, dp.drugTypeID, dp.drugID, dp.drugTimeID, dp.drugDose, dp.drugDoseUnit, dp.drugNoOfDay, dp.drugDayTypeID, dp.drugWhenID, dp.drugAdviceID, dt.initial AS typeInitial, d.drugName AS drugName, d.strength AS drugStrength, ddt.bangla AS dayTypeName, dwt.bangla AS whenTypeName, dat.bangla AS adviceTypeName
+			dp.id, dp.appointMentID, dp.drugTypeID, dp.drugID, dp.drugTimeID, dp.drugDose, dp.drugDoseUnit, dp.drugNoOfDay, dp.drugDayTypeID, dp.drugWhenID, dp.drugAdviceID, dt.initial AS typeInitial, 
+			d.drugName AS drugName, d.strength AS drugStrength, 
+			ddt.bangla AS dayTypeName, ddt.pdf AS dayTypePdf, dwt.bangla AS whenTypeName, dwt.pdf AS whenTypePdf, dat.bangla AS adviceTypeName, dat.pdf AS adviceTypePdf
 			FROM drug_prescription dp 
 				JOIN drugtype dt ON dp.drugTypeID = dt.id
 				JOIN drug d ON dp.drugID = d.drugID
@@ -38,7 +40,7 @@ function getPrescribedInv($appointmentID){
 
 function getPrescribedAdvice($appointmentID){
 
-	$sql = "SELECT pa.`id`, pa.`appointMentID`, pa.`adviceID` ,a.advice
+	$sql = "SELECT pa.`id`, pa.`appointMentID`, pa.`adviceID`, a.advice, a.lang, a.pdf 
 			FROM `prescription_advice` pa
 			JOIN advice a ON pa.adviceID = a.id
 			WHERE `appointMentID` = '$appointmentID'";
