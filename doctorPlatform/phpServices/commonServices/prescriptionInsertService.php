@@ -1,5 +1,5 @@
 <?php
-include('../config.inc');
+/* include('../config.inc'); */
 
 if (!isset($_SESSION['username'])) {
 	header('Location: index.php');
@@ -88,6 +88,87 @@ function insertPrescribedHistory($appointmentID, $patientHistoryID ){
 	mysql_query($sql);
 
 	return mysql_insert_id();
+}
+
+function insertPrescribedDiagnosis($appointmentID, $diseaseID, $note){
+	$sql = mysql_query("INSERT INTO `diagnosis`( `appointMentID`, `diseaseID`, `note`) VALUES ('$appointmentID', '$diseaseID','$note')");
+}
+
+function addToDoctorSetting($appointmentID ,$doctorID){
+	
+	$result = getPrescribedDiagnosis($appointmentID);
+	
+	$rec = mysql_fetch_assoc($result);
+	
+	$diseaseID = $rec['diseasID'];
+	
+	
+	insertDrugsToSetting($appointmentID, $doctorID, $diseaseID);
+	
+	insertInvToSetting($appointmentID, $doctorID, $diseaseID);
+	
+	insertAdviceToSetting($appointmentID, $doctorID, $diseaseID);
+}
+
+function insertDrugsToSetting ($appointmentID,$doctorID, $diseaseID, $result){
+	
+	
+	
+	while ($row = mysql_fetch_array($result)){
+	
+		
+		$drugType = $row['drugTypeID'];
+		$drugID = $row['drugID'];
+		$drugTime = $row['drugTimeID'];
+		$drugDose = $row['drugDose'];
+		$doseUnit = $row['drugDoseUnit'];
+		$drugNoOfDay = $row['drugNoOfDay'];
+		$drugDayType = $row['drugDayTypeID'];
+		$drugWhen = $row['drugWhenID'];
+		$drugAdvice = $row['drugAdviceID'];
+		
+		mysql_query("INSERT INTO 
+				`settings_drug`
+				(
+					 `doctorID`,
+					 `diseaseID`,
+					`drugTypeID`, 
+					`drugID`, 
+					`drugTimeID`, 
+					`drugDose`, 
+					`drugDoseUnit`, 
+					`drugNoOfDay`, 
+					`drugDayTypeID`, 
+					` drugWhenID`, 
+					`drugAdviceID`
+				) VALUES (
+				'$doctorID', '$diseaseID', '$drugType', '$drugID', '$drugTime', '$drugDose', '$doseUnit', '$drugNoOfDay', '$drugDayType', '$drugWhen', '$drugAdvice')");
+	}
+}
+
+function insertInvToSetting ($appointmentID,$doctorID, $diseaseID, $result){
+
+
+	while ($row = mysql_fetch_array($result)){
+
+
+		$invID = $row['invID'];
+		$note = $row['note'];
+
+		mysql_query("INSERT INTO `settings_inv`(`doctorID`, `diseaseID`, `invID`, `note`, `checked`) VALUES ('$doctorID', '$diseaseID', '$invID', '$note', 0)");
+	}
+}
+
+function insertAdviceToSetting ($appointmentID,$doctorID, $diseaseID, $result){
+
+
+	while ($row = mysql_fetch_array($result)){
+
+
+		$adviceID = $row['adviceID'];
+
+		mysql_query("INSERT INTO `settings_advice`(`doctorID`, `diseaseID`, `adviceID`) VALUES ('$doctorID', '$diseaseID', '$adviceID')");
+	}
 }
 
 

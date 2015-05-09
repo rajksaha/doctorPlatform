@@ -30,6 +30,8 @@
     <link href="css/theme/kaitair/approval-center.css" rel="stylesheet"/>
     <link href="css/theme/kaitair/colors.css" rel="stylesheet"/>
     <link href="css/theme/kaitair/menu.css" rel="stylesheet"/>
+    
+    <link href="css/common/autocomplete.css" rel="stylesheet"/>
 
   
 

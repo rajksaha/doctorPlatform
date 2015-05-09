@@ -290,6 +290,27 @@ app.config(function($stateProvider, $urlRouterProvider, $compileProvider, $contr
             }
         };
     
+    var diagnosis = {
+            name : 'root.diagnosis',
+            url : '/diagnosis',
+            views : {
+                'container@' : {
+                    templateUrl : 'javascript/templates/diagnosis/diagnosis.html',
+                    controller : 'PrescribeDiagnosisController'
+                }
+            },
+            resolve : {
+                loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+                  // you can lazy load files for an existing module
+                  return $ocLazyLoad.load(
+                    {
+                      name: 'ktrTablet',
+                      files: ['javascript/controllers/diagnosis/diagnosisController.js' ]
+                    });
+                  }]
+            }
+        };
+    
     var oldPrescription = {
             name : 'root.oldPrescription',
             url : '/oldPrescription',
@@ -326,6 +347,7 @@ app.config(function($stateProvider, $urlRouterProvider, $compileProvider, $contr
         .state(history)
         .state(obsHistory)
         .state(advice)
+        .state(diagnosis)
         .state(oldPrescription)
     	.state(appointment);
     

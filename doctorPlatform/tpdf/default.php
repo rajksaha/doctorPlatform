@@ -267,6 +267,37 @@ function show_ref_doc($appointmentID,$xAxis,$yAxis,$size){
 	$this->MultiCell(50,5, $rec['doctorName'] . "-" . $rec['doctorAdress']);
 }
 
+function Show_History($appointmentID,$xAxis,$yAxis, $maxX , $size, $typeCode){
+
+	
+	$resultData = getPrescribedHistory($appointmentID, $typeCode);
+	
+	$this->SetFont('Times','',$size);
+	
+	
+	if(mysql_num_rows($resultData) > 0){
+	
+		$this->SetXY($xAxis - 2, $yAxis);
+		$this->MultiCell(20,5,$typeCode);
+		$yAxis += 6;
+	
+	}
+	
+	while($row=  mysql_fetch_array($resultData)){
+	
+		$historyResult = $row['historyResult'];
+		$historylDisplayName = $row['historyName'];
+	
+		$yAxis =  $this->GetY();
+		$this->SetXY($xAxis, $yAxis);
+		$this->MultiCell($maxX,5,"$historylDisplayName:  $historyResult");
+	
+	}
+	
+	return $this->GetY();
+	
+}
+
 }
 
 $pdf = new PDF();
@@ -286,6 +317,9 @@ $rightXaxis = 75;
 $maxX = 60;
 $rightYaxis = $pdf->Show_med($appointmentID,$rightXaxis,$rightYaxis,$size);
 $rightYaxis = $pdf->Show_advice($appointmentID,$rightXaxis,$rightYaxis + 5,$size - 2,$maxX);
+
+$leftYaxis=$pdf->Show_History($appointmentID,$leftXaxis,$leftYaxis, $maxX , $size -2, "MH");
+$leftYaxis=$pdf->Show_History($appointmentID,$leftXaxis,$leftYaxis, $maxX , $size -2, "OBS");
 $leftYaxis=$pdf->Show_vital($appointmentID,$leftXaxis,$leftYaxis, $maxX , $size -2);
 $leftYaxis=$pdf->Show_inv($appointmentID,$leftXaxis,$leftYaxis + 5, $maxX, $size - 2);
 

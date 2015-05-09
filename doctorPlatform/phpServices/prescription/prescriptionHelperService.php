@@ -3,6 +3,7 @@
 session_start();
 include('../config.inc');
 include('../commonServices/appointmentService.php');
+include('../commonServices/prescriptionService.php');
 if (!isset($_SESSION['username'])) {
 	header('Location: index.php');
 }
@@ -133,6 +134,25 @@ elseif ($query_no == 11){
 }elseif ($query_no == 12){
 	
 	$sql = mysql_query("DELETE FROM `prescription_reference` WHERE `appointMentID` = '$appointmentNO'");
+	
+	
+}elseif ($query_no == 13){
+	
+	$doctorID  =$_POST['doctorID'];
+	$diseaseID  =$_POST['diseaseID'];
+	
+	$result = mysql_query("SELECT sa.doctorID
+							FROM `settings_advice` sa
+							LEFT JOIN settings_drug sd ON sa.doctorID = sd.doctorID AND sd.diseaseID = '$diseaseID'
+							LEFT JOIN  settings_inv si ON sa.doctorID = si.doctorID AND si.diseaseID = '$diseaseID'
+							WHERE sd.diseaseID = '$diseaseID' AND sa.doctorID ='$doctorID'");	
+	
+	if(mysql_num_rows($result) > 0){
+		echo false;
+	}else{
+		echo true;
+	}
 }
+
 	
 ?>

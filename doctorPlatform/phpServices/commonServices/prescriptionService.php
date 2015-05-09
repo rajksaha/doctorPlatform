@@ -63,11 +63,11 @@ function getPrescribedVital($appointmentID){
 	return $result;
 
 }
-function getPrescribedHistory($appointmentID, $typeCode, $patientID){
+function getPrescribedHistory($appointmentID, $typeCode){
 
 	$sql = "SELECT hp.`id`,  hp.`appointMentID`,  hp.`patientHistoryID` , IF(h.shortName IS NULL or h.shortName = '', h.name,   h.name) AS historyName , ph.historyResult
 			FROM `history_prescription` hp
-			JOIN patient_history ph ON hp.patientHistoryID = ph.id AND ph.patientID = '$patientID'
+			JOIN patient_history ph ON hp.patientHistoryID = ph.id
 			JOIN history h ON ph.historyID = h.id AND  h.typeCode = '$typeCode'
 			WHERE hp.`appointMentID`= '$appointmentID'";
 
@@ -92,14 +92,16 @@ function getPrescribedComplain($appointmentID){
 }
 function getPrescribedDiagnosis($appointmentID){
 
-	$sql = "SELECT `id`, `appointMentID`, `diseaseID`, `note` , d.name AS diseaseName
+	$sql = "SELECT dia.`id`, dia.`appointMentID`, dia.`diseaseID`, `note` , d.name AS diseaseName
 			FROM `diagnosis` dia
 			JOIN disease d ON dia.diseaseID = d.id
 			WHERE dia.`appointMentID`= '$appointmentID'";
 
 	$result=mysql_query($sql);
+	
+	$rec=mysql_fetch_assoc($result);
 
-	return $result;
+	return $rec;
 
 }
 
@@ -164,5 +166,44 @@ function getPatientOldPrecription($appointmentID, $patientID, $doctorCode){
 	$result=mysql_query($sql);
 	
 	return $result;
+}
+
+function getDoctorsDrugSettingByDisease($doctorCode, $diseaseID){
+	
+	
+	$result = mysql_query("SELECT sd.`id`, sd.`doctorID`, sd.`diseaseID`, sd.`drugTypeID`, sd.`drugID`, sd.`drugTimeID`, sd.`drugDose`, sd.`drugDoseUnit`, sd.`drugNoOfDay`, sd.`drugDayTypeID`, ` drugWhenID`, `drugAdviceID`
+			FROM `settings_drug` sd
+			JOIN doctor d ON sd.doctorID = d.doctorID
+			WHERE  d.doctorCode = '$doctorCode' AND sd.diseaseID = '$diseaseID'");
+	
+	return $result;
+	
+	
+}
+
+function getDoctorsInvSettingByDisease($doctorCode, $diseaseID){
+
+
+	$result = mysql_query("SELECT si.`id`, si.`doctorID`, si.`diseaseID`, si.`invID`, si.`note` 
+						FROM `settings_inv` si
+						JOIN doctor d ON si.doctorID = d.doctorID
+						WHERE  d.doctorCode = '$doctorCode' AND si.diseaseID = '$diseaseID'");
+
+	return $result;
+
+
+}
+
+function getDoctorsAdviceSettingByDisease($doctorCode, $diseaseID){
+
+
+	$result = mysql_query("SELECT sa.`id`, sa.`doctorID`, sa.`diseaseID`, sa.`adviceID` 
+						FROM `settings_advice` sa
+						JOIN doctor d ON sa.doctorID = d.doctorID
+						WHERE  d.doctorCode = '$doctorCode' AND sa.diseaseID = '$diseaseID'");
+
+	return $result;
+
+
 }
 ?>

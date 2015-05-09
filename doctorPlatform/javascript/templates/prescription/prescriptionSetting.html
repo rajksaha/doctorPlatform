@@ -1,0 +1,19 @@
+<div class="modal-header modalHead ">
+	<h4 class="modal-title">Prescription</h4>
+</div>
+<div class="modal-body modalBody"  style="position:relative; z-index:1;">
+	
+
+
+    	<div  class="row step4Width" id="validateReq">
+   			<div class="form-group col-xs-12 col-sm-12">
+   				Hello Doctor , You prescribed {{prescriptionSettingData.diseaseName}} disease and you dont have any treatment attached to it.
+   				Do you want save this treatment for future ??
+			</div>
+    	</div>
+	
+</div>
+<div class="modal-footer modalFoot">
+	<button class="btn btnLanier btn-success" data-ng-click="savePrint()" ><i class="fa"></i> Save & Print</button>
+	<button class="btn btnLanier btn-warning" data-ng-click="printOnly()" ><i class="fa"></i> Print only</button>
+</div>

@@ -182,6 +182,9 @@
     		
     		<div class="col-md-6">
     			<a href="#/drugs">RX</a>
+    			
+    			<a href="#/diagnosis" data-ng-show="diagnosisData">Diagnosis</a>
+				<label data-ng-show="diagnosisData" >{{diagnosisData.diseaseName}}</label>    			
 				<table id="content-data-list" class="table">
 					<tbody>
 						<tr class="appointment" data-ng-repeat="drugPres in prescribedDrugList" style="height: 50px;cursor: pointer;">

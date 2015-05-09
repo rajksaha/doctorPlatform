@@ -2759,6 +2759,10 @@ $this->write(5,"Surgery Plan:");
 }
 return $y;
 }
+
+function Show_History($appointmentID,$leftXaxis,$leftYaxis, $maxX , $size, $type){
+	
+}
 }
 
 
