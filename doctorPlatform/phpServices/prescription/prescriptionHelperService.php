@@ -4,6 +4,7 @@ session_start();
 include('../config.inc');
 include('../commonServices/appointmentService.php');
 include('../commonServices/prescriptionService.php');
+include('../commonServices/prescriptionInsertService.php');
 if (!isset($_SESSION['username'])) {
 	header('Location: index.php');
 }
@@ -141,17 +142,48 @@ elseif ($query_no == 11){
 	$doctorID  =$_POST['doctorID'];
 	$diseaseID  =$_POST['diseaseID'];
 	
-	$result = mysql_query("SELECT sa.doctorID
-							FROM `settings_advice` sa
-							LEFT JOIN settings_drug sd ON sa.doctorID = sd.doctorID AND sd.diseaseID = '$diseaseID'
-							LEFT JOIN  settings_inv si ON sa.doctorID = si.doctorID AND si.diseaseID = '$diseaseID'
-							WHERE sd.diseaseID = '$diseaseID' AND sa.doctorID ='$doctorID'");	
+	$added = 0;
+	$drugResult = mysql_query("SELECT sa.doctorID FROM `settings_advice` sa WHERE sa.diseaseID = '$diseaseID' AND sa.doctorID ='$doctorID'");	
 	
-	if(mysql_num_rows($result) > 0){
-		echo false;
+	if(mysql_num_rows($drugResult) > 0){
+		$added = 1;
 	}else{
-		echo true;
+		$adviceResult = mysql_query("SELECT sa.doctorID FROM `settings_advice` sa WHERE sa.diseaseID = '$diseaseID' AND sa.doctorID ='$doctorID'");
+		
+		if (mysql_num_rows($adviceResult) > 0){
+			$added = 1;
+		}else{
+			$invResult = mysql_query("SELECT sa.doctorID FROM `settings_inv` sa WHERE sa.diseaseID = '$diseaseID' AND sa.doctorID ='$doctorID'");
+			
+			if (mysql_num_rows($invResult) > 0){
+				$added = 1;
+			}else{
+				$added = -1;
+			}
+		}
 	}
+	
+	echo $added;
+}
+
+elseif ($query_no == 14){
+
+	$doctorID  =$_POST['doctorID'];
+	$diseaseID  =$_POST['diseaseID'];
+	addToDoctorSetting($appointmentNO, $doctorID, $diseaseID);
+}
+
+elseif ($query_no == 15){
+
+	
+	mysql_query("UPDATE `appointment` SET `status`= 1 WHERE `appointmentID` = '$appointmentNO'");
+	
+	$_SESSION['printAppointmentID']=$appointmentNO;
+	$_SESSION['printPatientCode']=$patientCode;
+	
+	$_SESSION['patientID']= "";
+	$_SESSION['appointmentID']= "";
+	$_SESSION['patientCode']= "";
 }
 
 	

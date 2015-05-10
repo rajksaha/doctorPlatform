@@ -332,6 +332,34 @@ app.config(function($stateProvider, $urlRouterProvider, $compileProvider, $contr
             }
         };
     
+    var settings = {
+            name : 'root.settings',
+            url : '/settings',
+            views : {
+                'container@' : {
+                    templateUrl : 'javascript/templates/settings/settings.html',
+                    controller : 'PrescribeSettingsController'
+                }
+            },
+            resolve : {
+            	loadMyService: ['$ocLazyLoad', function($ocLazyLoad) {
+                    return $ocLazyLoad.load(
+                    {
+                      name: 'ktrTablet',
+                      files: ['javascript/services/jsonService.js' + jsVersion]
+                    });
+                  }],
+                loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+                  // you can lazy load files for an existing module
+                  return $ocLazyLoad.load(
+                    {
+                      name: 'ktrTablet',
+                      files: ['javascript/controllers/settings/settingsController.js' ]
+                    });
+                  }]
+            }
+        };
+    
     
 	
 	
@@ -349,6 +377,7 @@ app.config(function($stateProvider, $urlRouterProvider, $compileProvider, $contr
         .state(advice)
         .state(diagnosis)
         .state(oldPrescription)
+        .state(settings)
     	.state(appointment);
     
 

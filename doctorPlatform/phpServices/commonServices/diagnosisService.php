@@ -1,12 +1,10 @@
 <?php
 include('../config.inc');
-include('../commonServices/prescriptionService.php');
-include('../commonServices/prescriptionInsertService.php');
 if (!isset($_SESSION['username'])) {
 	header('Location: index.php');
 }
 
-function addToPrescription($diseaseID, $doctorCode, $appointmentID){
+function addToPrescriptionSetings($diseaseID, $doctorCode, $appointmentID){
 	
 	$drugResult = getDoctorsDrugSettingByDisease($doctorCode, $diseaseID);
 	
@@ -15,12 +13,12 @@ function addToPrescription($diseaseID, $doctorCode, $appointmentID){
 	
 	$invResult = getDoctorsInvSettingByDisease($doctorCode, $diseaseID);
 
-	addInvToPrescription($diseaseID, $doctorCode, $appointmentID);
+	addInvToPrescription($appointmentID, $invResult);
 	
 	
 	$adviceResult = getDoctorsAdviceSettingByDisease($doctorCode, $diseaseID); 
 	
-	addAdviceToPrescription($diseaseID, $doctorCode, $appointmentID);
+	addAdviceToPrescription($appointmentID, $adviceResult);
 	
 }
 
@@ -35,58 +33,26 @@ function addDrugsToPrescription ($appointmentID, $result){
 	}
 }
 
-function addInvToPrescription ($diseaseID, $doctorCode, $appointmentID){
+function addInvToPrescription ($appointmentID, $result){
 
-	$sql = mysql_query("SELECT si.`id`, si.`doctorID`, si.`diseaseID`, si.`invID`, si.`note` 
-						FROM `settings_inv` si
-						JOIN doctor d ON si.doctorID = d.doctorID
-						WHERE  d.doctorCode = '$doctorCode' AND si.diseaseID = '$diseaseID'");
 	
-	while ($row = mysql_fetch_array($sql)){
+	while ($row = mysql_fetch_array($result)){
 	
 		insertPrescriptionInv($appointmentID, $row['invID'], $row['note']);
 	}
 }
 
-function addAdviceToPrescription ($diseaseID, $doctorCode, $appointmentID){
+function addAdviceToPrescription ($diseaseID, $result){
 
-	$sql = mysql_query("SELECT sa.`id`, sa.`doctorID`, sa.`diseaseID`, sa.`adviceID` 
-						FROM `settings_advice` sa
-						JOIN doctor d ON sa.doctorID = d.doctorID
-						WHERE  d.doctorCode = '$doctorCode' AND sa.diseaseID = '$diseaseID'");
 	
-	while ($row = mysql_fetch_array($sql)){
+	while ($row = mysql_fetch_array($result)){
 		
 		insertPrescriptionAdvice($appointmentID, $row['adviceID']);
 	}
 	
 }
 
-function addToDoctorSetting($appointmentID ,$doctorID){
-	
-	$result = getPrescribedDiagnosis($appointmentID);
-	
-	$rec = mysql_fetch_assoc($result);
-	
-	$diseaseID = $rec['diseasID'];
-	
-	
-	$drugResult = $result = getPresCribedDrugs($appointmentID);
-	
-	insertDrugsToSetting($appointmentID, $doctorID, $diseaseID, $drugResult);
-	
-	
-	
-	$invResult = $result = getPrescribedInv($appointmentID);
-	
-	insertInvToSetting($appointmentID, $doctorID, $diseaseID, $invResult);
-	
-	
-	
-	$adviceResult = $result = getPrescribedAdvice($appointmentID);
-	
-	insertAdviceToSetting($appointmentID, $doctorID, $diseaseID, $adviceResult);
-}
+
 
 
 ?>

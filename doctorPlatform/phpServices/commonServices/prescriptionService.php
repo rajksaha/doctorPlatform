@@ -99,9 +99,9 @@ function getPrescribedDiagnosis($appointmentID){
 
 	$result=mysql_query($sql);
 	
-	$rec=mysql_fetch_assoc($result);
+	
 
-	return $rec;
+	return $result;
 
 }
 
@@ -171,10 +171,16 @@ function getPatientOldPrecription($appointmentID, $patientID, $doctorCode){
 function getDoctorsDrugSettingByDisease($doctorCode, $diseaseID){
 	
 	
-	$result = mysql_query("SELECT sd.`id`, sd.`doctorID`, sd.`diseaseID`, sd.`drugTypeID`, sd.`drugID`, sd.`drugTimeID`, sd.`drugDose`, sd.`drugDoseUnit`, sd.`drugNoOfDay`, sd.`drugDayTypeID`, ` drugWhenID`, `drugAdviceID`
+	$result = mysql_query("SELECT sd.`id`, sd.`doctorID`, sd.`diseaseID`, sd.`drugTypeID`, sd.`drugID`, sd.`drugTimeID`, sd.`drugDose`, sd.`drugDoseUnit`, sd.`drugNoOfDay`, sd.`drugDayTypeID`, ` drugWhenID`, `drugAdviceID`,
+							dt.initial AS typeInitial, d.drugName AS drugName, d.strength AS drugStrength, ddt.bangla AS dayTypeName, dwt.bangla AS whenTypeName, dat.bangla AS adviceTypeName
 			FROM `settings_drug` sd
-			JOIN doctor d ON sd.doctorID = d.doctorID
-			WHERE  d.doctorCode = '$doctorCode' AND sd.diseaseID = '$diseaseID'");
+			JOIN drugtype dt ON sd.drugTypeID = dt.id
+			JOIN drug d ON sd.drugID = d.drugID
+			JOIN drugdaytype ddt ON sd.drugDayTypeID = ddt.id
+			JOIN drugwhentype dwt ON sd.` drugWhenID` = dwt.id
+			JOIN drugadvicetype dat ON sd.drugAdviceID = dat.id
+			JOIN doctor doc ON sd.doctorID = doc.doctorID
+			WHERE  doc.doctorCode = '$doctorCode' AND sd.diseaseID = '$diseaseID'");
 	
 	return $result;
 	
@@ -184,9 +190,10 @@ function getDoctorsDrugSettingByDisease($doctorCode, $diseaseID){
 function getDoctorsInvSettingByDisease($doctorCode, $diseaseID){
 
 
-	$result = mysql_query("SELECT si.`id`, si.`doctorID`, si.`diseaseID`, si.`invID`, si.`note` 
+	$result = mysql_query("SELECT si.`id`, si.`doctorID`, si.`diseaseID`, si.`invID`, si.`note`, i.name AS invName
 						FROM `settings_inv` si
 						JOIN doctor d ON si.doctorID = d.doctorID
+						JOIN inv i ON si.invID = i.id
 						WHERE  d.doctorCode = '$doctorCode' AND si.diseaseID = '$diseaseID'");
 
 	return $result;
@@ -197,9 +204,10 @@ function getDoctorsInvSettingByDisease($doctorCode, $diseaseID){
 function getDoctorsAdviceSettingByDisease($doctorCode, $diseaseID){
 
 
-	$result = mysql_query("SELECT sa.`id`, sa.`doctorID`, sa.`diseaseID`, sa.`adviceID` 
+	$result = mysql_query("SELECT sa.`id`, sa.`doctorID`, sa.`diseaseID`, sa.`adviceID`, a.advice
 						FROM `settings_advice` sa
 						JOIN doctor d ON sa.doctorID = d.doctorID
+						JOIN advice a ON sa.`adviceID` = a.id	
 						WHERE  d.doctorCode = '$doctorCode' AND sa.diseaseID = '$diseaseID'");
 
 	return $result;

@@ -4,6 +4,8 @@ app.controller('PrescribeDiagnosisController', function($scope, $http, $modal, $
 	$scope.diagnosisData = {};
 	$scope.diagnosisName = "";
 	
+	$scope.diagnosisNote = "";
+	
 	$scope.saveDiagnosis = function(){
 		
 		var dataString = "";
@@ -12,7 +14,7 @@ app.controller('PrescribeDiagnosisController', function($scope, $http, $modal, $
 			dataString = "query=" + 3 + '&diagnosisName=' + $('.diagnosisAdderName').val() + '&note=' + $scope.diagnosisNote + '&id=' + $scope.diagnosisData.id;
 
 		}else{
-			dataString = "query=" + 2 + '&diagnosisName=' + $scope.diagnosisName + '&note=' + $scope.diagnosisNote;
+			dataString = "query=" + 2 + '&diagnosisName=' + $('.diagnosisAdderName').val() + '&note=' + $scope.diagnosisNote;
 		}
 		
 
@@ -38,14 +40,19 @@ app.controller('PrescribeDiagnosisController', function($scope, $http, $modal, $
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).success(function (result) {
         	$scope.diagnosisData = result;
-        	$scope.diagnosisName = $scope.diagnosisData.diseaseName;
-        	$scope.diagnosisNote = $scope.diagnosisData.note;
+        	if($scope.diagnosisData.id){
+        		$scope.diagnosisName = $scope.diagnosisData.diseaseName;
+            	$scope.diagnosisNote = $scope.diagnosisData.note;
+        	}
+        	
         	
         });
 	};
 	
 	
 	(function(){
+		
+		
 		$scope.bringDiagnosisData();
     })()
 

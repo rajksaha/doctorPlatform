@@ -94,29 +94,13 @@ function insertPrescribedDiagnosis($appointmentID, $diseaseID, $note){
 	$sql = mysql_query("INSERT INTO `diagnosis`( `appointMentID`, `diseaseID`, `note`) VALUES ('$appointmentID', '$diseaseID','$note')");
 }
 
-function addToDoctorSetting($appointmentID ,$doctorID){
+function addToDoctorSetting($appointmentID ,$doctorID, $diseaseID){
 	
-	$result = getPrescribedDiagnosis($appointmentID);
+	$drugResult = getPresCribedDrugs($appointmentID);
 	
-	$rec = mysql_fetch_assoc($result);
-	
-	$diseaseID = $rec['diseasID'];
+	while ($row = mysql_fetch_array($drugResult)){
 	
 	
-	insertDrugsToSetting($appointmentID, $doctorID, $diseaseID);
-	
-	insertInvToSetting($appointmentID, $doctorID, $diseaseID);
-	
-	insertAdviceToSetting($appointmentID, $doctorID, $diseaseID);
-}
-
-function insertDrugsToSetting ($appointmentID,$doctorID, $diseaseID, $result){
-	
-	
-	
-	while ($row = mysql_fetch_array($result)){
-	
-		
 		$drugType = $row['drugTypeID'];
 		$drugID = $row['drugID'];
 		$drugTime = $row['drugTimeID'];
@@ -127,26 +111,48 @@ function insertDrugsToSetting ($appointmentID,$doctorID, $diseaseID, $result){
 		$drugWhen = $row['drugWhenID'];
 		$drugAdvice = $row['drugAdviceID'];
 		
-		mysql_query("INSERT INTO 
-				`settings_drug`
-				(
-					 `doctorID`,
-					 `diseaseID`,
-					`drugTypeID`, 
-					`drugID`, 
-					`drugTimeID`, 
-					`drugDose`, 
-					`drugDoseUnit`, 
-					`drugNoOfDay`, 
-					`drugDayTypeID`, 
-					` drugWhenID`, 
-					`drugAdviceID`
-				) VALUES (
-				'$doctorID', '$diseaseID', '$drugType', '$drugID', '$drugTime', '$drugDose', '$doseUnit', '$drugNoOfDay', '$drugDayType', '$drugWhen', '$drugAdvice')");
+		
+		insertSingleDrugsToSetting($doctorID, $diseaseID, $drugID, $drugType, $drugTime, $drugDose, $doseUnit, $drugNoOfDay, $drugDayType, $drugDayType, $drugDayType, $drugAdvice);
 	}
+	
+	
+	
+	
+	$invResult = getPrescribedInv($appointmentID);
+	
+	insertInvToSetting($doctorID, $diseaseID, $invResult);
+	
+	
+	
+	$adviceResult = $result = getPrescribedAdvice($appointmentID);
+	
+	insertAdviceToSetting($doctorID, $diseaseID, $adviceResult);
 }
 
-function insertInvToSetting ($appointmentID,$doctorID, $diseaseID, $result){
+
+function insertSingleDrugsToSetting($doctorID, $diseaseID,$drugID, $drugType, $drugTime, $drugDose, $doseUnit, $drugNoOfDay, $drugDayType, $drugDayType, $drugWhen, $drugAdvice){
+	
+	mysql_query("INSERT INTO
+			`settings_drug`
+			(
+			`doctorID`,
+			`diseaseID`,
+			`drugTypeID`,
+			`drugID`,
+			`drugTimeID`,
+			`drugDose`,
+			`drugDoseUnit`,
+			`drugNoOfDay`,
+			`drugDayTypeID`,
+			` drugWhenID`,
+			`drugAdviceID`
+	)
+			VALUES
+			(
+			'$doctorID', '$diseaseID', '$drugType', '$drugID', '$drugTime', '$drugDose', '$doseUnit', '$drugNoOfDay', '$drugDayType', '$drugWhen', '$drugAdvice')");
+}
+
+function insertInvToSetting ($doctorID, $diseaseID, $result){
 
 
 	while ($row = mysql_fetch_array($result)){
@@ -159,7 +165,7 @@ function insertInvToSetting ($appointmentID,$doctorID, $diseaseID, $result){
 	}
 }
 
-function insertAdviceToSetting ($appointmentID,$doctorID, $diseaseID, $result){
+function insertAdviceToSetting ($doctorID, $diseaseID, $result){
 
 
 	while ($row = mysql_fetch_array($result)){

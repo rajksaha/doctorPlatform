@@ -39,18 +39,15 @@
 </section>
 
 <div class="panel  col-md-12 filter-panel" style="padding-top: 20px">
-	<div class="list-item col-sm-4 col-md-4 col-lg-4" data-ng-repeat="advice in advcieSettingData" style="padding-bottom: 10px">
+	<div class="list-item col-sm-4 col-md-4 col-lg-4" data-ng-repeat="adviceData in advieSettingList" style="padding-bottom: 10px">
 		<span><a class="btn btn-danger btn-sm btnLanier"
                   ktr-confirmation="delAdviceFromSetting(item)" 
                   confirmation-message="Are you sure to remove?"
                   confirmation-title="Confirmation"
-                  item="advice.adviceSettingID">
+                  item="adviceData.id">
                   <span class="glyphicons glyphicon glyphicon-remove" aria-hidden="true"></span>
                </a>
 		</span>
-		<button class="btn btn-default" data-ng-model="none"   data-ng-click="deciderAdvice(!advice.addedToPrescription,advice)">
-			<span class="glyphicon  glyphicon"  data-ng-class="{'glyphicon-check': advice.addedToPrescription == true,'glyphicon-unchecked': advice.addedToPrescription == false}"></span>
-		</button>
-		<span>{{advice.advice}}</span>
+		<span>{{adviceData.advice}}</span>
 	</div>
 </div>

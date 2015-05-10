@@ -3,6 +3,7 @@
 session_start();
 include('../config.inc');
 include('../commonServices/prescriptionService.php');
+include('../commonServices/prescriptionInsertService.php');
 if (!isset($_SESSION['username'])) {
 	header('Location: index.php');
 }

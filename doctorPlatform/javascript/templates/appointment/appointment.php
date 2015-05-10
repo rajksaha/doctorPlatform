@@ -2,7 +2,7 @@
 	<span style="padding-left:20px"><a href="javascript:" data-ng-click="addNewAppointment()"><img class="photo-room" width="117" height="89" src="images/forms.png"></a><span style="padding-left:12px;">New Appointment</span></span>
 	<span style="padding-left:25px"><a href="javascript:" data-ng-click="followUpSearch = !followUpSearch"><img class="photo-room" width="117" height="89" src="images/forms_11.png"></a><span style="padding-left:12px;">F.U Appointment</span></span>
 	<span style="padding-left:25px"><a href="research/gen_pat.php"><img class="photo-room" width="117" height="89"src="images/sym.png"></a><span style="padding-left:12px;">Research</span></span>
-	<span style="padding-left:25px"><a href="settings/settings.php"><img class="photo-room"width="117" height="89" src="images/settings.png"></a><span style="padding-left:12px;">Setting</span></span>
+	<span style="padding-left:25px"><a href="#/settings" ><img class="photo-room"width="117" height="89" src="images/settings.png"></a><span style="padding-left:12px;">Setting</span></span>
 		
 		
 </div>

@@ -8,7 +8,7 @@
 		<div class="col-md-4">
 			<a class="pull-right  btn btn-info" href="#/appointment"><span class="glyphicon glyphicon-th-list" aria-hidden="true"> Appointment</span></a>
 			<button class="pull-right btn btn-info" data-ng-click="patientSetting = !patientSetting"><span class="glyphicon glyphicon glyphicon-wrench" aria-hidden="true"></span> Setteing</button>
-			<a class="pull-right  btn btn-info" href="tpdf/{{doctorData.pdfPage}}.php" target="_blank"><span class="glyphicon glyphicon-print" aria-hidden="true"> Print</span></a>
+			<button class="pull-right btn btn-info" data-ng-click="print()"><span class="glyphicon glyphicon-print" aria-hidden="true"> Print</span></button>
 		</div>
 	</div>
 </div>
@@ -181,10 +181,12 @@
     		</div>
     		
     		<div class="col-md-6">
-    			<a href="#/drugs">RX</a>
+    			
     			
     			<a href="#/diagnosis" data-ng-show="diagnosisData">Diagnosis</a>
-				<label data-ng-show="diagnosisData" >{{diagnosisData.diseaseName}}</label>    			
+				<label data-ng-show="diagnosisData" >{{diagnosisData.diseaseName}}</label>
+				<br>
+				<a href="#/drugs">RX</a>			
 				<table id="content-data-list" class="table">
 					<tbody>
 						<tr class="appointment" data-ng-repeat="drugPres in prescribedDrugList" style="height: 50px;cursor: pointer;">

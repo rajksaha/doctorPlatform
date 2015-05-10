@@ -1,4 +1,4 @@
-app.controller('PrescriptionController', function($scope, $http, $modal, $rootScope, limitToFilter, $location, $filter) {
+app.controller('PrescriptionController', function($scope, $http, $modal, $rootScope, limitToFilter, $location, $filter, $window) {
 	
 	$scope.menuDataList = [];
 	$scope.patientData = {};
@@ -368,22 +368,6 @@ app.controller('PrescriptionController', function($scope, $http, $modal, $rootSc
 		
 	};
 	
-	$scope.prescribedDiagnosisData = [];
-	
-	$scope.bringPrescribedDiagnosis = function(appointmentID){
-		
-		var dataString = "query=6" + '&appointmentID=' + appointmentID;
-
-        $http({
-            method: 'POST',
-            url: "phpServices/commonServices/prescriptionDetailService.php",
-            data: dataString,
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-        }).success(function (result) {
-        	$scope.prescribedDiagnosisData = result;
-        });
-		
-	};
 	
 	$scope.nextVisitData = {};
 	
@@ -430,7 +414,7 @@ app.controller('PrescriptionController', function($scope, $http, $modal, $rootSc
 	
 	$scope.bringPresCribedDiagnosis = function (appointmentID){
 		
-		var dataString = "query=8" + '&appointmentID=' + appointmentID;
+		var dataString = "query=6" + '&appointmentID=' + appointmentID;
 
         $http({
             method: 'POST',
@@ -447,23 +431,23 @@ app.controller('PrescriptionController', function($scope, $http, $modal, $rootSc
 		
 		//chcek if there is any diagonsis set and any settings connected to it
 		
-		if($scope.diagnosisData){
+		if($scope.diagnosisData.diseaseID){
 			
 			
-			var dataString = "query=13" + '&diseaseID=' + $scope.diagnosisData.diseasID + '&doctorID=' + $scope.doctorData.id;
+			var dataString = "query=13" + '&diseaseID=' + $scope.diagnosisData.diseaseID + '&doctorID=' + $scope.doctorData.doctorID;
 
 	        $http({
 	            method: 'POST',
-	            url: "phpServices/commonServices/prescriptionDetailService.php",
+	            url: "phpServices/prescription/prescriptionHelperService.php",
 	            data: dataString,
 	            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 	        }).success(function (result) {
-	        	if(result){
+	        	if(parseInt(result) == -1){
 	        		
 	        		var prescriptionSettingData = {};
-	        		prescriptionSettingData.diseaseID = $scope.diagnosisData.diseasID;
+	        		prescriptionSettingData.diseaseID = $scope.diagnosisData.diseaseID;
 	        		prescriptionSettingData.diseaseName = $scope.diagnosisData.diseaseName;
-	        		prescriptionSettingData.doctorID = $scope.doctorData.id;
+	        		prescriptionSettingData.doctorID = $scope.doctorData.doctorID;
 	        		
 	        		var modalInstance = $modal.open({
 	                    templateUrl: 'javascript/templates/prescription/prescriptionSetting.html',
@@ -480,17 +464,37 @@ app.controller('PrescriptionController', function($scope, $http, $modal, $rootSc
 	                    backdrop: 'static'
 	                });
 	                modalInstance.result.then(function(result) {
-	                	$scope.bringAppointment();
+	                	$scope.printPreview();
 	                 });
 	                
 	                
+	        	}else{
+	        		$scope.printPreview();
 	        	}
 	        });
 	        
-		}
-		//if no then prompt a pop-up sayng u want save it as a setting or not
-		// call save & continue
+		}else{
+    		$scope.printPreview();
+    	}
 	};
+	
+    $scope.printPreview = function (){
+		
+    	
+    	var dataString = "query=15";
+
+        $http({
+            method: 'POST',
+            url: "phpServices/prescription/prescriptionHelperService.php",
+            data: dataString,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (result) {
+        	 $window.open("tpdf/" + $scope.doctorData.pdfPage + ".php", '_blank');
+        	 $location.path("/appointment");
+        	 
+        });
+    	
+    };
 
 	$scope.inIt = function (){
 		$scope.bringDoctorInfo();
@@ -507,45 +511,30 @@ app.controller('PrescriptionController', function($scope, $http, $modal, $rootSc
 	
 });
 
-app.controller('PrescriptionController.PrescriptionSettingController', function($scope, $modalInstance, data, $http) {
+app.controller('PrescriptionController.PrescriptionSettingController', function($scope, $modalInstance, data, $http, $window, $location) {
 	
 	$scope.prescriptionSettingData = data;
 	
 	$scope.savePrint = function (){
 		
 		
-		var dataString = "query=14" + + '&diseaseID=' + $scope.prescriptionSettingData.diseasID + '&doctorID=' + $scope.prescriptionSettingData.id;
+		var dataString = "query=14" + '&diseaseID=' + $scope.prescriptionSettingData.prescriptionSettingData.diseaseID + '&doctorID=' + $scope.prescriptionSettingData.prescriptionSettingData.doctorID;
 
         $http({
             method: 'POST',
-            url: "phpServices/commonServices/prescriptionDetailService.php",
+            url: "phpServices/prescription/prescriptionHelperService.php",
             data: dataString,
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).success(function (result) {
-        	$scope.printOnly();
+        	$modalInstance.close();
         });
         
     };
     
-    $scope.printOnly = function (){
-		
-    	
-    	var dataString = "query=15" + + '&diseaseID=' + $scope.prescriptionSettingData.diseasID + '&doctorID=' + $scope.prescriptionSettingData.id;
 
-        $http({
-            method: 'POST',
-            url: "phpServices/commonServices/prescriptionDetailService.php",
-            data: dataString,
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-        }).success(function (result) {
-        	 $window.open('https://www.google.com', '_blank');
-        	 $location.path("/appointment");
-        });
-    	
-    };
 	
-	$scope.cancel = function (){
-		$modalInstance.dismiss('cancel');
+	$scope.printOnly = function (){
+		$modalInstance.close();
 	};
 	
 	

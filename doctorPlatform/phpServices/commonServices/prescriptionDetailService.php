@@ -107,12 +107,10 @@ else if($query_no==4){
 	
 	$result = getPrescribedDiagnosis($appointmentID);
 	
-	$data = array();
-	while ($row=mysql_fetch_array($result)){
-		array_push($data,$row);
-	}
 	
-	echo json_encode($data);
+	$rec = mysql_fetch_assoc($result);
+	
+	echo json_encode($rec);
 	
 }elseif ($query_no==7){
 
