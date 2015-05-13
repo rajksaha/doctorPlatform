@@ -6,6 +6,7 @@ include('../commonServices/prescriptionService.php');
 include('../commonServices/prescriptionInsertService.php');
 include('../commonServices/parentInsertService.php');
 include('../commonServices/diagnosisService.php');
+include('../commonServices/autoCopmpleteService.php');
 
 if (!isset($_SESSION['username'])) {
 	header('Location: index.php');
@@ -27,19 +28,7 @@ if($query_no== 0){
 	
 		$queryString = $_POST['queryString'];
 			
-		$res=  mysql_query("select * from disease WHERE name LIKE '" . $queryString . "%'  ORDER BY name LIMIT 10");
-		$data ="<p id='searchresults'>";
-		
-		while($row1=  mysql_fetch_array($res)){
-			$name=$row1['name'];
-			
-			$data.= '<a href="javascript:autocomplete(\''.$name.'\')">';
-			
-			$data.= '<span class="searchheading">'.$name.'</span>';
-		}
-		
-		$data.= "</p>";
-		echo $data;
+		return getDiseaseList($queryString);
 	
 }
 

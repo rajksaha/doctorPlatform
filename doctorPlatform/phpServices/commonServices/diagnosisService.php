@@ -42,7 +42,7 @@ function addInvToPrescription ($appointmentID, $result){
 	}
 }
 
-function addAdviceToPrescription ($diseaseID, $result){
+function addAdviceToPrescription ($appointmentID, $result){
 
 	
 	while ($row = mysql_fetch_array($result)){

@@ -171,15 +171,14 @@ function getPatientOldPrecription($appointmentID, $patientID, $doctorCode){
 function getDoctorsDrugSettingByDisease($doctorCode, $diseaseID){
 	
 	
-	$result = mysql_query("SELECT sd.`id`, sd.`doctorID`, sd.`diseaseID`, sd.`drugTypeID`, sd.`drugID`, sd.`drugTimeID`, sd.`drugDose`, sd.`drugDoseUnit`, sd.`drugNoOfDay`, sd.`drugDayTypeID`, ` drugWhenID`, `drugAdviceID`,
-							dt.initial AS typeInitial, d.drugName AS drugName, d.strength AS drugStrength, ddt.bangla AS dayTypeName, dwt.bangla AS whenTypeName, dat.bangla AS adviceTypeName
-			FROM `settings_drug` sd
-			JOIN drugtype dt ON sd.drugTypeID = dt.id
-			JOIN drug d ON sd.drugID = d.drugID
-			JOIN drugdaytype ddt ON sd.drugDayTypeID = ddt.id
-			JOIN drugwhentype dwt ON sd.` drugWhenID` = dwt.id
-			JOIN drugadvicetype dat ON sd.drugAdviceID = dat.id
-			JOIN doctor doc ON sd.doctorID = doc.doctorID
+	$result = mysql_query("SELECT sd.`id` , sd.`doctorID` , sd.`diseaseID` , sd.`drugTypeID` , sd.`drugID` , sd.`drugTimeID` , sd.`drugDose` , sd.`drugDoseUnit` , sd.`drugNoOfDay` , sd.`drugDayTypeID` , sd.`drugWhenID` , sd.`drugAdviceID` , dt.initial AS typeInitial, d.drugName AS drugName, d.strength AS drugStrength, ddt.bangla AS dayTypeName, dwt.bangla AS whenTypeName, dat.bangla AS adviceTypeName
+							FROM `settings_drug` sd
+							JOIN drugtype dt ON sd.drugTypeID = dt.id
+							JOIN drug d ON sd.drugID = d.drugID
+							JOIN drugadvicetype dat ON sd.drugAdviceID = dat.id
+							JOIN drugdaytype ddt ON sd.drugDayTypeID = ddt.id
+							JOIN drugwhentype dwt ON sd.`drugWhenID` = dwt.id
+							JOIN doctor doc ON sd.doctorID = doc.doctorID
 			WHERE  doc.doctorCode = '$doctorCode' AND sd.diseaseID = '$diseaseID'");
 	
 	return $result;

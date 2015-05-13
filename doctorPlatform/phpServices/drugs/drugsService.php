@@ -8,9 +8,15 @@ include('../commonServices/prescriptionInsertService.php');
 if (!isset($_SESSION['username'])) {
 	header('Location: index.php');
 }
+if (isset($_SESSION['appointmentID'])) {
+	$appointmentID = $_SESSION['appointmentID'];
+}
+if (isset($_SESSION['patientCode'])) {
+	$patientCode = $_SESSION['patientCode'];
+}
 $username = $_SESSION['username'];
-$appointmentID = $_SESSION['appointmentID'];
-$patientCode = $_SESSION['patientCode'];
+
+
 $date=date("Y-m-d");
 $query_no=  mysql_real_escape_string($_POST['query']);
 

@@ -26,7 +26,7 @@ app.controller('HeaderController', function($scope, $rootScope, $location, $time
 	
 	 $scope.logout = function () {
 	       
-	    };
+	 };
     
 
     (function(){

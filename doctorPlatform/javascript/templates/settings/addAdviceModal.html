@@ -1,10 +1,31 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
+<div class="modal-header modalHead ">
+	<h4 class="modal-title">Add Advcie To Settings</h4>
+</div>
+<div class="modal-body modalBody"  style="position:relative; z-index:1;">
+	<div class="alert alert-danger alert-dismissable" data-ng-show="error">
+        <div>{{errorMessage}}</div>
+        <div id="lblMsg_modal"></div>
+    </div>
 
-</body>
-</html>
+
+    	<div  class="row step4Width" id="validateReq">
+   			<div class="form-group col-xs-12 col-sm-12">
+   				<label>Language: <span class="red" >*</span></label>
+   				<select id="langSelector" class="form-control">
+                 	<option value="0" selected="selected">English</option>
+                 	<option value="1" >Bangla</option>
+                 </select>
+			</div>
+			
+			<div class="form-group col-xs-12 col-sm-12" >
+				<label>Advice:</label> 
+				<input type='text'  data-ng-model="adviceName" class='adderNameAdvice form-control input-sm required' onkeyup='lookupAdvice(this.value)' errmsg="Please Enter Advcie"/>
+				<div class='suggetionBoxAdvice' ></div>
+			</div>
+    	</div>
+	
+</div>
+<div class="modal-footer modalFoot">
+	<button class="btn btnLanier btn-success" data-ng-click="saveNewAdviceSetting()" ><i class="fa"></i> Save</button>
+	<button class="btn btnLanier btn-warning" data-ng-click="cancel()" ><i class="fa"></i> Cancel</button>
+</div>
