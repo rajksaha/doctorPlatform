@@ -13,13 +13,8 @@
 		<span class="hPropertyName link-path pull-left hidden-sm"></span>
 		
 		
-		<!-- KTR-1038: Add a completion link in Approval Center header -->
-		<!-- <span>
-			<label class="menu-path link-path" style="color:#f2ae30" ng-click="openSetUpCompletionModal()"  >{{completionStatus}}</label>
-		</span> -->
-		
 		<div class="pull-right rightBtns" >
-		
+			<span class="btn btn-link  hLogout" >Date {{dateString | date:'d-M-yy'}}</span>
 			<a  class="btn btn-link  hLogout" data-ng-show="displayPresCription" href="#/prescription">Back</a>
 			<button type="button" class="btn btn-link  hLogout" data-ng-click="logout()" ><i class="fa fa-user"></i> Logout</button>	
 		</div>

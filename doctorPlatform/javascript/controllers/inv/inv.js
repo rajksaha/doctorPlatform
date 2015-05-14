@@ -227,6 +227,7 @@ app.controller('PrescribeInvController', function($scope, $http, $modal, $rootSc
 		$scope.invAdderData.addedID = invAdderData.id;
 		$scope.invAdderData.addByTypeHead = false;
 		$scope.invAdderData.editMode = true;
+		$scope.docTorINVAdder = true;
 		
 	};
 	
@@ -235,6 +236,8 @@ app.controller('PrescribeInvController', function($scope, $http, $modal, $rootSc
 		if(!invAdderData.note){
 			invAdderData.note = "";
 		}
+		
+		$scope.docTorINVAdder = false;
 		
 		if(invAdderData.addByTypeHead){
 			$scope.updateInvPrecription(invAdderData);
@@ -270,6 +273,7 @@ app.controller('PrescribeInvController', function($scope, $http, $modal, $rootSc
             data: dataString,
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).success(function (result) {
+        	
         });
 	};
 	  

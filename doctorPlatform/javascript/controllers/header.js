@@ -2,6 +2,7 @@ app.controller('HeaderController', function($scope, $rootScope, $location, $time
 	
 	$scope.doctorData = {};
 	$scope.displayPresCription = true;
+	$scope.dateString = new Date();
 	
     $scope.bringDoctorInfo = function (){
     	

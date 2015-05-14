@@ -1,9 +1,22 @@
-<div class="panel  col-md-12 filter-panel" style="padding-top: 20px">
-		<button class="pull-right btn btn-info" data-ng-click="docTorINVAdder = !docTorINVAdder"><span class="glyphicon glyphicon glyphicon-wrench" aria-hidden="true"></span> Setteing</button>
-		<!-- <button data-ng-show="docTorINVAdder" class="pull-right btn btn-info" data-ng-click="docTorINVAdder = !docTorINVAdder"><span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> ADD INV</button> -->
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+		<h4>Inv</h4>
+	</div>
+	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+		<span class="pull-right">
+			<a  style="padding-left:12px;" class="btn btn-info" href="#/prescription"><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"> Back</span></a>
+			<button  style="padding-left:12px;" class="btn btn-info" data-ng-click="docTorINVSetter = !docTorINVSetter"><span class="glyphicon glyphicon glyphicon-wrench" aria-hidden="true"></span> Setteing</button>
+			<button  style="padding-left:12px;" class="btn btn-info" data-ng-click="docTorINVAdder = !docTorINVAdder"><span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> Add</button>
+		</span>
+	</div>
 </div>
-<section  data-ng-show="docTorINVAdder" class=" contacts row" id="generalInfoContact">
-     <div  class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
+ <br></br>
+<!-- <div class="panel  col-md-12 filter-panel" style="padding-top: 20px">
+		
+		<button data-ng-show="docTorINVAdder" class="pull-right btn btn-info" data-ng-click="docTorINVAdder = !docTorINVAdder"><span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> ADD INV</button>
+</div> -->
+<section  data-ng-show="docTorINVSetter" class=" contacts row" id="generalInfoContact">
+     <div  class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
          <div class="panel">	                 
              <div class="panel-body">
              	<div class="text-muted form-group">By Name</div>	                    
@@ -13,12 +26,12 @@
              </div>
          </div>
      </div>
-     <div  class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
+     <div  class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
          <div class="panel">	                 
              <div class="panel-body">
              	<div class="text-muted form-group">Action</div>	                    
                 <div class="room-desc">	
-                     <button  data-ng-click="prepareDoctorSettingData()" class="btn btn-primary" > <span class='glyphicon glyphicon glyphicon-plus' aria-hidden='true'></span> Add</button>
+                     <button  data-ng-click="prepareDoctorSettingData()" class="btn btn-primary" > <span class='glyphicon glyphicon glyphicon-plus' aria-hidden='true'></span> Add To Setting</button>
                 </div>
              </div>
          </div>
@@ -43,7 +56,7 @@
 </div>
 
 
-<section  class=" contacts row" id="generalInfoContact">
+<section  class=" contacts row" id="generalInfoContact" data-ng-show="docTorINVAdder">
 		         
       <div  class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
           <div class="panel" >	                 
