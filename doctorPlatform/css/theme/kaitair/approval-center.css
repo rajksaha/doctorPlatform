@@ -66,15 +66,15 @@
 	.geninfo .panel-body { padding: 28px;border-radius:4px; }
 	
 	
-	.appointment {background-color: rgba(249, 195, 80, 0.5) !important; padding: 20px;}
+	.appointment {background-color: #fcf1d9 !important; padding: 20px; height: 60% !important;}
 	
 	.appointment .panelHead {  box-shadow: none; -webkit-box-shadow: none; -moz-box-shadow:none;border:yellow; solid 5px; }
-	.appointment .panelHead-body { background-color:#FFFF99;padding: 28px;border-radius:4px; }
+	.appointment .panelHead-body { background-color:#FFFFCC ;padding: 28px;border-radius:4px; }
 	
 	
 	.appointment .panelChild {  box-shadow: none; -webkit-box-shadow: none; -moz-box-shadow:none;border:rgba(249, 195, 80, 0.5); solid 2px;padding-top: 10px; }
-	.appointment .panelChild-body { background-color:#FFFFCC;padding: 28px;border-radius:4px; }
-	.appointment .panelChild-body:HOVER { background-color:#FFFF99 !important;border-width: 2px; cursor: pointer; padding: 32px; }
+	.appointment .panelChild-body { background-color:#fff;padding: 24px;border-radius:4px; }
+	.appointment .panelChild-body:HOVER { background-color:#FFFFCC !important;border-width: 2px; cursor: pointer; padding: 28px; }
 	
 	.appointment .panelChild-body span{
 		font-size: 24px;

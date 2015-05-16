@@ -51,7 +51,7 @@
 			</section>
 			
 			
-			<div class="panel panel-primary col-md-12 appointment">
+			<div class="panel col-md-12 appointment" >
 				<div>
 					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 		             	<div class="panelHead">	                 
