@@ -1,5 +1,17 @@
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+		<h4>Advice</h4>
+	</div>
+	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+		<span class="pull-right">
+			<a  style="padding-left:12px;" class="btn btn-info" href="#/prescription"><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"> Back</span></a>
+			<button class="pull-right btn btn-info" data-ng-click="docTorAdviceAdder = !docTorAdviceAdder"><span class="glyphicon glyphicon glyphicon-wrench" aria-hidden="true"></span> Setteing</button>
+		</span>
+	</div>
+</div>
+ <br></br>
 <div class="panel  col-md-12 filter-panel" style="padding-top: 20px">
-		<button class="pull-right btn btn-info" data-ng-click="docTorAdviceAdder = !docTorAdviceAdder"><span class="glyphicon glyphicon glyphicon-wrench" aria-hidden="true"></span> Setteing</button>
+		
 </div>
 <section  data-ng-show="docTorAdviceAdder" class=" contacts row" id="generalInfoContact">
 	<div  class="col-xs-12 col-sm-12 col-md-10 col-lg-2">
@@ -39,15 +51,18 @@
 </section>
 
 <div class="panel  col-md-12 filter-panel" style="padding-top: 20px">
-	<div class="list-item col-sm-4 col-md-4 col-lg-4" data-ng-repeat="adviceData in advieSettingList" style="padding-bottom: 10px">
+	<div class="list-item col-sm-4 col-md-4 col-lg-4" data-ng-repeat="advice in advcieSettingData" style="padding-bottom: 10px">
 		<span><a class="btn btn-danger btn-sm btnLanier"
                   ktr-confirmation="delAdviceFromSetting(item)" 
                   confirmation-message="Are you sure to remove?"
                   confirmation-title="Confirmation"
-                  item="adviceData.id">
+                  item="advice.adviceSettingID">
                   <span class="glyphicons glyphicon glyphicon-remove" aria-hidden="true"></span>
                </a>
 		</span>
-		<span>{{adviceData.advice}}</span>
+		<button class="btn btn-default" data-ng-model="none"   data-ng-click="deciderAdvice(!advice.addedToPrescription,advice)">
+			<span class="glyphicon  glyphicon"  data-ng-class="{'glyphicon-check': advice.addedToPrescription == true,'glyphicon-unchecked': advice.addedToPrescription == false}"></span>
+		</button>
+		<span>{{advice.advice}}</span>
 	</div>
 </div>

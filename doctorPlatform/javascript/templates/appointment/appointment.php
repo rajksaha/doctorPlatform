@@ -50,36 +50,28 @@
 		         </div>
 			</section>
 			
-			<div class="row geninfo">
-				<div class="col-xs-12">
-					<div class="panel" style="margin-top:20px">  
-						<div class="panel-body" >
-							<div class="text-muted form-group">Appointments <span> <span class="badge pull-right">Total:{{numberOfAppointment}}</span></span></div>                             
-							<div id="appList" scroller="addMoreItems()">
-								<table id="content-data-list" class="table table-condensed table-bordered">
-									<thead>
-										<tr >
-											<th width="5%"><strong>Sl.</strong></th>
-											<th width="95%"><strong>Patient</strong></th>									
-										</tr>
-									</thead>
-									<tbody>
-										<tr class="appointment" data-ng-repeat="appointmentData in appointmentList" style="height: 50px;cursor: pointer;">
-											<td class="nowrap" >
-												{{$index + 1}}
-											</td>
-												
-											<td data-ng-if="appointmentData.patientState != 0" data-ng-click="letsPrescribe(appointmentData)">
-												<span>{{appointmentData.name}}-[{{appointmentData.age}} yrs]-{{appointmentData.address}}</span>
-											</td>
-											<td data-ng-if="appointmentData.patientState == 0" data-ng-click="saveNewPatient(appointmentData.patientCode)">
-												<span>New Patient</span>
-											</td>
-										</tr>
-									</tbody>
-								</table>
+			
+			<div class="panel panel-primary col-md-12 appointment">
+				<div>
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+		             	<div class="panelHead">	                 
+							<div class="panelHead-body">
+								<span>Appointment</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			
+				<div>
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+		             	<div class="panelChild">	                 
+							<div class="panelChild-body form-group" data-ng-repeat="appointmentData in appointmentList">
+								<div class="" data-ng-click="letsPrescribe(appointmentData)" >
+									<span class="textSpc">{{$index + 1}} | {{appointmentData.name}} | {{appointmentData.age}} yrs  | {{appointmentData.address}}</span>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
+			

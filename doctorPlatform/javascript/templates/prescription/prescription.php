@@ -251,9 +251,9 @@
 	                 
 	                 	<div class="text-muted form-group"><a href="#/drugs">RX</a></div>
 	                    <div class="room-desc form-group" data-ng-repeat="drugPres in prescribedDrugList">	
-							<table id="content-data-list" class="table">
+							<table id="" class="table">
 								<tbody>
-									<tr class="appointment" style="height: 50px;cursor: pointer;">
+									<tr class="" >
 										<td  style="width: 5%">
 											<a class="btn btn-warning btn-sm btnLanier"
 												ktr-confirmation="deletePrescribedDrug(item)" 
