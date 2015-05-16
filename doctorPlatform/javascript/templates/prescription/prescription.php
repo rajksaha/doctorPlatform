@@ -121,7 +121,7 @@
 				</div>
     			
     			
-    			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" data-ng-show="prescribedMHData.length > 0">
 	             	<div class="panel">	                 
 						<div class="panel-body">
 							<div class="form-group"><a href="#/history">MH History</a></div>
@@ -149,7 +149,7 @@
 					</div>
 				</div>
     			
-    			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" data-ng-show="prescribedOBSData.length > 0">
 	             	<div class="panel">	                 
 						<div class="panel-body">
 							<div class="form-group"><a href="#/obsHistory">OBS History</a></div>
@@ -177,10 +177,10 @@
 					</div>
 				</div>
     			
-    			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" >
 	             	<div class="panel">	                 
 						<div class="panel-body">
-							<div class="form-group"><a href="#/vital" data-ng-show="prescribedVitalData.length > 0">O.E</a></div>
+							<div class="form-group"><a href="#/vital">O.E</a></div>
 								<table class="table">
 									<tr data-ng-repeat="vitalData in prescribedVitalData" >
 										<td style="width: 5%">
