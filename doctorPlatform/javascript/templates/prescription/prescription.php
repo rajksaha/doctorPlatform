@@ -1,14 +1,15 @@
 <div class="panel  col-md-12 filter-panel" style="padding-top: 20px;padding-left: 20px;">
 	<div class="row">
-		<div class="col-md-8 panel panel-primary keyPanelColor panel1" style="padding-top: 12px;padding-bottom: 12px">
+		<div class="col-md-6 panel panel-primary keyPanelColor panel1" style="padding-top: 12px;padding-bottom: 12px">
 			<span style="padding-left:20px">Patient Name:<span style="padding-left:12px;">{{patientData.name}}</span></span>
 			<span style="padding-left:40px">Age:<span style="padding-left:12px;">{{patientData.age}} yrs</span></span>
 			<span style="padding-left:40px">Gender:<span style="padding-left:12px;">{{patientData.sex}}</span></span>
 		</div>
-		<div class="col-md-4 panel panel-primary keyPanelColor panel1" style="padding-top: 5px;padding-bottom: 5px">
-			<a style="padding-left:12px;" class="btn btn-info" href="#/appointment"><span class="glyphicon glyphicon-th-list" aria-hidden="true"> Appointment</span></a>
-			<button style="padding-left:12px;" class="btn btn-info" data-ng-click="patientSetting = !patientSetting"><span class="glyphicon glyphicon glyphicon-wrench" aria-hidden="true"></span> Setteing</button>
-			<button style="padding-left:12px;" class="btn btn-info" data-ng-click="print()"><span class="glyphicon glyphicon-print" aria-hidden="true"> Print</span></button>
+		<div class="col-md-6 panel panel-primary keyPanelColor panel1" style="padding-top: 5px;padding-bottom: 5px">
+			<button style="padding-left:12px;" class="btn btn-info  pull-right" data-ng-click="menuState = !menuState"><span class="glyphicon glyphicon glyphicon-wrench" aria-hidden="true"></span> Menu</button>
+			<a style="padding-left:12px;" class="btn btn-info  pull-right" href="#/appointment"><span class="glyphicon glyphicon-th-list" aria-hidden="true"> Appointment</span></a>
+			<button style="padding-left:12px;" class="btn btn-info pull-right" data-ng-click="patientSetting = !patientSetting"><span class="glyphicon glyphicon glyphicon-wrench" aria-hidden="true"></span> Setteing</button>
+			<button style="padding-left:12px;" class="btn btn-info pull-right" data-ng-click="print()"><span class="glyphicon glyphicon-print" aria-hidden="true"> Print</span></button>
 		</div>
 	</div>
 </div>
@@ -31,26 +32,30 @@
 		</fieldset>
 	</div>
 </div>
+
+<div class="col-md-12 panel panel-primary keyPanelColor panel1" style="padding-top: 20px;padding-left: 20px; padding-right: 20px" data-ng-show="menuState">
+
+	<div class="row">
+		
+		<div class="list-item col-sm-4 col-md-3 col-lg-3" data-ng-repeat="menuData in menuDataList" style="padding-bottom: 10px">
+			<span style="padding-left:20px">
+				<img ng-src="images/icon-c-stat-2.png" />
+				<span style="padding-left:12px;">
+					<a href="{{menuData.menuURL}}">{{menuData.menuHeader}}</a>
+					<a href="{{menuData.menuURL}}" class="pull-right" style="margin-right:10px"><img ng-src="images/edit1.png" width="18" height="18"/></a>
+				</span>
+			</span>
+		</div>
+		
+	</div>
+</div>
+
 <div class="row">
 
-<div class=" panel panel-primary col-md-2 keyPanelColor panel2">
-        <table class="table table-condensed table-responsive">
-            <tbody>
-                <tr data-ng-repeat="menuData in menuDataList">
-                    <td class="tableDark leftCellBorder tblWidthHeight" style="padding-left:12px;line-height:35px">
-                        <img ng-src="images/icon-c-stat-2.png"  />
-                    </td>
-                    <td class="tableDark" style="padding-left:20px;line-height:35px">
-                    	<a href="{{menuData.menuURL}}">{{menuData.menuHeader}}</a>
-                    	<a href="{{menuData.menuURL}}" class="pull-right" style="margin-right:10px"><img ng-src="images/edit1.png" width="18" height="18"/></a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>    
-    </div>
+
     
     
-    <div class="panel panel-primary col-md-10 keyPanelColor panel2" style="padding-top: 5px">
+    <div class="panel panel-primary col-md-12 keyPanelColor panel2" style="padding-top: 5px">
     	<div class="row">
     		<div class="col-md-4">
     		
@@ -87,7 +92,7 @@
 					</div>
 				</div>
 				
-    			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" data-ng-show="prescribedComplainData.length > 0">
+    			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 	             	<div class="panel">	                 
 						<div class="panel-body">
 							<div class="form-group"><a href="#/complain" >C.C</a></div>
@@ -116,7 +121,7 @@
 				</div>
     			
     			
-    			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"  data-ng-show="prescribedMHData.length > 0">
+    			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 	             	<div class="panel">	                 
 						<div class="panel-body">
 							<div class="form-group"><a href="#/history">MH History</a></div>
@@ -144,7 +149,7 @@
 					</div>
 				</div>
     			
-    			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" data-ng-show="prescribedOBSData.length > 0">
+    			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 	             	<div class="panel">	                 
 						<div class="panel-body">
 							<div class="form-group"><a href="#/obsHistory">OBS History</a></div>
@@ -172,7 +177,7 @@
 					</div>
 				</div>
     			
-    			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" data-ng-show="prescribedVitalData.length > 0">
+    			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 	             	<div class="panel">	                 
 						<div class="panel-body">
 							<div class="form-group"><a href="#/vital" data-ng-show="prescribedVitalData.length > 0">O.E</a></div>
@@ -200,7 +205,7 @@
 					</div>
 				</div>
 				
-				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" data-ng-show="prescribedInvData.length > 0">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 	             	<div class="panel">	                 
 						<div class="panel-body">
 							<div class="form-group"><a href="#/inv" data-ng-show="prescribedInvData.length > 0">INV</a></div>
@@ -230,7 +235,7 @@
     		</div>
     		
     		<div class="col-md-8">
-    			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding-top: 5px" data-ng-show="diagnosisData.diseaseName">
+    			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding-top: 5px">
 	             	<div class="panel">	                 
 						<div class="panel-body">
 							<div class="form-group"><a href="#/diagnosis">Diagnosis:</a><label > {{diagnosisData.diseaseName}}</label></div>
@@ -288,7 +293,7 @@
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 	             	<div class="panel">	                 
 						<div class="panel-body">
-							<div class="form-group"><a href="#/advice" data-ng-show="prescribedAdviceData.length > 0">Advice</a></div>
+							<div class="form-group"><a href="#/advice">Advice</a></div>
 								<table id="" class="table">
 									<tbody>
 										<tr data-ng-repeat="adiviceData in prescribedAdviceData" style="height:50px;">
