@@ -242,6 +242,7 @@ app.controller('PrescriptionController', function($scope, $http, $modal, $rootSc
             data: dataString,
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).success(function (result) {
+        	
         	$scope.appoinmentData = result;
         	
         	$scope.bringPresCribedDiagnosis($scope.appoinmentData.appointmentID);

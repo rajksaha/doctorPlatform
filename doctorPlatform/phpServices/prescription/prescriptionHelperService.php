@@ -21,6 +21,10 @@ if($query_no== 0){
 	
 	$rec=mysql_fetch_assoc($result);
 	
+	$patineCode = $rec['patientCode'];
+	$patineCode = substr($patineCode,4);
+	$rec['patientCode'] = $patineCode;
+	
 	echo json_encode($rec);
 	
 }else if($query_no==1){
@@ -74,6 +78,9 @@ else if($query_no==4){
 	$result  = getAppointmentInfo($appointmentNO);
 	
 	$rec=mysql_fetch_assoc($result);
+	
+	
+	
 	echo json_encode($rec);
 	
 }else if($query_no==5){

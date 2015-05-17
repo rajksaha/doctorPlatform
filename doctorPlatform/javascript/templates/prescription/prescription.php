@@ -1,15 +1,64 @@
-<div class="panel  col-md-12 filter-panel" style="padding-top: 20px;padding-left: 20px;">
-	<div class="row">
-		<div class="col-md-6 panel panel-primary keyPanelColor panel1" style="padding-top: 12px;padding-bottom: 12px">
-			<span style="padding-left:20px">Patient Name:<span style="padding-left:12px;">{{patientData.name}}</span></span>
-			<span style="padding-left:40px">Age:<span style="padding-left:12px;">{{patientData.age}} yrs</span></span>
-			<span style="padding-left:40px">Gender:<span style="padding-left:12px;">{{patientData.sex}}</span></span>
-		</div>
-		<div class="col-md-6 panel panel-primary keyPanelColor panel1" style="padding-top: 5px;padding-bottom: 5px">
-			<button style="padding-left:12px;" class="btn btn-info  pull-right" data-ng-click="menuState = !menuState"><span class="glyphicon glyphicon glyphicon-wrench" aria-hidden="true"></span> Menu</button>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+		<span class="headerText">Prescription</span>
+	</div>
+	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" style="padding-top: 5px;padding-bottom: 5px">
+			<button style="padding-left:12px;" class="btn btn-info  pull-right" data-ng-click="menuState = !menuState"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Menu</button>
 			<a style="padding-left:12px;" class="btn btn-info  pull-right" href="#/appointment"><span class="glyphicon glyphicon-th-list" aria-hidden="true"> Appointment</span></a>
 			<button style="padding-left:12px;" class="btn btn-info pull-right" data-ng-click="patientSetting = !patientSetting"><span class="glyphicon glyphicon glyphicon-wrench" aria-hidden="true"></span> Setteing</button>
 			<button style="padding-left:12px;" class="btn btn-info pull-right" data-ng-click="print()"><span class="glyphicon glyphicon-print" aria-hidden="true"> Print</span></button>
+		</div>
+</div>
+<div class="panel  col-md-12 filter-panel" style="padding-top: 20px;padding-left: 20px;padding-right: 20px;">
+	<div class="row">
+		
+		<div class="col-md-11 panel panel-primary keyPanelColor panel1" style="padding-top: 12px;padding-bottom: 12px">
+			<div class="col-md-2 patinetInfo form-group">
+				
+				<span data-ng-show="!patientInfoEdit" >Name: <span >{{patientData.name}}</span></span>
+				<input data-ng-show="patientInfoEdit" data-ng-model="patientData.name" class="form-control" />	
+			</div>
+			<div class="col-md-2 patinetInfo form-group">
+				<span data-ng-show="!patientInfoEdit" >Age: {{patientData.age}} yrs</span>
+				<input data-ng-show="patientInfoEdit" data-ng-model="patientData.age" class="form-control" />
+			</div>
+			
+			<div class="col-md-2 patinetInfo form-group">
+				<span data-ng-show="!patientInfoEdit" >Gender: {{patientData.sex}}</span>
+				
+				<select data-ng-show="patientInfoEdit" data-ng-model="patientData.sex" class="form-control">
+					<option value="MALE">Male</option>
+					<option value="FEMALE">Fe-male</option>
+					<option value="OTHER">Other</option>
+				</select>
+			</div>
+			
+			<div class="col-md-2 patinetInfo form-group">
+				<span data-ng-show="!patientInfoEdit">Phone: {{patientData.phone}}</span>
+				<input data-ng-show="patientInfoEdit" data-ng-model="patientData.patientCode" class="form-control" />
+			</div>
+			
+			<div class="col-md-2 patinetInfo form-group">
+				<span data-ng-show="!patientInfoEdit" >Address: {{patientData.address}}</span>
+				<input data-ng-show="patientInfoEdit" data-ng-model="patientData.patientCode" class="form-control" />
+			</div>
+			
+			<div class="col-md-2 patinetInfo form-group">
+				<span data-ng-show="!patientInfoEdit" >Code: {{patientData.patientCode}}</span>
+				<input data-ng-show="patientInfoEdit" data-ng-model="patientData.patientCode" size="5" class="form-control"  disabled="disabled"/>
+			</div>
+			
+		</div>
+		
+		<div class="col-md-1 panel keyPanelColor panel1" style="padding-top: 12px;padding-bottom: 12px">
+		
+			<div class="col-md-12 patinetInfo form-group">
+				<span>
+					<i data-ng-show="!patientInfoEdit" class="pull-center glyphicon glyphicon-pencil" data-ng-click="patientInfoEdit = true" ></i>
+					<i data-ng-show="patientInfoEdit" class="pull-center glyphicon glyphicon-folder-open" data-ng-click="patientInfoEdit = false" ></i>
+				</span>
+			</div>
+			
 		</div>
 	</div>
 </div>
@@ -50,12 +99,12 @@
 	</div>
 </div>
 
-<div class="row">
+<div class="row" style="">
 
 
     
     
-    <div class="panel panel-primary col-md-12 keyPanelColor panel2" style="padding-top: 5px">
+    <div class="panel panel-primary col-md-12 keyPanelColor panel2" style="padding-top: 5px;height: 600px; overflow-y: scroll;">
     	<div class="row">
     		<div class="col-md-4">
     		
@@ -208,7 +257,7 @@
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 	             	<div class="panel">	                 
 						<div class="panel-body">
-							<div class="form-group"><a href="#/inv" data-ng-show="prescribedInvData.length > 0">INV</a></div>
+							<div class="form-group"><a href="#/inv">INV</a></div>
 								<table class="table">
 									<tr data-ng-repeat="invData in prescribedInvData">
 										<td style="width: 5%">

@@ -1,22 +1,38 @@
-<div class="panel  col-md-12 filter-panel" style="padding-top: 20px">
-	<span style="padding-left:20px"><a href="javascript:" data-ng-click="addNewAppointment()"><img class="photo-room" width="117" height="89" src="images/forms.png"></a><span style="padding-left:12px;">New Appointment</span></span>
-	<span style="padding-left:25px"><a href="javascript:" data-ng-click="followUpSearch = !followUpSearch"><img class="photo-room" width="117" height="89" src="images/forms_11.png"></a><span style="padding-left:12px;">F.U Appointment</span></span>
-	<span style="padding-left:25px"><a href="research/gen_pat.php"><img class="photo-room" width="117" height="89"src="images/sym.png"></a><span style="padding-left:12px;">Research</span></span>
-	<span style="padding-left:25px"><a href="#/settings" ><img class="photo-room"width="117" height="89" src="images/settings.png"></a><span style="padding-left:12px;">Setting</span></span>
-		
-		
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+		<span class="headerText">Appointment</span>
+	</div>
 </div>
+	<div class="panel  col-md-12 filter-panel">
 
+		<div class="col-md-12 panel panel-primary keyPanelColor panel1">
+			<div class="col-md-3 appointmentPhoto">
+				<span style="padding-left:20px"><a href="javascript:" data-ng-click="addNewAppointment()"><img class="" src="images/forms.png"><span><br>New Appointment</span></a></span>
+			</div>
+		
+			<div class="col-md-3 appointmentPhoto">
+				<span style="padding-left:25px"><a href="javascript:" data-ng-click="followUpSearch = !followUpSearch"><img class=""  src="images/forms_11.png"><span ><br>F.U Appointment</span></a></span>
+			</div>
+		
+			<div class="col-md-3 appointmentPhoto">
+				<span style="padding-left:25px"><a href="#/research"><img class="" src="images/sym.png"><span ><br>Research</span></a></span>
+			</div>
+		
+			<div class="col-md-3 appointmentPhoto">
+				<span style="padding-left:25px"><a href="#/settings" ><img class=""  src="images/settings.png"><span><br>Setting</span></a></span>
+			</div>
+		</div>
+	</div>
 			<section  data-ng-show="followUpSearch" class=" contacts row" id="generalInfoContact">
 				<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-		             <div class="panel">	                 
+		             <div class="panel panel-default">	                 
 		                 <div class="panel-body">
 		                 
 		                 	<div class="text-muted form-group">By ID</div>
 		                    <div class="room-desc form-group m-b-0" id="the-basics" >	
 		                         <label for="inputName">ID </label>
 		                         <input type="text" data-ng-model="patientCode" typeahead="patients.patientCode for patients in getPatients($viewValue)"  class="form-control" placeholder="Search Patients" typeahead-on-select='onSelectIDPatient($item, $model, $label)'/>
-		                         <button data-ng-show="addByID" data-ng-click="addAppFollowUP()">Add</button>
+		                         <button class="btn btn-primary" data-ng-click="addAppFollowUP()" data-ng-show="addByID"><span class='glyphicon glyphicon glyphicon-plus' aria-hidden='true'></span> Add</button>
 		                    </div>
 		                               
 		                 </div>
@@ -24,26 +40,26 @@
 		         </div>
 		         
 		         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-		             <div class="panel">	                 
+		             <div class="panel panel-default">	                 
 		                 <div class="panel-body">
 		                 	<div class="text-muted form-group">By Name</div>	                    
 		                    <div class="room-desc">	
 		                         <label for="inputName"> Name</label>
 		                         <input type="text" data-ng-model="patientName" typeahead="patients.name for patients in getPatients($viewValue)"  class="form-control" placeholder="Search Patients" typeahead-on-select='onSelectNamePatient($item, $model, $label)'/>
-		                         <button data-ng-show="addByName" data-ng-click="addAppFollowUP()">Add</button>
 		                    </div>
+		                    <button class="btn btn-primary pull-right" data-ng-click="addAppFollowUP()" data-ng-show="addByName"><span class='glyphicon glyphicon glyphicon-plus' aria-hidden='true'></span> Add</button>
 		                 </div>
 		             </div>
 		         </div>
 		         
 		         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-		             <div class="panel" >	                 
+		             <div class="panel panel-default" >	                 
 		                 <div class="panel-body">
 		                 	<div class="text-muted form-group">By Phone</div> 
-		                     <div class="room-desc form-group">
+		                     <div class="room-desc">
 		                     	<label for="inputName">Phone</label>
 								<input type="text" data-ng-model="patientPhone" typeahead="patients.phone for patients in getPatients($viewValue)"  class="form-control" placeholder="Search Patients" typeahead-on-select='onSelectPhonePatient($item, $model, $label)'/>
-								<button data-ng-show="addByPhone" data-ng-click="addAppFollowUP()">Add</button>
+								<button class="btn btn-primary" data-ng-click="addAppFollowUP()" data-ng-show="addByID"><span class='glyphicon glyphicon glyphicon-plus' aria-hidden='true'></span> Add</button>
 		                     </div>
 		                 </div>
 		             </div>
@@ -51,27 +67,53 @@
 			</section>
 			
 			
-			<div class="panel col-md-12 appointment" >
-				<div>
-					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+			<div class="panel col-md-12 appointment">
+				<div class="col-md-12 panel panel-primary keyPanelColor panel1" style="padding-top: 12px;padding-bottom: 12px">
+					<div  style="padding-top: 25px;">
+					<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8" >
 		             	<div class="panelHead">	                 
 							<div class="panelHead-body">
-								<span>Appointment</span>
+								<span>Today's Appointment List</span>
+								<span class="pull-right">Total:{{numberOfAppointment}}</span>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" >
+						<div class="panelHead">	                 
+							<div class="panelHead-body">
+								<span>Welcome {{doctorData.name}}</span>
 							</div>
 						</div>
 					</div>
 				</div>
 			
 				<div>
-					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+					<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8" style="height: 400px; overflow-y: scroll;" >
 		             	<div class="panelChild">	                 
-							<div class="panelChild-body form-group" data-ng-repeat="appointmentData in appointmentList">
-								<div class="" data-ng-click="letsPrescribe(appointmentData)" >
+							<div class="" data-ng-repeat="appointmentData in appointmentList" >
+								<div class="panelChild-body form-group" data-ng-show="appointmentData.status == 0" data-ng-click="letsPrescribe(appointmentData)" >
+									<span class="textSpc">{{$index + 1}} | {{appointmentData.name}} | {{appointmentData.age}} yrs  | {{appointmentData.address}}</span>
+								</div>
+								<div class="panelHead-body form-group text-muted " data-ng-show="appointmentData.status == 1" data-ng-click="visitedAppointment(appointmentData)" >
 									<span class="textSpc">{{$index + 1}} | {{appointmentData.name}} | {{appointmentData.age}} yrs  | {{appointmentData.address}}</span>
 								</div>
 							</div>
 						</div>
 					</div>
+						
+					<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"   >
+						<div class="panelChild">	                 
+							<div class="panelHead-body form-group" style="height: 400px;" >
+								<div class="form-group" >
+									Now everything is easy to write and execute.
+								</div>
+							</div>
+						</div>
+		             	
+					</div>
 				</div>
+				</div>
+				
 			</div>
 			

@@ -25,14 +25,14 @@
 					<div class="col-sm-12 col-md-5">
 						<label for="username" class="control-label">Doctor Code</label>
 						<div class="form-group input-group" ng-class="{'has-error': (userNotexist == true), 'has-error': (emptyUserName == true)}" >
-							<span class="input-group-addon"><i style="color:#437baf;" class="fa"></i></span> 
+							<span class="input-group-addon"><i style="color:#437baf;" class="glyphicon glyphicon-certificate"></i></span> 
 							<input id="username" data-ng-model="username" type="text" placeholder="Doctor Code" class="form-control input-lg" autofocus="autofocus" autocomplete="off" autocorrect="off" autocapitalize="off" />
 						</div>
 					</div>
 					<div class="col-sm-12 col-md-5">
 						<label for="password" class="control-label">Password</label>
 						<div class="form-group input-group" ng-class="{'has-error': (passwordErr == true), 'has-error': (emptyPassword == true)}" >
-							<span class="input-group-addon"><i style="color:#f26b42; font-size: 1.5em;" class="fa"></i></span>                  
+							<span class="input-group-addon"><i style="color:#f26b42; font-size: 1.5em;" class="glyphicon glyphicon-lock"></i></span>                  
 							<input id="password" data-ng-model="password" placeholder="Password" type="password" class="form-control input-lg" autocomplete="off" autocorrect="off" autocapitalize="off" />
 						</div>
 					</div>				
@@ -42,7 +42,7 @@
 					</div>
 					<div class="col-md-5 col-xs-12 col-sm-12">
 					    <div ng-show="error ==true" >
-						   <i class="fa"></i> {{errorMessage}}.
+						   <i class="glyphicon glyphicon-thumbs-down"></i> {{errorMessage}}.
 						</div>
 					</div>
 				</div>
