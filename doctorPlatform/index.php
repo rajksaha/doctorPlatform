@@ -116,7 +116,7 @@
     <script src="javascript/listener.js"></script>
 
     <!-- These are require by listener.js -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script> -->
 
 	
     <!-- directives -->

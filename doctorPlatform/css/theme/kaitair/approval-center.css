@@ -214,6 +214,18 @@
 	.bgBlue, .bgBlue:hover { border-width: 2px; cursor: default; padding: 5px 6px !important; } 
 	.bgYellow, .bgYellow:hover {  border-width: 1px; cursor: default; box-shadow: none;  padding: 6px 7px !important;}
 	
+	.bgGreen {
+		background-color: green;
+    	border-color: #2e6da4;
+   	 	color: #fff;
+	}
+	
+	.bgRed {
+		background-color: red;
+    	border-color: #2e6da4;
+   	 	color: #fff;
+	}
+	
 	.animate-switch.ng-animate {
 	  -webkit-transition: all 0.5s ease;
 	  transition: all 0.5s ease; 

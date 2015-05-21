@@ -360,6 +360,49 @@ app.config(function($stateProvider, $urlRouterProvider, $compileProvider, $contr
             }
         };
     
+    var invReport = {
+            name : 'root.invReport',
+            url : '/invReport',
+            views : {
+                'container@' : {
+                    templateUrl : 'javascript/templates/invReport/invReport.html',
+                    controller : 'invReportController'
+                }
+            },
+            resolve : {
+                loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+                  // you can lazy load files for an existing module
+                  return $ocLazyLoad.load(
+                    {
+                      name: 'ktrTablet',
+                      files: ['javascript/controllers/invReport/invReportController.js' ]
+                    });
+                  }]
+            }
+        };
+    
+    
+    var followUpChart = {
+            name : 'root.followUpChart',
+            url : '/followUpChart',
+            views : {
+                'container@' : {
+                    templateUrl : 'javascript/templates/followUpChart/followUpChart.html',
+                    controller : 'followUpChartController'
+                }
+            },
+            resolve : {
+                loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+                  // you can lazy load files for an existing module
+                  return $ocLazyLoad.load(
+                    {
+                      name: 'ktrTablet',
+                      files: ['javascript/controllers/followUpChart/followUpChartController.js' ]
+                    });
+                  }]
+            }
+        };
+    
     
 	
 	
@@ -378,6 +421,8 @@ app.config(function($stateProvider, $urlRouterProvider, $compileProvider, $contr
         .state(diagnosis)
         .state(oldPrescription)
         .state(settings)
+        .state(invReport)
+        .state(followUpChart)
     	.state(appointment);
     
 
