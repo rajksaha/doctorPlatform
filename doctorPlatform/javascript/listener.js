@@ -1,4 +1,4 @@
-app.run(function($rootScope, $http, $location, $analytics, blockUI) {
+app.run(function($rootScope, $http, $location, $analytics) {
 
 	(function() {
 		// Retrieve configuration values
@@ -32,7 +32,6 @@ app.run(function($rootScope, $http, $location, $analytics, blockUI) {
 
     $rootScope.$on('event:loginRequired', function () {
         // Hack way to stop blockUI from showing the loading animation
-        blockUI.stop();			
 
         $rootScope.requests401 = [];
 

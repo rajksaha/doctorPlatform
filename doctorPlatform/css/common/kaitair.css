@@ -2,7 +2,8 @@
 	/*### Application Global CSS ###*/	
 	
 	
-	body {		
+	body {
+		background-color :#66CCFF;		
 		background:#FFFCEF;
 		background-size: cover; 
 	}
@@ -18,20 +19,7 @@
 	    z-index: 0;		
 	}
 	
-	.bbconnect { 
-		background: transparent url("../images/bbconect-transparent.png") no-repeat center center;
-	}
 	
-	.kaitair { 
-		background: transparent url("../images/kaitair-transparent.png") no-repeat center center;
-	}
-	
-	/*## App Header ##*/
-	
-	.hPropertyName { 
-	    /* font-family: helvetica; */
-	    font-size: 20px; 
-	}
 	
 	/* Buttons on the right */
 	.rightBtns{top:0;right:0;position:absolute;}

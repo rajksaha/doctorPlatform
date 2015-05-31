@@ -1,18 +1,38 @@
 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-		<span class="headerText">Prescription</span>
-	</div>
-	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" style="padding-top: 5px;padding-bottom: 5px">
-			<button style="padding-left:12px;" class="btn btn-info  pull-right" data-ng-click="menuState = !menuState"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Menu</button>
-			<a style="padding-left:12px;" class="btn btn-info  pull-right" href="#/appointment"><span class="glyphicon glyphicon-th-list" aria-hidden="true"> Appointment</span></a>
-			<button style="padding-left:12px;" class="btn btn-info pull-right" data-ng-click="patientSetting = !patientSetting"><span class="glyphicon glyphicon glyphicon-wrench" aria-hidden="true"></span> Setteing</button>
-			<button style="padding-left:12px;" class="btn btn-info pull-right" data-ng-click="print()"><span class="glyphicon glyphicon-print" aria-hidden="true"> Print</span></button>
-		</div>
-</div>
-<div class="panel  col-md-12 filter-panel" style="padding-top: 20px;padding-left: 20px;padding-right: 20px;">
-	<div class="row">
+	<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
 		
-		<div class="col-md-11 panel panel-primary keyPanelColor panel1" style="padding-top: 12px;padding-bottom: 12px">
+		<label class="headerText" >Visit Type</label>
+		<span data-ng-repeat="patientState in patientStateList" style="padding-left: 10px">
+			<input type="checkbox" data-ng-model="patientState.patientStateData" data-ng-checked="appoinmentData.appointmentType == patientState.id" data-ng-change="changePatientState(patientState)"> {{patientState.name}}
+		</span>
+	</div>
+	<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="padding-top: 5px;padding-bottom: 5px">
+		<button style="padding-left:12px;" class="btn btn-info  pull-right" data-ng-click="menuState = !menuState"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Menu</button>
+		<a style="padding-left:12px;" class="btn btn-info  pull-right" href="#/appointment"><span class="glyphicon glyphicon-th-list" aria-hidden="true"> Appointment</span></a>
+		<button data-ng-show="doctorData.category == 8" style="padding-left:12px;" class="btn btn-info pull-right" data-ng-click="patientSetting = !patientSetting"><span class="glyphicon glyphicon glyphicon-wrench" aria-hidden="true"></span> Patient Type</button>
+		<button style="padding-left:12px;" class="btn btn-info pull-right" data-ng-click="print()"><span class="glyphicon glyphicon-print" aria-hidden="true"> Print</span></button>
+	</div>
+</div>
+
+<div class="panel  col-md-12 filter-panel" style="padding-top: 5px;padding-left: 20px; padding-right: 20px;padding-bottom: 5px;" data-ng-show="patientSetting">
+
+	<div class="row">
+		<fieldset class="col-md-5  panel panel-primary  panel1">
+			<legend>Patient Type</legend>
+			<span data-ng-repeat="patientType in patientTypeList" style="padding-left: 10px">
+				<input type="checkbox" data-ng-model="patientType.patientTypeData" data-ng-checked="patientData.type == patientType.id" data-ng-change="changePatientType(patientType)"> {{patientType.typeName}}
+			</span>
+		</fieldset>
+	</div>
+</div>
+
+<div class="panel  col-md-12 filter-panel" style="padding-top: 10px;padding-left: 20px;padding-right: 20px;">
+	<div class="row">
+		<span class="pull-right">
+			<i data-ng-show="!patientInfoEdit" class="pull-center glyphicon glyphicon-pencil" data-ng-click="patientInfoEdit = true" ></i>
+			<i data-ng-show="patientInfoEdit" class="pull-center glyphicon glyphicon-folder-open" data-ng-click="patientInfoEdit = false" ></i>
+		</span>
+		<div class="col-md-12 panel panel-primary mainPanelColor panel1" style="padding-top: 12px;padding-bottom: 10px">
 			<div class="col-md-2 patinetInfo form-group">
 				
 				<span data-ng-show="!patientInfoEdit" >Name: <span >{{patientData.name}}</span></span>
@@ -50,37 +70,10 @@
 			
 		</div>
 		
-		<div class="col-md-1 panel keyPanelColor panel1" style="padding-top: 12px;padding-bottom: 12px">
 		
-			<div class="col-md-12 patinetInfo form-group">
-				<span>
-					<i data-ng-show="!patientInfoEdit" class="pull-center glyphicon glyphicon-pencil" data-ng-click="patientInfoEdit = true" ></i>
-					<i data-ng-show="patientInfoEdit" class="pull-center glyphicon glyphicon-folder-open" data-ng-click="patientInfoEdit = false" ></i>
-				</span>
-			</div>
-			
-		</div>
 	</div>
 </div>
-<div class="panel  col-md-12 filter-panel" style="padding-top: 20px;padding-left: 20px; padding-right: 20px" data-ng-show="patientSetting && (doctorData.patientType == 1 || doctorData.patientState == 1)">
 
-	<div class="row">
-		
-		<fieldset class="col-md-5  panel panel-primary  panel1" >
-			<legend>Patient Type</legend>
-			<span data-ng-repeat="patientType in patientTypeList" style="padding-left: 10px">
-				<input type="checkbox" data-ng-model="patientType.patientTypeData" data-ng-checked="patientData.type == patientType.id" data-ng-change="changePatientType(patientType)">{{patientType.typeName}}
-			</span>
-		</fieldset>
-		<span class="col-md-1"></span>
-		<fieldset class="col-md-6 panel panel-primary">
-			<legend>Visit Type</legend>
-			<span data-ng-repeat="patientState in patientStateList" style="padding-left: 10px">
-				<input type="checkbox" data-ng-model="patientState.patientStateData" data-ng-checked="appoinmentData.appointmentType == patientState.id" data-ng-change="changePatientState(patientState)">{{patientState.shortName}}
-			</span>
-		</fieldset>
-	</div>
-</div>
 
 <div class="col-md-12 panel panel-primary keyPanelColor panel1" style="padding-top: 20px;padding-left: 20px; padding-right: 20px" data-ng-show="menuState">
 
@@ -99,18 +92,17 @@
 	</div>
 </div>
 
-<div class="row" style="">
+<div class="panel  col-md-12 filter-panel">
 
 
     
-    
-    <div class="panel panel-primary col-md-12 keyPanelColor panel2" style="padding-top: 5px;height: 600px; overflow-y: scroll;">
+    <div class="panel panel-primary col-md-12 mainPanelColor panel2" style="padding-top: 5px;height: 600px; overflow-y: scroll;">
     	<div class="row">
     		<div class="col-md-4">
     		
     		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding-top: 5px">
 	             	<div class="panel">	                 
-						<div class="panel-body">
+						<div class="prescriptionPanel-body">
 							<div class="form-group"><label>Next Vist</label></div>
 							<div class="input-group input-group-sm">
 								<input type="text"  class="form-control date" id="txtStartDate" placeholder="Next Visit Date" ng-change="fixNextVisit()" datepicker-popup="dd/MM/yyyy" close-text="Close" ng-model="nextVisitData.date" is-open="false"/>
@@ -124,7 +116,7 @@
 				
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 	             	<div class="panel">	                 
-						<div class="panel-body">
+						<div class="prescriptionPanel-body">
 							<div class="form-group"><label>Reffred Doctor :</label></div>
 							<div class="input-group input-group-sm" data-ng-if="!refferedDoctorData.id">
 								<input type="text" data-ng-model="refferedAdderData.doctorName" typeahead="refDoc.doctorName for refDoc in getRefDoctor($viewValue)"  class="form-control" placeholder="Search Doctor" typeahead-on-select='onSelectRefDocotor($item, $model, $label)'/>
@@ -143,25 +135,28 @@
 				
     			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 	             	<div class="panel">	                 
-						<div class="panel-body">
-							<div class="form-group"><a href="#/complain" >C.C</a></div>
+						<div class="prescriptionPanel-body">
+							<div class="form-group"><a href="javascript:" data-ng-click="addCCToPrescription()"><label>C.C</label></a></div>
 								<table class="table">
 									<tr data-ng-repeat="copmplainData in prescribedComplainData" >
-										<td style="width: 5%">
-											<span>
-												<a class="btn btn-warning btn-sm btnLanier"
+										<td style="width: 10%">
+												<a class="btn btn-danger btn-sm btnLanier"
 									                  ktr-confirmation="deleteInvFromPrescibtion(item)" 
 									                  confirmation-message="Are you sure to remove?"
 									                  confirmation-title="Confirmation"
 									                  item="data.id">
 									                  <span class=" glyphicon glyphicon-remove" aria-hidden="true"></span>
 												</a>
-											</span>
 										</td>
-				    					<td style="width: 45%">
+										<td style="width: 10%">
+												<button class="btn btn-info btn-sm" data-ng-click="editFromPresciption(copmplainData)">
+													<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+												</button>
+										</td>
+				    					<td style="width: 50%">
 				    						<span>{{copmplainData.symptomName}}</span>
 										</td>
-										<td style="width: 50%">
+										<td style="width: 30%">
 											<span>{{copmplainData.durationNum}} {{copmplainData.durationType}}</span>
 										</td>
 								</table>
@@ -172,13 +167,13 @@
     			
     			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" data-ng-show="prescribedMHData.length > 0">
 	             	<div class="panel">	                 
-						<div class="panel-body">
-							<div class="form-group"><a href="#/history">MH History</a></div>
+						<div class="prescriptionPanel-body">
+							<div class="form-group"><a href="#/history"><label>MH History</label></a></div>
 								<table class="table">
 									<tr data-ng-repeat="data in prescribedMHData" >
 										<td style="width: 5%">
 											<span>
-												<a class="btn btn-warning btn-sm btnLanier"
+												<a class="btn btn-danger btn-sm btnLanier"
 									                  ktr-confirmation="deleteInvFromPrescibtion(item)" 
 									                  confirmation-message="Are you sure to remove?"
 									                  confirmation-title="Confirmation"
@@ -200,13 +195,13 @@
     			
     			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" data-ng-show="prescribedOBSData.length > 0">
 	             	<div class="panel">	                 
-						<div class="panel-body">
-							<div class="form-group"><a href="#/obsHistory">OBS History</a></div>
+						<div class="prescriptionPanel-body">
+							<div class="form-group"><a href="#/obsHistory"><label>OBS History</label></a></div>
 								<table class="table">
 									<tr data-ng-repeat="data in prescribedOBSData" >
 										<td style="width: 5%">
 											<span>
-												<a class="btn btn-warning btn-sm btnLanier"
+												<a class="btn btn-danger btn-sm btnLanier"
 									                  ktr-confirmation="deleteInvFromPrescibtion(item)" 
 									                  confirmation-message="Are you sure to remove?"
 									                  confirmation-title="Confirmation"
@@ -228,13 +223,13 @@
     			
     			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" >
 	             	<div class="panel">	                 
-						<div class="panel-body">
-							<div class="form-group"><a href="#/vital">O.E</a></div>
+						<div class="prescriptionPanel-body">
+							<div class="form-group"><a href="#/vital"><label>O.E</label></a></div>
 								<table class="table">
 									<tr data-ng-repeat="vitalData in prescribedVitalData" >
 										<td style="width: 5%">
 											<span>
-												<a class="btn btn-warning btn-sm"
+												<a class="btn btn-danger btn-sm"
 									                  ktr-confirmation="deleteInvFromPrescibtion(item)" 
 									                  confirmation-message="Are you sure to remove?"
 									                  confirmation-title="Confirmation"
@@ -256,13 +251,13 @@
 				
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 	             	<div class="panel">	                 
-						<div class="panel-body">
-							<div class="form-group"><a href="#/inv">INV</a></div>
+						<div class="prescriptionPanel-body">
+							<div class="form-group"><a href="#/inv"><label>INV</label></a></div>
 								<table class="table">
 									<tr data-ng-repeat="invData in prescribedInvData">
 										<td style="width: 5%">
 											<span>
-												<a class="btn btn-warning btn-sm"
+												<a class="btn btn-danger btn-sm"
 									                  ktr-confirmation="deleteInvFromPrescibtion(item)" 
 									                  confirmation-message="Are you sure to remove?"
 									                  confirmation-title="Confirmation"
@@ -286,8 +281,8 @@
     		<div class="col-md-8">
     			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding-top: 5px">
 	             	<div class="panel">	                 
-						<div class="panel-body">
-							<div class="form-group"><a href="#/diagnosis">Diagnosis:</a><label > {{diagnosisData.diseaseName}}</label></div>
+						<div class="prescriptionPanel-body">
+							<div class="form-group"><a href="javascript:" data-ng-click="performDiganosis(diagnosisData)" ><label>Diagnosis </label></a><span > {{diagnosisData.diseaseName}}</span></div>
 							
 						</div>
 					</div>
@@ -296,15 +291,15 @@
 				
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding-top: 5px">
 	             <div class="panel">	                 
-	                 <div class="panel-body">
+	                 <div class="prescriptionPanel-body">
 	                 
-	                 	<div class="text-muted form-group"><a href="#/drugs">RX</a></div>
+	                 	<div class="text-muted form-group"><a href="javascript:" data-ng-click="addDrugsToPrescription()"><label>RX</label></a></div>
 	                    <div class="room-desc form-group" data-ng-repeat="drugPres in prescribedDrugList">	
 							<table id="" class="table">
 								<tbody>
 									<tr class="" >
 										<td  style="width: 5%">
-											<a class="btn btn-warning btn-sm btnLanier"
+											<a class="btn btn-danger btn-sm btnLanier"
 												ktr-confirmation="deletePrescribedDrug(item)" 
 												confirmation-message="Are you sure to remove?"
 												confirmation-title="Confirmation"
@@ -312,7 +307,12 @@
 												<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 											</a>			
 										</td>
-										<td style="width: 20%">
+										<td style="width: 5%">
+												<button class="btn btn-info btn-sm" data-ng-click="editDrugsFromPresciption(drugPres)">
+													<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+												</button>
+										</td>
+										<td style="width: 15%">
 											<span>{{drugPres.typeInitial}}. {{drugPres.drugName}} </span>
 										</td>
 										<td  style="width: 20%">
@@ -341,14 +341,14 @@
 				
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 	             	<div class="panel">	                 
-						<div class="panel-body">
-							<div class="form-group"><a href="#/advice">Advice</a></div>
+						<div class="prescriptionPanel-body">
+							<div class="form-group"><a href="#/advice"><label>Advice</label></a></div>
 								<table id="" class="table">
 									<tbody>
 										<tr data-ng-repeat="adiviceData in prescribedAdviceData" style="height:50px;">
 											<td style="width: 10%">
 												<span>
-													<a class="btn btn-warning btn-sm"
+													<a class="btn btn-danger btn-sm"
 										                  ktr-confirmation="deleteInvFromPrescibtion(item)" 
 										                  confirmation-message="Are you sure to remove?"
 										                  confirmation-title="Confirmation"

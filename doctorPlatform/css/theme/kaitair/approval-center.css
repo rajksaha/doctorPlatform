@@ -13,37 +13,32 @@
 	.patinetInfo{
 		font-size: 14px;
 		font-weight:bold;
-		background-color: rgba(249, 195, 80, 0.5) ;
+		background-color: #FFFFFF;
 		padding: 15px;
 	}
-	ul.steps { /* background-color: #c7b299; */ padding: 0; margin: 0; height: 39px; overflow: hidden; }	
-	ul.steps li.step { color:#fff; background-color: #c7b299; float:left; list-style: none; line-height: 39px; }
 	
-	ul.steps li.step > label { display: block; line-height: 39px; font-weight: normal; margin: 0; padding: 0; color:#F2F2F3; }
-	ul.steps li.step > label { background: #7C98AE url("images/steps-devider.png") no-repeat scroll right top; }	   
-    ul.steps li.step:last-child > label { background: #7C98AE; color:#F2F2F3 }   
-    
-    ul.steps li.step > label > span { 
-    	background: transparent url("images/steps-icon-cross.png") no-repeat scroll left 50%; 
-    	display: block;
-	    line-height: 39px;
-	    margin: 0 21px 0 8px;
-	    overflow: hidden;
-	    padding: 0 0 0 32px;
-	    white-space: nowrap; 
-    }
-    
-    ul.steps li.active > label { background: #efdfa1 url("images/steps-devider-active.png") no-repeat scroll right top; color:rgb(76,76,76);}
-    ul.steps li.active:last-child > label { background: #efdfa1; color:rgb(76,76,76);}
-	ul.steps li.active > label > span { background: transparent url("images/steps-icon-active1.png") no-repeat scroll left 50% !important; }	
+	.patinetInfoHead{
+		font-size: 14px;
+		font-weight:bold;
+		background-color: #00CCFF;
+		padding: 15px;
+	}
 	
-	ul.steps li.completed > label { background: #428bca url("images/steps-devider-completed.png") no-repeat scroll right top; }	
-	ul.steps li.completed:last-child > label { background: #60b760; }
-	ul.steps li.completed > label > span { background: transparent url("images/steps-icon-completed.png") no-repeat scroll left 50% !important; }
+	.patinetInfoBody{
+		font-size: 14px;
+		font-weight:normal;
+		background-color: #CCFFFF;
+		padding: 15px;
+	}
+	.patinetInfoBody:Hover{
+		font-size: 16px;
+		font-weight:bold;
+		background-color: #FFFFFF;
+		padding: 20px;
+	}
 	
-	ul.steps li.done > label { background: #428bca url("images/steps-devider-completed-done.png") no-repeat scroll right top; }	
-	ul.steps li.done:last-child > label { background: #60b760; }
-	ul.steps li.done > label > span { background: transparent url("images/steps-icon-completed.png") no-repeat scroll left 50% !important; }
+	.filter-panel { background-color: rgba(95,195,220,.75); margin: 0 auto 15px auto; padding: 10px; }
+	
 	
 	/*### Dashboard ###///////////////////////////////////////*/
 	
@@ -52,6 +47,7 @@
 	
 	.keyPanelStyle{border-radius:5px;border:rgb(215,215,215) solid 1px;background:#fcf1d9;}
 	.keyPanelStyle a{color:black!important;}
+	
 	.tableDark{border-left:#B8B8B8 1px solid;border-bottom:#B8B8B8 1px solid;}
 	.tableLight{background:rgba(148, 148, 148, 0.13)!important;border-left:#B8B8B8 1px solid;border-bottom:#B8B8B8 1px solid;}
 	.leftCellBorder{border-left:black 0px solid;}
@@ -65,32 +61,29 @@
 	
 	/*### General Information ###///////////////////////////////////////*/
 	
-	.geninfo ul.steps li.step { width: 16.66666667%; }
 	
-	.geninfo > .contacts { }
-	.geninfo > .address { }
-	.geninfo > .long-lat { }
-	.geninfo > .website { }
-	.geninfo > .email-address { }
-	.geninfo > .ratings { }
 	
 	/* Override bootstraps UI components */
 	
-    .geninfo .panel {  box-shadow: none; -webkit-box-shadow: none; -moz-box-shadow:none;border:rgb(215,215,215) solid 1px; }
+    .geninfo .panel {  box-shadow: none; -webkit-box-shadow: none; -moz-box-shadow:none;border:#FFFF99 solid 1px; }
 	.geninfo .panel-body { padding: 28px;border-radius:4px; }
 	
 	
-	.appointment {background-color: rgba(249, 195, 80, 0.5) !important; padding: 20px; height: 600px !important;}
+	.appointment {background-color: rgba(95,195,220,.75); !important; padding: 20px; height: 600px !important;}
 	
 	.appointment .panelHead {  box-shadow: none; -webkit-box-shadow: none; -moz-box-shadow:none;border:yellow; solid: 5px; }
-	.appointment .panelHead-body { background-color:#FFFFCC ;padding: 28px;border-radius:4px; }
+	.appointment .panelHead-body { background-color:#CCFFFF;padding: 28px;border-radius:4px; }
+	.appointment .panelVisited-body { background-color:#99CCFF;padding: 28px;border-radius:4px; }
 	
 	
 	.appointment .panelChild {  box-shadow: none; -webkit-box-shadow: none; -moz-box-shadow:none;border:rgba(249, 195, 80, 0.5); solid: 2px;padding-top: 10px; }
-	.appointment .panelChild-body { background-color:#fff;padding: 24px;border-radius:4px; }
-	.appointment .panelChild-body:HOVER { background-color:#FFFFCC !important;border-width: 2px; cursor: pointer; padding: 28px; }
+	.appointment .panelChild-body { background-color:#FFFFFF;padding: 24px;border-radius:4px; }
+	.appointment .panelChild-body:HOVER { background-color:#00CCFF !important;border-width: 2px; cursor: pointer; padding: 28px; }
 	
-
+	.prescriptionPanel-body {
+		background-color:rgba(95,195,220,.75);padding: 24px;border-radius:4px;
+	}
+	
 	.appointmentPhoto a{
 		text-decoration:none;
 	    font: 12px "Lucida Sans","Trebuchet MS",Verdana,Arial,Sans-Serif;
@@ -208,7 +201,7 @@
 	.season-room-data table > tbody > tr > td:first-child { background-color: #f2eed2; width: 250px; }
 	.season-room-data table > tbody > tr > td:first-child .btn { line-height: 1.3em; padding: 6px 7px; }
 	
-	.filter-panel { background-color: rgba(249, 195, 80, 0.5); margin: 0 auto 15px auto; padding: 10px; }
+	
 	.rate-list-header { background:#428bca; }
 	.rate-list-cell{ line-height:45px; text-align:right; }
 	.bgBlue, .bgBlue:hover { border-width: 2px; cursor: default; padding: 5px 6px !important; } 

@@ -5,7 +5,7 @@
 </div>
 	<div class="panel  col-md-12 filter-panel">
 
-		<div class="col-md-12 panel panel-primary keyPanelColor panel1">
+		<div class="col-md-12 panel panel-primary mainPanelColor panel1">
 			<div class="col-md-3 appointmentPhoto">
 				<span style="padding-left:20px"><a href="javascript:" data-ng-click="addNewAppointment()"><img class="" src="images/forms.png"><span><br>New Appointment</span></a></span>
 			</div>
@@ -68,9 +68,9 @@
 			
 			
 			<div class="panel col-md-12 appointment">
-				<div class="col-md-12 panel panel-primary keyPanelColor panel1" style="padding-top: 12px;padding-bottom: 12px">
+				<div class="col-md-12 panel panel-primary mainPanelColor panel1" style="padding-top: 12px;padding-bottom: 12px">
 					<div  style="padding-top: 25px;">
-					<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8" >
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" >
 		             	<div class="panelHead">	                 
 							<div class="panelHead-body">
 								<span>Today's Appointment List</span>
@@ -79,39 +79,28 @@
 						</div>
 					</div>
 					
-					<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" >
-						<div class="panelHead">	                 
-							<div class="panelHead-body">
-								<span>Welcome {{doctorData.name}}</span>
-							</div>
-						</div>
-					</div>
 				</div>
 			
 				<div>
-					<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8" style="height: 400px; overflow-y: scroll;" >
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="height: 400px; overflow-y: scroll;" >
 		             	<div class="panelChild">	                 
 							<div class="" data-ng-repeat="appointmentData in appointmentList" >
 								<div class="panelChild-body form-group" data-ng-show="appointmentData.status == 0" data-ng-click="letsPrescribe(appointmentData)" >
 									<span class="textSpc">{{$index + 1}} | {{appointmentData.name}} | {{appointmentData.age}} yrs  | {{appointmentData.address}}</span>
+									<span class="textSpc pull-right">{{appointmentData.appointmentTypeName}}</span>
 								</div>
-								<div class="panelHead-body form-group text-muted " data-ng-show="appointmentData.status == 1" data-ng-click="visitedAppointment(appointmentData)" >
+								<div  class="panelVisited-body form-group " data-ng-show="appointmentData.status == 1"
+		                                            ktr-confirmation="letsPrescribe(item)" 
+		                                            confirmation-message="Want to re-visit this patient?"
+		                                            confirmation-title="Confirmation"
+		                                            item="appointmentData">
 									<span class="textSpc">{{$index + 1}} | {{appointmentData.name}} | {{appointmentData.age}} yrs  | {{appointmentData.address}}</span>
+									<span class="textSpc pull-right">{{appointmentData.appointmentTypeName}}</span>
 								</div>
 							</div>
 						</div>
 					</div>
 						
-					<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"   >
-						<div class="panelChild">	                 
-							<div class="panelHead-body form-group" style="height: 400px;" >
-								<div class="form-group" >
-									Now everything is easy to write and execute.
-								</div>
-							</div>
-						</div>
-		             	
-					</div>
 				</div>
 				</div>
 				

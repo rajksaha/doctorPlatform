@@ -104,6 +104,13 @@ app.config(function($stateProvider, $urlRouterProvider, $compileProvider, $contr
                 }
             },
             resolve : {
+            	loadMyService: ['$ocLazyLoad', function($ocLazyLoad) {
+                    return $ocLazyLoad.load(
+                    {
+                      name: 'ktrTablet',
+                      files: ['javascript/services/jsonService.js' + jsVersion]
+                    });
+                  }],
                 loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
                   // you can lazy load files for an existing module
                   return $ocLazyLoad.load(
@@ -164,22 +171,57 @@ app.config(function($stateProvider, $urlRouterProvider, $compileProvider, $contr
             }
         };
     
-    var complain = {
-            name : 'root.complain',
-            url : '/complain',
+    var familyHisory = {
+            name : 'root.familyHisory',
+            url : '/familyHisory',
             views : {
                 'container@' : {
-                    templateUrl : 'javascript/templates/complain/complain.html',
-                    controller : 'PrescribeComplainController'
+                    templateUrl : 'javascript/templates/history/familyHisory.html',
+                    controller : 'FamilyHisoryController'
                 }
             },
             resolve : {
+            	loadMyService: ['$ocLazyLoad', function($ocLazyLoad) {
+                    return $ocLazyLoad.load(
+                    {
+                      name: 'ktrTablet',
+                      files: ['javascript/services/jsonService.js' + jsVersion]
+                    });
+                  }],
                 loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
                   // you can lazy load files for an existing module
                   return $ocLazyLoad.load(
                     {
                       name: 'ktrTablet',
-                      files: ['javascript/controllers/complain/complain.js' ]
+                      files: ['javascript/controllers/history/familyHisoryController.js' ]
+                    });
+                  }]
+            }
+        };
+    
+    var pastHistory = {
+            name : 'root.pastHistory',
+            url : '/pastHistory',
+            views : {
+                'container@' : {
+                    templateUrl : 'javascript/templates/history/pastHistory.html',
+                    controller : 'PastHistoryController'
+                }
+            },
+            resolve : {
+            	loadMyService: ['$ocLazyLoad', function($ocLazyLoad) {
+                    return $ocLazyLoad.load(
+                    {
+                      name: 'ktrTablet',
+                      files: ['javascript/services/jsonService.js' + jsVersion]
+                    });
+                  }],
+                loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+                  // you can lazy load files for an existing module
+                  return $ocLazyLoad.load(
+                    {
+                      name: 'ktrTablet',
+                      files: ['javascript/controllers/history/pastHistoryController.js' ]
                     });
                   }]
             }
@@ -412,7 +454,8 @@ app.config(function($stateProvider, $urlRouterProvider, $compileProvider, $contr
         .state(prescription)
         .state(drugs)
         .state(inv)
-        .state(complain)
+        .state(familyHisory)
+        .state(pastHistory)
         .state(genInfo)
         .state(vital)
         .state(history)

@@ -1,43 +1,29 @@
+<div class="modal-header modalHead ">
+	<h4 class="modal-title">Add Diagnosis</h4>
+</div>
+<div class="modal-body modalBody"  style="position:relative; z-index:1;">
+	<div class="alert alert-danger alert-dismissable" data-ng-show="error">
+        <div>{{errorMessage}}</div>
+        <div id="lblMsg_modal"></div>
+    </div>
 
- 
-<div class="panel  col-md-12 filter-panel" style="padding-top: 20px" id="historySetting">
-	<div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
-         <div class="panel">	                 
-             <div class="panel-body">
-             	
-                <div class="room-desc  form-group" >
-                	<label for="inputName">Disease Name</label>
-                      <input type='text'  data-ng-model="diagnosisName" class='diagnosisAdderName form-control input-sm' onkeyup='lookup(this.value)'/>
-						<div class='suggetionBox' ></div>
-                </div>
-             </div>
-         </div>
-     </div>
-	         
-       <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
-           <div class="panel">	                 
-               <div class="panel-body">
-                  <div class="room-desc  form-group">	
+
+    		<div  class="row step4Width" id="validateReq">
+    			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+	   				<label>Diagnosis Name:</label>
+					<input type="text" ng-model="diagnosisData.diseaseName" typeahead="diagnosisNameData.name for diagnosisNameData in getDisease($viewValue)"  class="form-control required" placeholder="Disease" typeahead-on-select='onSelectDisease($item, $model, $label)'/>
+				</div>
+   			
+   			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+					<div class="room-desc  form-group">	
                        <label for="inputName">Detail</label>
-                       <input type="text" class="form-control input-sm" data-ng-model="diagnosisNote" maxlength="255" />
-                  </div>
-               </div>
-           </div>
-       </div>
-       
-       <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
-           <div class="panel">	                 
-               <div class="panel-body">
-                  <div class="room-desc  form-group">	
-                       <label for="inputName">Action</label><br>
-                       <button class="btn btn-success" data-ng-click="saveDiagnosis(diagnosisData)" data-ng-disabled="diagnosisData.name < 2">
-							<span class="glyphicons glyphicon glyphicon-floppy-save" aria-hidden="true"></span> Save
-						</button>
-                  </div>
-               </div>
-           </div>
-       </div>
-	         
+                       <input type="text" class="form-control input-sm" data-ng-model="diagnosisData.note" maxlength="255" />
+				</div>
+    		</div >
+    	</div>
 	
-	
+</div>
+<div class="modal-footer modalFoot">
+	<button class="btn btnLanier btn-success" data-ng-click="save()" ><i class="fa"></i> Save</button>
+	<button class="btn btnLanier btn-warning" data-ng-click="cancel()" ><i class="fa"></i> Cancel</button>
 </div>

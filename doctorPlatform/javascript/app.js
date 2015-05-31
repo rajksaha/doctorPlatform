@@ -8,7 +8,6 @@ var app = angular.module('ktrTablet', [
     'oc.lazyLoad',
     'ui.bootstrap',
     'ui.event',
-    'blockUI',
     'ui.calendar',
     
     // Google Analytics

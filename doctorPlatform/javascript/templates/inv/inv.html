@@ -93,14 +93,14 @@
      </div>
 </section>
 
-<div class="row geninfo" data-ng-show="!invAdderData.editMode">
+<div class="row" data-ng-show="!invAdderData.editMode">
 	<div class="col-xs-12">
-		<div class="panel" style="margin-top:20px">  
+		<div class="filter-panel" style="margin-top:20px">  
 			<div class="panel-body" >
 				<div class="text-muted form-group">Prescribed INV <span> <span class="badge pull-right">Total:{{numberOfInvAdded}}</span></span></div>                             
 				<div id="appList" scroller="addMoreItems()">
 					<table id="content-data-list" class="table table-condensed table-bordered">
-						<thead>
+						<thead class="patinetInfoHead">
 							<tr >
 								<th width="5%"><strong>Sl.</strong></th>
 								<th width="40%"><strong>Inv Name</strong></th>
@@ -109,7 +109,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr class="appointment" data-ng-repeat="invData in prescribedInvData" style="height: 50px;cursor: pointer;">
+							<tr class="patinetInfoBody" data-ng-repeat="invData in prescribedInvData" style="height: 50px;cursor: pointer;">
 								<td class="nowrap" >
 									{{$index + 1}}
 								</td>

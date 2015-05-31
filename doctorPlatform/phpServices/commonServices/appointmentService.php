@@ -11,8 +11,10 @@ function getAppointment($username, $date){
 	
 	
 	$sql = "SELECT
-	app.appointmentID, app.doctorCode, app.patientCode, app.date, app.time, app.status, app.addedBy, p.patientID, p.name, p.age, p.address, p.phone, p.sex, IFNULL(p.name, 0) AS patientState, app.appointmentType
+	app.appointmentID, app.doctorCode, app.patientCode, app.date, app.time, app.status, app.addedBy, p.patientID, p.name, p.age, p.address, p.phone, p.sex, IFNULL(p.name, 0) AS patientState, 
+		app.appointmentType, at.shortName AS appointmentTypeName
 	FROM `appointment` app
+	JOIN appointment_type at ON at.id= app.appointmentType
 	LEFT JOIN patient p ON app.patientCode = p.patientCode
 	WHERE app.doctorCode = '$username' AND app.date='$date' order by app.status ASC, app.time";
 	

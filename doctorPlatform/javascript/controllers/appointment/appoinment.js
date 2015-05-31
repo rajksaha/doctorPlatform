@@ -50,6 +50,7 @@ app.controller('AppointmentController', function($scope, $http, $modal, $rootSco
     	var addAppointAdderData = {};
     		addAppointAdderData.doctorCode = $scope.doctorData.doctorCode;
     		addAppointAdderData.personCodeInitial = $scope.doctorData.personCodeInitial;
+    		
     	var modalInstance = $modal.open({
             templateUrl: 'javascript/templates/appointment/addNewPatient.html',
             windowClass: 'fade in',

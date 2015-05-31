@@ -5,20 +5,20 @@
 
 
 
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
     <link href="lib/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="lib/css/custom-icon.css" rel="stylesheet"/>
     <link href="lib/css/bootstrap-theme-ktr.css" rel="stylesheet"/>
-    <link href="css/common/kaitair.css" rel="stylesheet"/>
+    <link href="css/common/bottomUp.css" rel="stylesheet"/>
     <link href="lib/css/jquery-ui-1.11.0/jquery-ui.min.css" rel="stylesheet"/>
 
     
 	<!-- ng-table -->
     <link href="lib/css/ng-table.min.css" rel="stylesheet"/>
     <link href="lib/css/ng-sortable.min.css" rel="stylesheet"/>
-    <link href="lib/css/angular-block-ui/angular-block-ui.css" rel="stylesheet"/>
 
 	<!-- Animate.css -->
     <link href="lib/css/animate.css" rel="stylesheet"/>
@@ -50,7 +50,7 @@
         <div ui-view="header"></div>
         <div ui-view="status"></div>
         <div ui-view="menu" class="container-menu"></div>
-        <div ui-view="container" class="page container-main container-fluid "></div>
+        <div ui-view="container" class="page container-main container-fluid"></div>
         <div ui-view="footer" class="footer"></div>
     </div>
 

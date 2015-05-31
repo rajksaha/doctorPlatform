@@ -1,4 +1,4 @@
-app.controller('HeaderController', function($scope, $rootScope, $location, $timeout, $modal, blockUI, $http) {
+app.controller('HeaderController', function($scope, $rootScope, $location, $timeout, $modal, $http) {
 	
 	$scope.doctorData = {};
 	$scope.displayPresCription = true;

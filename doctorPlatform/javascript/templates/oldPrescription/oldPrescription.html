@@ -142,7 +142,7 @@
 	    			<a href="#/drugs">RX</a>
 					<table id="content-data-list" class="table">
 						<tbody>
-							<tr class="appointment" data-ng-repeat="data in prescribedDrugList" style="height: 50px;cursor: pointer;">
+							<tr class="" data-ng-repeat="data in prescribedDrugList" style="height: 50px;cursor: pointer;">
 								<td class="nowrap" >
 									<button class="btn btn-default" data-ng-model="none"   data-ng-click="addToPrescription(!data.addedToPrescription, data, 7)">
 										<span class="glyphicon  glyphicon"  data-ng-class="{'glyphicon-check': data.addedToPrescription == true,'glyphicon-unchecked': !data.addedToPrescription  || data.addedToPrescription == false}"></span>

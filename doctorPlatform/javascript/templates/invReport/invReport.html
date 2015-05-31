@@ -47,7 +47,6 @@
 								<th width="10%"><strong>Inv Name</strong></th>
 								<th width="15%"><strong>Note</strong></th>
 								<th width="15%"><strong>Result</strong></th>
-								<th width="15%"><strong>Condition</strong></th>
 								<th width="15%"><strong>Action</strong></th>									
 							</tr>
 						</thead>
@@ -65,9 +64,6 @@
 								</td>
 								<td >
 									<span><input type="text" data-ng-model="invData.result"  class="form-control" placeholder="Note" /></span>
-								</td>
-								<td >
-									<span class="btn btn-default btn-sm" data-ng-class="{'bgGreen': invData.status == true, 'bgRed': invData.status != true}" data-ng-click="invData.status = ! invData.status">Condition</span>
 								</td>
 								<td >
 									<button class="btn btn-primary" data-ng-click="saveInvReport(invData)">

@@ -14,8 +14,7 @@
              <div class="panel-body">
              	<div class="text-muted form-group">Disease Name</div>	                    
                 <div class="room-desc">	
-                      <input type='text'  data-ng-model="diagnosisName" class='diagnosisAdderName form-control input-sm' onkeyup='lookup(this.value)'/>
-						<div class='suggetionBox' ></div>
+                      <input type="text" ng-model="diagnosisData.diseaseName" typeahead="diagnosisNameData.name for diagnosisNameData in getDisease($viewValue)"  class="form-control required" placeholder="Disease" typeahead-on-select='onSelectDisease($item, $model, $label)'/>
                 </div>
              </div>
          </div>
@@ -51,7 +50,7 @@
 										</tr>
 									</thead>
 									<tbody>
-										<tr class="appointment" data-ng-repeat="drugPres in drugSettingList" style="height: 50px;cursor: pointer;">
+										<tr class="" data-ng-repeat="drugPres in drugSettingList" style="height: 50px;cursor: pointer;">
 											<td class="nowrap" >
 												{{$index + 1}}
 											</td>
@@ -110,7 +109,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr class="appointment" data-ng-repeat="invData in invSettingList" style="height: 50px;cursor: pointer;">
+							<tr class="" data-ng-repeat="invData in invSettingList" style="height: 50px;cursor: pointer;">
 								<td class="nowrap" >
 									{{$index + 1}}
 								</td>

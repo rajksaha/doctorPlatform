@@ -25,18 +25,13 @@ function getdrugList($queryString, $drugType){
 function getDiseaseList($queryString){
 
 	$res=  mysql_query("select * from disease WHERE name LIKE '" . $queryString . "%'  ORDER BY name LIMIT 10");
-		$data ="<p id='searchresults'>";
 		
-		while($row1=  mysql_fetch_array($res)){
-			$name=$row1['name'];
-			
-			$data.= '<a href="javascript:autocomplete(\''.$name.'\')">';
-			
-			$data.= '<span class="searchheading">'.$name.'</span>';
-		}
+	$data = array();
+	while ($row=mysql_fetch_array($res)){
+		array_push($data,$row);
+	}
+	echo json_encode($data);
 		
-		$data.= "</p>";
-		echo $data;
 }
 
 function getInvList($queryString){

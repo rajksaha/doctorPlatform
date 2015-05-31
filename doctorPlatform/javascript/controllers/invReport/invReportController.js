@@ -57,10 +57,11 @@ app.controller('invReportController', function($scope, $http, $modal, $rootScope
     $scope.saveInvReport = function(invData){
     	
     	var dataString = "";
+    	var status = + invData.status;
     	if(invData.savedreportID){
-    		dataString = "query=2" + '&savedreportID=' + invData.savedreportID + "&invResult=" + invData.result + "&invReport=" + invData.status;
+    		dataString = "query=2" + '&savedreportID=' + invData.savedreportID + "&invResult=" + invData.result + "&invStatus=" + true;
     	}else{
-    		dataString = "query=1" + '&invPrescribeID=' + invData.id + "&invResult=" + invData.result + "&invReport=" + invData.status;
+    		dataString = "query=1" + '&invPrescribeID=' + invData.id + "&invResult=" + invData.result + "&invStatus=" + true;
     	}
 
         $http({
@@ -69,7 +70,6 @@ app.controller('invReportController', function($scope, $http, $modal, $rootScope
             data: dataString,
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).success(function (result) {
-        	$scope.invReportList = result;
         });
     };
     
@@ -104,22 +104,5 @@ app.controller('invReportController', function($scope, $http, $modal, $rootScope
 		$scope.inIt();
     })()
 
-	
-});
-
-
-app.controller('OldPrescriptionController.ViewPrescriptionController', function($scope, $modalInstance, data, $http) {
-	
-	
-	$(".modal-dialog").addClass('finalStepWidth');
-	angular.element(".modal-dialog").addClass('finalStepWidth');
-	$scope.$apply();
-	
-	
-	
-	$scope.cancelNewPatient = function (){
-		$modalInstance.dismiss('cancel');
-	};
-	
 	
 });

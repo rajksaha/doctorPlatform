@@ -1,8 +1,10 @@
 /* kaitair */
 /*------------ Basic Background colors -----------*/
-body{
-	background:#FFFCEF;!important;
-}
+body {
+		background-color :#66CCFF;		
+		background:#FFFCEF;
+		background-size: cover; 
+	}
 
 .bgBody {
 	background:#FFFCEF;
@@ -19,7 +21,11 @@ body{
 /*---------------- Panel bg colors -----------------------*/
 /* Panel Bg for non-Bootstrap panels */
 .keyPanelColor{
-	background-color: #FCF1D9!important;
+	background-color: #FFFFFF!important;
+}
+
+.mainPanelColor{
+	background-color: #a8e0e0!important;
 }
 
 /* Panel Bg for Bootstrap panels */

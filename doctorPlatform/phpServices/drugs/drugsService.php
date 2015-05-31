@@ -4,6 +4,7 @@ session_start();
 include('../config.inc');
 include('../commonServices/prescriptionService.php');
 include('../commonServices/prescriptionInsertService.php');
+include('../commonServices/parentInsertService.php');
 
 if (!isset($_SESSION['username'])) {
 	header('Location: index.php');
@@ -73,7 +74,8 @@ if($query_no== 1){
 	
 	
 	$drugType = $_POST['drugType'];
-	$drugID = $_POST['drugID'];
+	$drugName = $_POST['drugName'];
+	$drugID = getDrugIDByName($drugName, $drugType);
 	$drugTime = $_POST['drugTime'];
 	$drugDose = $_POST['drugDose'];
 	$doseUnit = $_POST['doseUnit'];
@@ -101,7 +103,8 @@ else if($query_no==4){
 	
 	$drugPrescribeID = $_POST['drugPrescribeID'];
 	$drugType = $_POST['drugType'];
-	$drugID = $_POST['drugID'];
+	$drugName = $_POST['drugName'];
+	$drugID = getDrugIDByName($drugName, $drugType);
 	$drugTime = $_POST['drugTime'];
 	$drugDose = $_POST['drugDose'];
 	$doseUnit = $_POST['doseUnit'];

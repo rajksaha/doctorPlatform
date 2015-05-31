@@ -20,7 +20,7 @@ if($query_no== 0){
 	
 	$reqAppointmentID = $_POST['appointmentID'];
 	
-	$sql = mysql_query("SELECT ip.`id` , ip.`appointMentID` , ip.`invID` , ip.`note` , ip.`checked` , ir.result, ir.status, i.name AS invName, ir.id AS savedreportID
+	$sql = mysql_query("SELECT ip.`id` , ip.`appointMentID` , ip.`invID` , ip.`note` , ip.`checked` , ir.result, IFNULL(ir.status, false) AS status, i.name AS invName, ir.id AS savedreportID
 	FROM `inv_prescription` ip
 	JOIN inv i ON ip.invID = i.id
 	LEFT JOIN inv_report ir ON ir.invPrescribeID = ip.id
@@ -33,5 +33,24 @@ if($query_no== 0){
 	}
 	
 	echo json_encode($data);
+}elseif ($query_no == 1){
+	
+	$invPrescribeID = $_POST['invPrescribeID'];
+	$invResult = $_POST['invResult'];
+	$invStatus = $_POST['invStatus'];
+	$sql = mysql_query("INSERT INTO `inv_report`( `invPrescribeID`, `result`, `status`) VALUES ('$invPrescribeID','$invResult', $invStatus)");
+	
+	
+	
+}elseif ($query_no == 2){
+	
+	$savedreportID = $_POST['savedreportID'];
+	$invResult = $_POST['invResult'];
+	$invStatus = $_POST['invStatus'];
+	$sql = mysql_query("UPDATE `inv_report` SET `result`= '$invResult',`status`= $invStatus WHERE `invPrescribeID` = '$savedreportID'");
+	
+	echo "UPDATE `inv_report` SET `result`= '$invResult',`status`= $invStatus WHERE `invPrescribeID` = '$savedreportID'";
 }
+
+
 ?>

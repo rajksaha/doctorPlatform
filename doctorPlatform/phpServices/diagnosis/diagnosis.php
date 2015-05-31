@@ -26,7 +26,7 @@ $query_no=  $_POST['query'];
 if($query_no== 0){
 	
 	
-		$queryString = $_POST['queryString'];
+		$queryString = $_POST['data'];
 			
 		return getDiseaseList($queryString);
 	

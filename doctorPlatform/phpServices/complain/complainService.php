@@ -4,6 +4,7 @@ session_start();
 include('../config.inc');
 include('../commonServices/prescriptionService.php');
 include('../commonServices/prescriptionInsertService.php');
+include('../commonServices/parentInsertService.php');
 if (!isset($_SESSION['username'])) {
 	header('Location: index.php');
 }
@@ -31,11 +32,22 @@ if($query_no==1){
 	
 }else if($query_no==2){// insert in complain
 	
-	$symptomID=$dataObject->symptomID;
-	$durationNum=$dataObject->durationNum;
-	$durationType=$dataObject->durationType;
+	$symptomName=$dataObject->complainName;
 	
-	insertPrescribedCC($appointmentID, $symptomID, $durationNum, $durationType);
+	$symptomID = getSymptomIDByName($symptomName);
+	$durationNum=$dataObject->numOfDay;
+	$durationType=$dataObject->dayType;
+	$detail=$dataObject->note;
+	$complainPrescribeID=$dataObject->complainPrescribeID;
+	
+	if($complainPrescribeID != 0){
+		mysql_query("UPDATE `complain` SET `symptomID`= '$symptomID',`durationNum`= '$durationNum',`durationType`='$durationType',`detail`='$detail' WHERE `id` = '$complainPrescribeID'");
+	}else{
+		insertPrescribedCC($appointmentID, $symptomID, $durationNum, $durationType , $detail);
+	}
+	
+	
+	
 	
 	
 }else if($query_no==3){// get all added CC 

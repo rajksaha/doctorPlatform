@@ -1,3 +1,35 @@
-<div>
-    <input type="text" ng-model="symptom.id" typeahead="symptom.name for symptom in getSymptoms($viewValue)"  class="form-control" placeholder="Symptoms" typeahead-on-select='onSelectSymptom($item, $model, $label)'/>
+<div class="modal-header modalHead ">
+	<h4 class="modal-title">Add Complain</h4>
+</div>
+<div class="modal-body modalBody"  style="position:relative; z-index:1;">
+	<div class="alert alert-danger alert-dismissable" data-ng-show="error">
+        <div>{{errorMessage}}</div>
+        <div id="lblMsg_modal"></div>
+    </div>
+
+
+    	<div  class="row step4Width" id="validateReq">
+    		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" data-ng-repeat="complain in complainList">
+    			<div class="form-group col-xs-6 col-sm-6" >
+	   				<label>{{complain.title}}:</label>
+					<input type="text" ng-model="complain.name" typeahead="symptom.name for symptom in getSymptoms($viewValue)"  class="form-control" placeholder="Symptoms" typeahead-on-select='onSelectSymptom($item, $model, $label)'/>
+				</div>
+				<div class="form-group col-xs-3 col-sm-3" >
+					<label>Duration Day:</label> 
+					<select class="form-control"  data-ng-model="complain.numOfDay"  data-ng-options="drugDay.name for drugDay in drugNumOfDayList">
+					</select>
+				</div>
+				<div class="form-group col-xs-3 col-sm-3" >
+					<label>Duration Tupe:</label> 
+					<select class="form-control"   data-ng-model="complain.dayType" data-ng-options="drugTime.bangla for drugTime in drugDayTypeList">
+					</select>
+				</div>
+    		</div >
+   			
+    	</div>
+	
+</div>
+<div class="modal-footer modalFoot">
+	<button class="btn btnLanier btn-success" data-ng-click="saveGroupOfComplain()" ><i class="fa"></i> Save</button>
+	<button class="btn btnLanier btn-warning" data-ng-click="cancelGroupOfComplain()" ><i class="fa"></i> Cancel</button>
 </div>

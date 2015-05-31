@@ -62,9 +62,9 @@ function insertPrescriptionAdvice($appointmentID, $adviceID){
 
 }
 
-function insertPrescribedCC($appointmentID ,$symptomID, $durationNum, $durationType){
+function insertPrescribedCC($appointmentID ,$symptomID, $durationNum, $durationType, $detail){
 
-	$sql = "INSERT INTO `complain`(`appointMentID`, `symptomID`, `durationNum`, `durationType`) VALUES ('$appointmentID','$symptomID','$durationNum','$durationType')";
+	$sql = "INSERT INTO `complain`(`appointMentID`, `symptomID`, `durationNum`, `durationType`, `detail`) VALUES ('$appointmentID','$symptomID','$durationNum','$durationType', '$detail')";
 
 	mysql_query($sql);
 	
@@ -155,9 +155,6 @@ function insertSingleDrugsToSetting($doctorID, $diseaseID,$drugID, $drugType, $d
 			('$doctorID', '$diseaseID', '$drugType', '$drugID', '$drugTime', '$drugDose', '$doseUnit', '$drugNoOfDay', '$drugDayType', '$drugWhen', '$drugAdvice')");
 	
 	
-	return "INSERT INTO `settings_drug`(`id`, `doctorID`, `diseaseID`, `drugTypeID`, `drugID`, `drugTimeID`, `drugDose`, `drugDoseUnit`, `drugNoOfDay`, `drugDayTypeID`, `drugWhenID`, `drugAdviceID`) 
-			VALUES
-			('$doctorID', '$diseaseID', '$drugType', '$drugID', '$drugTime', '$drugDose', '$doseUnit', '$drugNoOfDay', '$drugDayType', '$drugWhen', '$drugAdvice')";
 	
 	
 }
@@ -175,6 +172,13 @@ function insertSingleAdviceToSetting ($doctorID, $diseaseID, $adviceID){
 	mysql_query("INSERT INTO `settings_advice`(`doctorID`, `diseaseID`, `adviceID`) VALUES ('$doctorID', '$diseaseID', '$adviceID')");
 	
 	return mysql_insert_id();
+}
+
+function insertFamilyHistory($patientID, $diseaseID, $relation, $present, $type, $detail){
+	
+	mysql_query("INSERT INTO `patient_family_history`(`patientID`, `diseaseID`, `relation`, `present`, `type`, `detail`) 
+				VALUES ('$patientID','$diseaseID','$relation','$present','$type','$detail')");
+	
 }
 
 

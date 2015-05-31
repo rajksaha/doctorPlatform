@@ -29,7 +29,7 @@ app.controller('PrescribeSettingsController', function($scope, $http, $modal, $r
 		
 		
 			
-		var dataString = "query=" + 3 + '&diagnosisName=' + $('.diagnosisAdderName').val();
+		var dataString = "query=" + 3 + '&diagnosisName=' + $scope.diagnosisData.diseaseName;
 		
 
         $http({
@@ -212,6 +212,25 @@ app.controller('PrescribeSettingsController', function($scope, $http, $modal, $r
 	     });
 	    
 	};
+	
+	$scope.getDisease = function(term) {
+		
+		var dataString = "query=" + 0 + "&data=" + term;
+	    
+	    return $http({
+	        method: 'POST',
+	        url: "phpServices/diagnosis/diagnosis.php",
+	        data: dataString,
+	        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+	    }).then(function(result) {
+	    	$scope.diagnosisNameData = result.data;
+	    	return limitToFilter($scope.diagnosisNameData, 10);
+	    });
+	};
+
+	  $scope.onSelectDisease = function(item, model, label){
+		  $scope.diagnosisData.diseaseName = item.name;
+	  };
 	
 	$scope.bringData = function (){
 		
@@ -546,22 +565,7 @@ app.controller('PrescribeSettingsController.AddAdvcieToSettings', function($scop
 	
 });
 
-function lookup(inputString) {
-	if(inputString.length == 0) {
-		$('.suggetionBox').fadeOut(); // Hide the suggestions box
-	} else {
-            $.post("phpServices/diagnosis/diagnosis.php", {queryString: ""+inputString+"", query : 0}, function(data) { // Do an AJAX call
-			$('.suggetionBox').fadeIn(); // Show the suggestions box
-			$('.suggetionBox').html(data); // Fill the suggestions box
-		});
-	}
-}
 
-function autocomplete(dataString) {
-	$('.diagnosisAdderName').val(dataString);
-	$('.suggetionBox').fadeOut();
-	$('.suggetionBox').hide();
-}
 
 
 function lookupDrug(inputString) {

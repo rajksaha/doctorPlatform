@@ -22,8 +22,6 @@ if($query_no== 0){
 	
 	$sql = "SELECT i.`id` , i.`name`
 			FROM `inv` i
-			LEFT JOIN doctor_inv_setteing dis ON i.id = dis.invID
-			AND dis.doctorID = '$doctorID' AND IFNULL( dis.id, 0 ) = 0
 			WHERE i.`name` LIKE '" . $queryString . "%' LIMIT 10";
 
 	$result=mysql_query($sql);

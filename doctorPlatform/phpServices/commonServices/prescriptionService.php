@@ -79,7 +79,7 @@ function getPrescribedHistory($appointmentID, $typeCode){
 
 function getPrescribedComplain($appointmentID){
 
-	$sql = "SELECT c.`id`, c.`appointMentID`, c.`symptomID`, c.`durationNum`, c.`durationType` , s.name AS symptomName, ddt.bangla AS durationType
+	$sql = "SELECT c.`id`, c.`appointMentID`, c.`symptomID`, c.`durationNum`, c.`durationType` AS durationID, s.name AS symptomName, ddt.bangla AS durationType
 			FROM `complain` c
 			JOIN symptom s ON c.symptomID = s.symptomID
 			JOIN drugdaytype ddt ON c.durationType= ddt.id
@@ -121,11 +121,12 @@ function getPrescribedPastDisease($appointmentID, $patientID){
 
 function getPrescribedFamilyDisease($appointmentID, $patientID){
 
-	$sql = "SELECT pfd.`id`, pfd.`appointMentID`, pfd.`familyDiseaseID` , pfh.relation, pfh.present, pfh.type, pfh.detail
-			FROM `prescription_family_disease` pfd
-			JOIN patient_family_history pfh ON pfd.familyDiseaseID = pfh.id AND pfh.patientID = '$patientID'
-			JOIN disease d ON pfh.diseaseID = d.id
-			WHERE `appointMentID` =  '$appointmentID'";
+	$sql = "SELECT pfh.`id`, pfh.`patientID`, pfh.`diseaseID`, d.name AS diseaseName, pfh.`relation`, pfh.`present`, pfh.`type`, pfh.`detail`, r.name AS relationName, IF(pfd.id  IS NULL, false, true) AS addedToPres
+				FROM `patient_family_history` pfh
+				JOIN disease d ON pfh.diseaseID = d.id
+				JOIN relation r ON r.id = pfh.relation
+				LEFT JOIN prescription_family_disease pfd ON pfd.familyDiseaseID = pfh.id AND pfd.appointMentID = '$appointmentID'
+				WHERE pfh.patientID =  '$patientID'";
 
 	$result=mysql_query($sql);
 

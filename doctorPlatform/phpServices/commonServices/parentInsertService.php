@@ -88,5 +88,23 @@ function getAdivceIDByName($adviceName, $type){
 
 }
 
+function getSymptomIDByName($symptomName){
+	
+	
+	$rec = mysql_query("SELECT `symptomID`, `name` FROM `symptom` WHERE `name`  = '$symptomName'");
+	$result = mysql_fetch_assoc($rec);
+	
+	if($result['symptomID'] != null && $result['symptomID'] > 0){
+	
+		return $result['symptomID'];
+	}else{
+		$sql = "INSERT INTO `symptom`( `name`) VALUES ('$symptomName')";
+	
+		mysql_query($sql);
+	
+		return mysql_insert_id();
+	}
+}
+
 
 ?>
