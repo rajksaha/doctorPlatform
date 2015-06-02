@@ -716,6 +716,7 @@ app.controller('PrescriptionController.PrescribeDiagnosisController', function($
 		$scope.diagnosisData = record.diagnosisData;
 	}else{
 		$scope.diagnosisData = {};
+		$scope.diagnosisData.note = "";
 	}
 	$scope.diagnosisNameData = {};
 	
@@ -723,26 +724,34 @@ app.controller('PrescriptionController.PrescribeDiagnosisController', function($
 	
 	$scope.save = function(){
 		
-		var dataString = "";
-		if($scope.diagnosisData.id){
+		if(validator.validateForm("#validateReq","#lblMsg_modal",null)) {
 			
-			dataString = "query=" + 3 + '&diagnosisName=' + $scope.diagnosisData.diseaseName + '&note=' + $scope.diagnosisData.note + '&id=' + $scope.diagnosisData.id;
+			var dataString = "";
+			if($scope.diagnosisData.id){
+				
+				dataString = "query=" + 3 + '&diagnosisName=' + $scope.diagnosisData.diseaseName + '&note=' + $scope.diagnosisData.note + '&id=' + $scope.diagnosisData.id;
 
+			}else{
+				dataString = "query=" + 2 + '&diagnosisName=' + $scope.diagnosisData.diseaseName + '&note=' + $scope.diagnosisData.note;
+			}
+			
+			 $http({
+		            method: 'POST',
+		            url: "phpServices/diagnosis/diagnosis.php",
+		            data: dataString,
+		            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+		        }).success(function (result) {
+		        	
+		        	$modalInstance.close();
+		        	
+		        });
 		}else{
-			dataString = "query=" + 2 + '&diagnosisName=' + $scope.diagnosisData.diseaseName + '&note=' + $scope.diagnosisData.note;
+			$scope.error = true; 
 		}
 		
+		
 
-        $http({
-            method: 'POST',
-            url: "phpServices/diagnosis/diagnosis.php",
-            data: dataString,
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-        }).success(function (result) {
-        	
-        	$modalInstance.close();
-        	
-        });
+       
 	};
 	
 	$scope.cancel = function(){
