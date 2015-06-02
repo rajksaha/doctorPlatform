@@ -393,21 +393,14 @@ function Show_diagnosis($appointmentID,$xAxis,$yAxis,  $size){
 	$this->SetFont('Times','',$size);
 	
 	
-	if(mysql_num_rows($resultData) > 0){
 	
-		$this->SetXY($xAxis - 2, $yAxis);
-		$this->MultiCell(40,5,"Diagnosis");
-		$yAxis += 6;
-	
-	}
 	
 	while($row=  mysql_fetch_array($resultData)){
 	
 		$diseaseName = $row['diseaseName'];
 	
-		$yAxis =  $this->GetY();
 		$this->SetXY($xAxis, $yAxis);
-		$this->MultiCell(60,5,"$diseaseName");
+		$this->MultiCell(60,5,"Diagnosis : $diseaseName");
 	
 	}
 	
