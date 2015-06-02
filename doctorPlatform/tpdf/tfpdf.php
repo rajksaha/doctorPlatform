@@ -2311,9 +2311,7 @@ function Show_advice($pres_id,$x,$y,$high,$maxX) {
 function Show_inv($pres_id,$x,$y,$high) {
 
 }
-function Show_Complain($pres_id,$x,$y) {
-    
-}
+function Show_Complain($appointmentID,$leftXaxis,$leftYaxis, $maxX , $size) {}
 function show_comment($pres_id,$x,$y){
     
 }

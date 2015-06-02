@@ -79,7 +79,7 @@ function getPrescribedHistory($appointmentID, $typeCode){
 
 function getPrescribedComplain($appointmentID){
 
-	$sql = "SELECT c.`id`, c.`appointMentID`, c.`symptomID`, c.`durationNum`, c.`durationType` AS durationID, s.name AS symptomName, ddt.bangla AS durationType
+	$sql = "SELECT c.`id`, c.`appointMentID`, c.`symptomID`, c.`durationNum`, c.`durationType` AS durationID, s.name AS symptomName, ddt.english AS durationType 
 			FROM `complain` c
 			JOIN symptom s ON c.symptomID = s.symptomID
 			JOIN drugdaytype ddt ON c.durationType= ddt.id

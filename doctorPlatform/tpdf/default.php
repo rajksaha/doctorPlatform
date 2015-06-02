@@ -355,6 +355,37 @@ function Show_Family_History($appointmentID,$xAxis,$yAxis, $maxX , $size){
 	return $this->GetY();
 }
 
+function Show_Complain($appointmentID,$xAxis,$yAxis, $maxX , $size) {
+	
+	$resultData = getPrescribedComplain($appointmentID);
+	
+	$this->SetFont('Times','',$size);
+	
+	
+	if(mysql_num_rows($resultData) > 0){
+	
+		$this->SetXY($xAxis - 2, $yAxis);
+		$this->MultiCell($maxX,5,"C.C");
+		$yAxis += 6;
+	
+	}
+	
+	while($row=  mysql_fetch_array($resultData)){
+	
+		$symptomName = $row['symptomName'];
+		$durationNum = $row['durationNum'];
+		$durationType = $row['durationType'];
+	
+		$yAxis =  $this->GetY();
+		$this->SetXY($xAxis, $yAxis);
+		$this->MultiCell($maxX,5,"$symptomName - $durationNum - $durationType");
+	
+	}
+	
+	return $this->GetY();
+	
+}
+
 }
 
 $pdf = new PDF();
@@ -375,6 +406,8 @@ $maxX = 60;
 $rightYaxis = $pdf->Show_med($appointmentID,$rightXaxis,$rightYaxis,$size);
 $rightYaxis = $pdf->Show_advice($appointmentID,$rightXaxis,$rightYaxis + 5,$size - 2,$maxX);
 
+
+$leftYaxis=$pdf->Show_Complain($appointmentID,$leftXaxis,$leftYaxis, $maxX , $size -2);
 $leftYaxis=$pdf->Show_History($appointmentID,$leftXaxis,$leftYaxis, $maxX , $size -2, "MH");
 $leftYaxis=$pdf->Show_History($appointmentID,$leftXaxis,$leftYaxis, $maxX , $size -2, "OBS");
 $leftYaxis=$pdf->Show_vital($appointmentID,$leftXaxis,$leftYaxis, $maxX , $size -2);

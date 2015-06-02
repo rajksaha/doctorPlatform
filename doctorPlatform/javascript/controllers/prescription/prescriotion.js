@@ -828,6 +828,10 @@ app.controller('PrescriptionController.PrescribeComplainController', function($s
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).success(function (result) {
         	$scope.drugDayTypeList = result;
+        	
+        	$scope.drugDayTypeList.splice(5, 1);
+        	$scope.drugDayTypeList.splice(4, 1);
+        	
         	if(addMood){
         		var data = {"title": "Symptom 1","numOfDay" : $scope.drugNumOfDayList[1], "dayType" : $scope.drugDayTypeList[0],"note" : "","id" : 0};
         		$scope.complainList.push(data);
@@ -886,7 +890,16 @@ app.controller('PrescriptionController.PrescribeComplainController', function($s
 		
 		
 		if(!entryFound){
-			alert("Please select at-least one symptom");
+			if($scope.complainList.length == 1){
+				$scope.errorMessage = "Please Select Symptom Name";
+				$scope.succcess = false;
+				$scope.error = true;
+			}else{
+				$scope.errorMessage = "Please Select At-least One Symptom";
+				$scope.succcess = false;
+				$scope.error = true;
+			}
+			
 		}else{
 			$modalInstance.close();
 		}
@@ -1043,6 +1056,8 @@ app.controller('PrescriptionController.PrescribeDrugsController', function($scop
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).success(function (result) {
         	$scope.drugDayTypeList = result;
+        	
+        	
         	if(addMood){
         		$scope.drugData.dayType = $scope.drugDayTypeList[0];
         	}else{

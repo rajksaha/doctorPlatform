@@ -60,7 +60,9 @@ app.controller('PrescribeComplainController', function($scope, $http, $modal, $r
 		
 		
 		if(!entryFound){
-			alert("Please select at-least one symptom");
+			$scope.message = "Please Select At-least One Symptom";
+			$scope.succcess = false;
+			$scope.error = true;
 		}
 		
 	};
