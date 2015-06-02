@@ -2315,7 +2315,7 @@ function Show_Complain($appointmentID,$leftXaxis,$leftYaxis, $maxX , $size) {}
 function show_comment($pres_id,$x,$y){
     
 }
-function Show_diagnosis($pres_id,$x,$y){
+function Show_diagnosis($appointmentID,$leftXaxis,$leftYaxis, $maxX , $size){
    
 }
 function Show_boh($x,$y,$pid,$user){

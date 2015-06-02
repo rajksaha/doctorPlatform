@@ -386,6 +386,35 @@ function Show_Complain($appointmentID,$xAxis,$yAxis, $maxX , $size) {
 	
 }
 
+function Show_diagnosis($appointmentID,$xAxis,$yAxis,  $size){
+	
+	$resultData = getPrescribedDiagnosis($appointmentID);
+	
+	$this->SetFont('Times','',$size);
+	
+	
+	if(mysql_num_rows($resultData) > 0){
+	
+		$this->SetXY($xAxis - 2, $yAxis);
+		$this->MultiCell(40,5,"Diagnosis");
+		$yAxis += 6;
+	
+	}
+	
+	while($row=  mysql_fetch_array($resultData)){
+	
+		$diseaseName = $row['diseaseName'];
+	
+		$yAxis =  $this->GetY();
+		$this->SetXY($xAxis, $yAxis);
+		$this->MultiCell(60,5,"$diseaseName");
+	
+	}
+	
+	return $this->GetY();
+	 
+}
+
 }
 
 $pdf = new PDF();
@@ -403,6 +432,8 @@ $size = 12;
 $leftXaxis = 5;
 $rightXaxis = 75;
 $maxX = 60;
+
+$rightYaxis = $pdf->Show_diagnosis($appointmentID,$rightXaxis,$rightYaxis,$size);
 $rightYaxis = $pdf->Show_med($appointmentID,$rightXaxis,$rightYaxis,$size);
 $rightYaxis = $pdf->Show_advice($appointmentID,$rightXaxis,$rightYaxis + 5,$size - 2,$maxX);
 
