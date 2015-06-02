@@ -85,7 +85,7 @@
 			<div class="form-group col-xs-12 col-sm-12 ">
 				<div class="form-group col-xs-3 col-sm-3">
 					<label>Duration Days</label> 
-					<select class="form-control" data-ng-hide="drugData.timesADay.code == -1 || drugData.dayType.id == 5"  data-ng-model="drugData.numOFDay"  data-ng-options="drugDay.name for drugDay in drugNumOfDayList">
+					<select class="form-control" data-ng-hide="drugData.timesADay.code == -1 || drugData.dayType.id > 4"  data-ng-model="drugData.numOFDay"  data-ng-options="drugDay.name for drugDay in drugNumOfDayList">
 					</select>
 					&nbsp;&nbsp;
 				</div>
