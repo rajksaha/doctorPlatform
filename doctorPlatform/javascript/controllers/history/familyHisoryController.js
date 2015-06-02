@@ -13,26 +13,37 @@ app.controller('FamilyHisoryController', function($scope, $http, $modal, $rootSc
 	$scope.saveFamilyHistory = function(familyHistoryData){
 		
 		
-		var dataString = "";
-		if(familyHistoryData.id){
-			
-			dataString = "query=" + 4 + '&diseaseName=' + familyHistoryData.diseaseName + '&relation=' + familyHistoryData.relation.id
-			+ '&present=' + familyHistoryData.present + '&type=' + familyHistoryData.type + '&detail=' + familyHistoryData.detail + '&familyHistoryID=' + familyHistoryData.id;
+		if(validator.validateForm("#validateReq","#lblMsg",null)) {
+			var dataString = "";
+			if(familyHistoryData.id){
+				
+				dataString = "query=" + 4 + '&diseaseName=' + familyHistoryData.diseaseName + '&relation=' + familyHistoryData.relation.id
+				+ '&present=' + familyHistoryData.present + '&type=' + familyHistoryData.type + '&detail=' + familyHistoryData.detail + '&familyHistoryID=' + familyHistoryData.id;
 
+			}else{
+				dataString = "query=" + 1 + '&diseaseName=' + familyHistoryData.diseaseName + '&relation=' + familyHistoryData.relation.id
+				+ '&present=' + familyHistoryData.present + '&type=' + familyHistoryData.type + '&detail=' + familyHistoryData.detail;
+			}
+			
+
+	        $http({
+	            method: 'POST',
+	            url: "phpServices/history/familyHistoryHelper.php",
+	            data: dataString,
+	            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+	        }).success(function (result) {
+	        	$scope.succcess = true;
+				$scope.error = false;
+				$scope.message = "Information Updated Successfully";
+	        	$scope.bringFamilyHistoryData();
+	        });
+	        
 		}else{
-			dataString = "query=" + 1 + '&diseaseName=' + familyHistoryData.diseaseName + '&relation=' + familyHistoryData.relation.id
-			+ '&present=' + familyHistoryData.present + '&type=' + familyHistoryData.type + '&detail=' + familyHistoryData.detail;
+			$scope.message = "";
+			$scope.succcess = false;
+			$scope.error = true;
 		}
 		
-
-        $http({
-            method: 'POST',
-            url: "phpServices/history/familyHistoryHelper.php",
-            data: dataString,
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-        }).success(function (result) {
-        	$scope.bringFamilyHistoryData();
-        });
 	};
 	
 	$scope.bringFamilyHistoryData = function(){
@@ -69,6 +80,8 @@ app.controller('FamilyHisoryController', function($scope, $http, $modal, $rootSc
 		
 		$scope.familyHistoryData.present = "Yes";
 		
+		$scope.familyHistoryData.detail = "";
+		
 		$scope.familyHistoryData.editMode = true;
 		
 		$scope.familyHistoryList.splice(0,0, $scope.familyHistoryData);
@@ -104,6 +117,9 @@ app.controller('FamilyHisoryController', function($scope, $http, $modal, $rootSc
 	            data: dataString,
 	            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 	        }).success(function (result) {
+	        	$scope.succcess = true;
+				$scope.error = false;
+				$scope.message = "Information Deleted From Prescription";
 	        	data.addedToPres = false;
 	        });
 	        
@@ -117,6 +133,9 @@ app.controller('FamilyHisoryController', function($scope, $http, $modal, $rootSc
 	            data: dataString,
 	            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 	        }).success(function (result) {
+	        	$scope.succcess = true;
+				$scope.error = false;
+				$scope.message = "Information Added To Prescription";
 	        	data.addedToPres = true;
 	        });
 	    }
@@ -140,6 +159,11 @@ app.controller('FamilyHisoryController', function($scope, $http, $modal, $rootSc
         
 	};
 	
+	$scope.cancelFamilyHistory  = function(){
+		
+		$scope.bringFamilyHistoryData();
+	};
+	
 	$scope.deleteFamilyHistory = function(id){
 		
 		var dataString = "query=" + 5 + "&familyHistoryID=" + id;
@@ -150,6 +174,9 @@ app.controller('FamilyHisoryController', function($scope, $http, $modal, $rootSc
             data: dataString,
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).success(function (result) {
+        	$scope.succcess = true;
+			$scope.error = false;
+			$scope.message = "Information Deleted Successfully";
         	$scope.bringFamilyHistoryData();
         });
 	};

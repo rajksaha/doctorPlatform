@@ -28,7 +28,7 @@ $query_no=  mysql_real_escape_string($_POST['query']);
 
 if($query_no== 0){
 	
-	$result = getPrescribedFamilyDisease($appointmentID, $patientID);
+	$result = getFamilyDisease($appointmentID, $patientID);
 	
 	$data = array();
 	while ($row=mysql_fetch_array($result)){

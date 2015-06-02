@@ -2298,471 +2298,50 @@ function ShowDocInfo($user){
     
 }
 function ShowPatInfo($user,$pid,$y){
-   $b = mysql_fetch_array(mysql_query("select * from doc_info where d_id='$user'"));
-    $doctor_id=$b['id'];
-	$a = mysql_fetch_array(mysql_query("select * from doc_set where id='$doctor_id'"));
-	$pref=$a['style'];
-        $sql = "SELECT sex,name,phone,dob from person where phone='$pid'";
-	$pat = mysql_fetch_array(mysql_query("SELECT assign_id from  patient where pid='$pid'"));
-        $ass_id=$pat['assign_id'];
-$result=mysql_query($sql);
-$row = mysql_fetch_array($result);
-$name=$row['name'];
-$age= $row['dob'];
-$date = date('d M, Y');
-	
-        if($pref==1){
-            $this->SetXY(32,48);
-            $this->Write(5,"$name");
-            $this->SetXY(136, 48);
-            $this->Write(5, "$age Years");
-            $this->SetXY(175, 48);
-            $this->Write(5, "$date");
-        }else{
-            //$this->Line(5,52,205,52);
-            $this->SetXY(10,$y);
-            $this->Write(5, "ID:$ass_id");
-            $x=  $this->GetX();
-            $this->SetXY($x+5,$y);
-            $this->Write(5, "Name:$name");
-             $x=  $this->GetX();
-            $this->SetXY($x+10, $y);
-            $this->Write(5, "Age:$age");
-            $x=  $this->GetX();
-            //$this->Line(130,52,130,60);
-            //$this->Line(132,52,132,60);
-            $this->SetXY(140, $y);
-            $this->Write(5, "Date:$date");
-            //$this->Line(5,60,205,60);
-            //$this->Line(5,62,205,62);
-        }
-}
-function Show_Status($pres_id,$x,$y,$pid,$user) {
-$lot = mysql_fetch_array(mysql_query("SELECT * from  patient where pid=$pid"));
-    $status=$lot['status'];
-    $this->SetFont('Times','',12);
-    if($status==0){
-        $hrp=getHrp($pres_id,$pid,$user);
-       
-        if($hrp==1){
-             $this->SetXY($x, $y);
-            //$this->Write(5, "");
-            $this->MultiCell(42,5,"Highrisk in Pregnancy",1);
-        }
-        $boh=checkBoh($pid,$user);
-        if($boh==1){
-            $y+=5;
-             $this->SetXY($x, $y);
-            $this->MultiCell(15,5,"BOH",1);
-        }
-    }
-}
-function  Show_fact($pres_id,$x,$y,$pid,$user) {
-    $sql = mysql_query("SELECT * from  patient where pid=$pid");
-    $lot = mysql_fetch_array($sql);
-     $status=$lot['status'];
-     if($status!=0){
-         return$y;
-     }else{
-        $d_y=$y;
-        $y+=5;
-        $a = mysql_fetch_array(mysql_query("select * from doc_info where d_id='$user'"));
-        $type_doc=$a['cat'];
-         $d1=1;
-         $ad = mysql_query("select * from  high_risk_info where pid='$pid'");
-    while($row=  mysql_fetch_array($ad)){
-$high_id=$row['high_id'];
-if($high_id!=""){
-$ad1 = mysql_query("select * from  high_risk where id=$high_id");
-$name= mysql_fetch_array($ad1);
-$nam=$name['name'];
-$type=$name['type'];
-$this->SetXY($x, $y);
-// put the if in times of need
-if ($type_doc == $type){
-             $y=  $this->GetY();
-             $this->SetXY($x, $y);
-            $this->MultiCell(80,5,"$d1.$nam",0);
-            $y+=5;
-            $d1++;
-}
-}
-}
-//General Disease//
-$f = mysql_query("select * from gen_info where p_id='$pid'");
-while($row=  mysql_fetch_array($f)){
-$gen_id=$row['gen_id'];
-if($gen_id!=""){
-$ad1 = mysql_query("select * from  gen_disease where id=$gen_id AND type=$type_doc");
-$name= mysql_fetch_array($ad1);
-$nam=$name['name'];
-            $y=  $this->GetY();
-             $this->SetXY($x, $y);
-            $this->MultiCell(80,5,"$d1.$nam",0);
-            $y+=5;
-            $d1++;
-}
-}
-//General Disease//
-//Test_report//
-$test = mysql_query("select * from test_result where pres_id='$pres_id'");
-while($row=  mysql_fetch_array($test)){
-$test_result=$row['result'];
-$test_result_id=$row['id'];
-$condition=$row['condition'];
-if($condition == 1){
-$ad1 = mysql_query("select * from  prescription_test where id=$test_result_id");
-$test_id= mysql_fetch_array($ad1);
-$test_id=$test_id['test_id'];
-     if($test_id != ""){
-     $ad12 = mysql_query("select * from  test where id=$test_id");     
-     $row1=  mysql_fetch_assoc($ad12);
-     $name2 = $row1['name'];
-                $y=  $this->GetY();
-             $this->SetXY($x, $y);
-            $this->MultiCell(80,5,"$d1.$name2-$test_result",0);
-            $y+=5;
-            $d1++;
-      }
-            
-}
-}
-//Test Report//
-//Boh Factors//
-
-//Boh Factors//
-if($d1>1){
-              $this->SetFont('Times','',12);
-              $this->SetXY($x, $d_y);
-              $this->Write(5,"Risk Factors:");
-}else{
-    $y-=5;
+   
 }
 
-return $y;
-     }
-}
 function Show_med($pres_id,$x,$y,$size) {
 
 }
 
 function Show_advice($pres_id,$x,$y,$high,$maxX) {
-    $d_y=$y;
-
-$y+=5;
-$this->SetFont('Times','',14);
-$a=1;
-$this->SetY($y);
-$this->SetX($x);
-$ad = mysql_query("select * from pres_advice where pres_id='$pres_id'");
-while($row=  mysql_fetch_array($ad)){
-$advice=$row['advice_id'];
-$ad1 = mysql_query("select * from advice_tab where id=$advice");
-$name= mysql_fetch_array($ad1);
-$nam=$name['advice'];
-$lang=$name['lang'];
-if($lang==0){
-$this->SetFont('Times','',14);
-$ad1 = mysql_query("select * from advice_tab where id=$advice");
-$name= mysql_fetch_array($ad1);
-$nam=$name['advice'];
-$y=  $this->GetY();
-$this->SetXY($x,$y+3);
-$this->MultiCell($high,5,"$a. $nam",0);
-$a++;
-}else if($lang==2){
-                $y= $this->GetY();
-		$this->SetXY($x,$y+3);
-            $ad1 = mysql_query("select * from advice_tab where id=$advice");
-                    $name= mysql_fetch_array($ad1);
-                    $this->SetFont('prolog','',14);
-                    $nam=$name['pdf'];
-                    $date=$row['date'];
-                    $date=changeFormet($date);
-                    $this->MultiCell($high,5,"$a.$date $nam",0);
-                    $a++;
-}else{
-                    $ad1 = mysql_query("select * from advice_tab where id=$advice");
-                    $name= mysql_fetch_array($ad1);
-                    $this->SetFont('prolog','',14);
-                    $nam=$name['pdf'];
-                     $y= $this->GetY();
-                    $this->SetXY($x,$y+3);
-                    if($advice==90){
-                        $this->Write(5,"$a. $nam-");
-                        $this->SetFont('Times','',14);
-                        $x_o=$this->GetX();
-                        $this->SetXY($x_o,$y);
-                        $this->Write(5,"FSH,LH,E2");
-                    }else{
-                    $this->MultiCell($high,5,"$a. $nam",0);
-                    }
-                
-		
-		$a++;
-	}
-        $y=$this->GetY();
-}
-if($a!=1){
-$this->SetFont('Times','B',12);
-$this->SetXY($x, $d_y);
-$this->Write(5,"Advice:");
-}else{
-    $y-=5;
-}
-return $y;
+   
 }
 function Show_inv($pres_id,$x,$y,$high) {
 
 }
 function Show_Complain($pres_id,$x,$y) {
-$u=1;
-$d_y=$y;
-$this->SetY($y+5);
-$this->SetX($x);
-$this->SetFont('Times','',12);
-          $result=mysql_query("select * from complain where pres_id='$pres_id'");        
-                    while($row=mysql_fetch_array($result)){
-              $sym_id=$row['sym_id'];
-              $duration=$row['duration'];
-               // $con=$row['prime'];
-              $test=(mysql_query("select * from sym where sym_id=$sym_id"));
-              while($toe=$row=mysql_fetch_array($test)){
-                  $testy=$toe['name'];
-                  if($duration==""){
-                      $y=  $this->GetY();
-                      $this->SetXY($x, $y);
-                      $this->MultiCell(45,5,"$u. $testy ",0);
-
-                  }else{
-                      $y=  $this->GetY();
-                     $this->SetXY($x, $y);
-                      $this->MultiCell(45,5,"$u. $testy : $duration",0);
-
-                  }
-              $u++;
-              }
-          }
-          if($u!=1){
-              $this->SetFont('Times','B',11);
-            $this->SetXY($x, $d_y);
-            $this->Write(5,"C.C:");
-          }else{
-              $y-=5;
-          }
-          return $y;
     
 }
 function show_comment($pres_id,$x,$y){
-    $row=  mysql_fetch_array(mysql_query("select * from comment where pres_id=$pres_id"));
-    $c_fact=$row['c_fact'];
-    $history=$row['history'];
-    $family=$row['family'];
-    $this->SetFont('Times','',12);
-    $this->SetXY($x, $y);
-    $c_fact =  trim($c_fact);
-    if($c_fact!=""){
-     $this->Write(5, "M.H:");
-      $this->SetXY($x, $y+4);
-     //$c_fact = str_replace(",","\n", trim($c_fact));
-     $array_1 = explode (",",$c_fact);
-     $i=0;
-  
-    while ($i < (sizeof($array_1))){
-        $y=  $this->GetY();
-        $this->SetXY($x, $y);
-            $this->MultiCell(40,5,"$array_1[$i]",0);
-        
-            $i++;
     
-    }
-	}
-     $y=  $this->GetY()+2;
-    $this->SetXY($x, $y);
-    $history =  trim($history);
-    if($history!=""){
-      $this->Write(5, "O/H:");
-      $this->SetXY($x, $y+5);
-      $history = str_replace(",","\n", trim($history));
-    $this->MultiCell(40,5,"$history",0);
-    }
-    $y= $this->GetY()+2;
-    $this->SetXY($x, $y);
-    $family =  trim($family);
-     if($family!=""){
-         $this->Write(5, "F/H:");
-      $this->SetXY($x, $y+5);
-      $family = str_replace(",","\n", trim($family));
-       $this->MultiCell(40,5,"$family",0);
-     }
-     return $this->GetY();
 }
 function Show_diagnosis($pres_id,$x,$y){
-    $this->SetFont('Times','',12);
-    $f = mysql_query("select * from diagnosis where pres_id='$pres_id'");
-    $v=1;
-    while($row=  mysql_fetch_array($f)){
-        $d_id=$row['dis_id'];
-        $ad1 = mysql_query("select * from  disease where id=$d_id");
-        $name= mysql_fetch_array($ad1);
-        $nam=$name['name'];
-        $this->SetXY($x, $y);
-        $this->Write(5,"Diagnosis: $nam");
-        //$y+=5;
-        break;
-        $v++;
-    }
-return $y;
+   
 }
 function Show_boh($x,$y,$pid,$user){
-    $sql = mysql_query("SELECT * from  patient where pid=$pid");
-    $lot = mysql_fetch_array($sql);
-     $status=$lot['status'];
-     if($status!=0){
-         return$y;
-     }else{
-        $d_y=$y;
-        $y+=5;
-        $this->SetY($y);
-        $a = mysql_fetch_array(mysql_query("select * from doc_info where d_id='$user'"));
-$type_doc=$a['cat'];
-         $d1=1;
-         $boh = mysql_query("select * from risk_info where pid='$pid'");
-$boh = mysql_query("select * from risk_info where pid='$pid'");
-while($row=  mysql_fetch_array($boh)){
-$risk_id=$row['risk_id'];
-$ad1 = mysql_query("select * from  risk_factor where id=$risk_id AND type=$type_doc");
-$name= mysql_fetch_array($ad1);
-if($name!=""){
-$nam=$name['name'];
-            $y=  $this->GetY();
-             $this->SetXY($x, $y);
-            $this->MultiCell(80,5,"$d1.$nam",0);
-            $y+=5;
-            $d1++;
-}
-}
- //$this->SetXY($x, $boh);
- //$this->Write(5,"$bo-macdhasjkdhasjkdh");
-if($d1>1){
-               $this->SetFont('Times','',12);
-              $this->SetXY($x, $d_y);
-              $this->Write(5,"BOH Factors:");
-}else{
-     $y-=5;
-}
-return $y;
-}
+
 }
 function show_ref_doc($pres_id,$x,$y,$size){
-$this->SetFont('Times','',12);
-$sql= mysql_query("select * from reference where pres_id=$pres_id");
-$goal=  mysql_fetch_array($sql);
-    $doc_id=$goal['doctor_id'];
-        $sql= mysql_query("select * from ref_doc where id='$doc_id'");
-        $goal=  mysql_fetch_array($sql);
-        $ref_name=$goal['name'];
-        $ref_add=$goal['adress'];
-        if($ref_name!=""){
-            $this->SetXY($x, $y);
-            $this->write(5,"Referred Doctor:$ref_name");
-        $y+=5;
-            $this->SetXY($x, $y);
-        $this->write(5,"Address:$ref_add");
-        $y+=5;
-        return $y;
-}
+
 }
 function show_nextVisit($appointmentID,$x,$y,$size){}
+
 function Show_OppNote($pres_id,$x,$y){
-    $this->SetFont('Times','',12);
-    $get_opp_notes = mysql_query("select * from discharge where pres_id='$pres_id'");
-    $discharge=  mysql_fetch_array($get_opp_notes);
-    $anesth=$discharge["ant"];
-    $s_id= $discharge["s_id"];
-    $discharge_date= $discharge["date"];
-	$discharge_date = date("d/m/Y", strtotime($discharge_date));
-    if($s_id ==""){
-        return $y;
-    }
-    $get_surgery_name = mysql_query("select * from surgery where id='$s_id'");
-    $s_name=  mysql_fetch_array($get_surgery_name);
-    $s_name = $s_name["name"];
     
-            $this->SetXY(5,$y);
-            $this->Write(5,"Operation Name: $s_name ");
-			$y+=5;
-            $this->SetXY(5, $y);
-            $this->Write(5, "Anesthesia: $anesth ");
-			$y+=5;
-            $this->SetXY(5, $y);
-            $this->Write(5, "Date: $discharge_date");
-			
-            return $y;
 }
 function Show_Indication($pres_id,$x,$y){
-    $this->SetFont('Times','',12);
-    $sql = mysql_query("select * from indication where pres_id='$pres_id' ORDER BY num ASC ");
-    $exists = mysql_affected_rows();
-    if($exists == 0)
-        return $y;
-    
-        $this->SetXY($x, $y);
-        $this->Write(5,"Indication: ");
-        
-    while($row=  mysql_fetch_array($sql)){
-        $data=$row['data'];
-		$num=$row['num'];
-		if($num<5){
-         $x=$this->GetX();
-        $this->SetXY($x+2, $y);
-        $this->Write(5,"$data,");
-        $x+=30;
-		}
-    }
-return $y;
+   
 }
 function Show_surgery($pres_id,$x,$y,$high) {
 	 
-    $v=1;
-    $d_y=$y;
-    $this->SetY($y+5);
-    $this->SetX($x);
-	//$this->MultiCell(10,5,"$y",0);
-$this->SetFont('Times','',12);
-                    $f = mysql_query("select * from pres_surgery where pres_id='$pres_id'");
-                    while($g= mysql_fetch_array($f)){
-            $sur_id = $g['sur_id'];
-            $note=$g['note'];
-            $i=mysql_query("select * from surgery where id='$sur_id'");
-            $h=mysql_fetch_array($i);
-                $name = $h['name'];
-                if($note!=""){
-                    $y=  $this->GetY();
-                    $this->SetXY($x, $y);
-                    $this->MultiCell($high,5,"$v.$name-$note",0);
-                 $v++;
-                }else{
-                    $y=  $this->GetY();
-                   $this->SetXY($x, $y);
-                   $n=trim($name);
-                    $this->MultiCell($high,5,"$v.$n",0);
-                 $v++; 
-                }
-}
-if($v!=1){
-    $this->SetFont('Times','',12);
-$this->SetXY($x, $d_y);
-$this->write(5,"Surgery Plan:");
-}else{
-    $y-=5;
-}
-return $y;
+    
 }
 
-function Show_History($appointmentID,$leftXaxis,$leftYaxis, $maxX , $size, $type){
-	
-}
+function Show_History($appointmentID,$leftXaxis,$leftYaxis, $maxX , $size, $type){}
+function Show_Past_History($appointmentID,$leftXaxis,$leftYaxis, $maxX , $size){}
+function Show_Family_History($appointmentID,$leftXaxis,$leftYaxis, $maxX , $size){}
 }
 
 

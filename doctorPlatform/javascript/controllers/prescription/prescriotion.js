@@ -251,6 +251,8 @@ app.controller('PrescriptionController', function($scope, $http, $modal, $rootSc
     		$scope.bringPrescribedAdvice($scope.appoinmentData.appointmentID);
     		$scope.bringPrescribedVital($scope.appoinmentData.appointmentID);
     		$scope.bringPrescribedComplain($scope.appoinmentData.appointmentID);
+    		$scope.bringPrescribedFamilyHistory($scope.appoinmentData.appointmentID);
+    		$scope.bringPrescribedPastHistory($scope.appoinmentData.appointmentID);
     		$scope.bringPrescribedOBS($scope.appoinmentData.appointmentID, $scope.appoinmentData.patientID);
     		$scope.bringPrescribedMH($scope.appoinmentData.appointmentID, $scope.appoinmentData.patientID);
     		$scope.bringPrescribedNextVisit($scope.appoinmentData.appointmentID);
@@ -424,6 +426,66 @@ app.controller('PrescriptionController', function($scope, $http, $modal, $rootSc
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).success(function (result) {
         	$scope.diagnosisData = result;
+        });
+	};
+	
+	$scope.pastDiseaseList = [];
+	
+	$scope.bringPrescribedPastHistory = function (appointmentID){
+		
+		var dataString = "query=9" + '&appointmentID=' + appointmentID;
+
+        $http({
+            method: 'POST',
+            url: "phpServices/commonServices/prescriptionDetailService.php",
+            data: dataString,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (result) {
+        	$scope.pastDiseaseList = result;
+        });
+	};
+	
+	$scope.deletePastHistory = function(id){
+		
+		var dataString = "query=" + 5 + "&pastHistoryID=" + id;
+        
+		$http({
+            method: 'POST',
+            url: "phpServices/history/pastHistoryHelper.php",
+            data: dataString,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (result) {
+        	$scope.bringPrescribedPastHistory($scope.appoinmentData.appointmentID);
+        });
+	};
+	
+	$scope.familyDiseaseList = [];
+	
+	$scope.bringPrescribedFamilyHistory = function (appointmentID){
+		
+		var dataString = "query=10" + '&appointmentID=' + appointmentID;
+
+        $http({
+            method: 'POST',
+            url: "phpServices/commonServices/prescriptionDetailService.php",
+            data: dataString,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (result) {
+        	$scope.familyDiseaseList = result;
+        });
+	};
+	
+	$scope.deleteFamilyHistory = function(id){
+		
+		var dataString = "query=" + 5 + "&familyHistoryID=" + id;
+        
+		$http({
+            method: 'POST',
+            url: "phpServices/history/familyHistoryHelper.php",
+            data: dataString,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (result) {
+        	$scope.bringPrescribedFamilyHistory($scope.appoinmentData.appointmentID);
         });
 	};
 	

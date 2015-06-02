@@ -105,13 +105,13 @@ function getPrescribedDiagnosis($appointmentID){
 
 }
 
-function getPrescribedPastDisease($appointmentID, $patientID){
+function getPastDisease($appointmentID, $patientID){
 
-	$sql = "SELECT ppd.`id`, ppd.`appointMentID`, ppd.`pastDiseaseID` , d.name AS diseaseName, pas.startDate, pas.endDate, pas.detail
-			FROM `prescription_past_disease` ppd
-			JOIN patient_past_disease pas ON ppd.pastDiseaseID = pas.id AND pas.patientID = '$patientID'
+	$sql = "SELECT pas.`id`, ppd.`appointMentID`, ppd.`pastDiseaseID` , d.name AS diseaseName, pas.startDate, pas.endDate, pas.detail, ppd.id AS prescribedID, IF(ppd.id  IS NULL, false, true) AS addedToPres
+			FROM patient_past_disease pas
 			JOIN disease d ON pas.diseaseID = d.id
-			WHERE ppd.`appointMentID` = '$appointmentID'";
+			LEFT JOIN `prescription_past_disease` ppd ON ppd.pastDiseaseID = pas.id AND ppd .appointMentID = '$appointmentID'
+			WHERE pas.patientID = '$patientID'";
 
 	$result=mysql_query($sql);
 
@@ -119,7 +119,7 @@ function getPrescribedPastDisease($appointmentID, $patientID){
 
 }
 
-function getPrescribedFamilyDisease($appointmentID, $patientID){
+function getFamilyDisease($appointmentID, $patientID){
 
 	$sql = "SELECT pfh.`id`, pfh.`patientID`, pfh.`diseaseID`, d.name AS diseaseName, pfh.`relation`, pfh.`present`, pfh.`type`, pfh.`detail`, r.name AS relationName, IF(pfd.id  IS NULL, false, true) AS addedToPres
 				FROM `patient_family_history` pfh
@@ -127,6 +127,35 @@ function getPrescribedFamilyDisease($appointmentID, $patientID){
 				JOIN relation r ON r.id = pfh.relation
 				LEFT JOIN prescription_family_disease pfd ON pfd.familyDiseaseID = pfh.id AND pfd.appointMentID = '$appointmentID'
 				WHERE pfh.patientID =  '$patientID'";
+
+	$result=mysql_query($sql);
+
+	return $result;
+
+}
+
+function getPrescribedPastDisease($appointmentID){
+
+	$sql = "SELECT pas.`id`, ppd.`appointMentID`, ppd.`pastDiseaseID` , d.name AS diseaseName, pas.startDate, pas.endDate, pas.detail, ppd.id AS prescribedID, IF(ppd.id  IS NULL, false, true) AS addedToPres
+	FROM patient_past_disease pas
+	JOIN disease d ON pas.diseaseID = d.id
+	JOIN `prescription_past_disease` ppd ON ppd.pastDiseaseID = pas.id
+	WHERE ppd.appointMentID = '$appointmentID'";
+
+	$result=mysql_query($sql);
+
+	return $result;
+
+}
+
+function getPrescribedFamilyDisease($appointmentID){
+
+	$sql = "SELECT pfh.`id`, pfh.`patientID`, pfh.`diseaseID`, d.name AS diseaseName, pfh.`relation`, pfh.`present`, pfh.`type`, pfh.`detail`, r.name AS relationName, IF(pfd.id  IS NULL, false, true) AS addedToPres
+	FROM `patient_family_history` pfh
+	JOIN disease d ON pfh.diseaseID = d.id
+	JOIN relation r ON r.id = pfh.relation
+	JOIN prescription_family_disease pfd ON pfd.familyDiseaseID = pfh.id 
+	WHERE pfd.appointMentID = '$appointmentID'";
 
 	$result=mysql_query($sql);
 

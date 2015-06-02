@@ -114,25 +114,6 @@
 					</div>
 				</div>
 				
-				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-	             	<div class="panel">	                 
-						<div class="prescriptionPanel-body">
-							<div class="form-group"><label>Reffred Doctor :</label></div>
-							<div class="input-group input-group-sm" data-ng-if="!refferedDoctorData.id">
-								<input type="text" data-ng-model="refferedAdderData.doctorName" typeahead="refDoc.doctorName for refDoc in getRefDoctor($viewValue)"  class="form-control" placeholder="Search Doctor" typeahead-on-select='onSelectRefDocotor($item, $model, $label)'/>
-								<input type="text" data-ng-model="refferedAdderData.doctorAdress" class="form-control" placeholder="Doctor Address"/>
-								<button data-ng-show="refferedAdderData.doctorAdress && refferedAdderData.doctorName" data-ng-click="saveReffredDoctor(refferedAdderData)">Save</button>
-							</div>
-							
-							<div class="input-group input-group-sm" data-ng-if="refferedDoctorData.id">
-								
-								<span>{{refferedDoctorData.doctorName}} - {{refferedDoctorData.doctorAdress}}</span>
-								<button  data-ng-click="deleteReffredDoctor(refferedDoctorData.id)">X</button>
-						</div>
-						</div>
-					</div>
-				</div>
-				
     			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 	             	<div class="panel">	                 
 						<div class="prescriptionPanel-body">
@@ -271,6 +252,81 @@
 										</td>
 									</tr>
 								</table>
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" data-ng-show="pastDiseaseList.length > 0">
+	             	<div class="panel">	                 
+						<div class="prescriptionPanel-body">
+							<div class="form-group"><a href="#/pastHistory"><label>Past Disease</label></a></div>
+								<table class="table">
+									<tr data-ng-repeat="data in pastDiseaseList">
+										<td style="width: 5%">
+											<span>
+												<a class="btn btn-danger btn-sm"
+									                  ktr-confirmation="deletePastHistory(item)" 
+									                  confirmation-message="Are you sure to remove?"
+									                  confirmation-title="Confirmation"
+									                  item="data.id">
+									                  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+												</a>
+											</span>
+										</td>
+				    					<td style="width: 95%">
+				    						<span>{{data.diseaseName}}</span>
+										</td>
+									</tr>
+								</table>
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" data-ng-show="familyDiseaseList.length > 0">
+	             	<div class="panel">	                 
+						<div class="prescriptionPanel-body">
+							<div class="form-group"><a href="#/familyHisory"><label>Family Disease</label></a></div>
+								<table class="table">
+									<tr data-ng-repeat="data in familyDiseaseList">
+										<td style="width: 5%">
+											<span>
+												<a class="btn btn-danger btn-sm"
+									                  ktr-confirmation="deleteFamilyHistory(item)" 
+									                  confirmation-message="Are you sure to remove?"
+									                  confirmation-title="Confirmation"
+									                  item="data.id">
+									                  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+												</a>
+											</span>
+										</td>
+				    					<td style="width: 50%">
+				    						<span>{{data.diseaseName}}</span>
+										</td>
+										
+										<td style="width: 45%">
+				    						<span>{{data.relationName}}</span>
+										</td>
+									</tr>
+								</table>
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+	             	<div class="panel">	                 
+						<div class="prescriptionPanel-body">
+							<div class="form-group"><label>Reffred Doctor :</label></div>
+							<div class="input-group input-group-sm" data-ng-if="!refferedDoctorData.id">
+								<input type="text" data-ng-model="refferedAdderData.doctorName" typeahead="refDoc.doctorName for refDoc in getRefDoctor($viewValue)"  class="form-control" placeholder="Search Doctor" typeahead-on-select='onSelectRefDocotor($item, $model, $label)'/>
+								<input type="text" data-ng-model="refferedAdderData.doctorAdress" class="form-control" placeholder="Doctor Address"/>
+								<button data-ng-show="refferedAdderData.doctorAdress && refferedAdderData.doctorName" data-ng-click="saveReffredDoctor(refferedAdderData)">Save</button>
+							</div>
+							
+							<div class="input-group input-group-sm" data-ng-if="refferedDoctorData.id">
+								
+								<span>{{refferedDoctorData.doctorName}} - {{refferedDoctorData.doctorAdress}}</span>
+								<button  data-ng-click="deleteReffredDoctor(refferedDoctorData.id)">X</button>
+						</div>
 						</div>
 					</div>
 				</div>

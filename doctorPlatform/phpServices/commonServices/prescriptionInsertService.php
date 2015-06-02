@@ -181,5 +181,11 @@ function insertFamilyHistory($patientID, $diseaseID, $relation, $present, $type,
 	
 }
 
+function insertPastHistory($patientID, $diseaseID, $startDate, $endDate, $detail){
+
+	mysql_query("INSERT INTO `patient_past_disease`(`patientID`, `diseaseID`, `startDate`, `endDate`, `detail`) VALUES ('$patientID','$diseaseID','$startDate','$endDate','$detail')");
+
+}
+
 
 ?>

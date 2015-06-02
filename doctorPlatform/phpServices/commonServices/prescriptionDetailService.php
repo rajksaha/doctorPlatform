@@ -133,6 +133,34 @@ else if($query_no==4){
 	$rec = mysql_fetch_assoc($result);
 	
 	echo json_encode($rec);
+	
+}elseif ($query_no==9){
+
+	$appointmentID = $_POST['appointmentID'];
+
+
+	$result = getPrescribedPastDisease($appointmentID);
+	
+	$data = array();
+	while ($row=mysql_fetch_array($result)){
+		array_push($data,$row);
+	}
+	
+	echo json_encode($data);
+	
+}elseif ($query_no==10){
+
+	$appointmentID = $_POST['appointmentID'];
+
+
+	$result = getPrescribedFamilyDisease($appointmentID);
+	
+	$data = array();
+	while ($row=mysql_fetch_array($result)){
+		array_push($data,$row);
+	}
+	
+	echo json_encode($data);
 }
 	
 ?>
