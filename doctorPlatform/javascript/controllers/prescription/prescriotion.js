@@ -260,6 +260,20 @@ app.controller('PrescriptionController', function($scope, $http, $modal, $rootSc
         });
     };
     
+    $scope.deleteInvFromPresciption = function (id){
+		
+		var dataString = 'query=5'+ '&id=' + id;
+
+        $http({
+            method: 'POST',
+            url: "phpServices/inv/invService.php",
+            data: dataString,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (result) {
+        	$scope.bringPrescribedInv($scope.appoinmentData.appointmentID);
+        });
+	};
+    
 	$scope.bringPresCribedDrugs = function (appointmentID){
 		
 		var dataString = "query=0" + '&appointmentID=' + appointmentID;
@@ -652,6 +666,8 @@ app.controller('PrescriptionController', function($scope, $http, $modal, $rootSc
         });
 		
 	};
+	
+	
 	
     $scope.printPreview = function (){
 		

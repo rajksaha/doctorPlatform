@@ -11,13 +11,13 @@
     		<div  class="row step4Width" id="validateReq">
     			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 form-group">
 	   				<label>Diagnosis Name:</label>
-					<input type="text" ng-model="diagnosisData.diseaseName" typeahead="diagnosisNameData.name for diagnosisNameData in getDisease($viewValue)"  class="form-control required" placeholder="Disease" typeahead-on-select='onSelectDisease($item, $model, $label)'/>
+					<input type="text" maxlength="240" ng-model="diagnosisData.diseaseName" typeahead="diagnosisNameData.name for diagnosisNameData in getDisease($viewValue)"  class="form-control required" placeholder="Disease" typeahead-on-select='onSelectDisease($item, $model, $label)'/>
 				</div>
    			
    			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 					<div class="room-desc  form-group">	
                        <label for="inputName">Detail</label>
-                       <input type="text" class="form-control input-sm" data-ng-model="diagnosisData.note" maxlength="255" />
+                       <input type="text" class="form-control input-sm" data-ng-model="diagnosisData.note" maxlength="200" />
 				</div>
     		</div >
     	</div>

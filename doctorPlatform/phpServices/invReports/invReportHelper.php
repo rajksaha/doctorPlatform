@@ -47,9 +47,9 @@ if($query_no== 0){
 	$savedreportID = $_POST['savedreportID'];
 	$invResult = $_POST['invResult'];
 	$invStatus = $_POST['invStatus'];
-	$sql = mysql_query("UPDATE `inv_report` SET `result`= '$invResult',`status`= $invStatus WHERE `invPrescribeID` = '$savedreportID'");
+	$sql = mysql_query("UPDATE `inv_report` SET `result`= '$invResult',`status`= $invStatus WHERE `id` = '$savedreportID'");
 	
-	echo "UPDATE `inv_report` SET `result`= '$invResult',`status`= $invStatus WHERE `invPrescribeID` = '$savedreportID'";
+	echo "UPDATE `inv_report` SET `result`= '$invResult',`status`= $invStatus WHERE `id` = '$savedreportID'";
 }
 
 

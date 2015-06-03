@@ -239,10 +239,10 @@
 										<td style="width: 5%">
 											<span>
 												<a class="btn btn-danger btn-sm"
-									                  ktr-confirmation="deleteInvFromPrescibtion(item)" 
+									                  ktr-confirmation="deleteInvFromPresciption(item)" 
 									                  confirmation-message="Are you sure to remove?"
 									                  confirmation-title="Confirmation"
-									                  item="invData.invID">
+									                  item="invData.id">
 									                  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 												</a>
 											</span>

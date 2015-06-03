@@ -3,6 +3,7 @@
 session_start();
 include('../config.inc');
 include('../commonServices/prescriptionService.php');
+include('../commonServices/parentInsertService.php');
 include('../commonServices/prescriptionInsertService.php');
 if (!isset($_SESSION['username'])) {
 	header('Location: index.php');
@@ -51,35 +52,31 @@ if($query_no== 0){
 	
 }else if ($query_no == 2){
 	
-	$invID = $_POST['invID'];
+	$invName= $_POST['invName'];
+	
+	$invID = getInvIDByName($invName);
+	
 	$displayOrder = $_POST['displayOrder'];
 	
 	$sql = "INSERT INTO `doctor_inv_setteing`( `doctorID`, `invID`, `displayOrder`) VALUES ('$doctorID','$invID','$displayOrder')";
 	
 	mysql_query($sql);
 	
-}else if ($query_no == 3){
-	
-	$invName = $_POST['invName'];
-	
-	$sql = "INSERT INTO `inv`( `name`) VALUES ('$invName')";
-	
-	mysql_query($sql);
-	
-	echo mysql_insert_id();
-	
 }else if ($query_no == 4){
 
-	$invID = $_POST['invID'];
+	$invName= $_POST['invName'];
+	
+	$invID = getInvIDByName($invName);
+	
 	$note = $_POST['note'];
 
 	echo insertPrescriptionInv($appointmentID, $invID, $note);
 
 }else if ($query_no == 5){
 
-	$invID = $_POST['invID'];
+	$id = $_POST['id'];
 
-	$sql = "DELETE FROM `inv_prescription` WHERE `appointMentID` = '$appointmentID' AND `invID` = '$invID'";
+	$sql = "DELETE FROM `inv_prescription` WHERE id = '$id'";
 
 	mysql_query($sql);
 
@@ -122,7 +119,9 @@ if($query_no== 0){
 	echo json_encode($data);
 }else if ($query_no == 9){
 
-	$invID = $_POST['invID'];
+	$invName= $_POST['invName'];
+	
+	$invID = getInvIDByName($invName);
 	$note = $_POST['note'];
 	$ID = $_POST['ID'];
 

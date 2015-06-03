@@ -9,7 +9,6 @@ app.controller('PrescribeInvController', function($scope, $http, $modal, $rootSc
 	$scope.invAdderData = {};
 	$scope.addByName = false;
 	
-	$scope.addButton = "<span class='glyphicon glyphicon glyphicon-plus' aria-hidden='true'></span>";
 	
     $scope.getInvName = function(term) {
         
@@ -34,38 +33,17 @@ app.controller('PrescribeInvController', function($scope, $http, $modal, $rootSc
 		  $scope.addByName = true;
 	  };
 	  
-	$scope.prepareDoctorSettingData = function (){
-		
-		if($scope.addByName == false){
-			
-			var dataString = 'query=3'+ '&invName=' + $scope.invName;
-
-	        $http({
-	            method: 'POST',
-	            url: "phpServices/inv/invService.php",
-	            data: dataString,
-	            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-	        }).success(function (result) {
-	        	$scope.addToDoctorPreference(result);
-	        });
-			
-		}else{
-			
-			$scope.addToDoctorPreference($scope.selectedInvID);
-		}
-	};
 	
-	$scope.addToDoctorPreference = function (invID){
+	$scope.addToDoctorPreference = function (){
 		
 		$scope.selectedInvID = 0;
-		$scope.invName = "";
 		
 		var displayOrder = 1;
 		if($scope.invSettingData != undefined && $scope.invSettingData.length > 0){
 			displayOrder = parseInt($scope.invSettingData[$scope.invSettingData.length -1].displayOrder) + 1;
 		}
 		
-		var dataString = 'query=2'+ '&invID=' + parseInt(invID) + '&displayOrder=' + displayOrder;
+		var dataString = 'query=2'+ '&invName=' + $scope.invName + '&displayOrder=' + displayOrder;
 
         $http({
             method: 'POST',
@@ -73,6 +51,8 @@ app.controller('PrescribeInvController', function($scope, $http, $modal, $rootSc
             data: dataString,
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).success(function (result) {
+        	$scope.docTorINVSetter = false;
+        	$scope.invName = "";
         	$scope.bringINVDetail();
         });
 		
@@ -96,7 +76,7 @@ app.controller('PrescribeInvController', function($scope, $http, $modal, $rootSc
 		inv.addedToPrescription = addedToPrescription;
 		if(addedToPrescription){
 			
-			$scope.addInvToPresciption(inv.id, "");
+			$scope.addInvToPresciption(inv.name, "");
 			
 	        
 		}else{
@@ -104,9 +84,9 @@ app.controller('PrescribeInvController', function($scope, $http, $modal, $rootSc
 		}
 	};
 	
-	$scope.addInvToPresciption = function (invId,note){
+	$scope.addInvToPresciption = function (invName,note){
 		
-		var dataString = 'query=4'+ '&invID=' + parseInt(invId) + '&note=' + note;
+		var dataString = 'query=4'+ '&invName=' + invName + '&note=' + note;
 
         $http({
             method: 'POST',
@@ -118,9 +98,9 @@ app.controller('PrescribeInvController', function($scope, $http, $modal, $rootSc
         });
 	};
 	
-	$scope.deleteInvFromPrescibtion = function (invId){
+	$scope.deleteInvFromPresciption = function (id){
 		
-		var dataString = 'query=5'+ '&invID=' + parseInt(invId);
+		var dataString = 'query=5'+ '&id=' + id;
 
         $http({
             method: 'POST',
@@ -171,21 +151,6 @@ app.controller('PrescribeInvController', function($scope, $http, $modal, $rootSc
         });
 	};
 	
-	$scope.getInvNameForMaster = function(term){
-		
-		
-		var dataString = 'query=8'+ '&invName=' + term;
-        
-        return $http({
-            method: 'POST',
-            url: "phpServices/inv/invService.php",
-            data: dataString,
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-        }).then(function(result) {
-        	$scope.invsttingNameData = result.data;
-        	return limitToFilter($scope.invsttingNameData, 10);
-        });
-	};
 	
 	$scope.prepareInvAdderData = function(invAdderData){
 		
@@ -213,68 +178,55 @@ app.controller('PrescribeInvController', function($scope, $http, $modal, $rootSc
 		}
 	};
 	
-	$scope.onSelectInvNameMaster = function (item, model, label){
-		$scope.invAdderData.id = item.id;
-		$scope.invAdderData.addByTypeHead = true;
+	
+	
+	
+	
+	
+	$scope.addInvToPrescription = function(){
+		
+		var invAdderData = {};
+		
+		var modalInstance = $modal.open({
+            templateUrl: 'javascript/templates/inv/addInvModal.html',
+            windowClass: 'fade in',
+            
+            controller: 'PrescribeInvController.InvMasterContoller',
+            resolve: {
+            	record: function () {
+                    return {
+                    	invAdderData
+                    };
+                }
+            },
+            backdrop: 'static'
+        });
+		modalInstance.result.then(function(result) {
+			$scope.bringPrescribedInv();
+	     });
 	};
 	
 	$scope.editFromPresciption = function  (invAdderData){
 		
-		$scope.invAdderData.name = invAdderData.invName;
-		$scope.invAdderData.note = invAdderData.note;
-		$scope.invAdderData.oldData = false;
-		$scope.invAdderData.id = invAdderData.invID;
-		$scope.invAdderData.addedID = invAdderData.id;
-		$scope.invAdderData.addByTypeHead = false;
-		$scope.invAdderData.editMode = true;
-		$scope.docTorINVAdder = true;
 		
-	};
-	
-	$scope.prepareInvEditData = function (invAdderData){
-		
-		if(!invAdderData.note){
-			invAdderData.note = "";
-		}
-		
-		$scope.docTorINVAdder = false;
-		
-		if(invAdderData.addByTypeHead){
-			$scope.updateInvPrecription(invAdderData);
-			$scope.bringPrescribedInv();
-		}else if(invAdderData.name == $scope.invAdderData.name){
-			$scope.updateInvPrecription(invAdderData);
-			$scope.bringPrescribedInv();
-		}else{
-			
-			var dataString = 'query=3'+ '&invName=' + invAdderData.name;
-
-	        $http({
-	            method: 'POST',
-	            url: "phpServices/inv/invService.php",
-	            data: dataString,
-	            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-	        }).success(function (result) {
-	        	invAdderData.id = result;
-	        	$scope.updateInvPrecription(invAdderData);
-	        	$scope.bringPrescribedInv();
-	        });
-	        
-		}
-	};
-	
-	$scope.updateInvPrecription = function (invAdderData){
-		
-		var dataString = 'query=9'+ '&invID=' + parseInt(invAdderData.id) + '&note=' + invAdderData.note + '&ID=' + invAdderData.addedID;
-
-        $http({
-            method: 'POST',
-            url: "phpServices/inv/invService.php",
-            data: dataString,
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-        }).success(function (result) {
-        	
+		var modalInstance = $modal.open({
+            templateUrl: 'javascript/templates/inv/addInvModal.html',
+            windowClass: 'fade in',
+            
+            controller: 'PrescribeInvController.InvMasterContoller',
+            resolve: {
+            	record: function () {
+                    return {
+                    	invAdderData
+                    };
+                }
+            },
+            backdrop: 'static'
         });
+		modalInstance.result.then(function(result) {
+			$scope.bringPrescribedInv();
+	     });
+		
 	};
 	  
 	
@@ -282,6 +234,96 @@ app.controller('PrescribeInvController', function($scope, $http, $modal, $rootSc
 		$scope.bringINVDetail();
 		$scope.bringPrescribedInv();
     })()
+
+	
+});
+
+app.controller('PrescribeInvController.InvMasterContoller', function($scope, $http, $modalInstance, limitToFilter, $filter, record) {
+	
+	$scope.invAdderData = {};
+	
+	if(record.invAdderData.id){
+		$scope.invAdderData = record.invAdderData;
+	}else{
+		$scope.invAdderData = {};
+		$scope.invAdderData.note = "";
+	}
+	$scope.diagnosisNameData = {};
+	
+	
+	$scope.getInvNameForMaster = function(term){
+		
+		
+		var dataString = 'query=8'+ '&invName=' + term;
+        
+        return $http({
+            method: 'POST',
+            url: "phpServices/inv/invService.php",
+            data: dataString,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).then(function(result) {
+        	$scope.invsttingNameData = result.data;
+        	return limitToFilter($scope.invsttingNameData, 10);
+        });
+	};
+	
+	$scope.onSelectInvNameMaster = function (item, model, label){
+	};
+	
+	$scope.save = function(){
+		
+		if(validator.validateForm("#validateReq","#lblMsg_modal",null)) {
+			
+			var dataString = "";
+			if($scope.invAdderData.id){
+				
+				dataString = 'query=9'+ '&invName=' + $scope.invAdderData.invName + '&note=' + $scope.invAdderData.note + '&ID=' + $scope.invAdderData.id;
+			}else{
+				dataString ='query=4'+ '&invName=' + $scope.invAdderData.invName + '&note=' + $scope.invAdderData.note;
+
+			}
+			
+			 $http({
+		            method: 'POST',
+		            url: "phpServices/inv/invService.php",
+		            data: dataString,
+		            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+		        }).success(function (result) {
+		        	
+		        	$modalInstance.close();
+		        	
+		        });
+		}else{
+			$scope.error = true; 
+		}
+		
+		
+
+       
+	};
+	
+	$scope.cancel = function(){
+		$modalInstance.close();
+	};
+	
+	$scope.getDisease = function(term) {
+    	
+    	var dataString = "query=" + 0 + "&data=" + term;
+        
+        return $http({
+            method: 'POST',
+            url: "phpServices/diagnosis/diagnosis.php",
+            data: dataString,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).then(function(result) {
+        	$scope.diagnosisNameData = result.data;
+        	return limitToFilter($scope.diagnosisNameData, 10);
+        });
+    };
+    
+      $scope.onSelectDisease = function(item, model, label){
+    	  $scope.diagnosisData.diseaseName = item.name;
+      };
 
 	
 });

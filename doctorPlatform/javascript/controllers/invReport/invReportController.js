@@ -54,23 +54,45 @@ app.controller('invReportController', function($scope, $http, $modal, $rootScope
         });
     };
     
+    $scope.editInvReport = function(invData){
+    	
+    	angular.forEach($scope.invReportList, function(value, key) {
+			value.otherEditMode = true;
+		});
+		
+    	invData.oterEditMode = false;
+    	invData.editMode = true;
+    };
+    
     $scope.saveInvReport = function(invData){
     	
-    	var dataString = "";
-    	var status = + invData.status;
-    	if(invData.savedreportID){
-    		dataString = "query=2" + '&savedreportID=' + invData.savedreportID + "&invResult=" + invData.result + "&invStatus=" + true;
-    	}else{
-    		dataString = "query=1" + '&invPrescribeID=' + invData.id + "&invResult=" + invData.result + "&invStatus=" + true;
-    	}
+    	if(validator.validateForm("#validateReq","#lblMsg",null)) {
+    		
+    		var dataString = "";
+        	if(invData.savedreportID){
+        		dataString = "query=2" + '&savedreportID=' + invData.savedreportID + "&invResult=" + invData.result + "&invStatus=" + true;
+        	}else{
+        		dataString = "query=1" + '&invPrescribeID=' + invData.id + "&invResult=" + invData.result + "&invStatus=" + true;
+        	}
 
-        $http({
-            method: 'POST',
-            url: "phpServices/invReports/invReportHelper.php",
-            data: dataString,
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-        }).success(function (result) {
-        });
+            $http({
+                method: 'POST',
+                url: "phpServices/invReports/invReportHelper.php",
+                data: dataString,
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            }).success(function (result) {
+            	$scope.succcess = true;
+				$scope.error = false;
+				$scope.message = "Information Updated Successfully";
+            	$scope.getInveports($scope.appoinmentData.selector.appointmentID);
+            });
+            
+    	}else{
+    		$scope.error = true;
+    		$scope.message = "";
+    		$scope.succcess = false;
+    	}
+    	
     };
     
 	
