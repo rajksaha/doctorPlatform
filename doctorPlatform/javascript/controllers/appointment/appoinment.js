@@ -23,6 +23,8 @@ app.controller('AppointmentController', function($scope, $http, $modal, $rootSco
         }).success(function (result) {
         	$scope.doctorData = result;
         	$rootScope.doctorData = $scope.doctorData;
+        }, function(error){
+        	$location.path("/login");
         });
     };
     
@@ -66,6 +68,7 @@ app.controller('AppointmentController', function($scope, $http, $modal, $rootSco
             backdrop: 'static'
         });
         modalInstance.result.then(function(result) {
+        	$scope.bringDoctorInfo();
         	$scope.bringAppointment();
          });
     };

@@ -30,7 +30,7 @@ body {
 
 /* Panel Bg for Bootstrap panels */
 .geninfo .panel, .ratings .rate-box, .season-room-name{
-	background-color: #FCF1D9;
+	background-color: #a8e0e0;
 }
 
 /* Panel Bg for Ratings (approval center) panels */

@@ -80,7 +80,7 @@ app.controller('PrescribeInvController', function($scope, $http, $modal, $rootSc
 			
 	        
 		}else{
-			$scope.deleteInvFromPrescibtion(inv.id);
+			$scope.deleteInvByInvID(inv.id);
 		}
 	};
 	
@@ -109,6 +109,22 @@ app.controller('PrescribeInvController', function($scope, $http, $modal, $rootSc
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).success(function (result) {
         	$scope.bringPrescribedInv();
+        	$scope.bringINVDetail();
+        });
+	};
+	
+	$scope.deleteInvByInvID = function (invID){
+		
+		var dataString = 'query=10'+ '&invID=' + invID;
+
+        $http({
+            method: 'POST',
+            url: "phpServices/inv/invService.php",
+            data: dataString,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (result) {
+        	$scope.bringPrescribedInv();
+        	
         });
 	};
 	

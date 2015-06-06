@@ -122,10 +122,10 @@
 									<tr data-ng-repeat="copmplainData in prescribedComplainData" >
 										<td style="width: 10%">
 												<a class="btn btn-danger btn-sm btnLanier"
-									                  ktr-confirmation="deleteInvFromPrescibtion(item)" 
+									                  ktr-confirmation="deleteCCFromPresciption(item)" 
 									                  confirmation-message="Are you sure to remove?"
 									                  confirmation-title="Confirmation"
-									                  item="data.id">
+									                  item="copmplainData.id">
 									                  <span class=" glyphicon glyphicon-remove" aria-hidden="true"></span>
 												</a>
 										</td>
@@ -155,7 +155,7 @@
 										<td style="width: 5%">
 											<span>
 												<a class="btn btn-danger btn-sm btnLanier"
-									                  ktr-confirmation="deleteInvFromPrescibtion(item)" 
+									                  ktr-confirmation="deleteHistory(item, 1)" 
 									                  confirmation-message="Are you sure to remove?"
 									                  confirmation-title="Confirmation"
 									                  item="data.id">
@@ -183,7 +183,7 @@
 										<td style="width: 5%">
 											<span>
 												<a class="btn btn-danger btn-sm btnLanier"
-									                  ktr-confirmation="deleteInvFromPrescibtion(item)" 
+									                  ktr-confirmation="deleteHistory(item, 2)" 
 									                  confirmation-message="Are you sure to remove?"
 									                  confirmation-title="Confirmation"
 									                  item="data.id">
@@ -211,7 +211,7 @@
 										<td style="width: 5%">
 											<span>
 												<a class="btn btn-danger btn-sm"
-									                  ktr-confirmation="deleteInvFromPrescibtion(item)" 
+									                  ktr-confirmation="deleteVitalFromPrescibtion(item)" 
 									                  confirmation-message="Are you sure to remove?"
 									                  confirmation-title="Confirmation"
 									                  item="vitalData.id">
@@ -409,10 +409,10 @@
 											<td style="width: 10%">
 												<span>
 													<a class="btn btn-danger btn-sm"
-										                  ktr-confirmation="deleteInvFromPrescibtion(item)" 
+										                  ktr-confirmation="deleteAdviceFromPresciption(item)" 
 										                  confirmation-message="Are you sure to remove?"
 										                  confirmation-title="Confirmation"
-										                  item="adiviceData.id">
+										                  item="adiviceData.adviceID">
 										                  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 													</a>
 												</span>

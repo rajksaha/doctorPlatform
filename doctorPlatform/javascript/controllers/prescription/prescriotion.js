@@ -510,6 +510,65 @@ app.controller('PrescriptionController', function($scope, $http, $modal, $rootSc
         });
 	};
 	
+	$scope.deleteVitalFromPrescibtion = function(id){
+		
+		var dataString = 'query=9'+ '&prescribedVitalID=' + id;
+        $http({
+            method: 'POST',
+            url: "phpServices/vital/vitalService.php",
+            data: dataString,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (result) {
+        	$scope.bringPrescribedVital($scope.appoinmentData.appointmentID);
+        });
+	};
+	
+	$scope.deleteCCFromPresciption = function(id){
+		
+		var data = {'id': id, 'query': 4};
+        
+		$http({
+            method: 'POST',
+            url: "phpServices/complain/complainService.php",
+            data: JSON.stringify(data),
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (result) {
+        	$scope.bringPrescribedComplain($scope.appoinmentData.appointmentID);
+        });
+	};
+	
+	$scope.deleteHistory = function(id, item){
+		
+        
+		var dataString = 'query=4'+ '&savedHistorysID=' + id;
+        $http({
+            method: 'POST',
+            url: "phpServices/history/historyHelperService.php",
+            data: dataString,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (result) {
+        	if(item == 1){
+        		$scope.bringPrescribedMH($scope.appoinmentData.appointmentID, $scope.appoinmentData.patientID);
+        	}else if(item ==2){
+        		$scope.bringPrescribedOBS($scope.appoinmentData.appointmentID, $scope.appoinmentData.patientID);
+        	}
+        });
+	};
+	
+	$scope.deleteAdviceFromPresciption = function (adviceId){
+		
+		var dataString = 'query=5'+ '&adviceID=' + parseInt(adviceId);
+
+        $http({
+            method: 'POST',
+            url: "phpServices/advice/adviceService.php",
+            data: dataString,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (result) {
+        	$scope.bringPrescribedAdvice($scope.appoinmentData.appointmentID);
+        });
+	};
+	
 	
 	$scope.print = function (){
 		

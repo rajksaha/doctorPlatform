@@ -26,6 +26,17 @@ app.controller('HeaderController', function($scope, $rootScope, $location, $time
     };
 	
 	 $scope.logout = function () {
+		 
+		 var dataString = "query=6";
+
+	        $http({
+	            method: 'POST',
+	            url: "phpServices/appointment/appointmentHelper.php",
+	            data: dataString,
+	            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+	        }).success(function (result) {
+	        	$location.path("/login");
+	        });
 	       
 	 };
     

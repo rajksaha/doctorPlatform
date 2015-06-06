@@ -15,7 +15,7 @@
 			</div>
 		
 			<div class="col-md-3 appointmentPhoto">
-				<span style="padding-left:25px"><a href="#/research"><img class="" src="images/sym.png"><span ><br>Research</span></a></span>
+				<span style="padding-left:25px"><a href="javascript:"><img class="" src="images/sym.png"><span ><br>Research</span></a></span>
 			</div>
 		
 			<div class="col-md-3 appointmentPhoto">

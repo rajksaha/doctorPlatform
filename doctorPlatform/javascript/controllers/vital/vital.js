@@ -4,7 +4,7 @@ app.controller('PrescribeVitalController', function($scope, $http, $modal, $root
 	$scope.vitalData = {};
 	$scope.vitalNameData = {};
 	$scope.prescribedVitalData = [];
-	 $scope.addByName = false;
+	$scope.addByName = false;
 	
 	
     $scope.getVital = function(term) {
@@ -35,9 +35,10 @@ app.controller('PrescribeVitalController', function($scope, $http, $modal, $root
 	  
 		$scope.addVitalToDoctorPref = function (){
 			
-			if(validator.validateForm("#historySetting","#lblMsg",null)) {
+			if(validator.validateForm("#vitalSetting","#lblMsg",null)) {
 				
-				
+				$scope.error = false;
+				$scope.succcess = false;
 				if($scope.addByName == false){
 					
 					var dataString = 'query=6'+ '&vitalName=' + $scope.vitalData.vitalName + '&shortName=' + $scope.vitalData.shortName + '&unit=' + $scope.vitalData.unit;
@@ -59,7 +60,8 @@ app.controller('PrescribeVitalController', function($scope, $http, $modal, $root
 				
 				
 			}else{
-				alert("what");
+				$scope.error = true;
+				$scope.succcess = false;
 			}
 		};
 		
@@ -166,6 +168,7 @@ app.controller('PrescribeVitalController', function($scope, $http, $modal, $root
 	            data: dataString,
 	            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 	        }).success(function (result) {
+	        	vitalData.optionAdder = "";
 	        	$scope.bringVitalOption(vitalData);
 	        });
 			

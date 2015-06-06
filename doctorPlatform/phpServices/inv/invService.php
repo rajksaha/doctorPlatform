@@ -34,7 +34,7 @@ if($query_no== 0){
 	echo json_encode($data);
 }else if ($query_no == 1){
 	
-	$sql = "SELECT i.`id` , i.`name` , IFNULL( ip.id, 0 ) AS prescribedInvID, dis.id AS invSettingID
+	$sql = "SELECT i.`id` , i.`name` , IFNULL( ip.id, 0 ) AS prescribedInvID, dis.id AS invSettingID, ip.id AS invPresID
 			FROM `inv` i
 			JOIN doctor_inv_setteing dis ON i.id = dis.invID
 			LEFT JOIN inv_prescription ip ON dis.invID = ip.invID  AND ip.appointMentID = '$appointmentID'
@@ -130,6 +130,14 @@ if($query_no== 0){
 	mysql_query($sql);
 	
 	echo $sql;
+
+}else if ($query_no == 10){
+
+	$invID = $_POST['invID'];
+
+	$sql = "DELETE FROM `inv_prescription` WHERE `appointMentID` = '$appointmentID' AND `invID` = '$invID'";
+
+	mysql_query($sql);
 
 }
 

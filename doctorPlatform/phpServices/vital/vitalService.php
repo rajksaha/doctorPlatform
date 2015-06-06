@@ -67,10 +67,12 @@ if($query_no== 0){
 }
 else if($query_no==5){
 	
+	$queryString =  $_POST['name'];
+	
 	$result = mysql_query("SELECT v.`vitalId` , v.`vitalName` , v.`shortName` , v.`vitalUnit`, IFNULL(dvs.doctorID, 0) AS inDoctor
 								FROM `vital` v
 								LEFT JOIN doctor_vital_settings dvs ON v.vitalId = dvs.vitalID AND dvs.doctorID = '$doctorID'
-						WHERE 1 = 1 AND  IFNULL(dvs.doctorID, 0) = 0");
+								WHERE  v.`vitalName` LIKE '" . $queryString . "%' AND  IFNULL(dvs.doctorID, 0) = 0");
 	
 	$data = array();
 	while ($row=mysql_fetch_array($result)){

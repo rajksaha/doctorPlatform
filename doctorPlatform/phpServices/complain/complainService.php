@@ -59,6 +59,12 @@ if($query_no==1){
 		array_push($data,$row);
 	}
 	echo json_encode($data);
+	
+}elseif ($query_no == 4){
+	
+	$id=$dataObject->id;
+	
+	mysql_query("DELETE FROM `complain` WHERE `id` = '$id'");
 }
 
 ?>

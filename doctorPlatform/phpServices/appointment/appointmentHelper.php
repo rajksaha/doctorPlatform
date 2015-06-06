@@ -87,5 +87,7 @@ else if($query_no==4){
 		array_push($data,$row);
 	}
 	echo json_encode($data); 
+}else if($query_no==6){
+	session_destroy();
 }
 ?>
