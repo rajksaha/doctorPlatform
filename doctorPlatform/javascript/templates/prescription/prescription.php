@@ -117,7 +117,7 @@
     			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 	             	<div class="panel">	                 
 						<div class="prescriptionPanel-body">
-							<div class="form-group"><a href="javascript:" data-ng-click="addCCToPrescription()">C.C</a></div>
+							<div class="form-group"><a href="javascript:" data-ng-click="addCCToPrescription()"><label class="mainLabel">C.C</label></a></div>
 								<table class="table">
 									<tr data-ng-repeat="copmplainData in prescribedComplainData" >
 										<td style="width: 10%">
@@ -149,7 +149,7 @@
     			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" data-ng-show="prescribedMHData.length > 0">
 	             	<div class="panel">	                 
 						<div class="prescriptionPanel-body">
-							<div class="form-group"><a href="#/history"><label>MH History</label></a></div>
+							<div class="form-group"><a href="#/history"><label class="mainLabel">MH History</label></a></div>
 								<table class="table">
 									<tr data-ng-repeat="data in prescribedMHData" >
 										<td style="width: 5%">
@@ -177,7 +177,7 @@
     			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" data-ng-show="prescribedOBSData.length > 0">
 	             	<div class="panel">	                 
 						<div class="prescriptionPanel-body">
-							<div class="form-group"><a href="#/obsHistory"><label>OBS History</label></a></div>
+							<div class="form-group"><a href="#/obsHistory"><label class="mainLabel">OBS History</label></a></div>
 								<table class="table">
 									<tr data-ng-repeat="data in prescribedOBSData" >
 										<td style="width: 5%">
@@ -205,7 +205,7 @@
     			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" >
 	             	<div class="panel">	                 
 						<div class="prescriptionPanel-body">
-							<div class="form-group"><a href="#/vital"><label>O.E</label></a></div>
+							<div class="form-group"><a href="#/vital"><label class="mainLabel">O.E</label></a></div>
 								<table class="table">
 									<tr data-ng-repeat="vitalData in prescribedVitalData" >
 										<td style="width: 5%">
@@ -233,7 +233,7 @@
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 	             	<div class="panel">	                 
 						<div class="prescriptionPanel-body">
-							<div class="form-group"><a href="#/inv"><label>INV</label></a></div>
+							<div class="form-group"><a href="#/inv"><label class="mainLabel">INV</label></a></div>
 								<table class="table">
 									<tr data-ng-repeat="invData in prescribedInvData">
 										<td style="width: 5%">
@@ -259,7 +259,7 @@
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" data-ng-show="pastDiseaseList.length > 0">
 	             	<div class="panel">	                 
 						<div class="prescriptionPanel-body">
-							<div class="form-group"><a href="#/pastHistory"><label>Past Disease</label></a></div>
+							<div class="form-group"><a href="#/pastHistory"><label class="mainLabel">Past Disease</label></a></div>
 								<table class="table">
 									<tr data-ng-repeat="data in pastDiseaseList">
 										<td style="width: 5%">
@@ -285,7 +285,7 @@
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" data-ng-show="familyDiseaseList.length > 0">
 	             	<div class="panel">	                 
 						<div class="prescriptionPanel-body">
-							<div class="form-group"><a href="#/familyHisory"><label>Family Disease</label></a></div>
+							<div class="form-group"><a href="#/familyHisory"><label class="mainLabel" >Family Disease</label></a></div>
 								<table class="table">
 									<tr data-ng-repeat="data in familyDiseaseList">
 										<td style="width: 5%">
@@ -342,7 +342,7 @@
     			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding-top: 5px">
 	             	<div class="panel">	                 
 						<div class="prescriptionPanel-body">
-							<div class="form-group"><a href="javascript:" data-ng-click="performDiganosis(diagnosisData)" ><label>Diagnosis </label></a><span > {{diagnosisData.diseaseName}}</span></div>
+							<div class="form-group"><a href="javascript:" data-ng-click="performDiganosis(diagnosisData)" ><label class="mainLabel">Diagnosis </label></a><span > {{diagnosisData.diseaseName}}</span></div>
 							
 						</div>
 					</div>
@@ -353,7 +353,7 @@
 	             <div class="panel">	                 
 	                 <div class="prescriptionPanel-body">
 	                 
-	                 	<div class="text-muted form-group"><a href="javascript:" data-ng-click="addDrugsToPrescription()"><label>RX</label></a></div>
+	                 	<div class="text-muted form-group"><a href="javascript:" data-ng-click="addDrugsToPrescription()"><label class="mainLabel">RX</label></a></div>
 	                    <div class="room-desc form-group" data-ng-repeat="drugPres in prescribedDrugList">	
 							<table id="" class="table">
 								<tbody>
@@ -402,7 +402,7 @@
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 	             	<div class="panel">	                 
 						<div class="prescriptionPanel-body">
-							<div class="form-group"><a href="#/advice"><label>Advice</label></a></div>
+							<div class="form-group"><a href="#/advice"><label class="mainLabel">Advice</label></a></div>
 								<table id="" class="table">
 									<tbody>
 										<tr data-ng-repeat="adiviceData in prescribedAdviceData" style="height:50px;">

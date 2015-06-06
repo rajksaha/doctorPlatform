@@ -36,7 +36,18 @@
 		background-color: #FFFFFF;
 		padding: 20px;
 	}
+	.mainLabel {
+		cursor: pointer;
+	}
 	
+	.mainLabel:Hover {
+		cursor: pointer;
+		font-size: 16px;
+		font-weight:bold;
+		background-color: #CCFFFF;
+		padding: 10px;
+		
+	}
 	.filter-panel { background-color: rgba(95,195,220,.75); margin: 0 auto 15px auto; padding: 10px; }
 	
 	
