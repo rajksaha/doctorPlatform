@@ -1393,7 +1393,7 @@ app.controller('PrescriptionController.PrescribeDrugsController', function($scop
       
 	  $scope.onSelectDrugName = function(item, model, label){
 		  $scope.drugData.drugID = item.drugID;
-		  
+		  $scope.drugData.drugName = item.drugName;
 		  $scope.drugData.delDrug = true;
 		  $scope.drugData.editName = true;
 	  };

@@ -16,7 +16,7 @@
 				</div>
 				<div class="form-group col-xs-8 col-sm-8">
 	   				<label>Drug Name <span class="red" >*</span></label> 
-					<input type="text" errmsg="Please Enter Drug Name" data-ng-model="drugData.drugName" typeahead="drugNameList.drugName for drugNameList in getDrugName($viewValue)"  class="form-control required" placeholder="Add Drugs" typeahead-on-select='onSelectDrugName($item, $model, $label)'/>
+					<input type="text" errmsg="Please Enter Drug Name" data-ng-model="drugData.drugName" typeahead="drugNameList.displayName for drugNameList in getDrugName($viewValue)"  class="form-control required" placeholder="Add Drugs" typeahead-on-select='onSelectDrugName($item, $model, $label)'/>
 					<span id="drugDelete" data-ng-show="drugData.editName" ><a class="btn btn-danger btn-sm btnLanier"
 		                  ktr-confirmation="deleteDrugFromDB()" 
 		                  confirmation-message="Are you sure to remove?"

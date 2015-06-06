@@ -139,7 +139,7 @@ else if($query_no==4){
 	$queryString=$_POST['drugName'];
 	$drugType = $_POST['drugType'];
 	
-	$sql ="SELECT d.`drugID`, d.`typeID`, d.`companyID`, d.`drugName`, d.`strength`
+	$sql ="SELECT d.`drugID`, d.`typeID`, d.`companyID`, CONCAT(d.drugName, ' - ',  d.`strength`) As displayName, d.drugName
 			FROM `drug` d 
 			LEFT JOIN drug_prescription dp  ON d.drugID = dp.drugID AND dp.appointMentID = '$appointmentID' AND  IFNULL(dp.appointMentID , 0)  = 0
 			WHERE d.`drugName` LIKE '" . $queryString . "%' AND d.typeID = '$drugType'
