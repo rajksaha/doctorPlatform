@@ -73,7 +73,7 @@ function Show_med($appointmentID, $xAxis, $yAxis, $size){
 	
 	if(mysql_num_rows($resultData) > 0){
 		
-		$this->SetXY($xAxis - 5, $yAxis);
+		$this->SetXY($xAxis, $yAxis);
 		$this->MultiCell(20,5,"RX");
 		$yAxis += 6;
 		
@@ -149,7 +149,7 @@ function Show_inv($appointmentID, $xAxis,$yAxis,$maxX,$size) {
 	
 	if(mysql_num_rows($resultData) > 0){
 	
-		$this->SetXY($xAxis - 2, $yAxis);
+		$this->SetXY($xAxis, $yAxis);
 		$this->MultiCell(20,5,"INV");
 		$yAxis += 6;
 	
@@ -177,7 +177,7 @@ function   Show_vital($appointmentID,$xAxis, $yAxis, $maxX, $size){
 	
 	if(mysql_num_rows($resultData) > 0){
 	
-		$this->SetXY($xAxis - 2, $yAxis);
+		$this->SetXY($xAxis, $yAxis);
 		$this->MultiCell(20,5,"Vital");
 		$yAxis += 6;
 	
@@ -208,7 +208,7 @@ function Show_advice($appointmentID,$xAxis,$yAxis,$size,$maxX){
 	
 		$this->SetFont('Times','',$size);
 		
-		$this->SetXY($xAxis - 2, $yAxis);
+		$this->SetXY($xAxis, $yAxis);
 		$this->MultiCell(20,5,"Advice");
 	
 	}
@@ -277,7 +277,7 @@ function Show_History($appointmentID,$xAxis,$yAxis, $maxX , $size, $typeCode){
 	
 	if(mysql_num_rows($resultData) > 0){
 	
-		$this->SetXY($xAxis - 2, $yAxis);
+		$this->SetXY($xAxis, $yAxis);
 		$this->MultiCell(20,5,$typeCode);
 		$yAxis += 6;
 	
@@ -308,7 +308,7 @@ function Show_Past_History($appointmentID,$xAxis,$yAxis, $maxX , $size){
 	
 	if(mysql_num_rows($resultData) > 0){
 	
-		$this->SetXY($xAxis - 2, $yAxis);
+		$this->SetXY($xAxis, $yAxis);
 		$this->MultiCell($maxX,5,"Past Disease");
 		$yAxis += 6;
 	
@@ -335,7 +335,7 @@ function Show_Family_History($appointmentID,$xAxis,$yAxis, $maxX , $size){
 	
 	if(mysql_num_rows($resultData) > 0){
 	
-		$this->SetXY($xAxis - 2, $yAxis);
+		$this->SetXY($xAxis, $yAxis);
 		$this->MultiCell($maxX,5,"Family Disease");
 		$yAxis += 6;
 	
@@ -364,7 +364,7 @@ function Show_Complain($appointmentID,$xAxis,$yAxis, $maxX , $size) {
 	
 	if(mysql_num_rows($resultData) > 0){
 	
-		$this->SetXY($xAxis - 2, $yAxis);
+		$this->SetXY($xAxis, $yAxis);
 		$this->MultiCell($maxX,5,"C.C");
 		$yAxis += 6;
 	
@@ -400,7 +400,7 @@ function Show_diagnosis($appointmentID,$xAxis,$yAxis,  $size){
 		$diseaseName = $row['diseaseName'];
 	
 		$this->SetXY($xAxis, $yAxis);
-		$this->MultiCell(60,5,"Diagnosis : $diseaseName");
+		$this->MultiCell(120,5,"Diagnosis : $diseaseName");
 	
 	}
 	
@@ -418,23 +418,23 @@ $pdf->SetFillColor(200,220,255);
 //$pdf->ShowDocInfo($user);
 $pdf->ShowPatInfo($patientCode,73);
 
-$leftYaxis = 80;
-$rightYaxis = 80;
+$leftYaxis = 90;
+$rightYaxis = 90;
 $size = 12;
 
 $leftXaxis = 5;
 $rightXaxis = 75;
 $maxX = 60;
 
-$rightYaxis = $pdf->Show_diagnosis($appointmentID,$rightXaxis,$rightYaxis,$size);
-$rightYaxis = $pdf->Show_med($appointmentID,$rightXaxis,$rightYaxis,$size);
+$rightYaxis = $pdf->Show_diagnosis($appointmentID,$rightXaxis,$rightYaxis + 5,$size);
+$rightYaxis = $pdf->Show_med($appointmentID,$rightXaxis,$rightYaxis + 5,$size);
 $rightYaxis = $pdf->Show_advice($appointmentID,$rightXaxis,$rightYaxis + 5,$size - 2,$maxX);
 
 
-$leftYaxis=$pdf->Show_Complain($appointmentID,$leftXaxis,$leftYaxis, $maxX , $size -2);
-$leftYaxis=$pdf->Show_History($appointmentID,$leftXaxis,$leftYaxis, $maxX , $size -2, "MH");
-$leftYaxis=$pdf->Show_History($appointmentID,$leftXaxis,$leftYaxis, $maxX , $size -2, "OBS");
-$leftYaxis=$pdf->Show_vital($appointmentID,$leftXaxis,$leftYaxis, $maxX , $size -2);
+$leftYaxis=$pdf->Show_Complain($appointmentID,$leftXaxis,$leftYaxis + 5, $maxX , $size -2);
+$leftYaxis=$pdf->Show_History($appointmentID,$leftXaxis,$leftYaxis + 5, $maxX , $size -2, "MH");
+$leftYaxis=$pdf->Show_History($appointmentID,$leftXaxis,$leftYaxis + 5, $maxX , $size -2, "OBS");
+$leftYaxis=$pdf->Show_vital($appointmentID,$leftXaxis,$leftYaxis + 5, $maxX , $size -2);
 $leftYaxis=$pdf->Show_Past_History($appointmentID,$leftXaxis,$leftYaxis + 5, $maxX, $size - 2);
 $leftYaxis=$pdf->Show_Family_History($appointmentID,$leftXaxis,$leftYaxis + 5, $maxX, $size - 2);
 

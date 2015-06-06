@@ -26,21 +26,21 @@
 	</div>
 </div>
 
-<div class="panel  col-md-12 filter-panel" style="padding-top: 10px;padding-left: 20px;padding-right: 20px;">
+<div class="panel  col-md-12 filter-panel" id="validateReq" style="padding-top: 10px;padding-left: 20px;padding-right: 20px;">
 	<div class="row">
 		<span class="pull-right">
 			<i data-ng-show="!patientInfoEdit" class="pull-center glyphicon glyphicon-pencil" data-ng-click="patientInfoEdit = true" ></i>
-			<i data-ng-show="patientInfoEdit" class="pull-center glyphicon glyphicon-folder-open" data-ng-click="patientInfoEdit = false" ></i>
+			<i data-ng-show="patientInfoEdit" class="pull-center glyphicon glyphicon-folder-open" data-ng-click="savePatientInfo(patientData)" ></i>
 		</span>
 		<div class="col-md-12 panel panel-primary mainPanelColor panel1" style="padding-top: 12px;padding-bottom: 10px">
 			<div class="col-md-2 patinetInfo form-group">
 				
 				<span data-ng-show="!patientInfoEdit" >Name: <span >{{patientData.name}}</span></span>
-				<input data-ng-show="patientInfoEdit" data-ng-model="patientData.name" class="form-control" />	
+				<input data-ng-show="patientInfoEdit" data-ng-model="patientData.name" class="form-control required" />	
 			</div>
 			<div class="col-md-2 patinetInfo form-group">
 				<span data-ng-show="!patientInfoEdit" >Age: {{patientData.age}} yrs</span>
-				<input data-ng-show="patientInfoEdit" data-ng-model="patientData.age" class="form-control" />
+				<input data-ng-show="patientInfoEdit" data-ng-model="patientData.age" class="form-control required" />
 			</div>
 			
 			<div class="col-md-2 patinetInfo form-group">
@@ -48,19 +48,19 @@
 				
 				<select data-ng-show="patientInfoEdit" data-ng-model="patientData.sex" class="form-control">
 					<option value="MALE">Male</option>
-					<option value="FEMALE">Fe-male</option>
+					<option value="FEMALE">Female</option>
 					<option value="OTHER">Other</option>
 				</select>
 			</div>
 			
 			<div class="col-md-2 patinetInfo form-group">
 				<span data-ng-show="!patientInfoEdit">Phone: {{patientData.phone}}</span>
-				<input data-ng-show="patientInfoEdit" data-ng-model="patientData.patientCode" class="form-control" />
+				<input data-ng-show="patientInfoEdit" data-ng-model="patientData.phone" class="form-control phnnr" maxlength="16"/>
 			</div>
 			
 			<div class="col-md-2 patinetInfo form-group">
 				<span data-ng-show="!patientInfoEdit" >Address: {{patientData.address}}</span>
-				<input data-ng-show="patientInfoEdit" data-ng-model="patientData.patientCode" class="form-control" />
+				<input data-ng-show="patientInfoEdit" data-ng-model="patientData.address" class="form-control" maxlength="100" />
 			</div>
 			
 			<div class="col-md-2 patinetInfo form-group">
@@ -117,7 +117,7 @@
     			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 	             	<div class="panel">	                 
 						<div class="prescriptionPanel-body">
-							<div class="form-group"><a href="javascript:" data-ng-click="addCCToPrescription()"><label>C.C</label></a></div>
+							<div class="form-group"><a href="javascript:" data-ng-click="addCCToPrescription()">C.C</a></div>
 								<table class="table">
 									<tr data-ng-repeat="copmplainData in prescribedComplainData" >
 										<td style="width: 10%">
@@ -319,13 +319,17 @@
 							<div class="input-group input-group-sm" data-ng-if="!refferedDoctorData.id">
 								<input type="text" data-ng-model="refferedAdderData.doctorName" typeahead="refDoc.doctorName for refDoc in getRefDoctor($viewValue)"  class="form-control" placeholder="Search Doctor" typeahead-on-select='onSelectRefDocotor($item, $model, $label)'/>
 								<input type="text" data-ng-model="refferedAdderData.doctorAdress" class="form-control" placeholder="Doctor Address"/>
-								<button data-ng-show="refferedAdderData.doctorAdress && refferedAdderData.doctorName" data-ng-click="saveReffredDoctor(refferedAdderData)">Save</button>
+								<button class="btn btnLanier btn-success" title="Save" data-ng-show="refferedAdderData.doctorAdress && refferedAdderData.doctorName" data-ng-click="saveReffredDoctor(refferedAdderData)">
+									<span class="glyphicons glyphicon glyphicon-floppy-save" aria-hidden="true"></span>
+								</button>
 							</div>
 							
 							<div class="input-group input-group-sm" data-ng-if="refferedDoctorData.id">
 								
 								<span>{{refferedDoctorData.doctorName}} - {{refferedDoctorData.doctorAdress}}</span>
-								<button  data-ng-click="deleteReffredDoctor(refferedDoctorData.id)">X</button>
+								<button  class="btn btnLanier btn-danger" title="Delete" data-ng-click="deleteReffredDoctor(refferedDoctorData.id)">
+									<span class="glyphicons glyphicon glyphicon-remove" aria-hidden="true"></span>
+								</button>
 						</div>
 						</div>
 					</div>

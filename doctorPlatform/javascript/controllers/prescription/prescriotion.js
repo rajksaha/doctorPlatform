@@ -245,19 +245,26 @@ app.controller('PrescriptionController', function($scope, $http, $modal, $rootSc
         	
         	$scope.appoinmentData = result;
         	
-        	$scope.bringPresCribedDiagnosis($scope.appoinmentData.appointmentID);
-        	$scope.bringPresCribedDrugs($scope.appoinmentData.appointmentID);
-    		$scope.bringPrescribedInv($scope.appoinmentData.appointmentID);
-    		$scope.bringPrescribedAdvice($scope.appoinmentData.appointmentID);
-    		$scope.bringPrescribedVital($scope.appoinmentData.appointmentID);
-    		$scope.bringPrescribedComplain($scope.appoinmentData.appointmentID);
-    		$scope.bringPrescribedFamilyHistory($scope.appoinmentData.appointmentID);
-    		$scope.bringPrescribedPastHistory($scope.appoinmentData.appointmentID);
-    		$scope.bringPrescribedOBS($scope.appoinmentData.appointmentID, $scope.appoinmentData.patientID);
-    		$scope.bringPrescribedMH($scope.appoinmentData.appointmentID, $scope.appoinmentData.patientID);
-    		$scope.bringPrescribedNextVisit($scope.appoinmentData.appointmentID);
-    		$scope.bringPrescribedRefferedDoctor($scope.appoinmentData.appointmentID);
+        	$scope.bringAppoinmentInfo();
+        	
+        	
         });
+    };
+    
+    $scope.bringAppoinmentInfo = function (){
+    	
+    	$scope.bringPresCribedDiagnosis($scope.appoinmentData.appointmentID);
+    	$scope.bringPresCribedDrugs($scope.appoinmentData.appointmentID);
+		$scope.bringPrescribedInv($scope.appoinmentData.appointmentID);
+		$scope.bringPrescribedAdvice($scope.appoinmentData.appointmentID);
+		$scope.bringPrescribedVital($scope.appoinmentData.appointmentID);
+		$scope.bringPrescribedComplain($scope.appoinmentData.appointmentID);
+		$scope.bringPrescribedFamilyHistory($scope.appoinmentData.appointmentID);
+		$scope.bringPrescribedPastHistory($scope.appoinmentData.appointmentID);
+		$scope.bringPrescribedOBS($scope.appoinmentData.appointmentID, $scope.appoinmentData.patientID);
+		$scope.bringPrescribedMH($scope.appoinmentData.appointmentID, $scope.appoinmentData.patientID);
+		$scope.bringPrescribedNextVisit($scope.appoinmentData.appointmentID);
+		$scope.bringPrescribedRefferedDoctor($scope.appoinmentData.appointmentID);
     };
     
     $scope.deleteInvFromPresciption = function (id){
@@ -661,7 +668,7 @@ app.controller('PrescriptionController', function($scope, $http, $modal, $rootSc
             data: dataString,
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).success(function (result) {
-        	$scope.bringPresCribedDrugs();
+        	$scope.bringPresCribedDrugs($scope.appoinmentData.appointmentID);
         	
         });
 		
@@ -704,8 +711,29 @@ app.controller('PrescriptionController', function($scope, $http, $modal, $rootSc
             backdrop: 'static'
         });
 		modalInstance.result.then(function(result) {
-			$scope.bringPresCribedDiagnosis($scope.appoinmentData.appointmentID);
+			$scope.bringAppoinmentInfo();
 	     });
+    };
+    
+    $scope.savePatientInfo = function(patientData){
+    	
+    	if(validator.validateForm("#validateReq","#lblMsg",null)) {
+    		var dataString = 'name='+ patientData.name +'&age='+ patientData.age +'&address='+ patientData.address + '&sex=' + patientData.sex +'&phone='+ patientData.phone+ '&id='+ patientData.patientID +'&query=16';
+    		
+    		 $http({
+		            method: 'POST',
+		            url: "phpServices/prescription/prescriptionHelperService.php",
+		            data: dataString,
+		            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+		        }).success(function (result) {
+		        	$scope.patientInfoEdit = false;
+		        	
+		        });
+    		 
+    	}else{
+    		alert("Please Select all required fields properly");
+    	}
+    	
     };
 
 	$scope.inIt = function (){
@@ -715,6 +743,8 @@ app.controller('PrescriptionController', function($scope, $http, $modal, $rootSc
 		$scope.bringAppointmentInfo();
 		
 	};
+	
+	
 	
 	(function(){
 		$scope.inIt();
@@ -771,7 +801,7 @@ app.controller('PrescriptionController.PrescribeDiagnosisController', function($
 	};
 	
 	$scope.cancel = function(){
-		$modalInstance.close();
+		$modalInstance.dismiss('cancel');
 	};
 	
 	$scope.getDisease = function(term) {
@@ -935,7 +965,7 @@ app.controller('PrescriptionController.PrescribeComplainController', function($s
 	
 	
 	$scope.cancelGroupOfComplain = function(){
-		$modalInstance.close();
+		$modalInstance.dismiss('cancel');
 	};
 
     $scope.getSymptoms = function(term) {
@@ -978,7 +1008,7 @@ app.controller('PrescriptionController.PrescribeDrugsController', function($scop
 	$scope.drugNameList = {};
 	
 	$scope.cancelDrug = function (){
-		$modalInstance.close();
+		$modalInstance.dismiss('cancel');
 	};
 	
 	$scope.initializeDrugData = function (drugType, selIndexTimeADay, selIndexNumfDay){
@@ -1304,6 +1334,7 @@ app.controller('PrescriptionController.PrescribeDrugsController', function($scop
       
 	  $scope.onSelectDrugName = function(item, model, label){
 		  $scope.drugData.drugID = item.drugID;
+		  
 		  $scope.drugData.delDrug = true;
 		  $scope.drugData.editName = true;
 	  };

@@ -191,7 +191,17 @@ elseif ($query_no == 15){
 	$_SESSION['patientID']= "";
 	$_SESSION['appointmentID']= "";
 	$_SESSION['patientCode']= "";
-}
-
 	
+	
+}elseif ($query_no == 16){
+
+	$name = $_POST['name'];
+	$address = $_POST['address'];
+	$age = $_POST['age'];
+	$sex= $_POST['sex'];
+	$phone = $_POST['phone'];
+	$id = $_POST['id'];
+	
+	mysql_query("UPDATE `patient` SET `name`='$name',`age`='$age',`sex`='$sex',`address`='$address',`phone`='$phone' WHERE `patientID` = '$id'");
+}
 ?>

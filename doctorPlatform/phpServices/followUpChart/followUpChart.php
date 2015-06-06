@@ -17,13 +17,19 @@ $query_no=  $_POST['query'];
 
 if($query_no== 0){
 	
+	$invID = $_POST['invID'];
 	
-	$result = getPatientOldPrecription($appointmentID, $patientID, $username);
+	$result = mysql_query("SELECT ip.`id`, ip.`appointMentID`, ip.`invID`, ip.`note`, ip.`checked`, ir.result, a.date, i.name AS invName
+						FROM `inv_prescription` ip
+						JOIN inv i ON i.id = ip.invID
+						JOIN appointment a ON a.appointMentID = ip.appointMentID
+						JOIN patient p ON p.patientCode = a.patientCode
+						LEFT JOIN inv_report ir ON ir.invPrescribeID = ip.id
+						WHERE ip.invID = '$invID' AND p.patientID = '$patientID' ORDER BY a.date DESC");
 	
 	$data = array();
 	while ($row=mysql_fetch_array($result)){
 		
-		$row['invReportList'] = getinvReport($row['appointmentID'], $patientID);
 		array_push($data,$row);
 	}
 	
@@ -32,13 +38,11 @@ if($query_no== 0){
 
 function getinvReport($appointmentID, $patientID){
 	
-	$sql = mysql_query("SELECT i.name AS invName, i.id AS invID, ir.result, ir.status
-			FROM `patient` p
-			JOIN appointment a ON p.patientCode = a.patientCode
-			JOIN inv_prescription ip ON a.appointMentID = ip.appointMentID
-			LEFT JOIN inv_report ir ON ip.id = ir.invPrescribeID
-			JOIN inv i ON ip.invID = i.id
-			WHERE p.patientID ='$patientID' AND  a.appointmentID = '$appointmentID'");
+	$sql = mysql_query("SELECT ip.`id`, ip.`appointMentID`, ip.`invID`, ip.`note`, ip.`checked`, ir.result, a.date
+						FROM `inv_prescription` ip
+						JOIN appointment a ON a.appointMentID = ip.appointMentID
+						LEFT JOIN inv_report ir ON ir.invPrescribeID = ip.id
+						WHERE ip.invID = 713");
 	
 	$data = array();
 	while ($row=mysql_fetch_array($sql)){

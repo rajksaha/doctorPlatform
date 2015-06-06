@@ -52,6 +52,8 @@ if($query_no==2){
 	
 	$data = addAppointMent($doctorCode, $patientCode, $appointmentType,$doctorID, $date, $time, $username);
 	
+	mysql_query("UPDATE `doctorsettings` SET `personCodeInitial`=  personCodeInitial + 1 WHERE doctorID = $doctorID");
+	
 	echo $data;
 }
 else if($query_no==3){
@@ -63,6 +65,8 @@ else if($query_no==3){
 	$appointmentType =  1;
 	
 	$data = addAppointMent($doctorCode, $patientCode, $appointmentType,$doctorID, $date, $time, $username);
+	
+	
 	
 	echo $data;
 

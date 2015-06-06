@@ -187,6 +187,8 @@ app.controller('AppointmentController.AddNewPatientController', function($scope,
 	$scope.error = false;
 	$scope.errorMessage = "";
 	$scope.patientData.sex = "MALE";
+	$scope.patientData.phone = "";
+	$scope.patientData.address = "";
 	
 	$scope.createNewPatient = function (){
 		

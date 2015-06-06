@@ -97,11 +97,11 @@ else if($query_no==4){
 	
 	$requestedID = $_POST['requestedID'];
 	
-	$result = mysql_query("SELECT `id`, `appointMentID`, `symptomID`, `durationNum`, `durationType` FROM `complain` WHERE `id` = $requestedID");
+	$result = mysql_query("SELECT `id`, `appointMentID`, `symptomID`, `durationNum`, `durationType`, `detail` FROM `complain` WHERE `id` = $requestedID");
 	
 	$row = mysql_fetch_assoc($result);
 	
-	insertPrescribedCC($appointmentID, '', $durationNum, $durationType);
+	insertPrescribedCC($appointmentID, $row['symptomID'], $row['durationNum'], $row['durationType'],$row['detail']);
 }
 
 

@@ -82,17 +82,17 @@ body {
 
 /*------------- Modal Colors ------------*/
 .modalHead{
-	background-color:#FFDFA5;
+	background-color:#a8e0e0!important;
 }
 .modalHead .modal-title{}
 .modalBody, .modalBody .panel-body {
-	background: #FFFCEF!important;
+	background: #CCFFFF!important;
 }
 .modalFoot{
-	background-color:#FFEDD2;
+	background-color:#a8e0e0;
 }
 .booking-tble table td{
-	background-color: #FFFCEF; 
+	background-color: #99CCFF; 
 }
 
 /*------------------- table--------------- */

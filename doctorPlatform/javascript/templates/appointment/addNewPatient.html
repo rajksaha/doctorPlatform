@@ -15,7 +15,7 @@
 			</div>
 			
 			<div class="form-group col-xs-12 col-sm-12" >
-				<label>Age:</label> 
+				<label>Age: <span class="red" >*</span></label> 
 				<input class="form-control decimal" type="text" maxlength="6" data-ng-model="patientData.age" errmsg="Please enter patient age">
 			</div>
 			
@@ -23,7 +23,7 @@
 				<label>Gender:</label> 
 				<select data-ng-model="patientData.sex" class="form-control">
 					<option value="MALE">Male</option>
-					<option value="FEMALE">Fe-male</option>
+					<option value="FEMALE">Female</option>
 					<option value="OTHER">Other</option>
 				</select>
 			</div>
@@ -41,6 +41,10 @@
 	
 </div>
 <div class="modal-footer modalFoot">
-	<button class="btn btnLanier btn-success" data-ng-click="createNewPatient()" ><i class="fa"></i> Save</button>
-	<button class="btn btnLanier btn-warning" data-ng-click="cancelNewPatient()" ><i class="fa"></i> Cancel</button>
+	<button class="btn btnLanier btn-success" data-ng-click="createNewPatient()" >
+		<span class="glyphicons glyphicon glyphicon-floppy-save" aria-hidden="true"></span> Save
+	</button>
+	<button class="btn btnLanier btn-danger" data-ng-click="cancelNewPatient()" >
+		<span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span> Cancel
+	</button>
 </div>

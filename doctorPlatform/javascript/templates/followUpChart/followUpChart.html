@@ -8,14 +8,64 @@
 		</span>
 	</div>
 </div>
+<section  class=" contacts row">
+     <div  class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+         <div class="panel">	                 
+             <div class="panel-body">
+             	<div class="text-muted form-group">Inv Name</div>	                    
+                <div class="room-desc">	
+                     <input type="text" data-ng-model="invData.name" typeahead="invNameData.name for invNameData in getInvName($viewValue)"  class="form-control" placeholder="Add Inv to Setting" typeahead-on-select='onSelectInvName($item, $model, $label)'/>
+                </div>
+             </div>
+         </div>
+     </div>
+     <div  class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+         <div class="panel">	                 
+             <div class="panel-body">
+             	<div class="text-muted form-group">View</div>	                    
+                <div class="room-desc">	
+                     <button  data-ng-click="bringfollowUpChart()" data-ng-disabled="!typeHeadSelected" class="btn btn-primary" > <span class='glyphicon glyphicon glyphicon-plus' aria-hidden='true'></span> View</button>
+                </div>
+             </div>
+         </div>
+     </div>
+</section>
 
-<div data-ng-repeat="appoinment in patientAppoinmentList" class="col-xs-3 col-sm-3 col-md-3 col-lg-3 appointment" >
-	{{appoinment.date}}
-	<div class="panelChild">	                 
-		<div class="" data-ng-repeat="report in appoinment.invReportList" >
-			<div class="panelChild-body form-group"  >
-				<span class="textSpc">{{report.invName}} - {{report.result}}</span>
+<div class="panel col-md-12 followUp" data-ng-repeat="invData in invFollowUpChart">
+				<div class="col-md-12 panel panel-primary mainPanelColor panel1" style="padding-top: 12px;padding-bottom: 12px">
+					<div  style="padding-top: 25px;">
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" >
+		             	<div class="panelHead">	                 
+							<div class="panelHead-body">
+								
+								<span>{{invData.invName}}</span>
+								<span class="pull-right" data-ng-show="invData.invReportList.length > 3 && !invData.noNeedNext">
+									<a  style="padding-left:12px;" class="btn btn-info" href="javascript:" data-ng-click="progressFlow(invData, true)"><span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"> Next</span></a>
+								</span>
+								<span class="pull-right" data-ng-show="invData.needPrevious" data-ng-click="progressFlow(invData, false)">
+									<a  style="padding-left:12px;" class="btn btn-info" href="javascript:"><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"> Previous</span></a>
+								</span>
+								
+								
+							</div>
+						</div>
+					</div>
+					
+				</div>
+			
+				<div>
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" >
+		             	<div class="panelChild">	                 
+							<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3" data-ng-repeat="report in invData.invReportList" data-ng-if="displayStatus(invData, $index)">
+								<div class="panelChild-body form-group" >
+									<div class="textSpc date">{{report.date | date:'d-M-yyyy'}}</div>
+									<div class="textSpc result">{{report.result || "No result entered"}}</div>
+								</div>
+							</div>
+						</div>
+					</div>
+						
+				</div>
+				</div>
+				
 			</div>
-		</div>
-	</div>
-</div>

@@ -5,6 +5,9 @@ app.controller('OldPrescriptionController', function($scope, $http, $modal, $roo
 	$scope.appoinmentData ={};
 	$scope.patientStateList = [];
 	
+	$scope.history1 = "MH";
+	$scope.history2 = "OBS";
+	
 	$scope.bringPatientInfo = function(){
 		
 		var dataString = "query=0";
@@ -173,7 +176,21 @@ app.controller('OldPrescriptionController', function($scope, $http, $modal, $roo
 		
 	};
 	
+	$scope.diagnosisData = {};
+	
+	$scope.bringPresCribedDiagnosis = function (appointmentID){
+		
+		var dataString = "query=6" + '&appointmentID=' + appointmentID;
 
+        $http({
+            method: 'POST',
+            url: "phpServices/commonServices/prescriptionDetailService.php",
+            data: dataString,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (result) {
+        	$scope.diagnosisData = result;
+        });
+	};
     
 	
 	
@@ -187,8 +204,10 @@ app.controller('OldPrescriptionController', function($scope, $http, $modal, $roo
     	$scope.bringPrescribedComplain(data.appointmentID);
     	$scope.bringPrescribedOBS(data.appointmentID, data.patientID);
     	$scope.bringPrescribedMH(data.appointmentID, data.patientID);
+    	$scope.bringPresCribedDiagnosis(data.appointmentID);
     	
     	$scope.showPrescriptionView = true;
+    	$scope.prescriptionViewDate = data.date;
     };
     
     $scope.addToPrescription = function (state, requestedData, queryNo){
@@ -206,6 +225,10 @@ app.controller('OldPrescriptionController', function($scope, $http, $modal, $roo
             }).success(function (result) {
             	
             });
+    	}else{
+    		alert("Please remove it from Prescription Page");
+    		
+    		requestedData.addedToPrescription = !state;
     	}
     };
 

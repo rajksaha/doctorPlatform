@@ -35,7 +35,7 @@ function addAppointMent($doctorCode, $patientCode, $appointmentType, $doctorID, 
 			('$doctorCode','$patientCode','$date','$time',0,  '$appointmentType', '$username')");
 
 	
-	mysql_query("UPDATE `doctorsettings` SET `personCodeInitial`=  personCodeInitial + 1 WHERE doctorID = $doctorID");
+	
 	
 }
 function getAppointmentInfo($appointmentID){
