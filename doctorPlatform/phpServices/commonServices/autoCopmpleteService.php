@@ -74,18 +74,11 @@ function getAdvcieList($queryString, $type, $lang){
 			WHERE a.lang = '$lang' AND a.type = 0 AND  a.`advice` LIKE '" . $queryString . "%' LIMIT 10";
 
 	$result=mysql_query($sql);
-
-	$data ="<p id='searchresults'>";
-
-	while($row1=  mysql_fetch_array($result)){
-		$name=$row1['advice'];
-			
-		$data.= '<a href="javascript:autocompleteAdvice(\''.$name.'\')">';
-			
-		$data.= '<span class="searchheading">'.$name.'</span>';
+	$data = array();
+	while ($row=mysql_fetch_array($result)){
+		array_push($data,$row);
 	}
-
-	$data.= "</p>";
-	echo $data;
+	
+	echo json_encode($data);
 }
 ?>

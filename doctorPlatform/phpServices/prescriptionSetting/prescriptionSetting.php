@@ -145,6 +145,7 @@ elseif ($query_no == 7){
 	$rec = mysql_fetch_assoc($result);
 	$type = $rec['category'];
 	$lang = $_POST['lang'];
+	
 	return getAdvcieList($queryString, $type, $lang);
 	
 }else if($query_no == 10){

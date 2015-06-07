@@ -586,10 +586,11 @@ app.controller('PrescribeSettingsController.AddAdvcieToSettings', function($scop
 	
 	$scope.postData = data;
 	
+	$scope.type = 0;
+	
 	$scope.saveNewAdviceSetting = function (){
 		
 		
-		$scope.createInvSetting = function (){
 			
 			if(validator.validateForm("#validateReq","#lblMsg_modal",null)) {
 				
@@ -609,12 +610,11 @@ app.controller('PrescribeSettingsController.AddAdvcieToSettings', function($scop
 				$scope.error = true;
 			}
 		
-		}
     };
     
     $scope.getAdvcieName = function(term) {
         
-    	var dataString = 'query=9'+ '&adviceName=' + term + '&lang=' + $scope.type;
+    	var dataString = 'query=9'+ '&queryString=' + term + '&lang=' + $scope.type;
         
         return $http({
             method: 'POST',
@@ -622,8 +622,8 @@ app.controller('PrescribeSettingsController.AddAdvcieToSettings', function($scop
             data: dataString,
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function(result) {
-        	$scope.invNameData = result.data;
-        	return limitToFilter($scope.invNameData, 10);
+        	$scope.adviceNameData = result.data;
+        	return limitToFilter($scope.adviceNameData, 10);
         });
 
         
@@ -631,8 +631,7 @@ app.controller('PrescribeSettingsController.AddAdvcieToSettings', function($scop
       };
       
 	  $scope.onSelectAdviceName = function(item, model, label){
-		  $scope.adviceAdderData.advcieID = item.id;
-		  $scope.addByName = true;
+		  $scope.name = item.advice;
 	  };
     
 
