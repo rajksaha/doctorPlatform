@@ -245,7 +245,7 @@ app.controller('PrescribeSettingsController', function($scope, $http, $modal, $r
 	
 });
 
-app.controller('PrescribeSettingsController.AddDrugsToSettings', function($scope, $modalInstance, data, $http, $window, $location, JsonService) {
+app.controller('PrescribeSettingsController.AddDrugsToSettings', function($scope, $modalInstance, data, $http, $window, $location, JsonService,limitToFilter) {
 	
 	
 	$scope.drugTypeList =[];
@@ -434,7 +434,7 @@ app.controller('PrescribeSettingsController.AddDrugsToSettings', function($scope
 	
 	
 	$scope.cancelDrugSetting = function (){
-		$modalInstance.close();
+		$modalInstance.dismiss('cancel');
 	};
 	
 	$scope.saveDrugSetting = function (){
@@ -443,7 +443,7 @@ app.controller('PrescribeSettingsController.AddDrugsToSettings', function($scope
 			
 				
 				var drugType = $scope.drugData.drugType.id;
-				var drugname =  $(".drugAdderName").val();
+				var drugname =  $scope.drugData.drugName;
 				
 				var drugTime = $scope.drugData.timesADay.code;
 				var drugDose = "";
@@ -503,64 +503,145 @@ app.controller('PrescribeSettingsController.AddDrugsToSettings', function($scope
 		}
 	};
 	
+	$scope.getDrugName = function(term) {
+        
+    	var dataString = 'query=4'+ '&drugName=' + term + '&drugType=' + $scope.drugData.drugType.id;
+        
+        return $http({
+            method: 'POST',
+            url: "phpServices/prescriptionSetting/prescriptionSetting.php",
+            data: dataString,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).then(function(result) {
+        	$scope.drugNameList = result.data;
+        	return limitToFilter($scope.drugNameList, 10);
+        });
+
+        
+       // return $scope.products;
+      };
+      
+	  $scope.onSelectDrugName = function(item, model, label){
+		  $scope.drugData.drugID = item.drugID;
+		  $scope.drugData.drugName = item.drugName;
+		  $scope.drugData.delDrug = true;
+		  $scope.drugData.editName = true;
+	  };
+	
 	
 });
 
-app.controller('PrescribeSettingsController.AddInvToSettings', function($scope, $modalInstance, data, $http, $window, $location) {
+app.controller('PrescribeSettingsController.AddInvToSettings', function($scope, $modalInstance, data, $http, $window, $location,limitToFilter) {
 	
 	$scope.postData = data;
 	$scope.postData.note = "";
 	
 	$scope.createInvSetting = function (){
 		
-		
-		var dataString = "query=6" + '&diseaseID=' + $scope.postData.prescription.diseaseID + '&doctorID=' + $scope.postData.prescription.doctorID + "&invName=" + $(".adderNameInv").val() + "&note=" + $scope.postData.note;
+		if(validator.validateForm("#validateReq","#lblMsg_modal",null)) {
+			var dataString = "query=6" + '&diseaseID=' + $scope.postData.prescription.diseaseID + '&doctorID=' + $scope.postData.prescription.doctorID + "&invName=" + $scope.postData.invName + "&note=" + $scope.postData.note;
 
-        $http({
+	        $http({
+	            method: 'POST',
+	            url: "phpServices/prescriptionSetting/prescriptionSetting.php",
+	            data: dataString,
+	            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+	        }).success(function (result) {
+	        	$modalInstance.close();
+	        });
+		}else{
+			$scope.error = true;
+		}
+		
+        
+    };
+    
+    $scope.getInvNameForMaster = function(term){
+		
+		
+		var dataString = 'query=8'+ '&queryString=' + term;
+        
+        return $http({
             method: 'POST',
             url: "phpServices/prescriptionSetting/prescriptionSetting.php",
             data: dataString,
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-        }).success(function (result) {
-        	$modalInstance.close();
+        }).then(function(result) {
+        	$scope.invsttingNameData = result.data;
+        	return limitToFilter($scope.invsttingNameData, 10);
         });
-        
-    };
-    
-
+	};
+	
+	$scope.onSelectInvNameMaster = function (item, model, label){
+	};
 	
 	$scope.cancel = function (){
-		$modalInstance.close();
+		$modalInstance.dismiss('cancel');
 	};
 	
 	
 });
 
-app.controller('PrescribeSettingsController.AddAdvcieToSettings', function($scope, $modalInstance, data, $http, $window, $location) {
+app.controller('PrescribeSettingsController.AddAdvcieToSettings', function($scope, $modalInstance, data, $http, $window, $location,limitToFilter) {
 	
 	$scope.postData = data;
 	
 	$scope.saveNewAdviceSetting = function (){
 		
 		
-		var dataString = "query=7" + '&diseaseID=' + $scope.postData.prescription.diseaseID + '&doctorID=' + $scope.postData.prescription.doctorID + "&adviceName=" + $(".adderNameAdvice").val();
+		$scope.createInvSetting = function (){
+			
+			if(validator.validateForm("#validateReq","#lblMsg_modal",null)) {
+				
+			
+				var dataString = "query=7" + '&diseaseID=' + $scope.postData.prescription.diseaseID + '&doctorID=' + $scope.postData.prescription.doctorID + "&adviceName=" + $scope.name;
 
-        $http({
+		        $http({
+		            method: 'POST',
+		            url: "phpServices/prescriptionSetting/prescriptionSetting.php",
+		            data: dataString,
+		            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+		        }).success(function (result) {
+		        	$modalInstance.close();
+		        });
+		        
+			}else{
+				$scope.error = true;
+			}
+		
+		}
+    };
+    
+    $scope.getAdvcieName = function(term) {
+        
+    	var dataString = 'query=9'+ '&adviceName=' + term + '&lang=' + $scope.type;
+        
+        return $http({
             method: 'POST',
             url: "phpServices/prescriptionSetting/prescriptionSetting.php",
             data: dataString,
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-        }).success(function (result) {
-        	$modalInstance.close();
+        }).then(function(result) {
+        	$scope.invNameData = result.data;
+        	return limitToFilter($scope.invNameData, 10);
         });
+
         
-    };
+       // return $scope.products;
+      };
+      
+	  $scope.onSelectAdviceName = function(item, model, label){
+		  $scope.adviceAdderData.advcieID = item.id;
+		  $scope.addByName = true;
+	  };
     
 
 	
 	$scope.cancel = function (){
-		$modalInstance.close();
+		$modalInstance.dismiss('cancel');
 	};
+	
+	
 	
 	
 });
@@ -568,7 +649,7 @@ app.controller('PrescribeSettingsController.AddAdvcieToSettings', function($scop
 
 
 
-function lookupDrug(inputString) {
+/*function lookupDrug(inputString) {
 	if(inputString.length == 0) {
 		$('.drugSuggetionBox').fadeOut(); // Hide the suggestions box
 	} else {
@@ -636,4 +717,4 @@ function autocompleteAdvice(dataString) {
 	$('.adderNameAdvice').val(dataString);
 	$('.suggetionBoxAdvice').fadeOut();
 	$('.suggetionBoxAdvice').hide();
-}
+}*/

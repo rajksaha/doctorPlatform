@@ -11,7 +11,7 @@
     	<div  class="row step4Width" id="validateReq">
    			<div class="form-group col-xs-12 col-sm-12">
    				<label>Language: <span class="red" >*</span></label>
-   				<select id="langSelector" class="form-control">
+   				<select id="langSelector" class="form-control" data-ng-model="type">
                  	<option value="0" selected="selected">English</option>
                  	<option value="1" >Bangla</option>
                  </select>
@@ -19,13 +19,12 @@
 			
 			<div class="form-group col-xs-12 col-sm-12" >
 				<label>Advice:</label> 
-				<input type='text'  data-ng-model="adviceName" class='adderNameAdvice form-control input-sm required' onkeyup='lookupAdvice(this.value)' errmsg="Please Enter Advcie"/>
-				<div class='suggetionBoxAdvice' ></div>
+				<input type="text" data-ng-model="name" typeahead="adviceNameData.advice for adviceNameData in getAdvcieName($viewValue)"  class="form-control" placeholder="Add advice to Setting" typeahead-on-select='onSelectAdviceName($item, $model, $label)'/>
 			</div>
     	</div>
 	
 </div>
 <div class="modal-footer modalFoot">
-	<button class="btn btnLanier btn-success" data-ng-click="saveNewAdviceSetting()" ><i class="fa"></i> Save</button>
-	<button class="btn btnLanier btn-warning" data-ng-click="cancel()" ><i class="fa"></i> Cancel</button>
+	<button class="btn btnLanier btn-success" data-ng-click="saveNewAdviceSetting()" ><span class="glyphicons glyphicon glyphicon-floppy-save" aria-hidden="true"></span> Save</button>
+	<button class="btn btnLanier btn-danger" data-ng-click="cancel()" ><span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span> Cancel</button>
 </div>

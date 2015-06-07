@@ -1,5 +1,5 @@
 <div class="modal-header modalHead ">
-	<h4 class="modal-title">Add New Patient</h4>
+	<h4 class="modal-title">Add Inv To Settings</h4>
 </div>
 <div class="modal-body modalBody"  style="position:relative; z-index:1;">
 	<div class="alert alert-danger alert-dismissable" data-ng-show="error">
@@ -11,8 +11,7 @@
     	<div  class="row step4Width" id="validateReq">
    			<div class="form-group col-xs-12 col-sm-12">
    				<label>Inv Name: <span class="red" >*</span></label>
-   				<input type='text'  data-ng-model="invName" class='adderNameInv form-control input-sm required' onkeyup='lookupInv(this.value)' errmsg="Please select Inv"/>
-				<div class='suggetionBoxInv' ></div>
+   				<input maxlength="100" errmsg="Please Select Inv Name" type="text" data-ng-model="postData.invName" typeahead="invsttingNameData.name for invsttingNameData in getInvNameForMaster($viewValue)"  class="form-control required" placeholder="Add Inv to Prescriotion" typeahead-on-select='onSelectInvNameMaster($item, $model, $label)'/>
 			</div>
 			
 			<div class="form-group col-xs-12 col-sm-12" >
@@ -23,6 +22,6 @@
 	
 </div>
 <div class="modal-footer modalFoot">
-	<button class="btn btnLanier btn-success" data-ng-click="createInvSetting()" ><i class="fa"></i> Save</button>
-	<button class="btn btnLanier btn-warning" data-ng-click="cancel()" ><i class="fa"></i> Cancel</button>
+	<button class="btn btnLanier btn-success" data-ng-click="createInvSetting()" ><span class="glyphicons glyphicon glyphicon-floppy-save" aria-hidden="true"></span> Save</button>
+	<button class="btn btnLanier btn-danger" data-ng-click="cancel()" ><span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span> Cancel</button>
 </div>

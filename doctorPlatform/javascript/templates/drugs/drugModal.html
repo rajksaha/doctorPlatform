@@ -14,7 +14,7 @@
 	   				<label>Type </label>
 	   				<select  class="form-control" id="drugTypeAdder" data-ng-model="drugData.drugType" data-ng-change="fixDose(drugData.timesADay,drugData.drugType, 0)" data-ng-options="drugType.name for drugType in drugTypeList" />
 				</div>
-				<div class="form-group col-xs-8 col-sm-8">
+				<div class="form-group col-xs-8 col-sm-8" id="drugName">
 	   				<label>Drug Name <span class="red" >*</span></label> 
 					<input type="text" errmsg="Please Enter Drug Name" data-ng-model="drugData.drugName" typeahead="drugNameList.displayName for drugNameList in getDrugName($viewValue)"  class="form-control required" placeholder="Add Drugs" typeahead-on-select='onSelectDrugName($item, $model, $label)'/>
 					<span id="drugDelete" data-ng-show="drugData.editName" ><a class="btn btn-danger btn-sm btnLanier"
@@ -111,6 +111,6 @@
 	
 </div>
 <div class="modal-footer modalFoot">
-	<button class="btn btnLanier btn-success" data-ng-click="saveDrug()" ><i class="fa"></i> Save</button>
-	<button class="btn btnLanier btn-warning" data-ng-click="cancelDrug()" ><i class="fa"></i> Cancel</button>
+	<button class="btn btnLanier btn-success" data-ng-click="saveDrug()" ><span class="glyphicons glyphicon glyphicon-floppy-save" aria-hidden="true"></span> Save</button>
+	<button class="btn btnLanier btn-danger" data-ng-click="cancelDrug()" ><span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span> Cancel</button>
 </div>

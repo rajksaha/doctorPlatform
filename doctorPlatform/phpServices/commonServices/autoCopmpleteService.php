@@ -2,24 +2,16 @@
 
 function getdrugList($queryString, $drugType){
 	
-	$sql ="SELECT d.`drugID`, d.`typeID`, d.`companyID`, d.`drugName`, d.`strength`
-			FROM `drug` d
+	$sql ="SELECT d.`drugID`, d.`typeID`, d.`companyID`, CONCAT(d.drugName, ' - ',  d.`strength`) As displayName, d.drugName
+			FROM `drug` d 
 			WHERE d.`drugName` LIKE '" . $queryString . "%' AND d.typeID = '$drugType'
-				LIMIT 10";
+			LIMIT 10";
 	$result=mysql_query($sql);
-	$data ="<p id='searchresults'>";
-	
-	while($row=  mysql_fetch_array($result)){
-		$name = $row['drugName'];
-		$str = $row['strength'];
-		$display = "$name - $str";
-		$data.= '<a href="javascript:autocompleteDrugs(\''.$name.'\')">';
-			
-		$data.= '<span class="searchheading">'.$display.'</span>';
+	 $data = array();
+	while ($row=mysql_fetch_array($result)){
+		array_push($data,$row);
 	}
-	
-	$data.= "</p>";
-	echo $data;
+	echo json_encode($data);
 }
 
 function getDiseaseList($queryString){
@@ -37,22 +29,16 @@ function getDiseaseList($queryString){
 function getInvList($queryString){
 	
 	$sql = "SELECT i.`id` , i.`name`
-	FROM `inv` i
-	WHERE i.`name` LIKE '" . $queryString . "%' LIMIT 10";
-	
-	$result = mysql_query($sql);
-	$data ="<p id='searchresults'>";
+			FROM `inv` i
+			WHERE i.`name` LIKE '" . $queryString . "%' LIMIT 10";
 
-	while($row1=  mysql_fetch_array($result)){
-		$name=$row1['name'];
-			
-		$data.= '<a href="javascript:autocompleteInv(\''.$name.'\')">';
-			
-		$data.= '<span class="searchheading">'.$name.'</span>';
+	$result=mysql_query($sql);
+	$data = array();
+	while ($row=mysql_fetch_array($result)){
+		array_push($data,$row);
 	}
 
-	$data.= "</p>";
-	echo $data;
+	echo json_encode($data);
 }
 
 function getInvListForSetting($queryString){

@@ -1236,10 +1236,12 @@ app.controller('PrescriptionController.PrescribeDrugsController', function($scop
 	
 	$scope.saveDrug = function() {
 		
-		if(validator.validateForm("#validateReq","#lblMsg_modal",null)) {
+		if($scope.drugData.drugName) {
 				$scope.prepareDrugSaveData();
 		}else{
-			$scope.error = true; 
+			$scope.errorMessage = "Please Select Drug Name"; 
+			$scope.error = true;
+			$("#drugName").addClass('has-error');
 		}
 		
 		
