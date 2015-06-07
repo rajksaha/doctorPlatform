@@ -55,12 +55,12 @@
 			
 			<div class="col-md-2 patinetInfo form-group">
 				<span data-ng-show="!patientInfoEdit">Phone: {{patientData.phone}}</span>
-				<input data-ng-show="patientInfoEdit" data-ng-model="patientData.phone" class="form-control phnnr" maxlength="16"/>
+				<input data-ng-show="patientInfoEdit" data-ng-model="patientData.phone" class="form-control phnnr" maxlength="16" placeholder="Phone"/>
 			</div>
 			
 			<div class="col-md-2 patinetInfo form-group">
 				<span data-ng-show="!patientInfoEdit" >Address: {{patientData.address}}</span>
-				<input data-ng-show="patientInfoEdit" data-ng-model="patientData.address" class="form-control" maxlength="100" />
+				<input data-ng-show="patientInfoEdit" data-ng-model="patientData.address" class="form-control" maxlength="100" placeholder="Address" />
 			</div>
 			
 			<div class="col-md-2 patinetInfo form-group">
