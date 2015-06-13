@@ -102,14 +102,26 @@ else if($query_no==4){
 	
 	$nextVisitDate = mysql_real_escape_string($_POST['nextVisitDate']);
 	
-	$sql = mysql_query("UPDATE `next_visit` SET `date`= '$nextVisitDate' WHERE appointmentID = '$appointmentNO'");
+	$numOfDay = $_POST['numOfDay'];
+	$dayType = $_POST['dayType'];
+	$nextVisitType = $_POST['nextVisitType'];
+	
+	$sql = mysql_query("UPDATE `next_visit` SET `date`= '$nextVisitDate', `nextVisitType`='$nextVisitType',`numOfDay`='$numOfDay',`dayType`='$dayType' WHERE appointmentID = '$appointmentNO'");
+	
+	
 	
 	
 }elseif ($query_no == 8){
 	
 	$nextVisitDate = mysql_real_escape_string($_POST['nextVisitDate']);
 	
-	$sql = mysql_query("INSERT INTO `next_visit`(`appointmentID`, `date`) VALUES ('$appointmentNO',DATE('$nextVisitDate'))");
+	$numOfDay = $_POST['numOfDay'];
+	$dayType = $_POST['dayType'];
+	$nextVisitType = $_POST['nextVisitType'];
+	
+	$sql = mysql_query("INSERT INTO `next_visit`(`appointmentID`, `nextVisitType`, `date`, `numOfDay`, `dayType`) VALUES ('$appointmentNO','$nextVisitType', 'DATE('$nextVisitDate')', '$numOfDay','$dayType')");
+	
+	echo "INSERT INTO `next_visit`(`appointmentID`, `nextVisitType`, `date`, `numOfDay`, `dayType`) VALUES ('$appointmentNO','$nextVisitType', 'DATE('$nextVisitDate')', '$numOfDay','$dayType')";
 }
 elseif ($query_no == 9){
 

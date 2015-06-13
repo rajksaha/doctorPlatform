@@ -149,13 +149,8 @@ app.controller('PrescribeVitalController', function($scope, $http, $modal, $root
 		}else if(vital.optionSelector.vitalOptionID == -2){
 			vital.optionListON = false;
 		}else{
-			if(vital.vitalResult){
-				vital.vitalResult = vital.vitalResult + "," + vital.optionSelector.name;
-				vital.optionListON = false;
-			}else{
-				vital.vitalResult = vital.optionSelector.name;
-				vital.optionListON = false;
-			}
+			vital.vitalResult = vital.optionSelector.name;
+			vital.optionListON = false;
 		}
 	};
 	

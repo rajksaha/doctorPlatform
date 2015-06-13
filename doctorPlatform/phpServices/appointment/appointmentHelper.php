@@ -89,5 +89,28 @@ else if($query_no==4){
 	echo json_encode($data); 
 }else if($query_no==6){
 	session_destroy();
+	
+}else if($query_no==7){
+	$queryString=$_POST['data'];
+	$sql ="SELECT `patientID`, `patientCode`, `name`, `age`, `sex`, `address`, `phone` FROM `patient` WHERE patientCode LIKE '" . $queryString . "%' LIMIT 10";
+	$result=mysql_query($sql);
+	//echo $sql;
+	 $data = array();
+	while ($row=mysql_fetch_array($result)){
+		array_push($data,$row);
+	}
+	echo json_encode($data); 
+	
+	
+}else if($query_no==8){
+	$queryString=$_POST['data'];
+	$sql ="SELECT `patientID`, `patientCode`, `name`, `age`, `sex`, `address`, `phone` FROM `patient` WHERE phone LIKE '" . $queryString . "%' LIMIT 10";
+	$result=mysql_query($sql);
+	//echo $sql;
+	 $data = array();
+	while ($row=mysql_fetch_array($result)){
+		array_push($data,$row);
+	}
+	echo json_encode($data); 
 }
 ?>

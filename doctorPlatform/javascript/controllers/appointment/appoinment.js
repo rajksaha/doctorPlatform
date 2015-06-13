@@ -130,6 +130,66 @@ app.controller('AppointmentController', function($scope, $http, $modal, $rootSco
     	  $scope.addAppointMentData.patientCode = item.patientCode;
     	  $scope.addByName = true;
       };
+      $scope.onSelectNamePatientCode = function(item, model, label){
+    	  $scope.addAppointMentData.patientCode = item.patientCode;
+    	  $scope.addByCode = true;
+      };
+      $scope.onSelectPhonePatientPhone = function(item, model, label){
+    	  $scope.addAppointMentData.patientCode = item.patientCode;
+    	  $scope.addByID = true;
+      };
+      
+      $scope.getPatientsByCode = function(term) {
+          
+    	  var str = "" + $scope.doctorData.personCodeInitial;
+    	  $doctorCodeinitial =    str.substring(0, 4);
+    	  
+    	  var data = ""+ $doctorCodeinitial + term;
+    	  
+          var  dataString='data='+  data +'&query='+7;
+          
+          return $http({
+              method: 'POST',
+              url: "phpServices/appointment/appointmentHelper.php",
+              data: dataString,
+              headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+          }).then(function(result) {
+          	$scope.patients = result.data;
+          	
+          	angular.forEach($scope.patients, function(value, key) {
+    			value.displayCode = value.patientCode.substring(4, 9);
+    		});
+          	return limitToFilter($scope.patients, 10);
+          });
+
+          
+         // return $scope.products;
+        };
+        
+        $scope.getPatientsByPhone = function(term) {
+            
+      	  
+      	  
+            var  dataString='data='+  term +'&query='+8;
+            
+            return $http({
+                method: 'POST',
+                url: "phpServices/appointment/appointmentHelper.php",
+                data: dataString,
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            }).then(function(result) {
+            	$scope.patients = result.data;
+            	return limitToFilter($scope.patients, 10);
+            });
+
+            
+           // return $scope.products;
+          };
+        
+        /*$scope.onSelectNamePatientCode = function(item, model, label){
+      	  $scope.addAppointMentData.patientCode = item.patientCode;
+      	  $scope.addByName = true;
+        };*/
       
       $scope.onSelectPhonePatient = function(item, model, label){
     	  $scope.addAppointMentData.patientCode = item.patientCode;
@@ -151,6 +211,12 @@ app.controller('AppointmentController', function($scope, $http, $modal, $rootSco
              data: dataString,
              headers: {'Content-Type': 'application/x-www-form-urlencoded'}
          }).then(function(result) {
+        	 $scope.addByCode = false;
+        	 $scope.addByName = false;
+        	 $scope.addByID = false;
+        	 $scope.patientCode = "";
+        	 $scope.patientName = "";
+        	 $scope.patientPhone = "";
         	 $scope.bringAppointment();
          });
      };

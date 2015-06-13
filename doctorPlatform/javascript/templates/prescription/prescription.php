@@ -1,12 +1,12 @@
 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-	<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+	<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
 		
 		<label class="headerText" >Visit Type</label>
 		<span data-ng-repeat="patientState in patientStateList" style="padding-left: 10px">
-			<input type="checkbox" data-ng-model="patientState.patientStateData" data-ng-checked="appoinmentData.appointmentType == patientState.id" data-ng-change="changePatientState(patientState)"> {{patientState.name}}
+			<input type="checkbox" data-ng-if="$index > 1" data-ng-model="patientState.patientStateData" data-ng-checked="appoinmentData.appointmentType == patientState.id" data-ng-change="changePatientState(patientState)"> <span data-ng-if="$index > 1"> {{patientState.name}}</span>
 		</span>
 	</div>
-	<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="padding-top: 5px;padding-bottom: 5px">
+	<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" style="padding-top: 5px;padding-bottom: 5px">
 		<button style="padding-left:12px;" class="btn btn-info  pull-right" data-ng-click="menuState = !menuState"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Menu</button>
 		<a style="padding-left:12px;" class="btn btn-info  pull-right" href="#/appointment"><span class="glyphicon glyphicon-th-list" aria-hidden="true"> Appointment</span></a>
 		<button data-ng-show="doctorData.category == 8" style="padding-left:12px;" class="btn btn-info pull-right" data-ng-click="patientSetting = !patientSetting"><span class="glyphicon glyphicon glyphicon-wrench" aria-hidden="true"></span> Patient Type</button>
@@ -103,12 +103,30 @@
     		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding-top: 5px">
 	             	<div class="panel">	                 
 						<div class="prescriptionPanel-body">
-							<div class="form-group"><label>Next Vist</label></div>
-							<div class="input-group input-group-sm">
+							<div class="form-group">
+								<label>Next Vist</label> 
+								<span class="pull-right">
+									<button class="btn btn-info btn-sm" data-ng-show="nextVisitData.nextVisitType != 2" data-ng-click="nextVisitData.nextVisitType = 2;nextVisitData.needSaveButton = true">By Day</button>
+									<button class="btn btn-info btn-sm" data-ng-show="nextVisitData.nextVisitType == 2" data-ng-click="nextVisitData.nextVisitType = 1">By Date</button>
+								</span>
+							</div>
+							<div class="input-group input-group-sm" data-ng-show="nextVisitData.nextVisitType != 2">
 								<input type="text"  class="form-control date" id="txtStartDate" placeholder="Next Visit Date" ng-change="fixNextVisit()" datepicker-popup="dd/MM/yyyy" close-text="Close" ng-model="nextVisitData.date" is-open="false"/>
 								<span  class="input-group-addon" > 
 									<i class="glyphicon glyphicon-calendar" ></i> 
 								</span>
+							</div>
+							
+							<div class="form-group" data-ng-show="nextVisitData.nextVisitType == 2" >
+								<label>After:</label> 
+								<button class="btn btnLanier btn-success pull-right" data-ng-show="nextVisitData.needSaveButton" title="Save" data-ng-show="true" data-ng-click="fixNextVisit()">
+									<span class="glyphicons glyphicon glyphicon-floppy-save" aria-hidden="true"></span>
+								</button>
+								<select class="form-control"  data-ng-model="nextVisitData.numOfDay"  data-ng-options="drugDay.name for drugDay in dayList" data-ng-change="nextVisitData.needSaveButton = true">
+								</select>
+								<select class="form-control"   data-ng-model="nextVisitData.dayType" data-ng-options="drugTime.english for drugTime in dayTypeList" data-ng-change="nextVisitData.needSaveButton = true">
+								</select>
+								
 							</div>
 						</div>
 					</div>
@@ -372,10 +390,10 @@
 													<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 												</button>
 										</td>
-										<td style="width: 15%">
-											<span>{{drugPres.typeInitial}}. {{drugPres.drugName}} </span>
+										<td style="width: 20%">
+											<span>{{drugPres.typeInitial}}. {{drugPres.drugName}} - {{drugPres.drugStrength}}</span>
 										</td>
-										<td  style="width: 20%">
+										<td  style="width: 15%">
 											<span>{{drugPres.drugDose}}</span>
 										</td>
 										<td style="width: 15%" ng-if="drugPres.drugNoOfDay > 0">

@@ -524,6 +524,7 @@ app.controller('PrescribeSettingsController.AddDrugsToSettings', function($scope
 	  $scope.onSelectDrugName = function(item, model, label){
 		  $scope.drugData.drugID = item.drugID;
 		  $scope.drugData.drugName = item.drugName;
+		  $scope.drugData.drugStr = item.strength;
 		  $scope.drugData.delDrug = true;
 		  $scope.drugData.editName = true;
 	  };

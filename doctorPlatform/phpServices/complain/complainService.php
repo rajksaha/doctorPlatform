@@ -37,8 +37,8 @@ if($query_no==1){
 	$symptomID = getSymptomIDByName($symptomName);
 	$durationNum=$dataObject->numOfDay;
 	$durationType=$dataObject->dayType;
-	$detail=$dataObject->note;
 	$complainPrescribeID=$dataObject->complainPrescribeID;
+	$detail = "";
 	
 	if($complainPrescribeID != 0){
 		mysql_query("UPDATE `complain` SET `symptomID`= '$symptomID',`durationNum`= '$durationNum',`durationType`='$durationType',`detail`='$detail' WHERE `id` = '$complainPrescribeID'");
@@ -46,7 +46,7 @@ if($query_no==1){
 		insertPrescribedCC($appointmentID, $symptomID, $durationNum, $durationType , $detail);
 	}
 	
-	
+	echo $durationNum;
 	
 	
 	

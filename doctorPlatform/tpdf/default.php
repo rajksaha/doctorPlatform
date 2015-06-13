@@ -79,7 +79,7 @@ function Show_med($appointmentID, $xAxis, $yAxis, $size){
 		
 	}
 	
-	$nameCell = 40;
+	$nameCell = 50;
 	$doseeCell = 25;
 	$durationCell = 70;
 	$whenCell = 15;
@@ -116,6 +116,7 @@ function Show_med($appointmentID, $xAxis, $yAxis, $size){
 			$drugDoseInitial = str_replace("puff","cvd", $drugDoseInitial);
 			$drugDoseInitial = str_replace("d","WÂªc", $drugDoseInitial);
 		}
+		
 		if($drugDoseInitial == ""){
 			
 			$this->MultiCell($doseeCell,5,"$drugDose");
@@ -244,14 +245,32 @@ function Show_advice($appointmentID,$xAxis,$yAxis,$size,$maxX){
 
 function show_nextVisit($appointmentID,$xAxis,$yAxis,$size){
 	
-	$this->SetFont('Times','',$size);
+	$this->SetFont('prolog','',$size);
 	
 	$resultData = getPrescribedNextVisit($appointmentID);
 	
 	$rec = mysql_fetch_assoc($resultData);
 	
+	$nextVisitType = $rec['nextVisitType'];
+	
 	$this->SetXY($xAxis, $yAxis);
-	$this->MultiCell(30,5, $rec['date']);
+	
+	if($nextVisitType == 2){
+		
+		
+		$numOfday = $rec['numOfDay'];
+		$dayType = $rec['pdf'];
+		
+		$this->MultiCell(60,5, "$numOfday - $dayType ci Avevi Avm‡eb |");
+	}else{
+		$date = $rec['date'];
+		$newDate = date("d-m-Y", strtotime($date));
+		$this->MultiCell(60,5, "$newDate Zvwi‡L Avevi Avm‡eb |");
+	}
+	
+	
+	
+	
 	
 }
 
@@ -263,8 +282,11 @@ function show_ref_doc($appointmentID,$xAxis,$yAxis,$size){
 	
 	$rec = mysql_fetch_assoc($resultData);
 	
-	$this->SetXY($xAxis, $yAxis);
-	$this->MultiCell(50,5, $rec['doctorName'] . "-" . $rec['doctorAdress']);
+	if($rec['doctorName'] != ""){
+		$this->SetXY($xAxis, $yAxis);
+		$this->MultiCell(50,5, $rec['doctorName'] . "-" . $rec['doctorAdress']);
+	}
+	
 }
 
 function Show_History($appointmentID,$xAxis,$yAxis, $maxX , $size, $typeCode){

@@ -22,10 +22,10 @@ function getDiseasIDByName($diseaseName){
 	
 }
 
-function getDrugIDByName($drugNameStr, $drugType){
+function getDrugIDByName($drugNameStr, $drugType, $drugStr){
 
 
-	$rec = mysql_query("SELECT `drugID` FROM `drug` WHERE `drugName` = '$drugNameStr'");
+	$rec = mysql_query("SELECT `drugID` FROM `drug` WHERE `drugName` = '$drugNameStr' AND strength = '$drugStr'");
 	$result = mysql_fetch_assoc($rec);
 
 	if($result['drugID'] != null && $result['drugID'] > 0){

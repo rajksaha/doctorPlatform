@@ -3,7 +3,7 @@
 		<span class="headerText">Old Presriptions</span>
 	</div>
 	<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-		<span class="headerText" data-ng-show="showPrescriptionView" >Visit Date: {{prescriptionViewDate | date:'d-M-yyyy'}}</span>
+		<span class="headerText" data-ng-show="showPrescriptionView" >Visited Date: {{prescriptionViewDate | date:'d-M-yyyy'}}</span>
 	</div>
 	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 		<span class="pull-right">
@@ -79,7 +79,7 @@
 							<div class="" data-ng-repeat="data in oldAppoinmentList" >
 								<div class="panelChild-body form-group" data-ng-click="viewPrescription(data)">
 									<span class="textSpc">{{data.date | date:'d-M-yyyy'}}</span>
-									<span class="textSpc pull-right">{{appointmentData.appointmentTypeName}}</span>
+									<span class="textSpc pull-right">{{data.appointmentTypeName}}</span>
 								</div>
 							</div>
 						</div>

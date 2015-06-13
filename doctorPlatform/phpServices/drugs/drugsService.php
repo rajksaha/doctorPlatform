@@ -74,8 +74,9 @@ if($query_no== 1){
 	
 	
 	$drugType = $_POST['drugType'];
+	$drugStr = $_POST['drugStr'];
 	$drugName = $_POST['drugName'];
-	$drugID = getDrugIDByName($drugName, $drugType);
+	$drugID = getDrugIDByName($drugName, $drugType,$drugStr);
 	$drugTime = $_POST['drugTime'];
 	$drugDose = $_POST['drugDose'];
 	$doseUnit = $_POST['doseUnit'];
@@ -103,8 +104,9 @@ else if($query_no==4){
 	
 	$drugPrescribeID = $_POST['drugPrescribeID'];
 	$drugType = $_POST['drugType'];
+	$drugStr = $_POST['drugStr'];
 	$drugName = $_POST['drugName'];
-	$drugID = getDrugIDByName($drugName, $drugType);
+	$drugID = getDrugIDByName($drugName, $drugType, $drugStr);
 	$drugTime = $_POST['drugTime'];
 	$drugDose = $_POST['drugDose'];
 	$doseUnit = $_POST['doseUnit'];
@@ -139,7 +141,7 @@ else if($query_no==4){
 	$queryString=$_POST['drugName'];
 	$drugType = $_POST['drugType'];
 	
-	$sql ="SELECT d.`drugID`, d.`typeID`, d.`companyID`, CONCAT(d.drugName, ' - ',  d.`strength`) As displayName, d.drugName
+	$sql ="SELECT d.`drugID`, d.`typeID`, d.`companyID`, CONCAT(d.drugName, ' - ',  d.`strength`) As displayName, d.drugName, d.`strength`
 			FROM `drug` d 
 			LEFT JOIN drug_prescription dp  ON d.drugID = dp.drugID AND dp.appointMentID = '$appointmentID' AND  IFNULL(dp.appointMentID , 0)  = 0
 			WHERE d.`drugName` LIKE '" . $queryString . "%' AND d.typeID = '$drugType'
@@ -174,6 +176,8 @@ else if($query_no==4){
 	
 	$sql ="DELETE FROM `drug` WHERE `drugID` = '$drugID'";
 	mysql_query($sql);
+	
+	mysql_query("DELETE FROM `drug_prescription` WHERE `drugID` = '$drugID'");
 }elseif ($query_no == 11){
 	
 	$drugID = $_POST['drugID'];
