@@ -211,7 +211,7 @@ app.controller('PrescribeDrugsController', function($scope, $http, $modal, $root
 		var drugNoOfDay = "";
 		var drugDayType = 6;
 		if(drugTime != -1){
-			if($scope.drugData.dayType.id != 5){
+			if($scope.drugData.dayType.id != 5 ){
 				drugNoOfDay = $scope.drugData.numOFDay.value;
 			}
 			drugDayType = $scope.drugData.dayType.id;

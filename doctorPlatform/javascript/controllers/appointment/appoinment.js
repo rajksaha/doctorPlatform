@@ -56,16 +56,12 @@ app.controller('AppointmentController', function($scope, $http, $modal, $rootSco
     	var modalInstance = $modal.open({
             templateUrl: 'javascript/templates/appointment/addNewPatient.html',
             windowClass: 'fade in',
-            
             controller: 'AppointmentController.AddNewPatientController',
             resolve: {
             	data: function () {
-                    return {
-                    	addAppointAdderData
-                    };
+                    return addAppointAdderData;
                 }
-            },
-            backdrop: 'static'
+            }
         });
         modalInstance.result.then(function(result) {
         	$scope.bringDoctorInfo();
@@ -262,7 +258,7 @@ app.controller('AppointmentController.AddNewPatientController', function($scope,
 	$scope.createNewPatient = function (){
 		
 		if(validator.validateForm("#validateReq","#lblMsg_modal",null)) {
-			var dataString = 'doctorCode='+ data.addAppointAdderData.doctorCode + '&dotorPatInitial='+ data.addAppointAdderData.personCodeInitial +'&doctorID='+ $scope.doctorData.doctorID +
+			var dataString = 'doctorCode='+ data.doctorCode + '&dotorPatInitial='+ data.personCodeInitial +'&doctorID='+ $scope.doctorData.doctorID +
 			'&name='+ $scope.patientData.name +'&age='+ $scope.patientData.age +'&address='+ $scope.patientData.address + '&sex=' + $scope.patientData.sex +'&phone='+ $scope.patientData.phone +'&query=2';
 
 	        $http({

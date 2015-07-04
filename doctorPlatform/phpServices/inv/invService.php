@@ -38,8 +38,8 @@ if($query_no== 0){
 			FROM `inv` i
 			JOIN doctor_inv_setteing dis ON i.id = dis.invID
 			LEFT JOIN inv_prescription ip ON dis.invID = ip.invID  AND ip.appointMentID = '$appointmentID'
-			AND dis.doctorID = '$doctorID' AND IFNULL( dis.id, 0 )
-			WHERE 1 = 1";
+			AND IFNULL( dis.id, 0 )
+			WHERE dis.doctorID = '$doctorID'";
 	
 	$result=mysql_query($sql);
 	$data = array();

@@ -104,7 +104,7 @@
 	             	<div class="panel">	                 
 						<div class="prescriptionPanel-body">
 							<div class="form-group">
-								<label>Next Vist</label> 
+								<label>Next Visit</label> 
 								<span class="pull-right">
 									<button class="btn btn-info btn-sm" data-ng-show="nextVisitData.nextVisitType != 2" data-ng-click="nextVisitData.nextVisitType = 2;nextVisitData.needSaveButton = true">By Day</button>
 									<button class="btn btn-info btn-sm" data-ng-show="nextVisitData.nextVisitType == 2" data-ng-click="nextVisitData.nextVisitType = 1">By Date</button>
