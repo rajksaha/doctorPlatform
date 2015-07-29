@@ -1,4 +1,4 @@
-app.controller('followUpChartController', function($scope, $http, $modal, $rootScope, limitToFilter, $location) {
+app.controller('FollowUpChartController', function($scope, $http, $modal, $rootScope, limitToFilter, $location) {
 	
 	$scope.invNameData = [];
 	$scope.invData = {};

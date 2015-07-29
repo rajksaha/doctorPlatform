@@ -1,4 +1,4 @@
-app.controller('FollowUpChartController', function($scope, $http, $modal, $rootScope, limitToFilter, $location, JsonService) {
+app.controller('PrescribeComplainController', function($scope, $http, $modal, $rootScope, limitToFilter, $location, JsonService) {
 	
 	$scope.symptom = {};
 	$scope.complainList = [];

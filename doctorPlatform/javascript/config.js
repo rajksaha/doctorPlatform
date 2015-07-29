@@ -451,7 +451,7 @@ app.config(function($stateProvider, $urlRouterProvider, $compileProvider, $contr
             views : {
                 'container@' : {
                     templateUrl : 'javascript/templates/drugAdvisor/drugAdvisor.html',
-                    controller : 'drugAdvisorController'
+                    controller : 'DrugAdvisorController'
                 }
             },
             resolve : {
