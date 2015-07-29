@@ -1,38 +1,26 @@
-app.controller('PrescribeComplainController', function($scope, $http, $modal, $rootScope, limitToFilter, $location, JsonService) {
+app.controller('DrugAdvisorController', function($scope, $http, $modal, $rootScope, limitToFilter, $location) {
 	
-	$scope.symptom = {};
-	$scope.complainList = [];
-	$scope.drugNumOfDayList = JsonService.fractionNumberList;
-	$scope.drugDayTypeList = JsonService.timesADay;
+	$scope.drugAdviceList = {};
 	
 	
 	$scope.init = function(){
-		$scope.bringdrugsDayType(true, null);
+		$scope.bringDrugAdviceList();
     };
     
-	$scope.bringdrugsDayType = function (addMood, selectedDayTypeID){
+	$scope.bringDrugAdviceList = function (){
 		
-		var dataString = "query=1";
+		
+		var dataString = {'data': 1, 'query': 1};
 
         $http({
             method: 'POST',
-            url: "phpServices/drugs/drugsService.php",
+            url: "phpServices/drugAdvisor/drugAdvisorHelper.php",
             data: dataString,
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            headers: {'Content-Type': 'application/json'}
         }).success(function (result) {
-        	$scope.drugDayTypeList = result;
-        	if(addMood){
-        		var data = {"title": "Symptom 1","numOfDay" : $scope.drugNumOfDayList[1], "dayType" : $scope.drugDayTypeList[0],"note" : ""};
-        		$scope.complainList.push(data);
-        		data = {"title": "Symptom 2","numOfDay" : $scope.drugNumOfDayList[1], "dayType" : $scope.drugDayTypeList[0],"note" :""};
-        		$scope.complainList.push(data);
-        		data = {"title": "Symptom 3","numOfDay" : $scope.drugNumOfDayList[1], "dayType" : $scope.drugDayTypeList[0],"note" :""};
-        		$scope.complainList.push(data);
-        		data = {"title": "Symptom 4","numOfDay" : $scope.drugNumOfDayList[1], "dayType" : $scope.drugDayTypeList[0],"note" :""};
-        		$scope.complainList.push(data);
-        		
-        	}else{
-        	}
+        	
+        	$scope.drugAdviceList = result;
+        	
         	
         });
 		

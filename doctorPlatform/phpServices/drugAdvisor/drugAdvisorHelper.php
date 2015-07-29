@@ -20,14 +20,22 @@ $query_no = $dataObject->query;
 
 if($query_no==1){
 	
-	$queryString=$dataObject->data;
-	$sql ="SELECT `symptomID`, `name` FROM `symptom` WHERE name LIKE '" . $queryString . "%' LIMIT 10";
+	$sql = "SELECT dat.id AS drugAdviceID, dat.bangla, dat.english, dat.pdf
+			FROM `drugAdviceType` dat
+			WHERE dat.doctorType =0
+			UNION
+			SELECT dat.id AS drugAdviceID, dat.bangla, dat.english, dat.pdf
+			FROM `drugAdviceType` dat
+			LEFT JOIN doctorsettings ds ON dat.doctorType = ds.category
+			JOIN doctor d ON d.doctorID = ds.doctorID
+			WHERE d.doctorCode = '$username'";
 	$result=mysql_query($sql);
-	//echo $sql;
+	
 	$data = array();
 	while ($row=mysql_fetch_array($result)){
 		array_push($data,$row);
 	}
+	
 	echo json_encode($data);
 	
 }else if($query_no==2){// insert in complain

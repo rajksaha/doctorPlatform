@@ -487,6 +487,7 @@ app.config(function($stateProvider, $urlRouterProvider, $compileProvider, $contr
         .state(settings)
         .state(invReport)
         .state(followUpChart)
+        .state(drugAdvisor)
     	.state(appointment);
     
 
