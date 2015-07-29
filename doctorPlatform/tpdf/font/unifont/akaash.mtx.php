@@ -13,7 +13,7 @@ $desc=array (
 );
 $up=-100;
 $ut=50;
-$ttffile='C:\wamp\www\pdfBangla/font/unifont/akaash.TTF';
+$ttffile='font/unifont/akaash.TTF';
 $originalsize=147764;
 $fontkey='akaash';
 ?>

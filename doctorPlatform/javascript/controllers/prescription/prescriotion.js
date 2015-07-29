@@ -658,9 +658,12 @@ app.controller('PrescriptionController', function($scope, $http, $modal, $rootSc
 	                    controller: 'PrescriptionController.PrescriptionSettingController',
 	                    resolve: {
 	                    	data: function () {
-	                            return prescriptionSettingData;
+	                            return {
+	                            	prescriptionSettingData
+	                            };
 	                        }
-	                    }
+	                    },
+	                    backdrop: 'static'
 	                });
 	                modalInstance.result.then(function(result) {
 	                	$scope.printPreview();
@@ -687,10 +690,13 @@ app.controller('PrescriptionController', function($scope, $http, $modal, $rootSc
             
             controller: 'PrescriptionController.PrescribeComplainController',
             resolve: {
-            	copmplainData: function () {
-                    return copmplainData;
+            	record: function () {
+                    return {
+                    	copmplainData
+                    };
                 }
-            }
+            },
+            backdrop: 'static'
         });
 		modalInstance.result.then(function(result) {
 			$scope.bringPrescribedComplain($scope.appoinmentData.appointmentID);
@@ -703,10 +709,13 @@ app.controller('PrescriptionController', function($scope, $http, $modal, $rootSc
 		var modalInstance = $modal.open({
             templateUrl: 'javascript/templates/complain/complain.html',
             windowClass: 'fade in',
+            
             controller: 'PrescriptionController.PrescribeComplainController',
             resolve: {
-            	copmplainData: function () {
-                    return copmplainData;
+            	record: function () {
+                    return {
+                    	copmplainData
+                    };
                 }
             },
             backdrop: 'static'
@@ -718,17 +727,21 @@ app.controller('PrescriptionController', function($scope, $http, $modal, $rootSc
 	
 	$scope.addDrugsToPrescription = function(){
 		
-		var drugReqData = {};
+		var drugData = {};
 		
 		var modalInstance = $modal.open({
 			templateUrl: 'javascript/templates/drugs/drugModal.html',
             windowClass: 'fade in',
+            
             controller: 'PrescriptionController.PrescribeDrugsController',
             resolve: {
-            	drugReqData: function () {
-                    return drugReqData;
+            	record: function () {
+                    return {
+                    	drugData
+                    };
                 }
-            }
+            },
+            backdrop: 'static'
         });
 		modalInstance.result.then(function(result) {
 			$scope.bringPresCribedDrugs($scope.appoinmentData.appointmentID);
@@ -738,9 +751,9 @@ app.controller('PrescriptionController', function($scope, $http, $modal, $rootSc
 	
 	$scope.editDrugsFromPresciption = function(drugDataDB){
 		
-		var drugReqData = {};
+		var drugData = {};
 		
-		drugReqData = drugDataDB;
+		drugData = drugDataDB;
 		
 		
 		var modalInstance = $modal.open({
@@ -749,9 +762,9 @@ app.controller('PrescriptionController', function($scope, $http, $modal, $rootSc
             
             controller: 'PrescriptionController.PrescribeDrugsController',
             resolve: {
-            	drugReqData: function () {
+            	record: function () {
                     return {
-                    	drugReqData
+                    	drugData
                     };
                 }
             },
@@ -807,10 +820,13 @@ app.controller('PrescriptionController', function($scope, $http, $modal, $rootSc
             
             controller: 'PrescriptionController.PrescribeDiagnosisController',
             resolve: {
-            	diagnosisData: function () {
-                    return diagnosisData;
+            	record: function () {
+                    return {
+                    	diagnosisData
+                    };
                 }
-            }
+            },
+            backdrop: 'static'
         });
 		modalInstance.result.then(function(result) {
 			$scope.bringAppoinmentInfo();
@@ -856,12 +872,12 @@ app.controller('PrescriptionController', function($scope, $http, $modal, $rootSc
 });
 
 
-app.controller('PrescriptionController.PrescribeDiagnosisController', function($scope, $http, $modalInstance, limitToFilter, $filter, diagnosisData) {
+app.controller('PrescriptionController.PrescribeDiagnosisController', function($scope, $http, $modalInstance, limitToFilter, $filter, record) {
 	
 	$scope.diagnosisData = {};
 	
-	if(diagnosisData.id){
-		$scope.diagnosisData = diagnosisData;
+	if(record.diagnosisData.id){
+		$scope.diagnosisData = record.diagnosisData;
 	}else{
 		$scope.diagnosisData = {};
 		$scope.diagnosisData.note = "";
@@ -957,7 +973,7 @@ app.controller('PrescriptionController.PrescriptionSettingController', function(
 	
 });
 
-app.controller('PrescriptionController.PrescribeComplainController', function($scope, $http, $modalInstance, JsonService, copmplainData, limitToFilter) {
+app.controller('PrescriptionController.PrescribeComplainController', function($scope, $http, $modalInstance, JsonService, record, limitToFilter) {
 	
 	$scope.symptom = {};
 	$scope.complainList = [];
@@ -966,7 +982,7 @@ app.controller('PrescriptionController.PrescribeComplainController', function($s
 	
 	
 	$scope.init = function(){
-		if(copmplainData.id){
+		if(record.copmplainData.id){
 			$scope.bringdrugsDayType(false, null);
 		}else{
 			$scope.bringdrugsDayType(true, null);
@@ -1004,19 +1020,19 @@ app.controller('PrescriptionController.PrescribeComplainController', function($s
         		$scope.complainData = {"title": "Symptom"};
         		
         		angular.forEach($scope.drugNumOfDayList, function(data, key) {
-        			if(data.value == copmplainData.durationNum){
+        			if(data.value == record.copmplainData.durationNum){
         				$scope.complainData.numOfDay = data;
         			}
         		});
         		
         		angular.forEach($scope.drugDayTypeList, function(value, key) {
-        			if(value.id == copmplainData.durationID){
+        			if(value.id == record.copmplainData.durationID){
         				$scope.complainData.dayType = value;
         			}
         		});
-        		$scope.complainData.id = copmplainData.id;
+        		$scope.complainData.id = record.copmplainData.id;
         		
-        		$scope.complainData.name = copmplainData.symptomName;
+        		$scope.complainData.name = record.copmplainData.symptomName;
         		
         		$scope.complainList.push($scope.complainData);
         	}
@@ -1094,10 +1110,8 @@ app.controller('PrescriptionController.PrescribeComplainController', function($s
 });
 
 
-app.controller('PrescriptionController.PrescribeDrugsController', function($scope, $http, $modalInstance, limitToFilter, JsonService, drugReqData) {
+app.controller('PrescriptionController.PrescribeDrugsController', function($scope, $http, $modalInstance, limitToFilter, JsonService, record) {
 	
-	var oldDrugData = {};
-	oldDrugData = drugReqData.drugReqData;
 	$scope.drugTypeList =[];
 	$scope.drugNumOfDayList = JsonService.numberList;
 	$scope.drugtimesADay = JsonService.timesADay;
@@ -1390,7 +1404,7 @@ app.controller('PrescriptionController.PrescribeDrugsController', function($scop
             data: dataString,
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).success(function (result) {
-        	if(oldDrugData.id){
+        	if(record.drugData.id){
         		$modalInstance.close();
         	}else{
         		$scope.bringPresCribedDrugs();
@@ -1406,16 +1420,16 @@ app.controller('PrescriptionController.PrescribeDrugsController', function($scop
 	
 	
 	$scope.bringPresCribedDrugs = function (){
-		if(oldDrugData.id){
+		if(record.drugData.id){
 			
 			$scope.drugData = {};
-			$scope.drugData.drugName = oldDrugData.drugName;
-			$scope.drugData.drugPrescribeID = oldDrugData.id;
-			$scope.enteredDrugDoseList = oldDrugData.drugDose.split(' - ')
-			$scope.bringdrugsType(false,oldDrugData.drugTypeID,oldDrugData.drugTimeID, oldDrugData.drugNoOfDay);
-			$scope.bringdrugsDayType(false, oldDrugData.drugDayTypeID);
-			$scope.bringdrugsWhatType(false, oldDrugData.drugWhenID);
-			$scope.bringdrugsAdviceType(false, oldDrugData.drugAdviceID);
+			$scope.drugData.drugName = record.drugData.drugName;
+			$scope.drugData.drugPrescribeID = record.drugData.id;
+			$scope.enteredDrugDoseList = record.drugData.drugDose.split(' - ')
+			$scope.bringdrugsType(false,record.drugData.drugTypeID,record.drugData.drugTimeID, record.drugData.drugNoOfDay);
+			$scope.bringdrugsDayType(false, record.drugData.drugDayTypeID);
+			$scope.bringdrugsWhatType(false, record.drugData.drugWhenID);
+			$scope.bringdrugsAdviceType(false, record.drugData.drugAdviceID);
 			
 		}else{
 			

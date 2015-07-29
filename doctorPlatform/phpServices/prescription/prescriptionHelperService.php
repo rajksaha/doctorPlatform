@@ -119,7 +119,7 @@ else if($query_no==4){
 	$dayType = $_POST['dayType'];
 	$nextVisitType = $_POST['nextVisitType'];
 	
-	$sql = mysql_query("INSERT INTO `next_visit`(`appointmentID`, `nextVisitType`, `date`, `numOfDay`, `dayType`) VALUES ('$appointmentNO','$nextVisitType', 'DATE('$nextVisitDate')', '$numOfDay','$dayType')");
+	$sql = mysql_query("INSERT INTO `next_visit`(`appointmentID`, `nextVisitType`, `date`, `numOfDay`, `dayType`) VALUES ('$appointmentNO','$nextVisitType', '$nextVisitDate', '$numOfDay','$dayType')");
 	
 	echo "INSERT INTO `next_visit`(`appointmentID`, `nextVisitType`, `date`, `numOfDay`, `dayType`) VALUES ('$appointmentNO','$nextVisitType', 'DATE('$nextVisitDate')', '$numOfDay','$dayType')";
 }

@@ -430,7 +430,7 @@ app.config(function($stateProvider, $urlRouterProvider, $compileProvider, $contr
             views : {
                 'container@' : {
                     templateUrl : 'javascript/templates/followUpChart/followUpChart.html',
-                    controller : 'followUpChartController'
+                    controller : 'FollowUpChartController'
                 }
             },
             resolve : {
@@ -440,6 +440,27 @@ app.config(function($stateProvider, $urlRouterProvider, $compileProvider, $contr
                     {
                       name: 'ktrTablet',
                       files: ['javascript/controllers/followUpChart/followUpChartController.js' ]
+                    });
+                  }]
+            }
+        };
+    
+    var drugAdvisor = {
+            name : 'root.drugAdvisor',
+            url : '/drugAdvisor',
+            views : {
+                'container@' : {
+                    templateUrl : 'javascript/templates/drugAdvisor/drugAdvisor.html',
+                    controller : 'drugAdvisorController'
+                }
+            },
+            resolve : {
+                loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+                  // you can lazy load files for an existing module
+                  return $ocLazyLoad.load(
+                    {
+                      name: 'ktrTablet',
+                      files: ['javascript/controllers/drugAdvisor/drugAdvisorController.js' ]
                     });
                   }]
             }

@@ -18,7 +18,7 @@ function getPresCribedDrugs($appointmentID){
 				JOIN drugdaytype ddt ON dp.drugDayTypeID = ddt.id
 				JOIN drugwhentype dwt ON dp.drugWhenID = dwt.id
 				JOIN drugadvicetype dat ON dp.drugAdviceID = dat.id
-			WHERE dp.appointMentID = '$appointmentID'";
+			WHERE dp.appointMentID = '$appointmentID' ORDER BY dp.id" ;
 	
 	$result=mysql_query($sql);
 	

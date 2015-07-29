@@ -2292,6 +2292,10 @@ function UTF8StringToArray($str) {
 function Head(){}
 function Foot(){}
 
+function showDocInfo(){
+	
+}
+
 function ShowPatInfo($patientCode,$yAxis){
 	
 	$resultData = getPatientInformaition($patientCode);
@@ -2363,7 +2367,7 @@ function Show_med($appointmentID, $xAxis, $yAxis, $size){
 		$this->MultiCell($nameCell,5,"$drugType. $drugName-$drugStr");
 		$xInnerAxis = $xAxis + $nameCell + 5;
 		
-		$this->SetFont('prolog','',$size-2);
+		$this->SetFont('prolog','',$size);
 		
 		$this->SetXY($xInnerAxis, $yAxis);
 		
@@ -2409,6 +2413,7 @@ function Show_inv($appointmentID, $xAxis,$yAxis,$maxX,$size) {
 	
 	if(mysql_num_rows($resultData) > 0){
 	
+		$this->SetFont('Times','',$size + 1);
 		$this->SetXY($xAxis, $yAxis);
 		$this->MultiCell(20,5,"INV");
 		$yAxis += 6;
@@ -2417,13 +2422,16 @@ function Show_inv($appointmentID, $xAxis,$yAxis,$maxX,$size) {
 		return $yAxis - 5;
 	}
 	
+	$var = 1;
+	$this->SetFont('Times','',$size);
 	while($row=  mysql_fetch_array($resultData)){
 		
 		$invName = $row['invName'];
 		
 		$yAxis =  $this->GetY();
 		$this->SetXY($xAxis, $yAxis);
-		$this->MultiCell($maxX,5,"$invName");
+		$this->MultiCell($maxX,5,"$var. $invName");
+		$var++;
 	}
 	
 	return $this->GetY();
@@ -2433,12 +2441,12 @@ function Show_inv($appointmentID, $xAxis,$yAxis,$maxX,$size) {
 function   Show_vital($appointmentID,$xAxis, $yAxis, $maxX, $size){
 
 	
-	$this->SetFont('Times','',$size);
+	
 	
 	$resultData = getPrescribedVital($appointmentID);
 	
 	if(mysql_num_rows($resultData) > 0){
-	
+		$this->SetFont('Times','',$size + 1);
 		$this->SetXY($xAxis, $yAxis);
 		$this->MultiCell(20,5,"O.E");
 		$yAxis += 6;
@@ -2446,7 +2454,7 @@ function   Show_vital($appointmentID,$xAxis, $yAxis, $maxX, $size){
 	}if(mysql_num_rows($resultData) == 0){
 		return $yAxis - 5;
 	}
-	
+	$this->SetFont('Times','',$size);
 	while($row=  mysql_fetch_array($resultData)){
 	
 		$vitalResult = $row['vitalResult'];
@@ -2470,9 +2478,9 @@ function Show_advice($appointmentID,$xAxis,$yAxis,$size,$maxX){
 	
 	if(mysql_num_rows($resultData) > 0){
 	
-		$this->SetFont('Times','',$size);
+		$this->SetFont('Times','',$size + 2);
 		
-		$this->SetXY($xAxis, $yAxis);
+		$this->SetXY($xAxis - 3, $yAxis);
 		$this->MultiCell(20,5,"Advice");
 	
 	}
@@ -2491,14 +2499,14 @@ function Show_advice($appointmentID,$xAxis,$yAxis,$size,$maxX){
 			
 			$yAxis =  $this->GetY();
 			$this->SetXY($xAxis, $yAxis);
-			$this->MultiCell($maxX,5,"$advice");
+			$this->MultiCell($maxX,5,".$advice");
 			
 		}else {
-			$this->SetFont('prolog','',$size);
+			$this->SetFont('prolog','',$size + 2);
 			
 			$yAxis =  $this->GetY();
 			$this->SetXY($xAxis, $yAxis);
-			$this->MultiCell($maxX,5,"$pdf");
+			$this->MultiCell($maxX,5,".$pdf");
 		}
 	
 	}
@@ -2508,7 +2516,6 @@ function Show_advice($appointmentID,$xAxis,$yAxis,$size,$maxX){
 
 function show_nextVisit($appointmentID,$xAxis,$yAxis,$size){
 	
-	$this->SetFont('prolog','',$size);
 	
 	$resultData = getPrescribedNextVisit($appointmentID);
 	
@@ -2518,17 +2525,20 @@ function show_nextVisit($appointmentID,$xAxis,$yAxis,$size){
 	
 	$this->SetXY($xAxis, $yAxis);
 	
+	$this->SetFont('prolog','',$size + 2);
+	
 	if($nextVisitType == 2){
 		
 		
 		$numOfday = $rec['numOfDay'];
 		$dayType = $rec['pdf'];
-		
-		$this->MultiCell(60,5, "$numOfday - $dayType ci Avevi Avm‡eb |");
+		$this->SetFont('prolog','',$size);
+		$this->MultiCell(60,5, "$numOfday - $dayType ci Avevi Avm‡eb |", 0);
 	}else if($nextVisitType == 1){
 		$date = $rec['date'];
 		$newDate = date("d-m-Y", strtotime($date));
-		$this->MultiCell(60,5, "$newDate Zvwi‡L Avevi Avm‡eb |");
+		$this->SetFont('prolog','',12);
+		$this->MultiCell(60,5, "$newDate Zvwi‡L †`Lv Ki‡eb|", 0);
 	}
 	
 	
@@ -2547,7 +2557,7 @@ function show_ref_doc($appointmentID,$xAxis,$yAxis,$size){
 	
 	if($rec['doctorName'] != ""){
 		$this->SetXY($xAxis, $yAxis);
-		$this->MultiCell(50,5, $rec['doctorName'] . "-" . $rec['doctorAdress']);
+		$this->MultiCell(100,5, "Ref to: ".  $rec['doctorName'] . "-" . $rec['doctorAdress']);
 	}
 	
 }
@@ -2650,11 +2660,11 @@ function Show_Complain($appointmentID,$xAxis,$yAxis, $maxX , $size) {
 	
 	$resultData = getPrescribedComplain($appointmentID);
 	
-	$this->SetFont('Times','',$size);
+	
 	
 	
 	if(mysql_num_rows($resultData) > 0){
-	
+		$this->SetFont('Times','',$size + 1);
 		$this->SetXY($xAxis, $yAxis);
 		$this->MultiCell($maxX,5,"C.C");
 		$yAxis += 6;
@@ -2662,7 +2672,8 @@ function Show_Complain($appointmentID,$xAxis,$yAxis, $maxX , $size) {
 	}if(mysql_num_rows($resultData) == 0){
 		return $yAxis - 5;
 	}
-	
+	$this->SetFont('Times','',$size);
+	$var = 1;
 	while($row=  mysql_fetch_array($resultData)){
 	
 		$symptomName = $row['symptomName'];
@@ -2671,8 +2682,8 @@ function Show_Complain($appointmentID,$xAxis,$yAxis, $maxX , $size) {
 	
 		$yAxis =  $this->GetY();
 		$this->SetXY($xAxis, $yAxis);
-		$this->MultiCell($maxX,5,"$symptomName - $durationNum - $durationType");
-	
+		$this->MultiCell($maxX,5,"$var. $symptomName - $durationNum - $durationType");
+		$var++;
 	}
 	
 	return $this->GetY();

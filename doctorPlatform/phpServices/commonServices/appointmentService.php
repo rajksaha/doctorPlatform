@@ -61,4 +61,32 @@ function getPatientInformaition($patientCode){
 	
 	return $result;
 }
+
+function getDoctorInfo ($username){
+	
+	$sql=mysql_query("SELECT
+			d.doctorID, d.doctorCode, d.password, d.name, d.sex, d.age, d.phone, ds.category, ds.state, ds.prescriptionStyle,
+			ds.patientType, ds.patientState, ds.hospitalID, ds.photoSupport, ds.personCodeInitial, dc.name AS categoreyName, ds.pdfPage
+			FROM doctor d
+			JOIN doctorsettings ds ON d.doctorID = ds.doctorID
+			JOIN doctorcategory dc ON ds.category = dc.id
+			WHERE d.doctorCode ='$username'");
+	$result=mysql_fetch_assoc($sql);
+	
+	return $result;
+	
+}
+
+function getPdfDetail($patientCode, $username){
+	
+	$sql = "SELECT p.`patientID` , p.`patientCode` , p.`name` , p.`age` , p.`sex` , p.`address` , p.`phone` , pd.`type` , pd.`tri` , pd.`triStatus` , pd.`edb` , pd.id AS patientDetailID, COUNT( a.appointmentID ) AS visitNo
+FROM `patient` p
+JOIN appointment a ON a.patientCode = p.patientCode AND a.doctorCode = '$username'
+LEFT JOIN patient_detail pd ON p.`patientID` = pd.`patientID`
+WHERE p.patientCode = '$patientCode'";
+	
+	$result=mysql_query($sql);
+	
+	return $result;
+}
 ?>

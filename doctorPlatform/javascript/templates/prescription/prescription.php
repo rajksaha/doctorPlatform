@@ -3,7 +3,7 @@
 		
 		<label class="headerText" >Visit Type</label>
 		<span data-ng-repeat="patientState in patientStateList" style="padding-left: 10px">
-			<input type="checkbox" data-ng-if="$index > 1" data-ng-model="patientState.patientStateData" data-ng-checked="appoinmentData.appointmentType == patientState.id" data-ng-change="changePatientState(patientState)"> <span data-ng-if="$index > 1"> {{patientState.name}}</span>
+			<input type="checkbox"  data-ng-model="patientState.patientStateData" data-ng-checked="appoinmentData.appointmentType == patientState.id" data-ng-change="changePatientState(patientState)"> <span > {{patientState.name}}</span>
 		</span>
 	</div>
 	<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" style="padding-top: 5px;padding-bottom: 5px">
