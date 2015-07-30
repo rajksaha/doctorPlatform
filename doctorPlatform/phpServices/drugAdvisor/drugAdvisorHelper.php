@@ -22,7 +22,7 @@ if($query_no==1){
 	
 	$sql = "SELECT dat.id AS drugAdviceID, dat.bangla, dat.english, dat.pdf
 			FROM `drugAdviceType` dat
-			WHERE dat.doctorType =0
+			WHERE dat.doctorType =0 AND dat.id <> 0
 			UNION
 			SELECT dat.id AS drugAdviceID, dat.bangla, dat.english, dat.pdf
 			FROM `drugAdviceType` dat
@@ -40,21 +40,11 @@ if($query_no==1){
 	
 }else if($query_no==2){// insert in complain
 	
-	$symptomName=$dataObject->complainName;
+	$bangla = $dataObject->data;
 	
-	$symptomID = getSymptomIDByName($symptomName);
-	$durationNum=$dataObject->numOfDay;
-	$durationType=$dataObject->dayType;
-	$complainPrescribeID=$dataObject->complainPrescribeID;
-	$detail = "";
+	$asciiString = mb_convert_encoding($bangla, "ISO-8859-1", "UTF-8");
 	
-	if($complainPrescribeID != 0){
-		mysql_query("UPDATE `complain` SET `symptomID`= '$symptomID',`durationNum`= '$durationNum',`durationType`='$durationType',`detail`='$detail' WHERE `id` = '$complainPrescribeID'");
-	}else{
-		insertPrescribedCC($appointmentID, $symptomID, $durationNum, $durationType , $detail);
-	}
-	
-	echo $durationNum;
+	mysql_query("INSERT INTO `drugadvicetype`(`doctorType`, `bangla`, `english`, `pdf`) VALUES (0,'$bangla','','$asciiString')");
 	
 	
 	

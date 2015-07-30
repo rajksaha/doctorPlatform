@@ -1,6 +1,7 @@
 app.controller('DrugAdvisorController', function($scope, $http, $modal, $rootScope, limitToFilter, $location) {
 	
 	$scope.drugAdviceList = {};
+	$scope.masterUpdate = true;
 	
 	
 	$scope.init = function(){
@@ -26,53 +27,33 @@ app.controller('DrugAdvisorController', function($scope, $http, $modal, $rootSco
 		
 	};
 	
-	$scope.saveGroupOfComplain = function(){
+	$scope.addDrugAdvice = function(){
 		
-		var entryFound = false;
+		var drugAdviceData = {};
 		
-		angular.forEach($scope.complainList, function(value, key) {
-			if(value.name){
-				entryFound = true;
-				
-				var dataString = {'complainName ': value.name , 'numOfDay' : value.numOfDay ,'dayType' :  value.dayType, 'note' : value.note, 'complainPrescribeID' : value.id, 'query' : 2};
-				
-		        $http({
-		            method: 'POST',
-		            url: "phpServices/complain/complainService.php",
-		            data: JSON.stringify(dataString),
-		            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-		        }).success(function (result) {
-		        });
-			}
-		});
+		drugAdviceData.bangla = "";
+		drugAdviceData.editMode = true;
+		$scope.masterUpdate = false;
+		drugAdviceData.bangla = "";
 		
-		
-		if(!entryFound){
-			$scope.message = "Please Select At-least One Symptom";
-			$scope.succcess = false;
-			$scope.error = true;
-		}
+		$scope.drugAdviceList.splice(0,0, drugAdviceData);
 		
 	};
 
-    $scope.getSymptoms = function(term) {
+    $scope.saveDrugAdvice = function(data) {
     	
-    	var data = {'data': term, 'query': 1};
+    	var data = {'data': data.bangla, 'query': 2};
         
-        return $http({
+    	$http({
             method: 'POST',
-            url: "phpServices/complain/complainService.php",
-            data: JSON.stringify(data),
+            url: "phpServices/drugAdvisor/drugAdvisorHelper.php",
+            data: data,
             headers: {'Content-Type': 'application/json'}
-        }).then(function(result) {
-        	$scope.symptoms = result.data;
-        	return limitToFilter($scope.symptoms, 10);
+        }).success(function (result) {
+        	$scope.drugAdviceList = result;
         });
     };
     
-      $scope.onSelectSymptoms = function(item, model, label){
-    	  alert(item.name);
-      };
 
     $scope.init();
 });

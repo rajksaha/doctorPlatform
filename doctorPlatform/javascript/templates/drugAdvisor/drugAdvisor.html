@@ -20,7 +20,12 @@
 		</div>
 		<div class="filter-panel" style="margin-top:20px">  
 			<div class="panel-body" >
-				<div class="form-group">Drug Advice</div>                             
+				<div class="form-group">Drug Advice</div>
+				<div class="form-group">
+					<button title="ADD" data-ng-show="masterUpdate" class="btn btn-primary" data-ng-click="addDrugAdvice()">
+						<span class="glyphicon glyphicon-plus" aria-hidden="true"> ADD</span>
+					</button>
+				</div>                            
 				<div id="validateReq">
 					<table id="content-data-list" class="table table-condensed table-bordered">
 						<thead class="patinetInfoHead">
@@ -50,10 +55,10 @@
 									<span data-ng-show="!data.editMode">{{data.pdf}}</span>
 								</td>
 								<td id="">
-									<button title="Save" data-ng-show="data.editMode" class="btn btn-primary" data-ng-click="saveInvReport(invData)">
+									<button title="Save" data-ng-show="data.editMode" class="btn btn-primary" data-ng-click="saveDrugAdvice(data)">
 										<span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>
 									</button>
-									<button title="Edit" data-ng-show="!data.editMode && !data.otherEditMode" class="btn btn-primary" data-ng-click="editInvReport(invData)">
+									<button title="Edit" data-ng-show="!data.editMode && !data.otherEditMode" class="btn btn-primary" data-ng-click="editDrugAdvice(data)">
 										<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 									</button>
 								</td>
