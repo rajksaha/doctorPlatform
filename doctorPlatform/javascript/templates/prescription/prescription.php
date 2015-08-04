@@ -155,8 +155,11 @@
 				    					<td style="width: 50%">
 				    						<span>{{copmplainData.symptomName}}</span>
 										</td>
-										<td style="width: 30%">
+										<td style="width: 30%" ng-if="copmplainData.durationID < 5">
 											<span>{{copmplainData.durationNum}} {{copmplainData.durationType}}</span>
+										</td>
+										<td style="width: 30%" ng-if="copmplainData.durationID == 7">
+											<span>{{copmplainData.durationType}}</span>
 										</td>
 								</table>
 						</div>

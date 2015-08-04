@@ -1002,7 +1002,7 @@ app.controller('PrescriptionController.PrescribeComplainController', function($s
         }).success(function (result) {
         	$scope.drugDayTypeList = result;
         	
-        	$scope.drugDayTypeList.splice(5, 1);
+        	//$scope.drugDayTypeList.splice(5, 1);
         	$scope.drugDayTypeList.splice(4, 1);
         	
         	if(addMood){
@@ -1048,7 +1048,9 @@ app.controller('PrescriptionController.PrescribeComplainController', function($s
 		angular.forEach($scope.complainList, function(value, key) {
 			if(value.name){
 				entryFound = true;
-				
+				if(value.dayType.id > 4){
+					value.numOfDay.value = null;
+				}
 				
 				var dataString = {'complainName': value.name , 'numOfDay' : value.numOfDay.value ,'dayType' :  value.dayType.id, 'note' : value.note, 'complainPrescribeID' : value.id, 'query' : 2};
 				

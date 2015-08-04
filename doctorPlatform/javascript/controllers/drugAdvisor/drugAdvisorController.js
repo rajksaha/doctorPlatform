@@ -1,11 +1,14 @@
 app.controller('DrugAdvisorController', function($scope, $http, $modal, $rootScope, limitToFilter, $location) {
 	
-	$scope.drugAdviceList = {};
+	$scope.drugAdviceList = [];
+	$scope.drugWhenList = [];
 	$scope.masterUpdate = true;
 	
 	
 	$scope.init = function(){
 		$scope.bringDrugAdviceList();
+		
+		$scope.bringDrugWhenList();
     };
     
 	$scope.bringDrugAdviceList = function (){
@@ -27,11 +30,36 @@ app.controller('DrugAdvisorController', function($scope, $http, $modal, $rootSco
 		
 	};
 	
+	$scope.bringDrugWhenList = function (){
+		
+		
+		var dataString = {'data': 1, 'query': 4};
+
+        $http({
+            method: 'POST',
+            url: "phpServices/drugAdvisor/drugAdvisorHelper.php",
+            data: dataString,
+            headers: {'Content-Type': 'application/json'}
+        }).success(function (result) {
+        	
+        	$scope.drugWhenList = result;
+        	
+        	
+        });
+		
+	};
+	
 	$scope.addDrugAdvice = function(){
 		
+		angular.forEach($scope.drugAdviceList, function(value, key) {
+			value.otherEditMode = true;
+		});
+		
+		$scope.showDrugAdvice = true;
 		var drugAdviceData = {};
 		
 		drugAdviceData.bangla = "";
+		drugAdviceData.pdf = "";
 		drugAdviceData.editMode = true;
 		$scope.masterUpdate = false;
 		drugAdviceData.bangla = "";
@@ -42,7 +70,7 @@ app.controller('DrugAdvisorController', function($scope, $http, $modal, $rootSco
 
     $scope.saveDrugAdvice = function(data) {
     	
-    	var data = {'data': data.bangla, 'query': 2};
+    	var data = {'bangla': data.bangla, 'pdf': data.pdf, 'query': 2};
         
     	$http({
             method: 'POST',
@@ -50,7 +78,21 @@ app.controller('DrugAdvisorController', function($scope, $http, $modal, $rootSco
             data: data,
             headers: {'Content-Type': 'application/json'}
         }).success(function (result) {
-        	$scope.drugAdviceList = result;
+        	$scope.bringDrugAdviceList();
+        });
+    };
+    
+    $scope.delDrugAdvice = function(data) {
+    	
+    	var data = {'delId': data.drugAdviceID, 'query': 3};
+        
+    	$http({
+            method: 'POST',
+            url: "phpServices/drugAdvisor/drugAdvisorHelper.php",
+            data: data,
+            headers: {'Content-Type': 'application/json'}
+        }).success(function (result) {
+        	$scope.bringDrugAdviceList();
         });
     };
     

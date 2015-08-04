@@ -16,7 +16,7 @@
 				</div>
 				<div class="form-group col-xs-3 col-sm-3" >
 					<label>Duration Day:</label> 
-					<select class="form-control"  data-ng-model="complain.numOfDay"  data-ng-options="drugDay.name for drugDay in drugNumOfDayList">
+					<select class="form-control"  data-ng-show="complain.dayType.id < 5" data-ng-model="complain.numOfDay"  data-ng-options="drugDay.name for drugDay in drugNumOfDayList">
 					</select>
 				</div>
 				<div class="form-group col-xs-3 col-sm-3" >

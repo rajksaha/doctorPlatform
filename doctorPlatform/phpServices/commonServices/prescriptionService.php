@@ -83,7 +83,7 @@ function getPrescribedComplain($appointmentID){
 			FROM `complain` c
 			JOIN symptom s ON c.symptomID = s.symptomID
 			JOIN drugdaytype ddt ON c.durationType= ddt.id
-			 WHERE c.`appointMentID` = '$appointmentID'";
+			 WHERE c.`appointMentID` = '$appointmentID' ORDER BY c.id";
 
 	$result=mysql_query($sql);
 

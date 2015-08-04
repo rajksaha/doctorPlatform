@@ -2679,10 +2679,18 @@ function Show_Complain($appointmentID,$xAxis,$yAxis, $maxX , $size) {
 		$symptomName = $row['symptomName'];
 		$durationNum = $row['durationNum'];
 		$durationType = $row['durationType'];
+		$durationID = $row['durationID'];
 	
 		$yAxis =  $this->GetY();
 		$this->SetXY($xAxis, $yAxis);
-		$this->MultiCell($maxX,5,"$var. $symptomName - $durationNum - $durationType");
+		if($durationID < 5){
+			$this->MultiCell($maxX,5,"$var. $symptomName - $durationNum - $durationType");
+		}elseif ($durationID == 7){
+			$this->MultiCell($maxX,5,"$var. $symptomName - $durationType");
+		}else{
+			$this->MultiCell($maxX,5,"$var. $symptomName");
+		}
+			
 		$var++;
 	}
 	
