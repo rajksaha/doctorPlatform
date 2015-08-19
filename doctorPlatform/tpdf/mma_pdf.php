@@ -128,7 +128,7 @@ function Show_med($appointmentID, $xAxis, $yAxis, $size){
 			
 			$this->MultiCell(100,5,"$drugDose $restOftheString |");
 		}else if($drugDose != ""){
-			$this->MultiCell(100,5,"($drugDose) $drugDoseInitial $restOftheString |");
+			$this->MultiCell(100,5,"$drugDose $drugDoseInitial $restOftheString |");
 		}else{
 			$this->MultiCell(100,5,"$drugDoseInitial $restOftheString |");
 		}
@@ -180,8 +180,8 @@ function ShowPatInfo($patientCode,$yAxis,$username){
 	$this->SetXY(130, $yAxis);
 	$this->Write(5, "Age: $age yrs");
 	
-	$this->SetXY(160, $yAxis);
-	$this->Write(5, "Date: $date");
+	$this->SetXY(165, $yAxis);
+	$this->Write(5,  "$date");
 	
 			//$this->SetXY(150,35);
             //$this->Write(5, "ID:$phone");
@@ -241,13 +241,13 @@ $pdf->AddFont('prolog','','prolog1.TTF',true);
 $pdf->SetFont('Times','',10);
 $pdf->SetFillColor(200,220,255);
 
-$pdf->ShowPatInfo($patientCode,58,$username);
+$pdf->ShowPatInfo($patientCode,50,$username);
 $linestyle = array('width' => 0.1, 'cap' => 'butt', 'join' => 'miter', 'dash' => '', 'phase' => 0, 'color' => array(255, 0, 0));
-$pdf->Line(15, 65, 195, 65, $linestyle);
+//$pdf->Line(15, 65, 195, 65, $linestyle);
 
 $leftYaxis = 65;
-$rightYaxis = 100;
-$size = 10;
+$rightYaxis = 65;
+$size = 12;
 
 $leftXaxis = 15;
 $rightXaxis = 105;
@@ -266,10 +266,9 @@ $leftYaxis=$pdf->Show_inv($appointmentID,$leftXaxis,$leftYaxis + 3, $maxX , $siz
 $leftYaxis=$pdf->Show_Past_History($appointmentID,$leftXaxis,$leftYaxis + 3, $maxX, $size);
 $leftYaxis=$pdf->Show_Family_History($appointmentID,$leftXaxis,$leftYaxis + 3, $maxX, $size);
 
-$pdf-> show_nextVisit($appointmentID,15,240,$size);
-
-$pdf-> show_ref_doc($appointmentID,100,235,$size);
-$pdf->Line(15, 248, 195, 248, $linestyle);
+$pdf-> show_nextVisit($appointmentID,15,260,$size);
+$pdf-> show_ref_doc($appointmentID,100,260,$size);
+//$pdf->Line(15, 248, 195, 248, $linestyle);
 $pdf->Output();
 
 ?>

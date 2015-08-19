@@ -55,7 +55,7 @@ if($query_no== 1){
 }else if($query_no==3){
 	$sql = "SELECT dat.id AS drugAdviceID, dat.bangla, dat.english, dat.pdf
 			FROM `drugAdviceType` dat
-			WHERE dat.doctorType =0 AND dat.id <> 0
+			WHERE dat.doctorType =0
 			UNION
 			SELECT dat.id AS drugAdviceID, dat.bangla, dat.english, dat.pdf
 			FROM `drugAdviceType` dat

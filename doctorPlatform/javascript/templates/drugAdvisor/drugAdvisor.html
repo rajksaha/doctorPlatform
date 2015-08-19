@@ -114,7 +114,11 @@
 									<span data-ng-show="!data.editMode">{{data.pdf}}</span>
 								</td>
 								<td id="">
-									<button title="Edit" data-ng-show="!data.editMode && !data.otherEditMode" class="btn btn-danger" data-ng-click="delDrugAdvice(data)">
+								
+									<button title="Save" data-ng-show="data.editMode" class="btn btn-primary" data-ng-click="saveDrugWhen(data)">
+										<span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>
+									</button>
+									<button title="Edit" data-ng-show="!data.editMode && !data.otherEditMode" class="btn btn-danger" data-ng-click="delDrugWhen(data)">
 										<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 									</button>
 								</td>

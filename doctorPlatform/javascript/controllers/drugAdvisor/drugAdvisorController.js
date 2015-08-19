@@ -96,6 +96,54 @@ app.controller('DrugAdvisorController', function($scope, $http, $modal, $rootSco
         });
     };
     
+    
+    $scope.addDrugWhen = function(){
+		
+		angular.forEach($scope.drugWhenList, function(value, key) {
+			value.otherEditMode = true;
+		});
+		
+		$scope.showDrugWhen = true;
+		var data = {};
+		
+		data.bangla = "";
+		data.pdf = "";
+		data.editMode = true;
+		$scope.masterUpdate = false;
+		data.bangla = "";
+		
+		$scope.drugWhenList.splice(0,0, data);
+		
+	};
+
+    $scope.saveDrugWhen = function(data) {
+    	
+    	var data = {'bangla': data.bangla, 'pdf': data.pdf, 'query': 5};
+        
+    	$http({
+            method: 'POST',
+            url: "phpServices/drugAdvisor/drugAdvisorHelper.php",
+            data: data,
+            headers: {'Content-Type': 'application/json'}
+        }).success(function (result) {
+        	$scope.masterUpdate = true;
+        	$scope.bringDrugWhenList();
+        });
+    };
+    
+    $scope.delDrugWhen = function(data) {
+    	
+    	var data = {'delId': data.id, 'query': 6};
+        
+    	$http({
+            method: 'POST',
+            url: "phpServices/drugAdvisor/drugAdvisorHelper.php",
+            data: data,
+            headers: {'Content-Type': 'application/json'}
+        }).success(function (result) {
+        	$scope.bringDrugWhenList();
+        });
+    };
 
     $scope.init();
 });

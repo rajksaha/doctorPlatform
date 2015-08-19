@@ -2296,7 +2296,7 @@ function showDocInfo(){
 	
 }
 
-function ShowPatInfo($patientCode,$yAxis){
+function ShowPatInfo($patientCode,$yAxis, $appointmentID){
 	
 	$resultData = getPatientInformaition($patientCode);
 	
@@ -2359,12 +2359,14 @@ function Show_med($appointmentID, $xAxis, $yAxis, $size){
 		$drugNoDayType = $row['dayTypePdf'];
 		$drugWhen = $row['whenTypePdf'];
 		$drugAdvice = $row['adviceTypePdf'];
+		$drugTime = $row['drugTimeID'];
+		$drugAdviceID = $row['drugAdviceID'];
 		
 		
 		$yAxis =  $this->GetY() + 3;
 		
 		$this->SetXY($xAxis, $yAxis);
-		$this->MultiCell($nameCell,5,"$drugType. $drugName-$drugStr");
+		$this->MultiCell($nameCell,5,".$drugType. $drugName-$drugStr");
 		$xInnerAxis = $xAxis + $nameCell + 5;
 		
 		$this->SetFont('prolog','',$size);
@@ -2378,6 +2380,21 @@ function Show_med($appointmentID, $xAxis, $yAxis, $size){
 			$drugDoseInitial = str_replace("s","Pv", $drugDoseInitial);
 			$drugDoseInitial = str_replace("puff","cvd", $drugDoseInitial);
 			$drugDoseInitial = str_replace("d","Wªc", $drugDoseInitial);
+		}
+		
+		$drugDose = str_replace("-","+", $drugDose);
+		if($drugTime == 1){
+			if($drugAdviceID == 14){
+				$drugDose =  "$drugDose + 0 + 0";
+			}else if ($drugAdviceID == 15){
+				$drugDose =  "0 + 0 + $drugDose";
+			}else{
+				$drugDose =  "0 + 0 + $drugDose";
+			}				
+			
+		}else if($drugTime == 2){
+			list($num,$type) = explode('+', $drugDose, 2);
+			$drugDose =  "$num + 0 + $type";
 		}
 		
 		if($drugDoseInitial == ""){
@@ -2430,7 +2447,7 @@ function Show_inv($appointmentID, $xAxis,$yAxis,$maxX,$size) {
 		
 		$yAxis =  $this->GetY();
 		$this->SetXY($xAxis, $yAxis);
-		$this->MultiCell($maxX,5,"$var. $invName");
+		$this->MultiCell($maxX,5,". $invName");
 		$var++;
 	}
 	
@@ -2448,7 +2465,7 @@ function   Show_vital($appointmentID,$xAxis, $yAxis, $maxX, $size){
 	if(mysql_num_rows($resultData) > 0){
 		$this->SetFont('Times','',$size + 1);
 		$this->SetXY($xAxis, $yAxis);
-		$this->MultiCell(20,5,"O.E");
+		$this->MultiCell(20,5,"O/E");
 		$yAxis += 6;
 	
 	}if(mysql_num_rows($resultData) == 0){
@@ -2462,7 +2479,7 @@ function   Show_vital($appointmentID,$xAxis, $yAxis, $maxX, $size){
 
 		$yAxis =  $this->GetY();
 		$this->SetXY($xAxis, $yAxis);
-		$this->MultiCell($maxX,5,"$vitalDisplayName:  $vitalResult");
+		$this->MultiCell($maxX,5,".$vitalDisplayName:  $vitalResult");
 
 	}
 	
@@ -2557,7 +2574,7 @@ function show_ref_doc($appointmentID,$xAxis,$yAxis,$size){
 	
 	if($rec['doctorName'] != ""){
 		$this->SetXY($xAxis, $yAxis);
-		$this->MultiCell(100,5, "Ref to: ".  $rec['doctorName'] . "-" . $rec['doctorAdress']);
+		$this->MultiCell(100,5, "Refd. to: ".  $rec['doctorName'] . "-" . $rec['doctorAdress']);
 	}
 	
 }
@@ -2587,7 +2604,7 @@ function Show_History($appointmentID,$xAxis,$yAxis, $maxX , $size, $typeCode){
 	
 		$yAxis =  $this->GetY();
 		$this->SetXY($xAxis, $yAxis);
-		$this->MultiCell($maxX,5,"$historylDisplayName:  $historyResult");
+		$this->MultiCell($maxX,5,".$historylDisplayName:  $historyResult");
 	
 	}
 	
@@ -2600,11 +2617,11 @@ function Show_Past_History($appointmentID,$xAxis,$yAxis, $maxX , $size){
 	
 	$resultData = getPrescribedPastDisease($appointmentID);
 	
-	$this->SetFont('Times','',$size);
+	
 	
 	
 	if(mysql_num_rows($resultData) > 0){
-	
+		$this->SetFont('Times','',$size + 1);
 		$this->SetXY($xAxis, $yAxis);
 		$this->MultiCell($maxX,5,"Past Disease");
 		$yAxis += 6;
@@ -2613,13 +2630,15 @@ function Show_Past_History($appointmentID,$xAxis,$yAxis, $maxX , $size){
 		return $yAxis - 5;
 	}
 	
+	$this->SetFont('Times','',$size);
+	
 	while($row=  mysql_fetch_array($resultData)){
 	
 		$diseaseName = $row['diseaseName'];
 	
 		$yAxis =  $this->GetY();
 		$this->SetXY($xAxis, $yAxis);
-		$this->MultiCell($maxX,5,"$diseaseName");
+		$this->MultiCell($maxX,5,".$diseaseName");
 	
 	}
 	
@@ -2633,7 +2652,8 @@ function Show_Family_History($appointmentID,$xAxis,$yAxis, $maxX , $size){
 	
 	
 	if(mysql_num_rows($resultData) > 0){
-	
+		
+		$this->SetFont('Times','',$size + 1);
 		$this->SetXY($xAxis, $yAxis);
 		$this->MultiCell($maxX,5,"Family Disease");
 		$yAxis += 6;
@@ -2642,6 +2662,7 @@ function Show_Family_History($appointmentID,$xAxis,$yAxis, $maxX , $size){
 		return $yAxis - 5;
 	}
 	
+	$this->SetFont('Times','',$size);
 	while($row=  mysql_fetch_array($resultData)){
 	
 		$diseaseName = $row['diseaseName'];
@@ -2649,7 +2670,7 @@ function Show_Family_History($appointmentID,$xAxis,$yAxis, $maxX , $size){
 	
 		$yAxis =  $this->GetY();
 		$this->SetXY($xAxis, $yAxis);
-		$this->MultiCell($maxX,5,"$diseaseName - $relationName");
+		$this->MultiCell($maxX,5,".$diseaseName - $relationName");
 	
 	}
 	
@@ -2666,7 +2687,7 @@ function Show_Complain($appointmentID,$xAxis,$yAxis, $maxX , $size) {
 	if(mysql_num_rows($resultData) > 0){
 		$this->SetFont('Times','',$size + 1);
 		$this->SetXY($xAxis, $yAxis);
-		$this->MultiCell($maxX,5,"C.C");
+		$this->MultiCell($maxX,5,"C/C");
 		$yAxis += 6;
 	
 	}if(mysql_num_rows($resultData) == 0){
@@ -2684,11 +2705,11 @@ function Show_Complain($appointmentID,$xAxis,$yAxis, $maxX , $size) {
 		$yAxis =  $this->GetY();
 		$this->SetXY($xAxis, $yAxis);
 		if($durationID < 5){
-			$this->MultiCell($maxX,5,"$var. $symptomName - $durationNum - $durationType");
+			$this->MultiCell($maxX,5,". $symptomName - $durationNum - $durationType");
 		}elseif ($durationID == 7){
-			$this->MultiCell($maxX,5,"$var. $symptomName - $durationType");
+			$this->MultiCell($maxX,5,". $symptomName - $durationType");
 		}else{
-			$this->MultiCell($maxX,5,"$var. $symptomName");
+			$this->MultiCell($maxX,5,". $symptomName");
 		}
 			
 		$var++;

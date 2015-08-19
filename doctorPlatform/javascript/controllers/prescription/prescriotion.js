@@ -14,6 +14,7 @@ app.controller('PrescriptionController', function($scope, $http, $modal, $rootSc
 	
 	$scope.prescribedInvData = [];
 	$scope.numberOfInvAdded = 0;
+	$scope.menuState = true;
 	
 	$scope.prescribedComplainData = [];
 	
@@ -427,7 +428,7 @@ app.controller('PrescriptionController', function($scope, $http, $modal, $rootSc
 	        	$scope.dayTypeList.splice(5, 1);
 	        	$scope.dayTypeList.splice(4, 1);
 	        	if(addMood){
-	        		$scope.nextVisitData.numOfDay = $scope.dayList[6];
+	        		$scope.nextVisitData.numOfDay = $scope.dayList[7];
 	        		$scope.nextVisitData.dayType = $scope.dayTypeList[0];
 	        	}else{
 	        		angular.forEach($scope.dayTypeList, function(value, key) {
@@ -1439,7 +1440,7 @@ app.controller('PrescriptionController.PrescribeDrugsController', function($scop
 	    	$scope.drugData.addMood = true; 
 	    	$scope.drugData.delDrug = false;
 			$scope.drugData.editName = false;
-	    	$scope.bringdrugsType(true, null, 3, 7);
+	    	$scope.bringdrugsType(true, null, 3, '');
 			$scope.bringdrugsDayType(true , null);
 			$scope.bringdrugsWhatType(true, null);
 			$scope.bringdrugsAdviceType(true, null);

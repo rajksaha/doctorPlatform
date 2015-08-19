@@ -53,7 +53,7 @@ function getPrescribedAdvice($appointmentID){
 
 function getPrescribedVital($appointmentID){
 
-	$sql = "SELECT vp.`id`, vp.`appointMentID`, vp.`vitalID`, vp.`vitalResult` , IF(v.shortName IS NULL or v.shortName = '', v.vitalName,   v.vitalName) AS vitalDisplayName, v.vitalUnit
+	$sql = "SELECT vp.`id`, vp.`appointMentID`, vp.`vitalID`, vp.`vitalResult` , IF(v.shortName IS NULL or v.shortName = '', v.vitalName,   v.vitalName) AS vitalDisplayName, v.vitalUnit 
 			FROM `vital_prescription` vp 
 			JOIN vital v ON vp.vitalID = v.vitalId
  			WHERE `appointMentID`= '$appointmentID'";

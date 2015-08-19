@@ -445,6 +445,27 @@ app.config(function($stateProvider, $urlRouterProvider, $compileProvider, $contr
             }
         };
     
+    var drugHistory = {
+            name : 'root.drugHistory',
+            url : '/drugHistory',
+            views : {
+                'container@' : {
+                    templateUrl : 'javascript/templates/drugHistory/drugHistory.html',
+                    controller : 'DrugHistoryController'
+                }
+            },
+            resolve : {
+                loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+                  // you can lazy load files for an existing module
+                  return $ocLazyLoad.load(
+                    {
+                      name: 'ktrTablet',
+                      files: ['javascript/controllers/drugHistory/drugHistoryController.js' ]
+                    });
+                  }]
+            }
+        };
+    
     var drugAdvisor = {
             name : 'root.drugAdvisor',
             url : '/drugAdvisor',
@@ -488,6 +509,7 @@ app.config(function($stateProvider, $urlRouterProvider, $compileProvider, $contr
         .state(invReport)
         .state(followUpChart)
         .state(drugAdvisor)
+        .state(drugHistory)
     	.state(appointment);
     
 

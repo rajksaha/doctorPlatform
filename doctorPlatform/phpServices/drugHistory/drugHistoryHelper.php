@@ -2,6 +2,7 @@
 
 session_start();
 include('../config.inc');
+include('../commonServices/appointmentService.php');
 include('../commonServices/prescriptionService.php');
 include('../commonServices/prescriptionInsertService.php');
 include('../commonServices/parentInsertService.php');
@@ -11,6 +12,7 @@ if (!isset($_SESSION['username'])) {
 $username=$_SESSION['username'];
 $date=date("Y-m-d");
 $appointmentID = $_SESSION['appointmentID'];
+$patientCode = $_SESSION['patientCode'];
 //$query_no=  mysql_real_escape_string($_POST['query']);
 
 $json = file_get_contents('php://input');
@@ -20,15 +22,17 @@ $query_no = $dataObject->query;
 
 if($query_no==1){
 	
-	$sql = "SELECT dat.id AS drugAdviceID, dat.bangla, dat.english, dat.pdf
-			FROM `drugAdviceType` dat
-			WHERE dat.doctorType =0 AND dat.id <> 0
-			UNION
-			SELECT dat.id AS drugAdviceID, dat.bangla, dat.english, dat.pdf
-			FROM `drugAdviceType` dat
-			LEFT JOIN doctorsettings ds ON dat.doctorType = ds.category
-			JOIN doctor d ON d.doctorID = ds.doctorID
-			WHERE d.doctorCode = '$username'";
+	$result = getPatientInformaition($patientCode);
+	
+	$rec=mysql_fetch_assoc($result);
+	
+	$patientID = $rec['patientID'];
+	
+	$status = $dataObject->status;
+	
+	
+	
+	$sql = "SELECT `drugHistoryID`, `patientID`, `drugName`, `currentStatus` FROM `drug_history` WHERE `patientID` = '$patientID' AND `currentStatus` = $status";
 	$result=mysql_query($sql);
 	
 	$data = array();
@@ -40,12 +44,17 @@ if($query_no==1){
 	
 }else if($query_no==2){
 	
-	$bangla = $dataObject->bangla;
-	$pdf = $dataObject->pdf;
+	$drugName = $dataObject->drugName;
 	
-	//$asciiString = mb_convert_encoding($bangla, "ISO-8859-1", "UTF-8");
+	$result = getPatientInformaition($patientCode);
 	
-	mysql_query("INSERT INTO `drugadvicetype`(`doctorType`, `bangla`, `english`, `pdf`) VALUES (0,'$bangla','','$pdf')");
+	$rec=mysql_fetch_assoc($result);
+	
+	$patientID = $rec['patientID'];
+	
+	$status = $dataObject->status;
+	
+	mysql_query("INSERT INTO `drug_history`(`patientID`, `drugName`, `currentStatus`) VALUES ('$patientID', '$drugName' , '$status')");
 	
 	
 	
@@ -53,7 +62,7 @@ if($query_no==1){
 	
 	$delId = $dataObject->delId;
 	
-	mysql_query("DELETE FROM `drugadvicetype` WHERE `id` = $delId");
+	mysql_query("DELETE FROM `drug_history` WHERE `drugHistoryID` = $delId");
 	
 }else if($query_no==4){
 	$sql = "SELECT `id`, `bangla`, `english`, `pdf` FROM `drugWhenType` WHERE id <> 0";

@@ -3,6 +3,9 @@ app.service('JsonService', function(){
 	this.numberList = [];
 	this.fractionNumberList = [];
 	
+	
+	var data = {"value" : '' , "name" : '--Select--'};
+	this.numberList.push(data);
 	for(var i = 1; i<32 ; i++){
 		var data = {"value" : i , "name" : i};
 		this.numberList.push(data);

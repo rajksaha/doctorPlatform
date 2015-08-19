@@ -49,11 +49,12 @@ app.controller('PrescribeVitalController', function($scope, $http, $modal, $root
 			            data: dataString,
 			            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 			        }).success(function (result) {
+			        	$scope.vitalSameAS = false;
 			        	$scope.addToDoctorPreference(result);
 			        });
 					
 				}else{
-					
+					$scope.vitalSameAS = false;
 					$scope.addToDoctorPreference($scope.vitalNameData.vitalId);
 				}
 				
