@@ -10,6 +10,21 @@ $username = $_SESSION['username'];
 $query_no=  $_POST['query'];
 
 
+function getPreiodicList($drugPrescribeID){
+
+	$dose = mysql_query("SELECT dp.`drugPrescribeID`, dp.`dose`, dp.`numOfDay`, dp.`durationType`, ddt.`bangla`, ddt.`pdf`, ddt.`english`
+							FROM `dose_period`dp
+							JOIN drugdaytype ddt ON  dp.`durationType` = ddt.id
+							WHERE `drugPrescribeID` = $drugPrescribeID");
+		
+	$data = array();
+	while ($row=mysql_fetch_array($dose)){
+		array_push($data,$row);
+	}
+
+	return $data;
+}
+
 if($query_no== 0){
 	
 	$appointmentID = $_POST['appointmentID'];
@@ -19,6 +34,8 @@ if($query_no== 0){
 	
 	$data = array();
 	while ($row=mysql_fetch_array($result)){
+		$drugPrescribeID = $row['id'];
+		$row['preiodicList'] = getPreiodicList($drugPrescribeID);
 		array_push($data,$row);
 	}
 	

@@ -43,7 +43,7 @@ $pdf->AddFont('prolog','','prolog1.TTF',true);
 $pdf->SetFont('Times','',10);
 $pdf->SetFillColor(200,220,255);
 //$pdf->ShowDocInfo($user);
-$pdf->ShowPatInfo($patientCode,73);
+$pdf->ShowPatInfo($patientCode, 73, $username);
 
 $leftYaxis = 90;
 $rightYaxis = 90;
@@ -54,7 +54,7 @@ $rightXaxis = 75;
 $maxX = 60;
 
 $rightYaxis = $pdf->Show_diagnosis($appointmentID,$rightXaxis,$rightYaxis + 5,$size);
-$rightYaxis = $pdf->Show_med($appointmentID,$rightXaxis,$rightYaxis + 5,$size);
+$rightYaxis = $pdf->Show_med($appointmentID,$rightXaxis,$rightYaxis + 10,$size);
 $rightYaxis = $pdf->Show_advice($appointmentID,$rightXaxis,$rightYaxis + 5,$size - 2,$maxX);
 
 

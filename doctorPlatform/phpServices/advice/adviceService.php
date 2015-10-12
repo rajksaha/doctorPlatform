@@ -66,8 +66,10 @@ if($query_no== 0){
 	
 	$advice = $_POST['adviceName'];
 	$type = $_POST['type'];
+	$pdf = $_POST['pdf'];
+	$lang = $_POST['lang'];
 	
-	$sql = "INSERT INTO `advice`(`type`, `lang`, `advice`, `pdf`) VALUES ('$type',1,'$advice','')";
+	$sql = "INSERT INTO `advice`(`type`, `lang`, `advice`, `pdf`) VALUES ('$type',$lang,'$advice','$pdf')";
 	
 	mysql_query($sql);
 	
@@ -97,6 +99,16 @@ if($query_no== 0){
 	mysql_query($sql);
 
 }else if ($query_no == 6){
+
+	$adviceSettingID = $_POST['adviceSettingID'];
+
+	$sql = "DELETE FROM `doctor_advice_settings` WHERE `id` = '$adviceSettingID'";
+
+	mysql_query($sql);
+	
+	echo $sql;
+
+}else if ($query_no == 7){
 
 	$adviceSettingID = $_POST['adviceSettingID'];
 

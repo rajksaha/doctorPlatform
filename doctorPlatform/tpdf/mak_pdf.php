@@ -68,9 +68,10 @@ function Show_med($appointmentID, $xAxis, $yAxis, $size){
 		$drugDoseInitial = $row['drugDoseUnit'];
 		$drugWhen = $row['whenTypePdf'];
 		$drugAdvice = $row['adviceTypePdf'];
+		$drugAdviceID = $row['drugAdviceID'];
 		
 		
-		$yAxis =  $this->GetY() + 7;
+		$yAxis =  $this->GetY();
 		
 		$this->SetXY($xAxis, $yAxis);
 		if($drugStr  == ""){
@@ -89,11 +90,11 @@ function Show_med($appointmentID, $xAxis, $yAxis, $size){
 		$realY =  $this->GetY();
 		if($drugDoseInitial != ""){
 			
-			$drugDoseInitial = str_replace("ampl","G¤cj", $drugDoseInitial);
+			$drugDoseInitial = str_replace("ampl","GÂ¤cj", $drugDoseInitial);
 			$drugDoseInitial = str_replace("vial","fvqvj", $drugDoseInitial);
 			$drugDoseInitial = str_replace("s"," Pv PvgP ", $drugDoseInitial);
 			$drugDoseInitial = str_replace("puff","cvd", $drugDoseInitial);
-			$drugDoseInitial = str_replace("d","Wªc", $drugDoseInitial);
+			$drugDoseInitial = str_replace("d","WÂªc", $drugDoseInitial);
 		}
 		
 		$doseData = getPreiodicListforPdf($drugPrescribeID);
@@ -185,7 +186,8 @@ function Show_med($appointmentID, $xAxis, $yAxis, $size){
 			$xInnerAxis = $xInnerAxis + $doseeCell + 20;
 			$this->SetXY($xInnerAxis, $realY);
 			$this->MultiCell($durationCell,5,"$restOftheString |");
-			$this->SetY($yAxis);
+			
+			$this->SetY($yAxis + 5);
 		}
 		
 		
@@ -200,9 +202,9 @@ function Show_med($appointmentID, $xAxis, $yAxis, $size){
 
 }
 
-function ShowPatInfo($patientCode,$yAxis){
+function ShowPatInfo($patientCode,$yAxis,$username){
 	
-	$resultData = getPatientInformaition($patientCode);
+	$resultData = getPdfDetail($patientCode,$username);
 	
 	$rec = mysql_fetch_assoc($resultData);
 	
@@ -212,6 +214,8 @@ function ShowPatInfo($patientCode,$yAxis){
 	
 	$sex = $rec['sex'];
 	
+	$visit = $rec['visitNo'];
+	
 	$patientCode = $rec['patientCode'];
 	
 	$patientCode = substr($patientCode, -5);
@@ -220,17 +224,20 @@ function ShowPatInfo($patientCode,$yAxis){
 	
 	$this->SetFont('Times','', 13);
 	
-	$this->SetXY(150,35);
+	$this->SetXY(100,$yAxis);
     $this->Write(5, "ID:$patientCode");
+    
+    //$this->SetXY(100,$yAxis-15);
+    //$this->Write(5, "Visit: $visit");
 	
-	$this->SetXY(32,$yAxis);
-	$this->Write(5, "$name");
+	$this->SetXY(15,$yAxis);
+	$this->Write(5, "Name :$name");
 	
-	$this->SetXY(138, $yAxis);
-	$this->Write(5, "$age yrs");
+	$this->SetXY(130, $yAxis);
+	$this->Write(5, "Age: $age yrs");
 	
-	$this->SetXY(170, $yAxis);
-	$this->Write(5, "$date");
+	$this->SetXY(160, $yAxis);
+	$this->Write(5, "Date: $date");
 	
 			//$this->SetXY(150,35);
             //$this->Write(5, "ID:$phone");
@@ -247,6 +254,130 @@ function ShowPatInfo($patientCode,$yAxis){
 }
 
 
+function showDocInfo($username, $yAxis, $size){
+	
+	$resultData = getDoctorInfo($username);
+	
+	if($resultData['prescriptionStyle'] == 2){
+		
+		$this->SetXY(15, $yAxis);
+		$this->SetFont('prolog','',$size + 2);
+		$this->MultiCell(100,5, "Wvt †gvt AvwRRyj Kvnnvi", 0);
+		
+		$this->SetXY(150, $yAxis);
+		$this->SetFont('Times','',$size);
+		$this->MultiCell(100,5, "Dr. Md. Azizul Kahhar", 0);
+		
+		$yAxis = $yAxis + 5;
+		$this->SetXY(15, $yAxis);
+		$this->SetFont('prolog','',$size);
+		$this->MultiCell(100,5, "GgAviwmwc(BD‡K), GdwmwcGm ", 0);
+		$this->SetXY(150, $yAxis);
+		$this->SetFont('Times','',$size);
+		$this->MultiCell(100,5, "MRCP (UK), FCPS", 0);
+		
+		$yAxis = $yAxis + 5;
+		$this->SetXY(15, $yAxis);
+		$this->SetFont('prolog','',$size);
+		$this->MultiCell(100,5, "†gwWwmb we‡klÁ ", 0);
+		$this->SetXY(150, $yAxis);
+		$this->SetFont('Times','',$size);
+		$this->MultiCell(100,5, "Consultant Physician", 0);
+		
+		$yAxis = $yAxis + 5;
+		$this->SetXY(15, $yAxis);
+		$this->SetFont('prolog','',$size);
+		$this->MultiCell(100,5, "†iwR‡÷ªkb t G-11488 ", 0);
+		
+		$yAxis = $yAxis + 5;
+		$linestyle = array('width' => 0.1, 'cap' => 'butt', 'join' => 'miter', 'dash' => '', 'phase' => 0, 'color' => array(255, 0, 0));
+		$this->Line(15, $yAxis, 195, $yAxis, $linestyle);
+		
+		
+		$yAxis = 235;
+		$this->Line(15, $yAxis, 195, $yAxis, $linestyle);
+		
+		$yAxis = $yAxis + 5;
+		$this->SetXY(15, $yAxis);
+		$this->SetFont('prolog','',$size + 2);
+		$this->MultiCell(100,5, "†P¤^vit gWvb© WvqvMbmwUK †m›Uvi wjwg‡UW ", 0);
+		
+		$size = $size - 2;
+		$yAxis = $yAxis + 5;
+		$this->SetXY(15, $yAxis);
+		$this->SetFont('prolog','',$size);
+		$this->MultiCell(100,5, "moK bst 8, evwo bst 17, avbgwÊ AvevwmK GjvKv ", 0);
+		
+		$this->SetXY(160, $yAxis);
+		$this->SetFont('prolog','',$size);
+		$this->MultiCell(100,5, "†dvbt †ivMxi wmwiqvj †bqvi Rb¨ ", 0);
+		
+		
+		
+		$yAxis = $yAxis + 5;
+		$this->SetXY(15, $yAxis);
+		$this->SetFont('prolog','',$size);
+		$this->MultiCell(100,5, "XvKv-1205| ", 0);
+		
+		$this->SetXY(160, $yAxis);
+		$this->SetFont('prolog','',$size);
+		$this->MultiCell(100,5, "†gvevBjt 01190668719 ", 0);
+		
+		$yAxis = $yAxis + 5;
+		$this->SetXY(15, $yAxis);
+		$this->SetFont('prolog','',$size);
+		$this->MultiCell(100,5, "mv¶v‡Zi mgq t weKvj 5t00-ivZ 9t00 ", 0);
+		
+		$this->SetXY(80, $yAxis);
+		$this->SetFont('prolog','',$size);
+		$this->MultiCell(100,5, "me mgq †dv‡b wmwiqvj wb‡q Avm‡eb ", 0);
+		
+		$this->SetXY(171, $yAxis);
+		$this->SetFont('prolog','',$size);
+		$this->MultiCell(100,5, "01768764232 ", 0);
+		
+		
+		
+		$yAxis = $yAxis + 5;
+		$this->SetXY(15, $yAxis);
+		$this->SetFont('prolog','',$size);
+		$this->MultiCell(100,5, "e„n¯cwZ I ïµevi eÜ| ", 0);
+		
+		$this->SetXY(80, $yAxis);
+		$this->SetFont('prolog','',$size);
+		$this->MultiCell(100,5, "Ri“wi cÖ‡qvR‡b wbKU¯’ nv¯cvZv‡ji Ri“wi wefv‡M hv‡eb ", 0);
+		
+		$this->SetXY(160, $yAxis);
+		$this->SetFont('Times','',$size);
+		$this->MultiCell(100,5, "Email: makahhar@gmail.com  ", 0);
+		
+		/* $yAxis = $yAxis + 2;
+		$this->SetXY(10, $yAxis);
+		$this->SetFont('Times','',$size);
+		$this->Write(5, "Chamber: Lab Aid, Dhanmondi, Road No-4, House No-1, Dhanmondi, Dhaka-1205, Phone: 8610793 Ex: 618");
+		
+		$yAxis = $yAxis + 6;
+		$this->SetXY(20, $yAxis);
+		$this->SetFont('prolog','',$size);
+		$this->Write(5, ".wet `Âªt cÃ–wZevi mvÂ¶vâ€¡Zi RbÂ¨ bvg â€ jLvâ€¡eb Ges eÂ¨eÂ¯â€™vcÃŽ mâ€¡Â½ Avbâ€¡eb|");
+		
+		$yAxis = $yAxis + 6;
+		$this->SetXY(20, $yAxis);
+		$this->Write(5, ".â€ ivMx â€ `Lvi mgqt weKvj 2t30Uv â€ _â€¡K 4t30Uv, mÃœÂ¨v 6Zv â€ _â€¡K ivZ 10Uv");
+		
+		$yAxis = $yAxis + 6;
+		$this->SetXY(20, $yAxis);
+		$this->Write(5, ".cÃ–wZw`â€¡bi wmwiqvj Avâ€¡Mi w`b mKvj 10Uv â€ _â€¡K â€ bIqv nq|");
+		
+		$yAxis = $yAxis + 6;
+		$this->SetXY(20, $yAxis);
+		$this->Write(5, ".wmwiqvâ€¡ji RbÂ¨ nUjvBb-10606, Ã¯Âµevi eÃœ|  "); */
+		
+		
+	}
+
+}
+
 
 
 
@@ -255,13 +386,16 @@ function ShowPatInfo($patientCode,$yAxis){
 $pdf = new PDF();
 $pdf->AddPage();
 $pdf->AddFont('prolog','','prolog1.TTF',true);
+$pdf->AddFont('akaash','','akaash.ttf',true);
 $pdf->SetFont('Times','',10);
 $pdf->SetFillColor(200,220,255);
-//$pdf->ShowDocInfo($user);
-$pdf->ShowPatInfo($patientCode,55);
 
-$leftYaxis = 75;
-$rightYaxis = 65;
+$pdf->ShowPatInfo($patientCode,37,$username);
+$linestyle = array('width' => 0.1, 'cap' => 'butt', 'join' => 'miter', 'dash' => '', 'phase' => 0, 'color' => array(255, 0, 0));
+$pdf->Line(15, 44, 195, 44, $linestyle);
+
+$leftYaxis = 46;
+$rightYaxis = 46;
 $size = 12;
 
 $leftXaxis = 15;
@@ -269,22 +403,22 @@ $rightXaxis = 105;
 $maxX = 60;
 $maxXForRight = 100;
 
-$pdf->Show_diagnosis($appointmentID,15,230 + 5,$size);
+$rightYaxis = $pdf->Show_diagnosis($appointmentID,$rightXaxis,$rightYaxis,$size);
 
-$rightYaxis = $pdf->Show_med($appointmentID,$rightXaxis,$rightYaxis + 5,$size+3);
+$rightYaxis = $pdf->Show_med($appointmentID,$rightXaxis, 56 + 2,$size);
 $rightYaxis = $pdf->Show_advice($appointmentID,$rightXaxis,$rightYaxis + 5,$size,$maxXForRight);
 
 
 $leftYaxis=$pdf->Show_Complain($appointmentID,$leftXaxis,$leftYaxis + 3, $maxX , $size);
-$leftYaxis=$pdf->Show_vital($appointmentID,$leftXaxis,$leftYaxis + 15, $maxX , $size);
-$leftYaxis=$pdf->Show_inv($appointmentID,$leftXaxis,$leftYaxis + 10, $maxX , $size);
+$leftYaxis=$pdf->Show_vital($appointmentID,$leftXaxis,$leftYaxis +3, $maxX , $size);
+$leftYaxis=$pdf->Show_inv($appointmentID,$leftXaxis,$leftYaxis + 3, $maxX , $size);
 $leftYaxis=$pdf->Show_Past_History($appointmentID,$leftXaxis,$leftYaxis + 3, $maxX, $size);
 $leftYaxis=$pdf->Show_Family_History($appointmentID,$leftXaxis,$leftYaxis + 3, $maxX, $size);
 
-$pdf-> show_nextVisit($appointmentID,5,270,$size);
+$pdf-> show_nextVisit($appointmentID,15,230,$size);
 
-
-$pdf-> show_ref_doc($appointmentID,15,250,$size);
+$pdf->showDocInfo($username, 15, 12);
+$pdf-> show_ref_doc($appointmentID,60,225,$size);
 $pdf->Output();
 
 ?>

@@ -8,15 +8,44 @@ app.controller('PrescribeHistoryController', function($scope, $http, $modal, $ro
 	$scope.typeCode = "";
 	$scope.addByName = false;
 	
+	$scope.getTypeCode = function(category){
+		if(category == 9){
+			return "M.H";
+		}else{
+			return "RISK"
+		}
+	};
+	
 	
 	$scope.checkLocation = function (){
-		
 		if($scope.pageName == "/history"){
-			$scope.typeCode = "MH";
+			
+			//$scope.typeCode = "RISK";
+			//return;
+			var dataString = "query=1";
+	        $http({
+	            method: 'POST',
+	            url: "phpServices/prescription/prescriptionHelperService.php",
+	            data: dataString,
+	            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+	        }).success(function (result) {
+	        	$scope.menuDataList = result;
+	        	$scope.pageName = "#" + $scope.pageName;
+	        	angular.forEach($scope.menuDataList, function(rowData, key) {
+	        		if(rowData.menuURL == $scope.pageName){
+	        			$scope.typeCode = $scope.getTypeCode(rowData.category);
+	        		}
+	    		});
+	        	
+	        	$scope.bringHistoryDetail();
+	        });
 		}else if ($scope.pageName == "/obsHistory") {
 			$scope.typeCode = "OBS";
 		}
 	};
+	
+	
+	
 	
     $scope.getHistory = function(term) {
         
@@ -275,7 +304,6 @@ app.controller('PrescribeHistoryController', function($scope, $http, $modal, $ro
 	
 	(function(){
 		$scope.checkLocation();
-		$scope.bringHistoryDetail();
     })()
 
 	

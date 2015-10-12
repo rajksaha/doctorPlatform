@@ -5,7 +5,7 @@ if (!isset($_SESSION['username'])) {
 	header('Location: index.php');
 }
 
-function insertPrescriptionDrugs($appointmentID, $drugType, $drugID, $drugTime, $drugDose, $doseUnit, $drugNoOfDay, $drugDayType, $drugWhen, $drugAdvice){
+function insertPrescriptionDrugs($appointmentID, $drugType, $drugID, $drugTime, $doseUnit, $drugWhen, $drugAdvice){
 	
 	
 	$sql = "INSERT 
@@ -15,10 +15,7 @@ function insertPrescriptionDrugs($appointmentID, $drugType, $drugID, $drugTime, 
 						 `drugTypeID`,
 						 `drugID`, 
 						`drugTimeID`, 
-						`drugDose`, 
 						`drugDoseUnit`, 
-						`drugNoOfDay`, 
-						`drugDayTypeID`, 
 						`drugWhenID`, 
 						`drugAdviceID`
 					)
@@ -28,17 +25,14 @@ function insertPrescriptionDrugs($appointmentID, $drugType, $drugID, $drugTime, 
 						'$drugType',
 						'$drugID',
 						'$drugTime',
-						'$drugDose',
 						'$doseUnit',
-						'$drugNoOfDay',
-						'$drugDayType',
 						'$drugWhen',
 						'$drugAdvice'
 					)";
 	
-	$result=mysql_query($sql);
+	mysql_query($sql);
 	
-	return $result;
+	return mysql_insert_id();
 }
 
 function insertPrescriptionInv($appointmentID, $invID, $note){
@@ -104,15 +98,27 @@ function addToDoctorSetting($appointmentID ,$doctorID, $diseaseID){
 		$drugType = $row['drugTypeID'];
 		$drugID = $row['drugID'];
 		$drugTime = $row['drugTimeID'];
-		$drugDose = $row['drugDose'];
 		$doseUnit = $row['drugDoseUnit'];
-		$drugNoOfDay = $row['drugNoOfDay'];
-		$drugDayType = $row['drugDayTypeID'];
 		$drugWhen = $row['drugWhenID'];
 		$drugAdvice = $row['drugAdviceID'];
+		$requestedID = $row['id'];
 		
+		$drugSetID = insertSingleDrugsToSetting($doctorID, $diseaseID, $drugID, $drugType, $drugTime, $doseUnit, $drugWhen, $drugAdvice, $requestedID);
 		
-		insertSingleDrugsToSetting($doctorID, $diseaseID, $drugID, $drugType, $drugTime, $drugDose, $doseUnit, $drugNoOfDay, $drugDayType, $drugDayType, $drugWhen, $drugAdvice);
+		$dose123 = mysql_query("SELECT `drugPrescribeID`, `dose`, `numOfDay`, `durationType` FROM `dose_period` WHERE `drugPrescribeID` = $requestedID");
+		
+		while ($test=mysql_fetch_array($dose123)){
+		
+			$drugDose = $test['dose'];
+			$drugNoDay = $test['numOfDay'];
+			$drugNoDayType = $test['durationType'];
+		
+			if($drugNoDay == NULL || $drugNoDay == ''){
+				mysql_query("INSERT INTO `settings_dose_drug`(`drugSettingID`, `dose`, `numOfDay`, `durationType`) VALUES ($drugSetID, '$drugDose', NULL, $drugNoDayType)");
+			}else{
+				mysql_query("INSERT INTO `settings_dose_drug`(`drugSettingID`, `dose`, `numOfDay`, `durationType`) VALUES ($drugSetID, '$drugDose', $drugNoDay, $drugNoDayType)");
+			}
+		}
 	}
 	
 	
@@ -148,14 +154,15 @@ function addToDoctorSetting($appointmentID ,$doctorID, $diseaseID){
 }
 
 
-function insertSingleDrugsToSetting($doctorID, $diseaseID,$drugID, $drugType, $drugTime, $drugDose, $doseUnit, $drugNoOfDay, $drugDayType, $drugWhen, $drugAdvice){
+function insertSingleDrugsToSetting($doctorID, $diseaseID, $drugID, $drugType, $drugTime, $doseUnit, $drugWhen, $drugAdvice){
 	
-	mysql_query("INSERT INTO `settings_drug`(`doctorID`, `diseaseID`, `drugTypeID`, `drugID`, `drugTimeID`, `drugDose`, `drugDoseUnit`, `drugNoOfDay`, `drugDayTypeID`, `drugWhenID`, `drugAdviceID`) 
+	mysql_query("INSERT INTO `settings_drug`(`doctorID`, `diseaseID`, `drugTypeID`, `drugID`, `drugTimeID`, `drugDoseUnit`, `drugWhenID`, `drugAdviceID`) 
 			VALUES
-			('$doctorID', '$diseaseID', '$drugType', '$drugID', '$drugTime', '$drugDose', '$doseUnit', '$drugNoOfDay', '$drugDayType', '$drugWhen', '$drugAdvice')");
+			('$doctorID', '$diseaseID', '$drugType', '$drugID', '$drugTime', '$doseUnit', '$drugWhen', '$drugAdvice')");
 	
 	
 	
+	return mysql_insert_id();
 	
 }
 
@@ -181,9 +188,9 @@ function insertFamilyHistory($patientID, $diseaseID, $relation, $present, $type,
 	
 }
 
-function insertPastHistory($patientID, $diseaseID, $startDate, $endDate, $detail){
+function insertPastHistory($patientID, $diseaseID, $isPresent, $detail){
 
-	mysql_query("INSERT INTO `patient_past_disease`(`patientID`, `diseaseID`, `startDate`, `endDate`, `detail`) VALUES ('$patientID','$diseaseID','$startDate','$endDate','$detail')");
+	mysql_query("INSERT INTO `patient_past_disease`(`patientID`, `diseaseID`, `isPresent`, `detail`) VALUES ('$patientID','$diseaseID', $isPresent ,'$detail')");
 
 }
 

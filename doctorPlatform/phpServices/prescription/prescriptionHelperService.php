@@ -29,9 +29,10 @@ if($query_no== 0){
 	
 }else if($query_no==1){
 	$sql = "SELECT 
-				ms.menuHeader, ms.order, m.menuURL
+				ms.menuHeader, ms.order, m.menuURL, ds.category
 			FROM `menusettings` ms
 			JOIN doctor doc ON ms.doctorID = doc.doctorID
+			JOIN  doctorsettings ds ON ds.doctorID = doc.doctorID
 			JOIN menu m ON ms.menuID = m.menuID
 			WHERE doc.doctorCode = '$username'
 			ORDER BY ms.order ASC";
@@ -108,10 +109,12 @@ else if($query_no==4){
 	
 	$sql = mysql_query("UPDATE `next_visit` SET `date`= '$nextVisitDate', `nextVisitType`='$nextVisitType',`numOfDay`='$numOfDay',`dayType`='$dayType' WHERE appointmentID = '$appointmentNO'");
 	
-	
+	echo "UPDATE `next_visit` SET `date`= '$nextVisitDate', `nextVisitType`='$nextVisitType',`numOfDay`='$numOfDay',`dayType`='$dayType' WHERE appointmentID = '$appointmentNO'";
 	
 	
 }elseif ($query_no == 8){
+	
+	mysql_query("DELETE FROM `next_visit` WHERE `appointmentID` = $appointmentNO");
 	
 	$nextVisitDate = mysql_real_escape_string($_POST['nextVisitDate']);
 	

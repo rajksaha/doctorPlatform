@@ -170,7 +170,7 @@
     			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" data-ng-show="prescribedMHData.length > 0">
 	             	<div class="panel">	                 
 						<div class="prescriptionPanel-body">
-							<div class="form-group"><a href="#/history"><label class="mainLabel">MH History</label></a></div>
+							<div class="form-group"><a href="#/history"><label class="mainLabel">{{typeCode}}</label></a></div>
 								<table class="table">
 									<tr data-ng-repeat="data in prescribedMHData" >
 										<td style="width: 5%">
@@ -396,14 +396,11 @@
 										<td style="width: 20%">
 											<span>{{drugPres.typeInitial}}. {{drugPres.drugName}} - {{drugPres.drugStrength}}</span>
 										</td>
-										<td  style="width: 15%">
-											<span>{{drugPres.drugDose}}</span>
-										</td>
-										<td style="width: 15%" ng-if="drugPres.drugNoOfDay > 0">
-											<span>{{drugPres.drugNoOfDay}} -  {{drugPres.dayTypeName}}</span>
-										</td>
-										<td  style="width: 15%" ng-if="drugPres.drugNoOfDay < 1">
-											<span>{{drugPres.dayTypeName}}</span>
+										<td  style="width: 30%" >
+											<div data-ng-repeat="drugDose in drugPres.preiodicList">
+												<span>{{drugDose.dose}} <span class="pull-right"> {{drugDose.numOfDay}}  {{drugDose.bangla}} </span></span>
+											</div>
+											
 										</td>
 										<td   style="width: 20%">
 											<span>{{drugPres.whenTypeName}}</span>

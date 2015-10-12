@@ -116,7 +116,7 @@ app.config(function($stateProvider, $urlRouterProvider, $compileProvider, $contr
                   return $ocLazyLoad.load(
                     {
                       name: 'ktrTablet',
-                      files: ['javascript/controllers/prescription/prescriotion.js' ]
+                      files: ['javascript/controllers/prescription/prescriptionNew.js' ]
                     });
                   }]
             }

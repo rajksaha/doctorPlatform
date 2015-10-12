@@ -112,5 +112,8 @@ else if($query_no==4){
 		array_push($data,$row);
 	}
 	echo json_encode($data); 
+}else if($query_no==9){
+	$appointmentID=$_POST['appointmentID'];
+	mysql_query("DELETE FROM `appointment` WHERE `appointmentID` = $appointmentID");
 }
 ?>

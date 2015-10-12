@@ -2,7 +2,7 @@
 
 function getdrugList($queryString, $drugType){
 	
-	$sql ="SELECT d.`drugID`, d.`typeID`, d.`companyID`, CONCAT(d.drugName, ' - ',  d.`strength`) As displayName, d.drugName
+	$sql ="SELECT d.`drugID`, d.`typeID`, d.`companyID`, CONCAT(d.drugName, ' - ',  d.`strength`) As displayName, d.drugName, d.strength
 			FROM `drug` d 
 			WHERE d.`drugName` LIKE '" . $queryString . "%' AND d.typeID = '$drugType'
 			LIMIT 10";

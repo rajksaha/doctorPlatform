@@ -1,0 +1,34 @@
+<div class="modal-header modalHead ">
+	<h4 class="modal-title">Add Advcie To Settings</h4>
+</div>
+<div class="modal-body modalBody"  style="position:relative; z-index:1;">
+	<div class="alert alert-danger alert-dismissable" data-ng-show="error">
+        <div>{{errorMessage}}</div>
+        <div id="lblMsg_modal"></div>
+    </div>
+
+
+    	<div  class="row step4Width" id="validateReq">
+   			<div class="form-group col-xs-12 col-sm-12">
+   				<label>Language: <span class="red" >*</span></label>
+   				<select data-ng-model="langSelector" class="form-control" data-ng-model="type">
+                 	<option value="0" >English</option>
+                 	<option value="1" >Bangla</option>
+                 </select>
+			</div>
+			
+			<div class="form-group col-xs-12 col-sm-12" >
+				<label>Advice:</label> 
+				<input type="text" data-ng-model="name" typeahead="adviceNameData.advice for adviceNameData in getAdvcieName($viewValue)"  class="form-control" placeholder="Advice" typeahead-on-select='onSelectAdviceName($item, $model, $label)'/>
+			</div>
+			<div class="form-group col-xs-12 col-sm-12" data-ng-show="langSelector == 1">
+				<label>Print View:</label> 
+				<input type="text" data-ng-model="code"  class="form-control" placeholder="pdf version for bangla" typeahead-on-select='onSelectAdviceName($item, $model, $label)'/>
+			</div>
+    	</div>
+	
+</div>
+<div class="modal-footer modalFoot">
+	<button class="btn btnLanier btn-success" data-ng-click="saveNewAdvice()" ><span class="glyphicons glyphicon glyphicon-floppy-save" aria-hidden="true"></span> Save</button>
+	<button class="btn btnLanier btn-danger" data-ng-click="cancel()" ><span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span> Cancel</button>
+</div>

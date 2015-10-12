@@ -67,7 +67,6 @@ else if($query_no == 3){
 
 else if($query_no == 4){
 
-
 	$queryString=$_POST['drugName'];
 	$drugType = $_POST['drugType'];
 	
@@ -75,22 +74,20 @@ else if($query_no == 4){
 	
 }elseif ($query_no == 5){
 	
-	$drugPrescribeID = $_POST['drugPrescribeID'];
+	//$drugPrescribeID = $_POST['drugPrescribeID'];
 	$doctorID = $_POST['doctorID'];
 	$drugType = $_POST['drugType'];
 	$drugName = $_POST['drugName'];
 	$drugTime = $_POST['drugTime'];
-	$drugDose = $_POST['drugDose'];
 	$doseUnit = $_POST['doseUnit'];
-	$drugNoOfDay = $_POST['drugNoOfDay'];
-	$drugDayType = $_POST['drugDayType'];
 	$drugWhen = $_POST['drugWhen'];
 	$drugAdvice = $_POST['drugAdvice'];
 	$diseaseID = $_POST['diseaseID'];
+	$drugStr = $_POST['drugStr'];
+	$drugID = getDrugIDByName($drugName, $drugType, $drugStr);
 	
-	$drugID = getDrugIDByName($drugName, $drugType);
-	
-	echo insertSingleDrugsToSetting($doctorID, $diseaseID,$drugID, $drugType, $drugTime, $drugDose, $doseUnit, $drugNoOfDay, $drugDayType, $drugWhen,$drugAdvice);
+	$drugSettingID = insertSingleDrugsToSetting($doctorID, $diseaseID, $drugID, $drugType, $drugTime, $doseUnit, $drugWhen, $drugAdvice);
+	echo  $drugSettingID;
 		
 	
 	
@@ -163,6 +160,15 @@ elseif ($query_no == 7){
 	$drugSettingID =$_POST['drugSettingID'];
 	mysql_query("DELETE FROM `settings_drug` WHERE `id` = '$drugSettingID'");
 	
+}else if($query_no == 13){
+
+	$drugDose = $_POST['dose'];
+	$drugNoOfDay = $_POST['numOfDay'];
+	$drugDayType = $_POST['durationType'];
+	$drugPrescribeID = $_POST['drugPrescribeID'];
+	
+	mysql_query("INSERT INTO `settings_dose_drug`(`drugSettingID`, `dose`, `numOfDay`, `durationType`) VALUES ($drugPrescribeID, '$drugDose', $drugNoOfDay, $drugNoDayType)");
+
 }
 
 

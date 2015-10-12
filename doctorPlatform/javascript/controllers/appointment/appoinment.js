@@ -220,6 +220,20 @@ app.controller('AppointmentController', function($scope, $http, $modal, $rootSco
         	 $scope.bringAppointment();
          });
      };
+     
+     $scope.removeFromAppointment = function(appointmentID){
+    	 
+    	 var  dataString='appointmentID='+  appointmentID +'&query='+9;
+         
+    	 $http({
+             method: 'POST',
+             url: "phpServices/appointment/appointmentHelper.php",
+             data: dataString,
+             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+         }).success(function (result) {
+        	 $scope.bringAppointment();
+         });
+     };
     
 
 	

@@ -28,7 +28,8 @@ $query_no=  mysql_real_escape_string($_POST['query']);
 
 if($query_no== 0){
 	
-	$result = getPastDisease($appointmentID, $patientID);
+	$isPresent = $_POST['isPresent'];
+	$result = getPastDisease($appointmentID, $patientID, $isPresent);
 	
 	$data = array();
 	while ($row=mysql_fetch_array($result)){
@@ -41,12 +42,11 @@ if($query_no== 0){
 	
 	$diseaseName = $_POST['diseaseName'];
 	$diseaseID = getDiseasIDByName($diseaseName);
-	$startDate = $_POST['startDate'];
-	$endDate = $_POST['endDate'];
+	$isPresent = $_POST['isPresent'];
 	$detail = $_POST['detail'];
 	
 	
-	insertPastHistory($patientID, $diseaseID, $startDate, $endDate, $detail);
+	insertPastHistory($patientID, $diseaseID, $isPresent, $detail);
 	
 	
 }elseif ($query_no == 2){
@@ -69,12 +69,11 @@ if($query_no== 0){
 	
 	$diseaseName = $_POST['diseaseName'];
 	$diseaseID = getDiseasIDByName($diseaseName);
-	$startDate = $_POST['startDate'];
-	$endDate = $_POST['endDate'];
+	$isPresent = $_POST['isPresent'];
 	$detail = $_POST['detail'];
 	$pastHistoryID = $_POST['pastHistoryID'];
 	
-	mysql_query("UPDATE `patient_past_disease` SET `diseaseID`= '$diseaseID',`startDate`= '$startDate',`endDate`= '$endDate', `detail`= '$detail' WHERE `id` = '$pastHistoryID'");
+	mysql_query("UPDATE `patient_past_disease` SET `diseaseID`= '$diseaseID', `detail`= '$detail' WHERE `id` = '$pastHistoryID'");
 }elseif ($query_no == 5){
 	
 	$pastHistoryID = $_POST['pastHistoryID'];

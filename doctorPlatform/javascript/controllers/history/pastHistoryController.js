@@ -3,6 +3,8 @@ app.controller('PastHistoryController', function($scope, $http, $modal, $rootSco
 	
 	$scope.pastHistoryList = [];
 	
+	$scope.currentDiseaseList = [];
+	
 	$scope.relationList = [];
 
 	$scope.history = {};
@@ -14,24 +16,15 @@ app.controller('PastHistoryController', function($scope, $http, $modal, $rootSco
 		
 		if(validator.validateForm("#validateReq","#lblMsg",null)) {
 			
-			var filteredStartDate = $filter('date')(pastHistoryData.startDate, "yyyy-MM-dd");
-			
-			var filteredEndDate = "";
-			
-			if(pastHistoryData.endDate){
-				var filteredEndDate = $filter('date')(pastHistoryData.endDate, "yyyy-MM-dd");
-			}
 			 
 			
 			var dataString = "";
 			if(pastHistoryData.id){
 				
-				dataString = "query=" + 4 + '&diseaseName=' + pastHistoryData.diseaseName + '&startDate=' + filteredStartDate
-				+ '&endDate=' + filteredEndDate + '&detail=' + pastHistoryData.detail + '&pastHistoryID=' + pastHistoryData.id;
+				dataString = "query=" + 4 + '&diseaseName=' + pastHistoryData.diseaseName + '&isPresent=' + pastHistoryData.isPresent + '&detail=' + pastHistoryData.detail + '&pastHistoryID=' + pastHistoryData.id;
 
 			}else{
-				dataString = "query=" + 1 + '&diseaseName=' + pastHistoryData.diseaseName + '&startDate=' + filteredStartDate
-				+ '&endDate=' + filteredEndDate + '&detail=' + pastHistoryData.detail;
+				dataString = "query=" + 1 + '&diseaseName=' + pastHistoryData.diseaseName + '&isPresent=' + pastHistoryData.isPresent + '&detail=' + pastHistoryData.detail;
 			}
 			
 
@@ -44,7 +37,8 @@ app.controller('PastHistoryController', function($scope, $http, $modal, $rootSco
 	        	$scope.succcess = true;
 				$scope.error = false;
 				$scope.message = "Information Updated Successfully";
-	        	$scope.bringPastHistoryData();
+					$scope.bringPastHistoryData();
+					$scope.bringCurrHistoryData();
 	        });
 		}else{
 			$scope.message = "";
@@ -55,10 +49,25 @@ app.controller('PastHistoryController', function($scope, $http, $modal, $rootSco
 		
 	};
 	
+	$scope.bringCurrHistoryData = function(){
+		
+		$scope.addMoreButton = true;
+		var dataString = "query=0 + &isPresent=" + true;
+
+        $http({
+            method: 'POST',
+            url: "phpServices/history/pastHistoryHelper.php",
+            data: dataString,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (result) {
+        	$scope.currentDiseaseList = result;
+        });
+	};
+	
 	$scope.bringPastHistoryData = function(){
 		
 		$scope.addMoreButton = true;
-		var dataString = "query=0";
+		var dataString = "query=0 + &isPresent=" + false;
 
         $http({
             method: 'POST',
@@ -67,9 +76,6 @@ app.controller('PastHistoryController', function($scope, $http, $modal, $rootSco
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).success(function (result) {
         	$scope.pastHistoryList = result;
-        	if($scope.pastHistoryList.length == 0){
-        		$scope.addPastHistory();
-        	}
         });
 	};
 	
@@ -83,9 +89,7 @@ app.controller('PastHistoryController', function($scope, $http, $modal, $rootSco
 		
 		$scope.pastHistoryData = {};
 		
-		$scope.pastHistoryData.startDate = "";
-		
-		$scope.pastHistoryData.endDate = ""; 
+		$scope.pastHistoryData.isPresent = false; 
 		
 		$scope.pastHistoryData.detail = ""; 
 		
@@ -93,6 +97,26 @@ app.controller('PastHistoryController', function($scope, $http, $modal, $rootSco
 		
 		$scope.pastHistoryList.splice(0,0, $scope.pastHistoryData);
 	};
+	
+	$scope.addCurrentHistory = function (){
+		
+		angular.forEach($scope.currentDiseaseList, function(value, key) {
+			value.otherEditMode = true;
+		});
+		
+		$scope.addMoreButton = false;
+		
+		$scope.pastHistoryData = {};
+		
+		$scope.pastHistoryData.isPresent = true; 
+		
+		$scope.pastHistoryData.detail = ""; 
+		
+		$scope.pastHistoryData.editMode = true;
+		
+		$scope.currentDiseaseList.splice(0,0, $scope.pastHistoryData);
+	};
+	
 	
 	$scope.editPastHistory = function (pastHistoryData){
 		
@@ -147,6 +171,7 @@ app.controller('PastHistoryController', function($scope, $http, $modal, $rootSco
 		$scope.cancelPastHistory  = function(){
 			
 			$scope.bringPastHistoryData();
+			$scope.bringCurrHistoryData();
 		};
 	
 	
@@ -164,7 +189,8 @@ app.controller('PastHistoryController', function($scope, $http, $modal, $rootSco
         	$scope.succcess = true;
 			$scope.error = false;
 			$scope.message = "Information Deleted Successfully";
-        	$scope.bringPastHistoryData();
+			$scope.bringPastHistoryData();
+			$scope.bringCurrHistoryData();
         });
 	};
 	
@@ -189,6 +215,7 @@ app.controller('PastHistoryController', function($scope, $http, $modal, $rootSco
 	
 	(function(){
 		$scope.bringPastHistoryData();
+		$scope.bringCurrHistoryData();
     })()
 
 	

@@ -67,11 +67,28 @@ else if($query_no==4){
 	
 	$requestedID = $_POST['requestedID'];
 	
-	$result = mysql_query("SELECT `id`, `appointMentID`, `drugTypeID`, `drugID`, `drugTimeID`, `drugDose`, `drugDoseUnit`, `drugNoOfDay`, `drugDayTypeID`, `drugWhenID`, `drugAdviceID` FROM `drug_prescription` WHERE `id` = '$requestedID'");
+	$result = mysql_query("SELECT `id`, `appointMentID`, `drugTypeID`, `drugID`, `drugTimeID`, `drugDoseUnit`, `drugWhenID`, `drugAdviceID` FROM `drug_prescription` WHERE `id` = '$requestedID'");
 	
 	$row = mysql_fetch_assoc($result);
 	
-	insertPrescriptionDrugs($appointmentID, $row['drugTypeID'], $row['drugID'], $row['drugTimeID'], $row['drugDose'], $row['drugDoseUnit'], $row['drugNoOfDay'], $row['drugDayTypeID'], $row['drugWhenID'], $row['drugAdviceID']);
+	$drugPrescribeID = insertPrescriptionDrugs($appointmentID, $row['drugTypeID'], $row['drugID'], $row['drugTimeID'], $row['drugDoseUnit'], $row['drugWhenID'], $row['drugAdviceID']);
+	
+	$dose = mysql_query("SELECT `drugPrescribeID`, `dose`, `numOfDay`, `durationType` FROM `dose_period` WHERE `drugPrescribeID` = $requestedID");
+	
+	while ($test=mysql_fetch_array($dose)){
+		
+		$drugDose = $test['dose'];
+		$drugNoDay = $test['numOfDay'];
+		$drugNoDayType = $test['durationType'];
+		
+		if($drugNoDay == ''){
+			mysql_query("INSERT INTO `dose_period`(`drugPrescribeID`, `dose`, `numOfDay`, `durationType`) VALUES ($drugPrescribeID, '$drugDose', NULL, $drugNoDayType)");
+		}else{
+			mysql_query("INSERT INTO `dose_period`(`drugPrescribeID`, `dose`, `numOfDay`, `durationType`) VALUES ($drugPrescribeID, '$drugDose', $drugNoDay, $drugNoDayType)");
+		}
+		
+	}
+	
 	
 }elseif ($query_no == 8){
 	

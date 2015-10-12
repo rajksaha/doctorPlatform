@@ -39,32 +39,16 @@ app.controller('PrescriptionController', function($scope, $http, $modal, $rootSc
 			$scope.nextVisitData.nextVisitType = 1;
 		}
 		
-		if($scope.nextVisitData.appointmentID){
-			
-			var dataString = "query=7" + "&nextVisitDate=" + filteredDate + "&appointmentID=" + $scope.nextVisitData.appointmentID + "&numOfDay=" + numOfDay + "&dayType=" + dayType + "&nextVisitType=" + $scope.nextVisitData.nextVisitType;
+		var dataString = "query=8" + "&nextVisitDate=" + filteredDate + "&numOfDay=" + numOfDay + "&dayType=" + dayType + "&nextVisitType=" + $scope.nextVisitData.nextVisitType;
 
-	        $http({
-	            method: 'POST',
-	            url: "phpServices/prescription/prescriptionHelperService.php",
-	            data: dataString,
-	            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-	        }).success(function (result) {
-	        });
-	        
-		}else{
-			
-			var dataString = "query=8" + "&nextVisitDate=" + filteredDate + "&numOfDay=" + numOfDay + "&dayType=" + dayType + "&nextVisitType=" + $scope.nextVisitData.nextVisitType;
-
-	        $http({
-	            method: 'POST',
-	            url: "phpServices/prescription/prescriptionHelperService.php",
-	            data: dataString,
-	            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-	        }).success(function (result) {
-	        	
-	        });
-	        
-		}
+        $http({
+            method: 'POST',
+            url: "phpServices/prescription/prescriptionHelperService.php",
+            data: dataString,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (result) {
+        	
+        });
 	};
 	
 	$scope.refDoc = {};
@@ -306,7 +290,6 @@ app.controller('PrescriptionController', function($scope, $http, $modal, $rootSc
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).success(function (result) {
         	$scope.prescribedDrugList = result;
-        	$scope.numberOfPrescribedDrugs = $scope.prescribedDrugList.length;
         });
 	};
 	
@@ -372,20 +355,36 @@ app.controller('PrescriptionController', function($scope, $http, $modal, $rootSc
 		
 	};
 	
+	$scope.getTypeCode = function(category){
+		if(category == 9){
+			return "M.H";
+		}else{
+			return "RISK"
+		}
+	};
+	
 	$scope.prescribedMHData = [];
 	
 	$scope.bringPrescribedMH = function(appointmentID, patientID){
-		
-		var dataString = "query=5" + '&typeCode=RISK' + '&appointmentID=' + appointmentID + '&patientID=' + patientID;
 
-        $http({
-            method: 'POST',
-            url: "phpServices/commonServices/prescriptionDetailService.php",
-            data: dataString,
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-        }).success(function (result) {
-        	$scope.prescribedMHData = result;
-        });
+		$scope.pageName = "#/history";
+		angular.forEach($scope.menuDataList, function(value, key) {
+			if(value.menuURL == $scope.pageName){
+    			$scope.typeCode = $scope.getTypeCode(value.category);
+    			
+    			var dataString = "query=5" + '&typeCode='+ $scope.typeCode  + '&appointmentID=' + appointmentID + '&patientID=' + patientID;
+
+    	        $http({
+    	            method: 'POST',
+    	            url: "phpServices/commonServices/prescriptionDetailService.php",
+    	            data: dataString,
+    	            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    	        }).success(function (result) {
+    	        	$scope.prescribedMHData = result;
+    	        });
+    		}
+		});
+		
 		
 	};
 	
@@ -731,7 +730,7 @@ app.controller('PrescriptionController', function($scope, $http, $modal, $rootSc
 		var drugData = {};
 		
 		var modalInstance = $modal.open({
-			templateUrl: 'javascript/templates/drugs/drugModal.html',
+			templateUrl: 'javascript/templates/drugs/drugModalNew.html',
             windowClass: 'fade in',
             
             controller: 'PrescriptionController.PrescribeDrugsController',
@@ -758,7 +757,7 @@ app.controller('PrescriptionController', function($scope, $http, $modal, $rootSc
 		
 		
 		var modalInstance = $modal.open({
-			templateUrl: 'javascript/templates/drugs/drugModal.html',
+			templateUrl: 'javascript/templates/drugs/drugModalNew.html',
             windowClass: 'fade in',
             
             controller: 'PrescriptionController.PrescribeDrugsController',
@@ -1045,8 +1044,33 @@ app.controller('PrescriptionController.PrescribeComplainController', function($s
 	$scope.saveGroupOfComplain = function(){
 		
 		var entryFound = false;
+		var int = 0;
+		for (int; int < $scope.complainList.length; int++) {
+			var name = $scope.complainList[int].name;
+			var noOfDay = $scope.complainList[int].numOfDay.value;
+			var dayType = $scope.complainList[int].dayType.id;
+			var note = $scope.complainList[int].note;
+			var id = $scope.complainList[int].id;
+			if(name){
+				entryFound = true;
+				if(dayType > 4){
+					noOfDay = null;
+				}
+				
+				var dataString = {'complainName': name , 'numOfDay' : noOfDay ,'dayType' :  dayType, 'note' : note, 'complainPrescribeID' : id, 'query' : 2};
+				
+		        $http({
+		            method: 'POST',
+		            url: "phpServices/complain/complainService.php",
+		            data: JSON.stringify(dataString),
+		            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+		        }).success(function (result) {
+		        });
+			}
+			
+		}
 		
-		angular.forEach($scope.complainList, function(value, key) {
+		/*angular.forEach($scope.complainList, function(value, key) {
 			if(value.name){
 				entryFound = true;
 				if(value.dayType.id > 4){
@@ -1063,7 +1087,7 @@ app.controller('PrescriptionController.PrescribeComplainController', function($s
 		        }).success(function (result) {
 		        });
 			}
-		});
+		});*/
 		
 		
 		if(!entryFound){
@@ -1077,7 +1101,7 @@ app.controller('PrescriptionController.PrescribeComplainController', function($s
 				$scope.error = true;
 			}
 			
-		}else{
+		}else if(int == $scope.complainList.length){
 			$modalInstance.close();
 		}
 		
@@ -1119,13 +1143,14 @@ app.controller('PrescriptionController.PrescribeDrugsController', function($scop
 	$scope.drugNumOfDayList = JsonService.numberList;
 	$scope.drugtimesADay = JsonService.timesADay;
 	$scope.drugDayTypeList =[];
-	$scope.drugWhatTypeList =[];
+	$scope.drugsWhenList =[];
 	$scope.drugAdviceTypeList =[];
 	$scope.drugDoseList =[];
 	$scope.drugData = {};
 	$scope.drugPeriodicDoseList = [];
 	$scope.enteredDrugDoseList = [];
 	$scope.addByName = false;
+	$scope.doseList = [];
 	
 	$scope.drugNameList = {};
 	
@@ -1133,72 +1158,73 @@ app.controller('PrescriptionController.PrescribeDrugsController', function($scop
 		$modalInstance.close();
 	};
 	
-	$scope.initializeDrugData = function (drugType, selIndexTimeADay, selIndexNumfDay){
+	
+	$scope.bringPresCribedDrugs = function (){
+		
+		if(record.drugData.id){
+			
+			$scope.drugData = {};
+			$scope.drugData.drugName = record.drugData.drugName;
+			$scope.drugData.drugPrescribeID = record.drugData.id;
+			$scope.drugData.preiodicList = record.drugData.preiodicList;
+			$scope.bringdrugsDayTypeList(false, record.drugData.drugTypeID , record.drugData.drugTimeID);
+			$scope.bringdrugsWhatType(false, record.drugData.drugWhenID);
+			$scope.bringdrugsAdviceType(false, record.drugData.drugAdviceID);
+			
+		}else{
+			
+			$scope.drugData.drugName = "";
+	    	$scope.drugData.addMood = true; 
+	    	$scope.drugData.delDrug = false;
+	    	$scope.drugData.editName = false;
+	    	$scope.drugData.preiodicList = [];
+	    	$scope.bringdrugsDayTypeList(true, 1 , 3);
+			$scope.bringdrugsWhatType(true, null);
+			$scope.bringdrugsAdviceType(true, null);
+		}
+		
+	};
+	
+	$scope.bringdrugsDayTypeList = function (addMode, typeID, timeID){
+		
+		var dataString = "query=1";
+
+        $http({
+            method: 'POST',
+            url: "phpServices/drugs/drugsService.php",
+            data: dataString,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (result) {
+        	$scope.drugDayTypeList = result;
+        	
+        	if(addMode){
+        		var periodicData = {drugDayTypeList : $scope.drugDayTypeList, drugNumOfDayList : $scope.drugNumOfDayList, doseDataList: [] , numOfDay : 7, durationType : 1, dose: '' };
+    	    	$scope.drugData.preiodicList.push(periodicData);
+    	    	
+    	    	$scope.inItDrugsType(addMode, typeID, timeID, $scope.drugData.preiodicList);
+        	}else{
+        		
+        		angular.forEach($scope.drugData.preiodicList, function(value, key) {
+        			
+        			value.drugDayTypeList = $scope.drugDayTypeList;
+        			value.drugNumOfDayList = $scope.drugNumOfDayList;
+        			value.doseDataList = [];
+        		});
+        		$scope.inItDrugsType(addMode, typeID, timeID, $scope.drugData.preiodicList);
+        	}
+        	
+        	
+        });
+		
+	};
+	
+	$scope.inItDrugsType = function (addMode, selectedDrugTypeID, selectedTimesADay, preiodicList){
 		
 		angular.forEach($scope.drugtimesADay, function(value, key) {
-			if(value.code == selIndexTimeADay){
+			if(value.code == selectedTimesADay){
 				$scope.drugData.timesADay = value;
 			}
 		});
-		angular.forEach($scope.drugNumOfDayList, function(data, key) {
-			if(data.value == selIndexNumfDay){
-				$scope.drugData.numOFDay = data;
-			}
-		});
-		$scope.fixDose($scope.drugData.timesADay,drugType,0);
-	};
-	
-	$scope.fixPredoicDose = function (row, unit){
-		$scope.drugPeriodicDoseList = [];
-		var data = {"value" : unit};
-		for(var i = 0; i< row; i++){
-			var predoicCol = [];
-			for(var j = 0; j< 3; j++){
-				var data3 = {"predoicCol" : data};
-				predoicCol.push(data3);
-			}
-			if(i==(row-1)){
-				var data2 = {"predoicRow" : predoicCol, "numOFDay": $scope.drugNumOfDayList[6], "dayType" : $scope.drugDayTypeList[4]};
-			}else{
-				var data2 = {"predoicRow" : predoicCol, "numOFDay": $scope.drugNumOfDayList[6], "dayType" : $scope.drugDayTypeList[0]};
-			}
-			
-			$scope.drugPeriodicDoseList.push(data2);
-		}
-		console.log($scope.drugPeriodicDoseList);
-	};
-	
-	$scope.fixDose = function (timesADay, drugType, change){
-		$scope.drugDoseList = [];
-		if(timesADay.code == -1){//preodic change
-			$scope.drugData.preodicValue = 3;
-			$scope.fixPredoicDose(3,drugType.unit);
-		}else  if (timesADay.code == -2){//same as
-			
-		}else if(timesADay.code == -3){//no dose
-			
-		}else{
-			var val = parseFloat(drugType.unit) + change;
-			var data = {"value" : val};
-			for(var i = 0; i< timesADay.code; i++){
-				if($scope.enteredDrugDoseList.length > 0){
-					var data = {"value" : $scope.enteredDrugDoseList[i]};
-					drugType.unit = $scope.enteredDrugDoseList[i];
-				}else{
-					var data = {"value" : val};
-					drugType.unit = val;
-				}
-				
-				$scope.drugDoseList.push(data);
-			}
-			$scope.enteredDrugDoseList = [];
-		}
-		
-	};
-	
-	
-	$scope.bringdrugsType = function (addMood,selectedDrugTypeID, selIndexTimeADay, selIndexNumfDay){
-		
 		var dataString = "query=0";
 
         $http({
@@ -1208,21 +1234,131 @@ app.controller('PrescriptionController.PrescribeDrugsController', function($scop
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).success(function (result) {
         	$scope.drugTypeList = result;
-        	if(addMood){
-        		$scope.drugData.drugType = $scope.drugTypeList[0];
-        	}else{
-        		angular.forEach($scope.drugTypeList, function(value, key) {
-        			if(value.id == selectedDrugTypeID){
-        				$scope.drugData.drugType = value;
-        			}
-        		});
-        	}
-        	$scope.initializeDrugData($scope.drugData.drugType,selIndexTimeADay,selIndexNumfDay);
+        	
+        	angular.forEach($scope.drugTypeList, function(value, key) {
+    			if(value.id == selectedDrugTypeID){
+    				$scope.drugData.drugType = value;
+    				$scope.preiodicDoseHanleler(addMode, $scope.drugData.drugType.unit, preiodicList, selectedTimesADay);
+    			}
+    		});
+        	
         });
 		
 	};
+	
+	
+	$scope.preiodicDoseHanleler = function (addMode, unit, preiodicList, selectedTimesADay){
 		
-	$scope.bringdrugsDayType = function (addMood, selectedDayTypeID){
+		if(selectedTimesADay == -1){
+			$scope.drugData.preodicValue = preiodicList.length;
+			selectedTimesADay = 3;
+		}else if(selectedTimesADay == -2){
+			selectedTimesADay = 1;
+		}
+			
+		angular.forEach(preiodicList, function(preiodicData, key) {
+			$scope.doseHandeler(unit, preiodicData.doseDataList, selectedTimesADay, preiodicData.dose);
+			
+			angular.forEach(preiodicData.drugDayTypeList, function(value, key) {
+				if(value.id == preiodicData.durationType){
+					preiodicData.durationDayType = value;
+				}
+			});
+			
+			angular.forEach(preiodicData.drugNumOfDayList, function(data, key) {
+				if(data.value == preiodicData.numOfDay){
+					preiodicData.dataNumOFDay = data;
+				}
+			});
+			
+		});
+	};
+	
+	$scope.doseHandeler = function (unit, doseDataList, selectedTimesADay, dose){
+		
+		var val = parseFloat(unit);
+		if(dose != ''){
+			$scope.enteredDrugDoseList = dose.split(' - ');
+		}
+		
+		
+		
+		for(var i = 0; i< selectedTimesADay; i++){
+			if($scope.enteredDrugDoseList.length > 0){
+				var data = {"value" : $scope.enteredDrugDoseList[i]};
+				unit = $scope.enteredDrugDoseList[i];
+			}else{
+				var data = {"value" : val};
+				unit = val;
+			}
+			
+			doseDataList.push(data);
+		}
+		$scope.enteredDrugDoseList = [];
+	};
+	
+	$scope.doseChanger = function (change, doseDataList){
+		
+		angular.forEach(doseDataList, function(data, key) {
+			var val = parseFloat(data.value);
+			data.value = val + change;
+			
+		});
+		
+	};
+	
+	$scope.timeChanger = function (addMode, drugType, selectedTimesADay, preiod){
+		
+		$scope.drugData.preiodicList = [];
+		
+		if(selectedTimesADay == -1){
+			
+			for(var i = 0; i < preiod; i++){
+				
+				var periodicData = {drugDayTypeList : $scope.drugDayTypeList, drugNumOfDayList : $scope.drugNumOfDayList, doseDataList: [] , numOfDay : 7, durationType : 1, dose: '' };
+		    	$scope.drugData.preiodicList.push(periodicData);
+			}
+			
+			$scope.drugData.preodicValue = preiod;
+	    	
+		}else{
+			var periodicData = {drugDayTypeList : $scope.drugDayTypeList, drugNumOfDayList : $scope.drugNumOfDayList, doseDataList: [] , numOfDay : 7, durationType : 1,  dose: ''};
+	    	$scope.drugData.preiodicList.push(periodicData);
+		}
+		
+    	
+    	$scope.inItDrugsType(addMode,drugType.id, selectedTimesADay, $scope.drugData.preiodicList);
+		
+	};
+	
+	
+	$scope.doseMaker = function (unit, numOfTime, change){
+		
+		var drugDoseList = [];
+		
+		var val = parseFloat(unit) + change;
+		var data = {"value" : val};
+		for(var i = 0; i< numOfTime; i++){
+			if($scope.enteredDrugDoseList.length > 0){
+				var data = {"value" : $scope.enteredDrugDoseList[i]};
+				unit = $scope.enteredDrugDoseList[i];
+			}else{
+				var data = {"value" : val};
+				unit = val;
+			}
+			
+			drugDoseList.push(data);
+		}
+		$scope.enteredDrugDoseList = [];
+		
+		
+		$scope.bringdrugsDayType(true , null, drugDoseList);
+	};
+	
+	
+	
+		
+	$scope.bringdrugsDayType = function (addMood, selectedDayTypeID, doseDataList){
 		
 		var dataString = "query=1";
 
@@ -1236,7 +1372,10 @@ app.controller('PrescriptionController.PrescribeDrugsController', function($scop
         	
         	
         	if(addMood){
-        		$scope.drugData.dayType = $scope.drugDayTypeList[0];
+        		
+    	    	var drugDoseData = {drugDayTypeList : $scope.drugDayTypeList, drugNumOfDayList : $scope.drugNumOfDayList, drugDoseList: doseDataList};
+    	    	$scope.drugData.doseList.push(drugDoseData);
+    	    	
         	}else{
         		angular.forEach($scope.drugDayTypeList, function(value, key) {
         			if(value.id == selectedDayTypeID){
@@ -1312,46 +1451,23 @@ app.controller('PrescriptionController.PrescribeDrugsController', function($scop
 	
 	$scope.prepareDrugSaveData = function(isAnother){
 		
+		
 		var drugType = $scope.drugData.drugType.id;
 		var drugName =  $scope.drugData.drugName;
 		
 		var drugTime = $scope.drugData.timesADay.code;
-		var drugDose = "";
-		if(drugTime > 0){
-			for(var i = 0;i < $scope.drugDoseList.length; i++){
-				if(i == 0){
-					drugDose = $scope.drugDoseList[i].value;
-				}else{
-					drugDose = drugDose + " - "+ $scope.drugDoseList[i].value;
-				}
-			}
-		}else if(drugTime == -1){
-			angular.forEach($scope.drugPeriodicDoseList, function(rowData, key) {
-				angular.forEach(rowData.predoicCol, function(colData, key) {
-        			
-        		});
-    		});
-			
-		}else if(drugTime == -2){
-			drugDose = $scope.drugData.sameAsDose;
-		}
+		
 		var doseUnit = "";
 		if($scope.drugData.optionalInitial != undefined && $scope.drugData.optionalInitial){
 			doseUnit = $scope.drugData.drugType.optionalUnitInitial;
 		}else{
 			doseUnit = $scope.drugData.drugType.unitInitial;
 		}
-		var drugNoOfDay = "";
-		var drugDayType = 6;
-		if(drugTime != -1){
-			if($scope.drugData.dayType.id != 5){
-				drugNoOfDay = $scope.drugData.numOFDay.value;
-			}
-			drugDayType = $scope.drugData.dayType.id;
-		}
+		
 		var drugWhen = $scope.drugData.whatType.id;
 		
 		var drugAdvice = $scope.drugData.adviceType.drugAdviceID;
+		
 		
 		var query = 6;
 		var drugPrescribeID = 0;
@@ -1360,7 +1476,7 @@ app.controller('PrescriptionController.PrescribeDrugsController', function($scop
 			drugPrescribeID = $scope.drugData.drugPrescribeID;
 		}
 		
-		var dataString = 'drugType='+ drugType +'&drugName='+ drugName +'&drugStr='+ $scope.drugData.drugStr + '&drugTime='+ drugTime + '&drugDose=' + drugDose +'&doseUnit='+ doseUnit + '&drugNoOfDay='+ drugNoOfDay +'&drugDayType='+ drugDayType + '&drugWhen='+ drugWhen +'&drugAdvice='+ drugAdvice+ '&drugPrescribeID='+ drugPrescribeID +'&query=' + query;
+		var dataString = 'drugType='+ drugType +'&drugName='+ drugName +'&drugStr='+ $scope.drugData.drugStr + '&drugTime='+ drugTime +'&doseUnit='+ doseUnit + '&drugWhen='+ drugWhen +'&drugAdvice='+ drugAdvice+ '&drugPrescribeID='+ drugPrescribeID +'&query=' + query;
 		
         $http({
             method: 'POST',
@@ -1368,6 +1484,43 @@ app.controller('PrescriptionController.PrescribeDrugsController', function($scop
             data: dataString,
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).success(function (result) {
+        	if(drugPrescribeID == 0){
+        		drugPrescribeID = result;
+        	}
+        	angular.forEach($scope.drugData.preiodicList, function(preiodicData, key) {
+    			
+    			var drugDose = "";
+    			
+    			for(var i = 0;i < preiodicData.doseDataList.length; i++){
+    				if(i == 0){
+    					drugDose = preiodicData.doseDataList[i].value;
+    				}else{
+    					drugDose = drugDose + " - "+ preiodicData.doseDataList[i].value;
+    				}
+    			}
+    			
+    			var durationType = preiodicData.durationDayType.id;
+    			
+    			var numOfDay = null;
+    			
+    			if(durationType < 4){
+    				numOfDay = preiodicData.dataNumOFDay.value;
+    			}
+    			
+    			var dataString = "query=12" + '&drugPrescribeID=' + drugPrescribeID + '&dose=' + drugDose + '&numOfDay=' + numOfDay + '&durationType=' + durationType;
+
+    	        $http({
+    	            method: 'POST',
+    	            url: "phpServices/drugs/drugsService.php",
+    	            data: dataString,
+    	            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    	        }).success(function (result) {
+
+    	        	
+    	        });
+    			
+    		});
+        	
         	if(isAnother){
         		$scope.bringPresCribedDrugs();
         	}else{
@@ -1376,6 +1529,9 @@ app.controller('PrescriptionController.PrescribeDrugsController', function($scop
         	
         	
         });
+		
+		
+		
 	};
 	
 	
@@ -1422,31 +1578,6 @@ app.controller('PrescriptionController.PrescribeDrugsController', function($scop
 	
 	
 	
-	$scope.bringPresCribedDrugs = function (){
-		if(record.drugData.id){
-			
-			$scope.drugData = {};
-			$scope.drugData.drugName = record.drugData.drugName;
-			$scope.drugData.drugPrescribeID = record.drugData.id;
-			$scope.enteredDrugDoseList = record.drugData.drugDose.split(' - ')
-			$scope.bringdrugsType(false,record.drugData.drugTypeID,record.drugData.drugTimeID, record.drugData.drugNoOfDay);
-			$scope.bringdrugsDayType(false, record.drugData.drugDayTypeID);
-			$scope.bringdrugsWhatType(false, record.drugData.drugWhenID);
-			$scope.bringdrugsAdviceType(false, record.drugData.drugAdviceID);
-			
-		}else{
-			
-			$scope.drugData.drugName = "";
-	    	$scope.drugData.addMood = true; 
-	    	$scope.drugData.delDrug = false;
-			$scope.drugData.editName = false;
-	    	$scope.bringdrugsType(true, null, 3, '');
-			$scope.bringdrugsDayType(true , null);
-			$scope.bringdrugsWhatType(true, null);
-			$scope.bringdrugsAdviceType(true, null);
-		}
-		
-	};
 	
     $scope.getDrugName = function(term) {
         

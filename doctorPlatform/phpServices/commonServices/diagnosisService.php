@@ -25,12 +25,27 @@ function addToPrescriptionSetings($diseaseID, $doctorCode, $appointmentID){
 function addDrugsToPrescription ($appointmentID, $result){
 	
 	
-	
-	
 	while ($row = mysql_fetch_array($result)){
 	
-		insertPrescriptionDrugs($appointmentID, $row['drugTypeID'], $row['drugID'], $row['drugTimeID'], $row['drugDose'], $row['drugDoseUnit'], $row['drugNoOfDay'], $row['drugDayTypeID'], $row['drugWhenID'], $row['drugAdviceID']);
-	}
+		$requestedID = $row['id'];
+		 
+		$drugPrescribeID  = insertPrescriptionDrugs($appointmentID, $row['drugTypeID'], $row['drugID'], $row['drugTimeID'], $row['drugDoseUnit'], $row['drugWhenID'], $row['drugAdviceID']);
+		
+		$dose = mysql_query("SELECT `drugSettingID`, `dose`, `numOfDay`, `durationType` FROM `settings_dose_drug` WHERE `drugSettingID` = $requestedID");
+		
+		while ($test=mysql_fetch_array($dose)){
+		
+			$drugDose = $test['dose'];
+			$drugNoDay = $test['numOfDay'];
+			$drugNoDayType = $test['durationType'];
+		
+			if($drugNoDay == NULL || $drugNoDay == ''){
+				mysql_query("INSERT INTO `dose_period`(`drugPrescribeID`, `dose`, `numOfDay`, `durationType`) VALUES ($drugPrescribeID, '$drugDose', NULL, $drugNoDayType)");
+			}else{
+				mysql_query("INSERT INTO `dose_period`(`drugPrescribeID`, `dose`, `numOfDay`, `durationType`) VALUES ($drugPrescribeID, '$drugDose', $drugNoDay, $drugNoDayType)");
+			}
+		}
+	}	
 }
 
 function addInvToPrescription ($appointmentID, $result){

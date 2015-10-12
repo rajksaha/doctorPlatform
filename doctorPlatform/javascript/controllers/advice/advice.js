@@ -39,7 +39,7 @@ app.controller('PrescribeAdviceController', function($scope, $http, $modal, $roo
 		
 		if(!$scope.addByName){
 			if(true){
-				var dataString = 'query=2'+ '&adviceName=' + $scope.adviceAdderData.name + '&type=' + $scope.doctorData.category;
+				var dataString = 'query=2'+ '&adviceName=' + $scope.adviceAdderData.name + '&type=' + $scope.doctorData.category + '&pdf=' + $scope.adviceAdderData.pdf + '&lang=' + $scope.adviceAdderData.lang;
 
 		        $http({
 		            method: 'POST',
@@ -225,6 +225,29 @@ app.controller('PrescribeAdviceController', function($scope, $http, $modal, $roo
         	$rootScope.doctorData = $scope.doctorData;
         });
     };
+    
+    $scope.addAdvice = function (){
+    		
+    		var prescription = {};
+    		var modalInstance = $modal.open({
+    	        templateUrl: 'javascript/templates/advice/addAdviceModal.html',
+    	        windowClass: 'fade in',
+    	        
+    	        controller: 'PrescribeAdviceController.AddAdvcieToDB',
+    	        resolve: {
+    	        	data: function () {
+    	                return {
+    	                	prescription
+    	                };
+    	            }
+    	        },
+    	        backdrop: 'static'
+    	    });
+    	    modalInstance.result.then(function(result) {
+    	    	$scope.bringAdviceSettingData($scope.masterDiseaseData.diseaseID);
+    	     });
+    	    
+    };
 	
 	  
 	
@@ -233,5 +256,49 @@ app.controller('PrescribeAdviceController', function($scope, $http, $modal, $roo
 		$scope.bringPrescribedAdvice();
     })()
 
+	
+});
+
+app.controller('PrescribeAdviceController.AddAdvcieToDB', function($scope, $modalInstance, data, $http, $window, $location,limitToFilter) {
+	
+	$scope.postData = data;
+	
+	$scope.langSelector = 0;
+	
+	
+	
+	$scope.saveNewAdvice = function (){
+		
+		
+			
+			if(validator.validateForm("#validateReq","#lblMsg_modal",null)) {
+				
+			
+				var dataString = "query=7" + "&adviceName=" + $scope.name + '&pdf=' + $scope.code + '&lang=' + $scope.langSelector;
+
+		        $http({
+		            method: 'POST',
+		            url: "phpServices/advice/adviceService.php",
+		            data: dataString,
+		            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+		        }).success(function (result) {
+		        	$modalInstance.dismiss('cancel');
+		        });
+		        
+			}else{
+				$scope.error = true;
+			}
+		
+    };
+    
+    
+
+	
+	$scope.cancel = function (){
+		$modalInstance.dismiss('cancel');
+	};
+	
+	
+	
 	
 });
