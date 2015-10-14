@@ -194,5 +194,10 @@ function insertPastHistory($patientID, $diseaseID, $isPresent, $detail){
 
 }
 
+function insertContentDetail($entityID, $entityType, $detail, $code){
+	
+	mysql_query("INSERT INTO `contentdetail`(`contentType`, `entityID`, `detail`, `code`) VALUES ('$entityType', $entityID,'$detail','$code')");
+}
+
 
 ?>

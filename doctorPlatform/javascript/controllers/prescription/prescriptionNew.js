@@ -261,8 +261,9 @@ app.controller('PrescriptionController', function($scope, $http, $modal, $rootSc
 		$scope.bringPrescribedPastHistory($scope.appoinmentData.appointmentID);
 		$scope.bringPrescribedOBS($scope.appoinmentData.appointmentID, $scope.appoinmentData.patientID);
 		$scope.bringPrescribedMH($scope.appoinmentData.appointmentID, $scope.appoinmentData.patientID);
-		$scope.bringPrescribedNextVisit($scope.appoinmentData.appointmentID);
 		$scope.bringPrescribedRefferedDoctor($scope.appoinmentData.appointmentID);
+		$scope.bringPrescribedComment($scope.appoinmentData.appointmentID);
+		$scope.bringPrescribedNextVisit($scope.appoinmentData.appointmentID);
     };
     
     $scope.deleteInvFromPresciption = function (id){
@@ -278,7 +279,36 @@ app.controller('PrescriptionController', function($scope, $http, $modal, $rootSc
         	$scope.bringPrescribedInv($scope.appoinmentData.appointmentID);
         });
 	};
+	
+	$scope.updateCommentText = function (){
+		
+		var dataString = "query=17" + '&comment=' + $scope.commentText;
+
+        $http({
+            method: 'POST',
+            url: "phpServices/prescription/prescriptionHelperService.php",
+            data: dataString,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (result) {
+        });
+	};
     
+	
+	$scope.bringPrescribedComment = function (appointmentID){
+		
+		var dataString = "query=11" + '&appointmentID=' + appointmentID;
+
+        $http({
+            method: 'POST',
+            url: "phpServices/commonServices/prescriptionDetailService.php",
+            data: dataString,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (result) {
+        	if(result && result.length > 0){
+        		$scope.commentText = result[0].detail;
+        	}
+        });
+	};
 	$scope.bringPresCribedDrugs = function (appointmentID){
 		
 		var dataString = "query=0" + '&appointmentID=' + appointmentID;

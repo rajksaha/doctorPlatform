@@ -178,6 +178,19 @@ else if($query_no==4){
 	}
 	
 	echo json_encode($data);
+}elseif ($query_no==11){
+
+	$appointmentID = $_POST['appointmentID'];
+
+
+	$result = getContentDetail($appointmentID, "COMMENT");
+	
+	$data = array();
+	while ($row=mysql_fetch_array($result)){
+		array_push($data,$row);
+	}
+	
+	echo json_encode($data);
 }
 	
 ?>

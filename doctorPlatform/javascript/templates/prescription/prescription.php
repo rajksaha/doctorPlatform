@@ -356,6 +356,25 @@
 					</div>
 				</div>
 				
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+	             	<div class="panel">	                 
+						<div class="prescriptionPanel-body">
+							<div class="form-group">
+								<span class="pull-let"><label>Comment :</label></span>
+								<span class="pull-right">
+									<button  class="btn btnLanier btn-success" title="Save" data-ng-click="updateCommentText()">
+										<span class="glyphicons glyphicon glyphicon-floppy-save" aria-hidden="true"></span>
+									</button>
+								</span>
+							</div>
+							<div class="input-group input-group-sm">
+								
+								<span><textarea rows="5" cols="40" data-ng-model="commentText">{{commentText}}</textarea></span>
+						</div>
+						</div>
+					</div>
+				</div>
+				
 					
     		</div>
     		

@@ -218,5 +218,25 @@ elseif ($query_no == 15){
 	$id = $_POST['id'];
 	
 	mysql_query("UPDATE `patient` SET `name`='$name',`age`='$age',`sex`='$sex',`address`='$address',`phone`='$phone' WHERE `patientID` = '$id'");
+	
+}elseif ($query_no == 17){
+
+	$comment = $_POST['comment'];
+	
+	$rec = mysql_query("SELECT `contentDetailID`, `contentType`, `entityID`, `detail`, `code` FROM `contentdetail` WHERE `contentType`='COMMENT' AND `entityID` = $appointmentNO");
+	$data = mysql_fetch_assoc($rec);
+	if($data){
+		if($comment == ''){
+			mysql_query("DELETE FROM `contentdetail` WHERE `contentType` = 'COMMENT' AND `entityID` = $appointmentNO");
+		}else{
+			mysql_query("UPDATE `contentdetail` SET `detail`= '$comment' WHERE `contentType` = 'COMMENT' AND `entityID` = $appointmentNO");
+		}
+		
+	}else{
+		insertContentDetail($appointmentNO, "COMMENT", $comment, "");		
+	}
+	
+	echo $data;
+	
 }
 ?>
