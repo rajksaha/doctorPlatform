@@ -96,7 +96,7 @@ else if($query_no==4){
 	
 }else if($query_no==7){
 	$queryString=$_POST['data'];
-	$sql ="SELECT `patientID`, `patientCode` AS displayCode, `name`, `age`, `sex`, `address`, `phone` FROM `patient` WHERE patientCode LIKE '%" . $queryString . "%' LIMIT 10";
+	$sql ="SELECT `patientID`, `patientCode`, `name`, `age`, `sex`, `address`, `phone` FROM `patient` WHERE patientCode LIKE '%" . $queryString . "%' LIMIT 10";
 	$result=mysql_query($sql);
 	//echo $sql;
 	 $data = array();
