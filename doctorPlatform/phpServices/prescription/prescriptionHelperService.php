@@ -21,10 +21,6 @@ if($query_no== 0){
 	
 	$rec=mysql_fetch_assoc($result);
 	
-	$patineCode = $rec['patientCode'];
-	$patineCode = substr($patineCode,4);
-	$rec['patientCode'] = $patineCode;
-	
 	echo json_encode($rec);
 	
 }else if($query_no==1){

@@ -162,7 +162,6 @@ function ShowPatInfo($patientCode,$yAxis,$username){
 	
 	$patientCode = $rec['patientCode'];
 	
-	$patientCode = substr($patientCode, -5);
 	
 	$date = date('d M, Y');
 	

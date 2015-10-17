@@ -2827,6 +2827,21 @@ function Show_diagnosis($appointmentID,$xAxis,$yAxis,  $size){
 	return $this->GetY();
 	 
 }
+
+function showComment($appointmentID,$leftXaxis,$leftYaxis, $maxX, $size){
+
+	$contentData = getContentDetail($appointmentID, "COMMENT");
+
+	$con = mysql_fetch_assoc($contentData);
+	if($con){
+		$data = $con['detail'];
+		$this->SetXY($leftXaxis, $leftYaxis);
+		$this->SetFont('Times','',$size + 1);
+		$this->MultiCell($maxX,5, "Comment: $data", 0);
+	}
+	
+	return $this->GetY();
+}
 }
 
 
