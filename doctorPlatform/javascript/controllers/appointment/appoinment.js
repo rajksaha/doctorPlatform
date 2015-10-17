@@ -1,4 +1,4 @@
-app.controller('AppointmentController', function($scope, $http, $modal, $rootScope, limitToFilter, $location) {
+app.controller('AppointmentController', function($scope, $http, $modal, $rootScope, limitToFilter, $location, $filter) {
 	
 	$scope.numberOfAppointment = 0;
  	$scope.limit = 10;
@@ -33,8 +33,10 @@ app.controller('AppointmentController', function($scope, $http, $modal, $rootSco
     	$scope.followUpSearch = false;
     	$scope.patientName = "";
     	$scope.addByName = false;
+    	var currentDate = new Date();
+    	var filteredDate = $filter('date')(currentDate, "yyyy-MM-dd");
     	
-        var dataString = "query=1";
+    	var  dataString='filteredDate='+  filteredDate +'&query='+1;
 
         $http({
             method: 'POST',
@@ -140,13 +142,9 @@ app.controller('AppointmentController', function($scope, $http, $modal, $rootSco
       };
       
       $scope.getPatientsByCode = function(term) {
-          
-    	  var str = "" + $scope.doctorData.personCodeInitial;
-    	  $doctorCodeinitial =    str.substring(0, 4);
     	  
-    	  var data = ""+ $doctorCodeinitial + term;
     	  
-          var  dataString='data='+  data +'&query='+7;
+          var  dataString='data='+  term +'&query='+7;
           
           return $http({
               method: 'POST',
@@ -155,10 +153,6 @@ app.controller('AppointmentController', function($scope, $http, $modal, $rootSco
               headers: {'Content-Type': 'application/x-www-form-urlencoded'}
           }).then(function(result) {
           	$scope.patients = result.data;
-          	
-          	angular.forEach($scope.patients, function(value, key) {
-    			value.displayCode = value.patientCode.substring(4, 9);
-    		});
           	return limitToFilter($scope.patients, 10);
           });
 
@@ -203,7 +197,11 @@ app.controller('AppointmentController', function($scope, $http, $modal, $rootSco
       
      $scope.addAppFollowUP  = function (){
     	 
-    	 var  dataString='doctorCode='+ $scope.doctorData.doctorCode +'&patientCode='+  $scope.addAppointMentData.patientCode +'&doctorID='+ $scope.doctorData.doctorID +'&query='+3;
+    	 var currentDate = new Date();
+     	var filteredDate = $filter('date')(currentDate, "yyyy-MM-dd");
+     	
+    	 
+    	 var  dataString='doctorCode='+ $scope.doctorData.doctorCode +'&patientCode='+  $scope.addAppointMentData.patientCode +'&doctorID='+ $scope.doctorData.doctorID +'&query='+3 + '&filteredDate='+  filteredDate;
          
           $http({
              method: 'POST',

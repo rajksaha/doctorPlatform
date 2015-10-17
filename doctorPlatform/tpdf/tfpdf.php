@@ -2699,10 +2699,10 @@ function Show_History($appointmentID,$xAxis,$yAxis, $maxX , $size, $typeCode){
 	
 }
 
-function Show_Past_History($appointmentID,$xAxis,$yAxis, $maxX , $size){
+function Show_Past_History($appointmentID,$xAxis,$yAxis, $maxX , $size, $status){
 	
 	
-	$resultData = getPrescribedPastDisease($appointmentID);
+	$resultData = getPrescribedPastDisease2($appointmentID, $status);
 	
 	
 	

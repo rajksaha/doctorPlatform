@@ -487,6 +487,27 @@ app.config(function($stateProvider, $urlRouterProvider, $compileProvider, $contr
             }
         };
     
+    var researchHome = {
+            name : 'root.researchHome',
+            url : '/researchHome',
+            views : {
+                'container@' : {
+                    templateUrl : 'javascript/templates/researchHome/researchHome.html',
+                    controller : 'ResearchHomeController'
+                }
+            },
+            resolve : {
+                loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+                  // you can lazy load files for an existing module
+                  return $ocLazyLoad.load(
+                    {
+                      name: 'ktrTablet',
+                      files: ['javascript/controllers/researchHome/researchHomeController.js' ]
+                    });
+                  }]
+            }
+        };
+    
     
 	
 	
@@ -510,6 +531,7 @@ app.config(function($stateProvider, $urlRouterProvider, $compileProvider, $contr
         .state(followUpChart)
         .state(drugAdvisor)
         .state(drugHistory)
+        .state(researchHome)
     	.state(appointment);
     
 

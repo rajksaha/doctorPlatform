@@ -239,4 +239,17 @@ elseif ($query_no == 15){
 	echo $data;
 	
 }
+
+elseif ($query_no == 18){
+
+
+	$appointmentID = $_POST['appointmentID'];
+	$patientCode = $_POST['patientCode'];
+	
+	$_SESSION['printAppointmentID']=$appointmentID;
+	$_SESSION['printPatientCode']=$patientCode;
+
+
+
+}
 ?>

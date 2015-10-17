@@ -30,7 +30,9 @@ if($query_no== 0){
 
 if($query_no==1){
 	
-	echo getAppointment($username, $date);
+	$filteredDate = $_POST['filteredDate'];
+	
+	echo getAppointment($username, $filteredDate);
 }
 
 if($query_no==2){
@@ -58,7 +60,9 @@ if($query_no==2){
 }
 else if($query_no==3){
 	
-	$doctorCode=$_POST['doctorCode'];
+	
+	$date = $_POST['filteredDate'];
+	$doctorCode= $_POST['doctorCode'];
 	$patientCode = $_POST['patientCode'];
 	$doctorID=$_POST['doctorID'];
 	
@@ -79,7 +83,7 @@ else if($query_no==4){
 	
 }else if($query_no==5){
 	$queryString=$_POST['data'];
-	$sql ="SELECT `patientID`, `patientCode`, `name`, `age`, `sex`, `address`, `phone` FROM `patient` WHERE name LIKE '" . $queryString . "%' LIMIT 10";
+	$sql ="SELECT `patientID`, `patientCode`, `name`, `age`, `sex`, `address`, `phone` FROM `patient` WHERE name LIKE '%" . $queryString . "%' LIMIT 10";
 	$result=mysql_query($sql);
 	//echo $sql;
 	 $data = array();
@@ -92,7 +96,7 @@ else if($query_no==4){
 	
 }else if($query_no==7){
 	$queryString=$_POST['data'];
-	$sql ="SELECT `patientID`, `patientCode`, `name`, `age`, `sex`, `address`, `phone` FROM `patient` WHERE patientCode LIKE '" . $queryString . "%' LIMIT 10";
+	$sql ="SELECT `patientID`, `patientCode` AS displayCode, `name`, `age`, `sex`, `address`, `phone` FROM `patient` WHERE patientCode LIKE '%" . $queryString . "%' LIMIT 10";
 	$result=mysql_query($sql);
 	//echo $sql;
 	 $data = array();
@@ -104,7 +108,7 @@ else if($query_no==4){
 	
 }else if($query_no==8){
 	$queryString=$_POST['data'];
-	$sql ="SELECT `patientID`, `patientCode`, `name`, `age`, `sex`, `address`, `phone` FROM `patient` WHERE phone LIKE '" . $queryString . "%' LIMIT 10";
+	$sql ="SELECT `patientID`, `patientCode`, `name`, `age`, `sex`, `address`, `phone` FROM `patient` WHERE phone LIKE '%" . $queryString . "%' LIMIT 10";
 	$result=mysql_query($sql);
 	//echo $sql;
 	 $data = array();

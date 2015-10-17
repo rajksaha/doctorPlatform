@@ -135,11 +135,25 @@ function getFamilyDisease($appointmentID, $patientID){
 
 function getPrescribedPastDisease($appointmentID){
 
-	$sql = "SELECT pas.`id`, ppd.`appointMentID`, ppd.`pastDiseaseID` , d.name AS diseaseName, pas.startDate, pas.endDate, pas.detail, ppd.id AS prescribedID, IF(ppd.id  IS NULL, false, true) AS addedToPres
+	$sql = "SELECT pas.`id`, ppd.`appointMentID`, ppd.`pastDiseaseID` , d.name AS diseaseName, pas.detail, ppd.id AS prescribedID, IF(ppd.id  IS NULL, false, true) AS addedToPres
 	FROM patient_past_disease pas
 	JOIN disease d ON pas.diseaseID = d.id
 	JOIN `prescription_past_disease` ppd ON ppd.pastDiseaseID = pas.id
 	WHERE ppd.appointMentID = '$appointmentID'";
+
+	$result=mysql_query($sql);
+
+	return $result;
+
+}
+
+function getPrescribedPastDisease2($appointmentID, $status){
+
+	$sql = "SELECT pas.`id`, ppd.`appointMentID`, ppd.`pastDiseaseID` , d.name AS diseaseName, pas.detail, ppd.id AS prescribedID, IF(ppd.id  IS NULL, false, true) AS addedToPres
+	FROM patient_past_disease pas
+	JOIN disease d ON pas.diseaseID = d.id
+	JOIN `prescription_past_disease` ppd ON ppd.pastDiseaseID = pas.id
+	WHERE ppd.appointMentID = '$appointmentID' AND pas.isPresent = $status";
 
 	$result=mysql_query($sql);
 

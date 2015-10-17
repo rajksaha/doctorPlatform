@@ -63,7 +63,7 @@ $leftYaxis=$pdf->Show_History($appointmentID,$leftXaxis,$leftYaxis + 3, $maxX , 
 $leftYaxis=$pdf->Show_History($appointmentID,$leftXaxis,$leftYaxis + 3, $maxX , $size -3, "OBS");
 $leftYaxis=$pdf->Show_vital($appointmentID,$leftXaxis,$leftYaxis + 3, $maxX , $size -3);
 $leftYaxis=$pdf->Show_inv($appointmentID,$leftXaxis,$leftYaxis + 3, $maxX , $size -3);
-$leftYaxis=$pdf->Show_Past_History($appointmentID,$leftXaxis,$leftYaxis + 3, $maxX, $size - 3);
+$leftYaxis=$pdf->Show_Past_History($appointmentID,$leftXaxis,$leftYaxis + 3, $maxX, $size - 3, true);
 $leftYaxis=$pdf->Show_Family_History($appointmentID,$leftXaxis,$leftYaxis + 3, $maxX, $size - 3);
 
 $pdf-> show_nextVisit($appointmentID,15,250,$size);

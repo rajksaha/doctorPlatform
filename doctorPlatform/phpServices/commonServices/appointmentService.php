@@ -16,7 +16,7 @@ function getAppointment($username, $date){
 	FROM `appointment` app
 	JOIN appointment_type at ON at.id= app.appointmentType
 	LEFT JOIN patient p ON app.patientCode = p.patientCode
-	WHERE app.doctorCode = '$username' AND app.date='$date' order by app.status ASC, app.time";
+	WHERE app.doctorCode = '$username' AND app.date='$date' order by app.time DESC";
 	
 	$result=mysql_query($sql);
 	
