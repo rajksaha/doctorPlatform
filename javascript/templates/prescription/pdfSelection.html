@@ -1,0 +1,17 @@
+<div class="modal-header modalHead ">
+	<h4 class="modal-title">Template Selection</h4>
+</div>
+<div class="modal-body modalBody"  style="position:relative; z-index:1;">
+	
+
+
+    	<div  class="row step4Width" id="validateReq">
+   			<div class="form-group col-xs-12 col-sm-12" data-ng-repeat="pdf in pdfList">
+   				<div data-ng-click="selectPdf(pdf)"><label>{{pdf.detail}}</label></div>
+			</div>
+    	</div>
+	
+</div>
+<div class="modal-footer modalFoot">
+	<button class="btn btnLanier btn-warning" data-ng-click="cancel()" ><i class="fa"></i> Cancel</button> 
+</div>

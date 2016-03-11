@@ -1,0 +1,116 @@
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+		<h4>Drug History</h4>
+	</div>
+	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+		<span class="pull-right">
+			<a  style="padding-left:12px;" class="btn btn-info" href="#/prescription"><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"> Back</span></a>
+		</span>
+	</div>
+</div>
+
+
+<div class="row">
+	<div class="col-xs-12">
+		<div class="alert alert-danger alert-dismissable" data-ng-show="error">
+			<div id="lblMsg"></div>
+		</div>
+		<div class="alert alert-success" data-ng-show="succcess">
+			<div>{{message}}</div>
+		</div>
+		
+		
+		<div class="filter-panel col-xs-12 col-sm-6 col-md-6 col-lg-6" style="margin-top:20px">
+		
+			<div class="form-group">Previously Taken Drugs
+				<button class="btn btn-primary pull-right" data-ng-click="addDrug(0)">
+					<span class="glyphicon glyphicon-plus" aria-hidden="true"> </span>
+				</button>
+			</div>
+			<div class="panel-body" >
+				<div id="validateReq">
+					<table id="content-data-list" class="table table-condensed table-bordered">
+						<thead class="patinetInfoHead">
+							<tr >
+								<th width="10%"><strong>Sl.</strong></th>
+								<th width="35%"><strong>Drug name</strong></th>
+								<th width="15%"><strong>Action</strong></th>									
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="patinetInfoBody" data-ng-repeat="data in oldDrugList" style="height: 50px;cursor: pointer;">
+								<td class="nowrap" >
+									<button title="Add to Prescription" class="btn btn-default" data-ng-model="none"   data-ng-show="!data.editMode && !data.otherEditMode" data-ng-click="addToPresPast(data)">
+										<span class="glyphicon"  data-ng-class="{'glyphicon-unchecked': data.addedToPres == false,'glyphicon-check': data.addedToPres != false}"></span>
+									</button>
+								</td>
+									
+								<td >
+										<div class="form-group" data-ng-show="data.editMode">
+											<input type="text" data-ng-model="data.drugName"  class="form-control" placeholder="result" />
+										</div>
+									<span data-ng-show="!data.editMode">{{data.drugName}}</span>
+								</td>
+								<td id="">
+									<button title="Save" data-ng-show="data.editMode" class="btn btn-primary" data-ng-click="saveDrug(data, 0)">
+										<span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>
+									</button>
+									<button title="Edit" data-ng-show="!data.editMode && !data.otherEditMode" class="btn btn-danger" data-ng-click="delDrug(data , 0)">
+										<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+									</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		
+		<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1" style="margin-top:20px">
+		</div>
+		<div class="filter-panel col-xs-5 col-sm-5 col-md-5 col-lg-5" style="margin-top:20px">
+			<div class="form-group">Currently Taking Drugs
+				<button class="btn btn-primary pull-right" data-ng-click="addDrug(1)">
+					<span class="glyphicon glyphicon-plus" aria-hidden="true"> </span>
+				</button>
+			</div>
+			<div class="panel-body" >
+				<div id="validateReq">
+					<table id="content-data-list" class="table table-condensed table-bordered" >
+						<thead class="patinetInfoHead">
+							<tr >
+								<th width="10%"><strong>Sl.</strong></th>
+								<th width="35%"><strong>Drug name</strong></th>
+								<th width="15%"><strong>Action</strong></th>									
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="patinetInfoBody" data-ng-repeat="data in currentDrugList" style="height: 50px;cursor: pointer;">
+								<td class="nowrap" >
+									<button title="Add to Prescription" class="btn btn-default" data-ng-model="none"   data-ng-show="!data.editMode && !data.otherEditMode" data-ng-click="addToPresPast(data)">
+										<span class="glyphicon"  data-ng-class="{'glyphicon-unchecked': data.addedToPres == false,'glyphicon-check': data.addedToPres != false}"></span>
+									</button>
+								</td>
+									
+								<td >
+										<div class="form-group" data-ng-show="data.editMode">
+											<input type="text" data-ng-model="data.drugName"  class="form-control" placeholder="result" />
+										</div>
+									<span data-ng-show="!data.editMode">{{data.drugName}}</span>
+								</td>
+								<td id="">
+									<button title="Save" data-ng-show="data.editMode" class="btn btn-primary" data-ng-click="saveDrug(data, 1)">
+										<span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>
+									</button>
+									<button title="Edit" data-ng-show="!data.editMode && !data.otherEditMode" class="btn btn-danger" data-ng-click="delDrug(data, 1)">
+										<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+									</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
