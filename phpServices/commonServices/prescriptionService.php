@@ -5,6 +5,13 @@ if (!isset($_SESSION['username'])) {
 	header('Location: index.php');
 }
 
+function getDoctorInfoByDoctorCode($doctorCode){
+	
+	$result = mysql_query("SELECT `doctorID` FROM `doctor` WHERE `doctorCode` = '$doctorCode'");
+	
+	return mysql_fetch_assoc($result);
+}
+
 function getPresCribedDrugs($appointmentID){
 	
 	

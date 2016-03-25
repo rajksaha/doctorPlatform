@@ -205,5 +205,47 @@ function insertContentDetail($entityID, $entityType, $detail, $code){
 	return mysql_insert_id();
 }
 
+function insertDoctorDrug($doctorID, $drugID, $drugTime, $doseUnit, $drugWhen, $drugAdvice){
+	
+	mysql_query("
+			INSERT INTO `doctor_drug`( 
+				`doctorID`, 
+				`drugID`, 
+				`drugTimeID`, 
+				`drugDoseUnit`, 
+				`drugWhenID`, 
+				`drugAdviceID`
+			) 
+			VALUES (
+				$doctorID,
+				$drugID,
+				$drugTime,
+				'$doseUnit',
+				$drugWhen,
+				$drugAdvice)"
+			);
+	
+	return mysql_insert_id();
+}
+
+function insertDoctorDrugDose($doctorDrugID, $drugDose, $drugNoOfDay, $drugDayType){
+	
+	mysql_query("
+			INSERT INTO `doctor_drug_dose`(
+				`doctorDrugID`, 
+				`dose`, 
+				`numOfDay`, 
+				`durationType`
+			) 
+			VALUES (
+				$doctorDrugID,
+				'$drugDose',
+				$drugNoOfDay,
+				$drugDayType
+				)"
+			);
+}
+
+
 
 ?>

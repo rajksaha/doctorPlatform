@@ -78,10 +78,7 @@ if($query_no== 1){
 	$drugName = $_POST['drugName'];
 	$drugID = getDrugIDByName($drugName, $drugType,$drugStr);
 	$drugTime = $_POST['drugTime'];
-	//$drugDose = $_POST['drugDose'];
 	$doseUnit = $_POST['doseUnit'];
-	//$drugNoOfDay = $_POST['drugNoOfDay'];
-	//$drugDayType = $_POST['drugDayType'];
 	$drugWhen = $_POST['drugWhen'];
 	$drugAdvice = $_POST['drugAdvice'];
 	
@@ -188,6 +185,82 @@ else if($query_no==4){
 	$drugPrescribeID = $_POST['drugPrescribeID'];
 	
 	mysql_query("INSERT INTO `dose_period`(`drugPrescribeID`, `dose`, `numOfDay`, `durationType`) VALUES ($drugPrescribeID,'$drugDose', $drugNoOfDay ,'$drugDayType')");
+}else if($query_no == 13){
+	
+	$drugID = $_POST['drugID'];
+	
+	$sql = mysql_query("SELECT `doctorDrugID`, d.`doctorID`, `drugID`, `drugTimeID`, `drugDoseUnit`, `drugWhenID`, `drugAdviceID` 
+				FROM `doctor_drug` dd
+				JOIN doctor d ON dd.doctorID = d.doctorID
+				WHERE d.doctorCode = '$username' AND dd.drugID = $drugID");
+	
+	$result = mysql_fetch_assoc($sql);
+	if($result){
+		$result['preiodicList'] = getDrugPreiodicList($result['doctorDrugID']);
+	}
+	
+	if($result){
+		echo json_encode($result);
+	}else{
+		return  false;
+	}
+	
+}else if($query_no==14){
+	
+	
+	$drugType = $_POST['drugType'];
+	$drugStr = $_POST['drugStr'];
+	$drugName = $_POST['drugName'];
+	$drugID = getDrugIDByName($drugName, $drugType,$drugStr);
+	$drugTime = $_POST['drugTime'];
+	$doseUnit = $_POST['doseUnit'];
+	$drugWhen = $_POST['drugWhen'];
+	$drugAdvice = $_POST['drugAdvice'];
+	
+	$doctorData = getDoctorInfoByDoctorCode($username);
+	$doctorID = $doctorData['doctorID'];
+
+	mysql_query("DELETE FROM `doctor_drug_dose` WHERE `doctorDrugID`IN (SELECT `doctorDrugID` FROM `doctor_drug` WHERE WHERE `doctorID` = $doctorID AND `drugID` = $drugID)");
+	mysql_query("DELETE FROM `doctor_drug` WHERE `doctorID` = $doctorID AND `drugID` = $drugID");
+	
+	$result = insertDoctorDrug($doctorData['doctorID'], $drugID, $drugTime, $doseUnit, $drugWhen, $drugAdvice);
+	
+	echo $result;
+	
+}else if($query_no == 15){
+	
+	$drugDose = $_POST['dose'];
+	$drugNoOfDay = $_POST['numOfDay'];
+	$drugDayType = $_POST['durationType'];
+	$doctorDrugID = $_POST['doctorDrugID'];
+	
+	insertDoctorDrugDose($doctorDrugID, $drugDose, $drugNoOfDay, $drugDayType);
+	
+	echo "INSERT INTO `doctor_drug_dose`(
+				`doctorDrugID`, 
+				`dose`, 
+				`numOfDay`, 
+				`durationType`
+			) 
+			VALUES (
+				$doctorDrugID,
+				'$drugDose',
+				$drugNoOfDay,
+				$drugDayType
+				)";
+	
+}
+
+function getDrugPreiodicList($doctorDrugID){
+	
+	$dose = mysql_query("SELECT `dose`, `numOfDay`, `durationType` FROM `doctor_drug_dose` WHERE `doctorDrugID` = $doctorDrugID");
+		
+	$data = array();
+	while ($row=mysql_fetch_array($dose)){
+		array_push($data,$row);
+	}
+	
+	return $data;
 }
 
 function getPreiodicList($drugPrescribeID){
