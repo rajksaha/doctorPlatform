@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 3.4.5
+-- version 3.5.1
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jul 29, 2015 at 06:42 PM
--- Server version: 5.5.16
--- PHP Version: 5.3.8
+-- Generation Time: Apr 03, 2016 at 05:16 AM
+-- Server version: 5.7.11-log
+-- PHP Version: 5.3.13
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `advice` (
   `advice` text CHARACTER SET utf8 NOT NULL,
   `pdf` varchar(512) CHARACTER SET utf8 NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=161 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=166 ;
 
 --
 -- Dumping data for table `advice`
@@ -132,8 +132,7 @@ INSERT INTO `advice` (`id`, `type`, `lang`, `advice`, `pdf`) VALUES
 (156, 0, 1, 'চলবে লেখা ঔষধ চিকিৎসকের পরামর্শ ছাড়া বন্ধ করবেন না।', 'Pj‡e †jLv Jla wPwKrm‡Ki civgk© Qvov eÜ Ki‡eb bv|'),
 (157, 1, 1, 'টক জাতিও খাবার খাবেন না।', ''),
 (158, 1, 1, 'পাতে লবন খাবেন না।', ''),
-(159, 1, 1, 'undefined', ''),
-(160, 1, 1, 'undefined', '');
+(165, 4, 1, 'প্রতিদিন নিয়মিত ঔষধ', 'cÖwZw`b wbqwgZ Jla');
 
 -- --------------------------------------------------------
 
@@ -151,7 +150,7 @@ CREATE TABLE IF NOT EXISTS `appointment` (
   `appointmentType` int(11) NOT NULL,
   `addedBy` varchar(15) NOT NULL,
   PRIMARY KEY (`appointmentID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=91 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=175 ;
 
 --
 -- Dumping data for table `appointment`
@@ -247,7 +246,85 @@ INSERT INTO `appointment` (`appointmentID`, `doctorCode`, `patientCode`, `date`,
 (87, 'mah', '100000004', '2015-07-10', '12:00:45', 1, 1, 'mah'),
 (88, 'mah', '100000004', '2015-07-11', '05:04:35', 1, 1, 'mah'),
 (89, 'zhs', '300000000', '2015-07-11', '08:10:23', 1, 1, 'zhs'),
-(90, 'raj', '100000004', '2015-07-29', '12:12:36', 0, 1, 'raj');
+(90, 'raj', '100000004', '2015-07-29', '12:12:36', 0, 1, 'raj'),
+(91, 'raj', '100000004', '2015-07-30', '12:00:30', 0, 1, 'raj'),
+(92, 'mah', '100000004', '2015-08-02', '09:25:59', 1, 1, 'mah'),
+(93, 'raj', '100000000', '2015-08-02', '10:15:29', 0, 1, 'raj'),
+(94, 'zhs', '100000004', '2015-08-02', '10:55:48', 1, 1, 'zhs'),
+(95, 'ask', '100000001', '2015-08-02', '11:57:44', 0, 1, 'ask'),
+(96, 'raj', '100000070', '2015-08-08', '02:29:42', 0, 1, 'raj'),
+(97, 'raj', '100000070', '2015-08-09', '11:30:22', 0, 1, 'raj'),
+(98, 'dfd', '100000000', '2015-08-10', '10:14:24', 1, 1, 'dfd'),
+(99, 'ask', '100000004', '2015-08-16', '11:37:56', 1, 1, 'ask'),
+(100, 'raj', '100000001', '2015-08-16', '11:52:54', 0, 1, 'raj'),
+(101, 'kqi', '100000070', '2015-08-16', '05:02:39', 1, 1, 'kqi'),
+(102, 'mma', '100000004', '2015-08-17', '11:07:15', 1, 1, 'mma'),
+(103, 'raj', '100000000', '2015-08-19', '11:42:06', 0, 1, 'raj'),
+(104, 'raj', '100000070', '2015-08-20', '11:20:06', 0, 1, 'raj'),
+(105, 'raj', '100000000', '2015-08-22', '12:46:23', 0, 1, 'raj'),
+(106, 'mas', '100000000', '2015-08-23', '11:57:09', 0, 0, 'mas'),
+(107, 'mas', '1000000000', '2015-08-23', '12:00:15', 1, 0, 'mas'),
+(108, 'raj', '100000070', '2015-08-23', '01:30:46', 0, 1, 'raj'),
+(109, 'raj', '100000000', '2015-08-24', '09:22:34', 0, 1, 'raj'),
+(110, 'raj', '100000069', '2015-08-27', '12:14:45', 0, 1, 'raj'),
+(111, 'bah', '100000070', '2015-08-29', '04:20:28', 1, 1, 'raj'),
+(112, 'raj', '100000000', '2015-08-29', '03:46:05', 1, 1, 'raj'),
+(113, 'raj', '100000070', '2015-08-30', '12:02:14', 0, 1, 'raj'),
+(114, 'bah', '100000070', '2015-08-30', '12:02:37', 1, 1, 'bah'),
+(115, 'bah', '100000004', '2015-08-30', '06:43:36', 1, 1, 'bah'),
+(116, 'bah', '100000000', '2015-08-30', '07:08:11', 1, 1, 'bah'),
+(117, 'bah', '100000001', '2015-08-30', '10:55:12', 0, 1, 'bah'),
+(118, 'raj', '100000070', '2015-08-31', '12:43:41', 1, 1, 'raj'),
+(119, 'mah', '100000070', '2015-09-01', '09:27:03', 1, 1, 'mah'),
+(120, 'mah', '100000001', '2015-09-01', '09:34:39', 1, 1, 'mah'),
+(121, 'raj', '100000004', '2015-09-01', '10:00:05', 0, 1, 'raj'),
+(122, 'raj', '100000040', '2015-09-05', '10:12:51', 0, 1, 'raj'),
+(123, 'raj', '100000070', '2015-09-05', '10:12:55', 0, 1, 'raj'),
+(124, 'raj', '300000000', '2015-09-05', '10:12:58', 0, 1, 'raj'),
+(125, 'raj', '100000000', '2015-09-05', '10:13:02', 0, 1, 'raj'),
+(126, 'raj', '100000001', '2015-09-05', '10:13:06', 0, 1, 'raj'),
+(127, 'raj', '100000004', '2015-09-05', '10:13:12', 0, 1, 'raj'),
+(128, 'mak', '100000004', '2015-09-06', '12:20:31', 1, 1, 'mak'),
+(129, 'fkb', '100000004', '2015-09-12', '10:39:06', 0, 1, 'fkb'),
+(130, 'fkb', '100000004', '2015-09-15', '09:50:01', 0, 1, 'fkb'),
+(131, 'mmu', '100000001', '2015-10-03', '11:25:15', 1, 1, 'mmu'),
+(132, 'kqi', '100000004', '2015-10-03', '11:27:13', 0, 1, 'kqi'),
+(133, 'raj', '100000004', '2015-10-12', '09:10:09', 0, 1, 'raj'),
+(134, 'kqi', '100000000', '2015-10-12', '10:40:25', 0, 1, 'kqi'),
+(137, 'raj', '100000004', '2015-10-13', '12:40:45', 0, 1, 'raj'),
+(138, 'raj', '100000004', '2015-10-14', '09:32:55', 0, 1, 'raj'),
+(139, 'kqi', '100000001', '2015-10-14', '09:44:01', 0, 1, 'kqi'),
+(140, 'raj', '100000000', '2015-10-17', '10:11:29', 0, 1, 'raj'),
+(141, 'raj', '100000000', '2015-10-18', '12:10:28', 0, 1, 'raj'),
+(142, 'raj', '100000004', '2015-10-17', '12:14:05', 0, 1, 'raj'),
+(145, 'raj', '100000004', '2015-10-18', '01:00:50', 0, 1, 'raj'),
+(148, 'raj', '1000000001', '2015-10-18', '01:19:38', 0, 1, 'raj'),
+(149, 'raj', '100000000', '2015-10-24', '06:05:37', 0, 1, 'raj'),
+(150, 'raj', '100000000', '2015-11-15', '12:41:47', 0, 1, 'raj'),
+(151, 'raj', '100000001', '2015-11-15', '12:41:54', 0, 1, 'raj'),
+(152, 'raj', '100000071', '2015-11-15', '12:42:08', 0, 0, 'raj'),
+(153, 'bah', '100000004', '2015-11-19', '11:31:00', 0, 1, 'bah'),
+(154, 'raj', '100000000', '2015-11-20', '12:00:29', 0, 1, 'raj'),
+(155, 'raj', '100000004', '2015-11-21', '01:49:11', 0, 1, 'raj'),
+(156, 'raj', '100000000', '2015-11-22', '12:37:07', 1, 1, 'raj'),
+(157, 'raj', '100000000', '2015-11-22', '10:52:30', 2, 1, 'raj'),
+(158, 'raj', '100000004', '2015-11-22', '10:55:53', 2, 1, 'raj'),
+(159, 'mah', '100000001', '2015-11-22', '11:19:19', 0, 1, 'mah'),
+(160, 'mah', '100000004', '2015-11-25', '10:26:49', 1, 1, 'mah'),
+(161, 'mah', '100000000', '2015-11-25', '10:50:34', 0, 1, 'mah'),
+(162, 'sfs', '100000000', '2015-11-29', '10:42:41', 1, 1, 'sfs'),
+(163, 'mas', '100000001', '2015-12-05', '12:37:21', 1, 1, 'mas'),
+(164, 'mas', '100000004', '2015-12-05', '12:38:30', 0, 1, 'mas'),
+(165, 'sai', '100000004', '2015-12-06', '02:31:52', 1, 1, 'sai'),
+(166, 'sfs', '100000000', '2015-12-12', '09:47:29', 1, 1, 'sfs'),
+(167, 'mah', '100000000', '2015-12-19', '09:48:33', 1, 1, 'mah'),
+(168, 'mah', '100000004', '2015-12-20', '12:14:58', 1, 1, 'mah'),
+(169, 'mah', '100000000', '2015-12-20', '06:31:34', 1, 1, 'mah'),
+(170, 'mma', '100000004', '2015-12-20', '10:33:22', 1, 1, 'mma'),
+(171, 'shs', '100000001', '2016-01-23', '12:13:33', 1, 1, 'shs'),
+(172, 'raj', '100000000', '2016-03-12', '01:03:41', 0, 1, 'raj'),
+(173, 'raj', '100000000', '2016-03-13', '10:05:12', 0, 1, 'raj'),
+(174, 'raj', '100000000', '2016-03-31', '08:53:02', 0, 1, 'raj');
 
 -- --------------------------------------------------------
 
@@ -287,7 +364,7 @@ CREATE TABLE IF NOT EXISTS `complain` (
   `durationType` int(11) DEFAULT NULL,
   `detail` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=60 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=125 ;
 
 --
 -- Dumping data for table `complain`
@@ -351,7 +428,121 @@ INSERT INTO `complain` (`id`, `appointMentID`, `symptomID`, `durationNum`, `dura
 (55, 89, 30, 1, 3, ''),
 (56, 89, 41, 1, 2, ''),
 (57, 89, 21, 7, 1, ''),
-(59, 89, 38, 1, 1, '');
+(59, 89, 38, 1, 1, ''),
+(60, 92, 210, 1, 1, ''),
+(61, 92, 32, 0, 6, ''),
+(62, 92, 28, 0, 6, ''),
+(63, 92, 80, 1, 2, ''),
+(64, 94, 50, 0, 6, ''),
+(65, 94, 199, 0, 7, ''),
+(66, 94, 31, 1, 2, ''),
+(67, 94, 84, 1, 2, ''),
+(73, 98, 26, 1, 1, ''),
+(74, 98, 28, 1, 1, ''),
+(75, 98, 21, 1, 1, ''),
+(76, 98, 23, 1, 1, ''),
+(78, 101, 26, 1, 1, ''),
+(79, 101, 21, 1, 1, ''),
+(80, 101, 23, 1, 1, ''),
+(81, 101, 28, 1, 1, ''),
+(86, 102, 26, 1, 1, ''),
+(87, 102, 28, 1, 1, ''),
+(88, 102, 21, 1, 1, ''),
+(89, 102, 23, 1, 1, ''),
+(90, 107, 129, 0, 6, ''),
+(91, 107, 26, 0, 1, ''),
+(92, 107, 28, 0, 1, ''),
+(93, 107, 21, 0, 1, ''),
+(94, 107, 23, 0, 1, ''),
+(95, 124, 26, 1, 1, ''),
+(96, 124, 28, 1, 1, ''),
+(97, 124, 23, 1, 1, ''),
+(98, 124, 21, 1, 1, ''),
+(99, 125, 26, 1, 1, ''),
+(100, 125, 28, 1, 1, ''),
+(101, 125, 21, 1, 1, ''),
+(102, 125, 23, 1, 1, ''),
+(103, 128, 26, 1, 1, ''),
+(104, 128, 28, 1, 1, ''),
+(105, 128, 21, 1, 1, ''),
+(106, 128, 23, 1, 1, ''),
+(107, 156, 40, 1, 1, ''),
+(108, 156, 23, 1, 1, ''),
+(109, 157, 23, 1, 1, ''),
+(110, 160, 26, 0, 6, ''),
+(111, 160, 28, 0, 6, ''),
+(112, 160, 21, 3, 2, ''),
+(113, 162, 26, 0, 6, ''),
+(114, 162, 45, 0, 6, ''),
+(115, 162, 37, 0, 6, ''),
+(116, 163, 21, 0, 6, ''),
+(117, 163, 75, 0, 6, ''),
+(118, 170, 26, 0, 6, ''),
+(119, 170, 28, 0, 6, ''),
+(120, 170, 21, 0, 6, ''),
+(121, 171, 26, 0, 6, ''),
+(122, 171, 21, 0, 6, ''),
+(123, 171, 28, 0, 6, ''),
+(124, 171, 23, 0, 6, '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `contentdetail`
+--
+
+CREATE TABLE IF NOT EXISTS `contentdetail` (
+  `contentDetailID` int(11) NOT NULL AUTO_INCREMENT,
+  `contentType` varchar(20) NOT NULL,
+  `entityID` int(11) NOT NULL,
+  `detail` text CHARACTER SET utf8 NOT NULL,
+  `code` text NOT NULL,
+  PRIMARY KEY (`contentDetailID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=48 ;
+
+--
+-- Dumping data for table `contentdetail`
+--
+
+INSERT INTO `contentdetail` (`contentDetailID`, `contentType`, `entityID`, `detail`, `code`) VALUES
+(1, 'NEXTVISIT', 2, 'পর আবার আসবেন।', 'ci Avevi Avm‡eb|'),
+(2, 'NEXTVISIT', 1, 'তারিখে দেখা করবেন।', 'Zvwi‡L †`Lv Ki‡eb|'),
+(3, 'COMMENT', 137, 'sss', ''),
+(4, 'COMMENT', 138, 'Yo YO', ''),
+(5, 'COMMENT', 139, 'TEST', ''),
+(9, 'OLDDRUGS', 155, 'aaaa', ''),
+(10, 'OLDDRUGS', 156, 'lol', ''),
+(12, 'DOCTORPDF', 3, 'Lab-Aid', 'mah_lab'),
+(13, 'DOCTORPDF', 3, 'Green Life', 'mah_green'),
+(14, 'DOCTORPDF', 3, 'NICDH', 'mah_nicdh'),
+(15, 'COMMENT', 160, 'Yo', ''),
+(16, 'DOCTORPDF', 15, 'Modern', 'sfs_pdf'),
+(17, 'COMMENT', 162, 'Improving', ''),
+(18, 'OLDDRUGS', 162, 'Angilok', ''),
+(19, 'CURRDRUGS', 162, 'Glucomin 500mg', ''),
+(20, 'DOCTORPDF', 16, 'Popular', 'sai_pdf'),
+(21, 'DOCTORPRINT', 3, 'LINE1', 'Aa¨vcK †gvt Avjx †nv‡mb '),
+(22, 'DOCTORPRINT', 3, 'LINE2', 'GgweweGm, Gdwmwc Gm (‡gwWwmb), GgwW(‡P÷) '),
+(23, 'DOCTORPRINT', 3, 'LINE3', '†gwWwmb we‡klÁ I cvjg‡bvjwR‡P÷ '),
+(24, 'DOCTORPRINT', 3, 'LINE4', 'Jl‡ai bvg cwieZ©b A_ev GKB Jla Ab¨ bv‡g cÖ`vb MÖnY‡hvM¨ bq|'),
+(25, 'DOCTORPRINT', 3, 'LINE5', '.wet `ªt cÖwZevi mv¶v‡Zi Rb¨ bvg †jLv‡eb Ges e¨e¯’vcÎ m‡½ Avb‡eb|'),
+(26, 'DOCTORPRINT', 3, 'LINE6', '.†ivMx †`Lvi mgqt weKvj 3Uv †_‡K 5Uv, mÜ¨v 6Uv †_‡K ivZ 10Uv'),
+(27, 'DOCTORPRINT', 3, 'LINE7', '.cÖwZw`‡bi wmwiqvj Av‡Mi w`b mKvj 10Uv †_‡K †bIqv nq|'),
+(28, 'DOCTORPRINT', 3, 'LINE8', '.wmwiqv‡ji Rb¨ nUjvBb-10606, ïµevi eÜ|  '),
+(29, 'COMMENT', 170, 'imp', ''),
+(30, 'DOCTORPDF', 9, 'def', 'mma_pdf'),
+(31, 'OLDDRUGS', 170, 'aaaa', ''),
+(32, 'CURRDRUGS', 170, 'ccc', ''),
+(33, 'DOCTORPDF', 17, 'Comfort', 'shs_pdf'),
+(34, 'COMMENT', 171, 'assddd', ''),
+(39, 'OLDDRUGS', 171, 'erer', ''),
+(40, 'OLDDRUGS', 171, 'erer', ''),
+(42, 'CURRDRUGS', 171, 'Avator', ''),
+(43, 'CURRDRUGS', 171, 'Montiva', ''),
+(44, 'AMPL', 1, 'ampl', 'G¤cj'),
+(45, 'VIAL', 1, 'VIAL', 'fvqvj'),
+(46, 'DROP', 1, 'Drop', 'Wªc'),
+(47, 'PUFF', 1, 'Puff', 'cvd');
 
 -- --------------------------------------------------------
 
@@ -365,7 +556,7 @@ CREATE TABLE IF NOT EXISTS `diagnosis` (
   `diseaseID` int(11) NOT NULL,
   `note` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=35 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=52 ;
 
 --
 -- Dumping data for table `diagnosis`
@@ -398,7 +589,24 @@ INSERT INTO `diagnosis` (`id`, `appointMentID`, `diseaseID`, `note`) VALUES
 (31, 86, 326, ''),
 (32, 87, 34, ''),
 (33, 88, 34, ''),
-(34, 89, 68, '');
+(34, 89, 68, ''),
+(35, 94, 4, ''),
+(36, 98, 74, ''),
+(37, 99, 207, ''),
+(38, 101, 6, ''),
+(39, 102, 4, ''),
+(40, 107, 327, ''),
+(41, 114, 273, ''),
+(42, 115, 272, ''),
+(43, 116, 273, ''),
+(44, 117, 82, ''),
+(45, 128, 6, ''),
+(46, 160, 268, ''),
+(47, 162, 6, ''),
+(48, 163, 5, ''),
+(49, 164, 5, ''),
+(50, 170, 6, ''),
+(51, 171, 59, '');
 
 -- --------------------------------------------------------
 
@@ -410,7 +618,7 @@ CREATE TABLE IF NOT EXISTS `disease` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=327 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=328 ;
 
 --
 -- Dumping data for table `disease`
@@ -720,7 +928,8 @@ INSERT INTO `disease` (`id`, `name`) VALUES
 (323, 'fe'),
 (324, ''),
 (325, 'undefined'),
-(326, 'Pregnancy with aneamia');
+(326, 'Pregnancy with aneamia'),
+(327, 'Renal Impairment');
 
 -- --------------------------------------------------------
 
@@ -737,7 +946,7 @@ CREATE TABLE IF NOT EXISTS `doctor` (
   `age` decimal(10,0) NOT NULL,
   `phone` varchar(15) NOT NULL,
   PRIMARY KEY (`doctorID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
 
 --
 -- Dumping data for table `doctor`
@@ -746,8 +955,21 @@ CREATE TABLE IF NOT EXISTS `doctor` (
 INSERT INTO `doctor` (`doctorID`, `doctorCode`, `password`, `name`, `sex`, `age`, `phone`) VALUES
 (1, 'raj', '123', 'Dr Saimul Arefin', 'MALE', '28', '01717094921'),
 (2, 'bah', '123', ' Dr Badrul Haque', 'MALE', '50', '+8801713009917'),
-(3, 'mah', '123', 'Prof. Md. Ali Hossain', 'Male', '60', ''),
-(4, 'zhs', '123', 'Dr. Md. Zakir Hossain Sarker', 'Male', '50', '');
+(3, 'mah', '123', 'Prof. Md. Ali Hossain', 'Male', '60', '+8801711561492'),
+(4, 'zhs', '123', 'Dr. Md. Zakir Hossain Sarker', 'Male', '50', '+8801716632591'),
+(5, 'ask', '123', 'Dr. Md. Abdus Shakur Khan', 'MALE', '52', '+8801552322010'),
+(6, 'dfd', '123', 'Dr. Farzana Deeba', 'Female', '40', '+8801711535404'),
+(7, 'rkk', '123', 'Kazal', 'Male', '50', ''),
+(8, 'kqi', '123', 'Prof. Dr. Khandaker Qamrul Islam', 'Male', '50', ''),
+(9, 'mma', '123', 'Dr. Md. Mohiuddin Ahamed', 'Male', '55', ''),
+(10, 'mas', '123', 'Prof. (DR.) M. A. Samad', 'Male', '50', ''),
+(11, 'mak', '123', 'Dr. Md. Azizul Kahhar', 'Male', '60', ''),
+(12, 'aba', '123', 'Prof. Dr. Abu Azam', 'Male', '50', ''),
+(13, 'fkb', '123', 'Dr. Faisal Kamal Bhuyian', 'Male', '50', ''),
+(14, 'mmu', '123', 'Dr Mohammad Moniruzzaman', 'Male', '60', ''),
+(15, 'sfs', '123', 'Prof. Dr. Sehereen F. Siddiqua', 'Fe-male', '50', '+8801711523719'),
+(16, 'sai', '123', 'Dr. Sarwar Iqbal', 'Male', '56', ''),
+(17, 'shs', '123', 'Dr. Shahjada Selim', 'Male', '50', '');
 
 -- --------------------------------------------------------
 
@@ -812,17 +1034,29 @@ CREATE TABLE IF NOT EXISTS `doctorsettings` (
   `pdfPage` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `doctorId` (`doctorID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
 
 --
 -- Dumping data for table `doctorsettings`
 --
 
 INSERT INTO `doctorsettings` (`id`, `doctorID`, `category`, `state`, `patientType`, `patientState`, `prescriptionStyle`, `hospitalID`, `photoSupport`, `personCodeInitial`, `pdfPage`) VALUES
-(1, 1, 8, 1, 1, 1, 1, 1, 0, 100000071, 'default'),
+(1, 1, 8, 1, 1, 1, 1, 1, 0, 100000072, 'default'),
 (2, 2, 4, 1, 0, 1, 1, 1, 0, 200000000, 'bah_pdf'),
 (3, 3, 1, 1, 0, 1, 2, 0, 0, 300000001, 'mah_pdf'),
-(4, 4, 1, 1, 0, 1, 2, 0, 0, 400000000, 'zhs_pdf');
+(4, 4, 1, 1, 0, 1, 2, 0, 0, 400000000, 'zhs_pdf'),
+(5, 5, 1, 1, 0, 1, 1, 1, 0, 500000000, 'ask_pdf'),
+(6, 6, 8, 1, 1, 1, 0, 1, 0, 600000000, 'dfd_pdf'),
+(7, 8, 2, 1, 0, 1, 0, 1, 0, 800000000, 'kqi_pdf'),
+(8, 9, 1, 1, 0, 1, 0, 1, 0, 900000000, 'mma_pdf'),
+(9, 10, 14, 1, 1, 1, 0, 1, 0, 1000000001, 'mas_pdf'),
+(10, 11, 1, 1, 0, 1, 2, 1, 0, 1100000000, 'mak_pdf'),
+(11, 12, 2, 1, 1, 1, 1, 1, 0, 1200000000, 'aba_pdf'),
+(12, 13, 4, 1, 1, 1, 0, 1, 0, 1300000000, 'fkb_pdf'),
+(13, 14, 4, 1, 1, 1, 1, 1, 0, 1400000000, 'mmu_pdf'),
+(14, 15, 8, 1, 1, 1, 1, 1, 0, 1500000000, 'sfs'),
+(15, 16, 4, 1, 1, 1, 1, 1, 0, 1600000000, 'sai'),
+(16, 17, 1, 1, 1, 1, 1, 1, 0, 1700000000, 'shs_pdf');
 
 -- --------------------------------------------------------
 
@@ -836,7 +1070,7 @@ CREATE TABLE IF NOT EXISTS `doctor_advice_settings` (
   `adviceID` int(11) NOT NULL,
   `displayOrder` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=31 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=48 ;
 
 --
 -- Dumping data for table `doctor_advice_settings`
@@ -868,7 +1102,72 @@ INSERT INTO `doctor_advice_settings` (`id`, `doctorID`, `adviceID`, `displayOrde
 (27, 3, 75, 1),
 (28, 3, 0, 2),
 (29, 4, 113, 1),
-(30, 4, 0, 2);
+(30, 4, 0, 2),
+(31, 6, 81, 1),
+(32, 6, 113, 2),
+(33, 8, 71, 1),
+(34, 9, 71, 1),
+(35, 2, 0, 11),
+(36, 2, 0, 11),
+(37, 2, 163, 11),
+(38, 2, 164, 12),
+(39, 11, 71, 1),
+(40, 13, 165, 1),
+(41, 15, 113, 1),
+(42, 15, 87, 2),
+(43, 15, 88, 3),
+(44, 15, 89, 4),
+(45, 9, 127, 2),
+(46, 17, 158, 1),
+(47, 17, 113, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `doctor_drug`
+--
+
+CREATE TABLE IF NOT EXISTS `doctor_drug` (
+  `doctorDrugID` int(11) NOT NULL AUTO_INCREMENT,
+  `doctorID` int(11) NOT NULL,
+  `drugID` int(11) NOT NULL,
+  `drugTimeID` int(11) NOT NULL,
+  `drugDoseUnit` varchar(255) NOT NULL,
+  `drugWhenID` int(11) NOT NULL,
+  `drugAdviceID` int(11) NOT NULL,
+  PRIMARY KEY (`doctorDrugID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `doctor_drug`
+--
+
+INSERT INTO `doctor_drug` (`doctorDrugID`, `doctorID`, `drugID`, `drugTimeID`, `drugDoseUnit`, `drugWhenID`, `drugAdviceID`) VALUES
+(1, 1, 15, 2, '', 2, 0),
+(2, 1, 5, 2, '', 2, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `doctor_drug_dose`
+--
+
+CREATE TABLE IF NOT EXISTS `doctor_drug_dose` (
+  `doctorDrugDoseID` int(11) NOT NULL AUTO_INCREMENT,
+  `doctorDrugID` int(11) NOT NULL,
+  `dose` varchar(100) DEFAULT NULL,
+  `numOfDay` int(11) DEFAULT NULL,
+  `durationType` int(11) NOT NULL,
+  PRIMARY KEY (`doctorDrugDoseID`),
+  UNIQUE KEY `doctorDrugDoseID` (`doctorDrugDoseID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `doctor_drug_dose`
+--
+
+INSERT INTO `doctor_drug_dose` (`doctorDrugDoseID`, `doctorDrugID`, `dose`, `numOfDay`, `durationType`) VALUES
+(2, 2, '1 - 1', 7, 1);
 
 -- --------------------------------------------------------
 
@@ -882,7 +1181,7 @@ CREATE TABLE IF NOT EXISTS `doctor_history_settings` (
   `historyID` int(11) NOT NULL,
   `displayOrder` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=44 ;
 
 --
 -- Dumping data for table `doctor_history_settings`
@@ -902,7 +1201,33 @@ INSERT INTO `doctor_history_settings` (`id`, `doctorID`, `historyID`, `displayOr
 (14, 1, 0, 0),
 (15, 1, 0, 0),
 (16, 1, 18, 6),
-(17, 1, 19, 1);
+(17, 1, 19, 1),
+(18, 1, 7, 7),
+(19, 1, 0, 8),
+(20, 1, 20, 8),
+(21, 6, 7, 1),
+(22, 6, 6, 2),
+(23, 6, 2, 3),
+(24, 6, 3, 4),
+(25, 6, 4, 5),
+(26, 6, 11, 1),
+(27, 6, 14, 2),
+(28, 6, 0, 3),
+(29, 6, 12, 3),
+(30, 8, 21, 1),
+(31, 8, 22, 1),
+(32, 8, 23, 1),
+(33, 14, 23, 1),
+(34, 8, 24, 1),
+(35, 8, 25, 1),
+(36, 1, 8, 1),
+(37, 1, 10, 1),
+(38, 15, 6, 1),
+(39, 15, 20, 2),
+(40, 15, 26, 1),
+(41, 15, 27, 1),
+(42, 9, 23, 1),
+(43, 17, 23, 1);
 
 -- --------------------------------------------------------
 
@@ -916,7 +1241,7 @@ CREATE TABLE IF NOT EXISTS `doctor_inv_setteing` (
   `invID` int(11) NOT NULL,
   `displayOrder` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=123 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=130 ;
 
 --
 -- Dumping data for table `doctor_inv_setteing`
@@ -1038,7 +1363,14 @@ INSERT INTO `doctor_inv_setteing` (`id`, `doctorID`, `invID`, `displayOrder`) VA
 (119, 3, 874, 0),
 (120, 3, 875, 0),
 (121, 3, 876, 0),
-(122, 3, 877, 0);
+(122, 3, 877, 0),
+(123, 11, 695, 1),
+(124, 15, 695, 1),
+(125, 15, 740, 0),
+(126, 15, 238, 0),
+(127, 15, 240, 0),
+(128, 15, 251, 0),
+(129, 15, 726, 0);
 
 -- --------------------------------------------------------
 
@@ -1052,7 +1384,7 @@ CREATE TABLE IF NOT EXISTS `doctor_vital_settings` (
   `vitalID` int(11) NOT NULL,
   `displayOrder` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=55 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=92 ;
 
 --
 -- Dumping data for table `doctor_vital_settings`
@@ -1109,7 +1441,89 @@ INSERT INTO `doctor_vital_settings` (`id`, `doctorID`, `vitalID`, `displayOrder`
 (51, 4, 107, 1),
 (52, 4, 1, 2),
 (53, 4, 84, 3),
-(54, 4, 119, 4);
+(54, 4, 119, 4),
+(55, 1, 32, 11),
+(56, 6, 2, 1),
+(57, 6, 1, 2),
+(58, 6, 84, 3),
+(59, 6, 126, 4),
+(60, 6, 74, 5),
+(61, 6, 81, 6),
+(62, 6, 97, 7),
+(63, 6, 99, 8),
+(64, 6, 100, 9),
+(65, 6, 101, 10),
+(66, 6, 102, 11),
+(67, 6, 95, 12),
+(68, 6, 96, 13),
+(69, 8, 2, 1),
+(70, 9, 2, 1),
+(71, 10, 127, 1),
+(72, 10, 84, 2),
+(73, 11, 2, 1),
+(74, 11, 84, 2),
+(79, 15, 81, 1),
+(80, 15, 2, 2),
+(81, 15, 1, 3),
+(82, 15, 128, 4),
+(83, 15, 129, 5),
+(84, 15, 130, 6),
+(85, 15, 131, 7),
+(86, 15, 132, 8),
+(87, 15, 133, 9),
+(88, 15, 134, 10),
+(89, 17, 2, 1),
+(90, 17, 1, 2),
+(91, 17, 81, 3);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `dose_period`
+--
+
+CREATE TABLE IF NOT EXISTS `dose_period` (
+  `drugPrescribeID` int(11) NOT NULL,
+  `dose` varchar(160) DEFAULT NULL,
+  `numOfDay` double DEFAULT NULL,
+  `durationType` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `dose_period`
+--
+
+INSERT INTO `dose_period` (`drugPrescribeID`, `dose`, `numOfDay`, `durationType`) VALUES
+(1, '1 - 1', NULL, 6),
+(2, '1 - 0 - 1', 7, 1),
+(2, '1 - 0 - 1', 7, 1),
+(2, '1 - 0 - 1', 7, 1),
+(3, '1 - 1 - 1', 7, 1),
+(4, '1 - 1 - 1', 7, 1),
+(5, '1 - 1 - 1', 7, 1),
+(6, '1 - 1', NULL, 5),
+(7, '1 - 1', 1, 3),
+(9, '4', 7, 1),
+(11, '1 - 1', 7, 1),
+(8, '10 - 10', 7, 1),
+(12, '1', 7, 1),
+(13, '1', 1, 1),
+(14, '', 7, 1),
+(15, '1 - 1', NULL, 5),
+(16, '1 - 1', NULL, 5),
+(17, '1 - 1 - 1', 7, 1),
+(18, '1 - 1 - 1', 7, 1),
+(19, '1 - 1 - 1', 7, 1),
+(20, '1 - 1 - 1', 7, 1),
+(21, '1 - 1 - 1', 7, 1),
+(22, '12 - 12 - 12', 7, 1),
+(25, '1 - 1 - 1', 7, 1),
+(26, '1 - 1 - 1', 7, 1),
+(27, '1 - 1 - 1', 7, 1),
+(28, '1 - 1 - 1', 7, 1),
+(29, '1 - 1 - 1', 7, 1),
+(23, '1 - 1 - 1', 7, 1),
+(24, '1 - 1 - 1', 7, 1);
 
 -- --------------------------------------------------------
 
@@ -1124,7 +1538,7 @@ CREATE TABLE IF NOT EXISTS `drug` (
   `drugName` varchar(255) NOT NULL,
   `strength` varchar(255) NOT NULL,
   PRIMARY KEY (`drugID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7366 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7396 ;
 
 --
 -- Dumping data for table `drug`
@@ -8499,7 +8913,37 @@ INSERT INTO `drug` (`drugID`, `typeID`, `companyID`, `drugName`, `strength`) VAL
 (7362, 1, 0, 'Roxcef', ''),
 (7363, 5, 0, 'Napa', ''),
 (7364, 1, 0, 'Starcal D ', ''),
-(7365, 1, 0, 'Starcal D ', '');
+(7365, 1, 0, 'Starcal D ', ''),
+(7366, 1, 0, 'Revotril 0.5mg', ''),
+(7367, 1, 0, 'Starcal D ', ''),
+(7368, 1, 0, 'Roxcef', ''),
+(7369, 1, 0, 'Roxcef', ''),
+(7370, 4, 0, 'Fluclox', ''),
+(7371, 1, 0, 'Prokinet ', ''),
+(7372, 3, 0, 'Arcet ', ''),
+(7373, 4, 0, 'Intravas', ''),
+(7374, 1, 0, 'Starcal D ', ''),
+(7375, 1, 0, 'Starcal D ', ''),
+(7376, 1, 0, 'Sodival', ''),
+(7377, 1, 0, 'Flexivan', ''),
+(7378, 1, 0, 'Flexivan', ''),
+(7379, 1, 0, 'Flexivan', ''),
+(7380, 1, 0, 'Flexivan', ''),
+(7381, 1, 0, 'Flexivan', ''),
+(7382, 1, 0, 'Flexivan', ''),
+(7383, 1, 0, 'Avator ', ''),
+(7384, 1, 0, 'Nipoxen SR', ''),
+(7385, 1, 0, 'Azaltic ', ''),
+(7386, 1, 0, 'Asural', ''),
+(7387, 1, 0, 'Vermikil ', ''),
+(7388, 1, 0, 'Starcal D ', ''),
+(7389, 1, 0, 'Azaltic ', ''),
+(7390, 6, 0, 'Actrapid HM ( 100 U )', ''),
+(7391, 1, 0, 'Montiva', ''),
+(7392, 10, 0, 'Seroxyn', ''),
+(7393, 10, 0, 'Seroxyn', ''),
+(7394, 10, 0, 'Ticamet', ''),
+(7395, 7, 0, 'Gatison', '');
 
 -- --------------------------------------------------------
 
@@ -8514,7 +8958,7 @@ CREATE TABLE IF NOT EXISTS `drugadvicetype` (
   `english` text NOT NULL,
   `pdf` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=32 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=39 ;
 
 --
 -- Dumping data for table `drugadvicetype`
@@ -8551,7 +8995,9 @@ INSERT INTO `drugadvicetype` (`id`, `doctorType`, `bangla`, `english`, `pdf`) VA
 (28, 0, 'মুখে দিবেন ', '', 'gy‡L w`‡eb'),
 (29, 0, 'ক্ষতস্থানে নির্দেশ অনুযায়ী ', '', '¶Z¯’v‡b wb‡`©k Abyhvqx '),
 (30, 0, 'নির্দেশিত স্থানে ', '', 'wb‡`©wkZ ¯’v‡b '),
-(31, 0, 'দিনে ১ টা ', '', 'w`‡b 1 Uv');
+(31, 0, 'দিনে ১ টা ', '', 'w`‡b 1 Uv'),
+(37, 0, 'মাংস পেশীতে', '', 'gvsm †ckx‡Z'),
+(38, 0, 'শ্বাস কষ্ট হলে', '', 'k¦vm Kó n‡j');
 
 -- --------------------------------------------------------
 
@@ -8603,7 +9049,7 @@ CREATE TABLE IF NOT EXISTS `drugdaytype` (
   `pdf` varchar(255) CHARACTER SET utf8 NOT NULL,
   `english` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `drugdaytype`
@@ -8615,7 +9061,8 @@ INSERT INTO `drugdaytype` (`id`, `bangla`, `pdf`, `english`) VALUES
 (3, 'মাস', 'gvm', 'Months'),
 (4, 'বছর', 'eQi', 'Years'),
 (5, 'চলবে', 'Pj‡e', 'Continue'),
-(6, '', '', '');
+(6, '', '', ''),
+(7, 'মাঝে মাঝে', 'gv‡S gv‡S', 'Occasionally ');
 
 -- --------------------------------------------------------
 
@@ -8682,7 +9129,7 @@ CREATE TABLE IF NOT EXISTS `drugwhentype` (
   `english` varchar(255) NOT NULL,
   `pdf` varchar(255) CHARACTER SET utf8 NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
 
 --
 -- Dumping data for table `drugwhentype`
@@ -8699,7 +9146,37 @@ INSERT INTO `drugwhentype` (`id`, `bangla`, `english`, `pdf`) VALUES
 (7, 'মাংস পেশীতে', 'IM', 'gvsm †ckx‡Z'),
 (8, 'শিরাতে', 'IV', 'wkiv‡Z'),
 (9, 'যোনিপথে', 'Pervaginal', '†hvwb c‡_'),
-(10, 'পায়ুপথে', 'Perrectum', 'cvqy c‡_');
+(10, 'পায়ুপথে', 'Perrectum', 'cvqy c‡_'),
+(11, 'সকালে', '', 'mKv‡j'),
+(12, 'দুপুরে', '', '`ycy‡i'),
+(13, 'রাতে', '', 'iv‡Z');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `drug_history`
+--
+
+CREATE TABLE IF NOT EXISTS `drug_history` (
+  `drugHistoryID` int(11) NOT NULL AUTO_INCREMENT,
+  `patientID` int(11) NOT NULL,
+  `drugName` varchar(100) NOT NULL,
+  `currentStatus` tinyint(1) NOT NULL,
+  PRIMARY KEY (`drugHistoryID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
+
+--
+-- Dumping data for table `drug_history`
+--
+
+INSERT INTO `drug_history` (`drugHistoryID`, `patientID`, `drugName`, `currentStatus`) VALUES
+(3, 5, 'aaaa', 0),
+(4, 5, 'ccc', 1),
+(5, 1, 'Angilok', 0),
+(6, 1, 'Glucomin 500mg', 1),
+(10, 2, 'erer', 0),
+(16, 2, 'Avator', 1),
+(17, 2, 'Montiva', 1);
 
 -- --------------------------------------------------------
 
@@ -8713,144 +9190,45 @@ CREATE TABLE IF NOT EXISTS `drug_prescription` (
   `drugTypeID` int(11) NOT NULL,
   `drugID` int(11) NOT NULL,
   `drugTimeID` int(11) NOT NULL,
-  `drugDose` varchar(255) NOT NULL,
   `drugDoseUnit` varchar(45) NOT NULL,
-  `drugNoOfDay` int(11) NOT NULL,
-  `drugDayTypeID` int(11) NOT NULL,
   `drugWhenID` int(11) NOT NULL,
   `drugAdviceID` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=139 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=30 ;
 
 --
 -- Dumping data for table `drug_prescription`
 --
 
-INSERT INTO `drug_prescription` (`id`, `appointMentID`, `drugTypeID`, `drugID`, `drugTimeID`, `drugDose`, `drugDoseUnit`, `drugNoOfDay`, `drugDayTypeID`, `drugWhenID`, `drugAdviceID`) VALUES
-(1, 8, 1, 1, 1, '2', '', 0, 5, 2, 14),
-(3, 9, 1, 682, 2, '1.5 - 1.5', '', 1, 3, 1, 5),
-(4, 10, 1, 525, 2, '1 - 1', '', 7, 3, 1, 0),
-(5, 11, 1, 29, 2, '1.5 - 1.5', '', 7, 2, 1, 0),
-(6, 12, 1, 15, 3, '1.5 - 1.5 - 1.5', '', 7, 3, 1, 0),
-(7, 15, 1, 15, 3, '1.5 - 1.5 - 1.5', '', 7, 3, 1, 0),
-(8, 15, 1, 27, 3, '1 - 1 - 1', '', 7, 1, 0, 1),
-(9, 17, 1, 15, 3, '1.5 - 1.5 - 1.5', '', 7, 3, 1, 0),
-(10, 17, 1, 0, 3, '1 - 1 - 1', '', 7, 1, 1, 1),
-(11, 17, 4, 4426, 1, '1', 'vial', 0, 5, 0, 0),
-(12, 17, 4, 0, 3, '1 - 1 - 1', 'vial', 7, 1, 0, 0),
-(13, 17, 4, 2773, 3, '1 - 1 - 1', 'ampl', 7, 1, 0, 0),
-(14, 17, 4, 0, 3, '1 - 1 - 1', 'vial', 7, 1, 0, 0),
-(15, 17, 2, 1448, 3, '1 - 1 - 1', '', 7, 1, 1, 0),
-(16, 17, 1, 0, 3, '1 - 1 - 1', '', 7, 1, 0, 0),
-(17, 18, 4, 2773, 3, '1 - 1 - 1', 'ampl', 7, 1, 0, 0),
-(18, 18, 2, 1448, 3, '1 - 1 - 1', '', 7, 1, 1, 0),
-(19, 18, 1, 15, 3, '1.5 - 1.5 - 1.5', '', 7, 3, 1, 0),
-(20, 18, 4, 4426, 1, '1', 'vial', 0, 5, 0, 0),
-(21, 20, 1, 15, 3, '1.5 - 1.5 - 1.5', '', 7, 1, 1, 0),
-(22, 21, 1, 7, 3, '1.5 - 1.5 - 1.5', '', 10, 1, 0, 0),
-(23, 21, 4, 2310, 2, '2 - 2', 'vial', 7, 1, 0, 0),
-(24, 22, 1, 15, 3, '1.5 - 1.5 - 1.5', '', 7, 1, 1, 0),
-(25, 23, 1, 15, 3, '1.5 - 1.5 - 1.5', '', 7, 1, 0, 0),
-(26, 24, 1, 7, 3, '1.5 - 1.5 - 1.5', '', 10, 1, 0, 0),
-(27, 24, 4, 2310, 2, '2 - 2', 'vial', 7, 1, 0, 0),
-(28, 25, 8, 312, 3, '1 - 1 - 1', '', 7, 1, 0, 0),
-(29, 25, 8, 312, 3, '1 - 1 - 1', '', 7, 1, 0, 0),
-(30, 25, 8, 312, 3, '1 - 1 - 1', '', 7, 1, 0, 0),
-(31, 26, 1, 15, 3, '2 - 2 - 2', '', 7, 2, 2, 0),
-(32, 26, 1, 4, 3, '1.5 - 1.5 - 1.5', '', 7, 1, 0, 5),
-(33, 26, 1, 69, 3, '1 - 1 - 1', '', 7, 1, 3, 6),
-(34, 27, 1, 15, 3, '1.5 - 1.5 - 1.5', '', 7, 1, 0, 0),
-(35, 27, 1, 4, 3, '1.5 - 1.5 - 1.5', '', 7, 1, 0, 5),
-(36, 27, 1, 69, 3, '1 - 1 - 1', '', 7, 1, 0, 6),
-(37, 28, 4, 360, 2, '1 - 1', 'vial', 10, 1, 1, 6),
-(38, 28, 1, 15, 3, '1 - 1 - 1', '', 7, 1, 2, 5),
-(39, 29, 1, 4, 3, '1.5 - 1.5 - 1.5', '', 7, 1, 0, 5),
-(40, 29, 1, 69, 3, '1 - 1 - 1', '', 7, 1, 3, 6),
-(41, 29, 1, 15, 3, '2 - 2 - 2', '', 7, 2, 2, 0),
-(42, 30, 1, 4, 3, '1.5 - 1.5 - 1.5', '', 7, 1, 0, 5),
-(43, 30, 1, 69, 3, '1 - 1 - 1', '', 7, 1, 3, 6),
-(44, 30, 1, 15, 3, '2 - 2 - 2', '', 7, 2, 2, 0),
-(45, 43, 1, 41, 3, '1 - 1 - 1', '', 7, 1, 1, 0),
-(46, 44, 4, 360, 2, '1.5 - 1.5', 'vial', 10, 1, 1, 6),
-(47, 44, 1, 4, 3, '1.5 - 1.5 - 1.5', '', 7, 1, 0, 5),
-(48, 44, 1, 69, 3, '1 - 1 - 1', '', 7, 1, 3, 6),
-(49, 45, 1, 10, 3, '1 - 1 - 1', '', 7, 1, 0, 0),
-(51, 49, 1, 15, 3, '1.5 - 1.5 - 1.5', '', 10, 1, 1, 5),
-(52, 49, 8, 312, 3, '1 - 1 - 1', '', 7, 1, 1, 0),
-(53, 50, 1, 15, 3, '1.5 - 1.5 - 1.5', '', 10, 1, 1, 5),
-(54, 51, 4, 360, 2, '1 - 1', 'vial', 10, 1, 1, 6),
-(55, 53, 1, 15, 3, '1 - 1 - 1', '', 7, 1, 0, 5),
-(56, 62, 4, 360, 2, '1 - 1', 'vial', 10, 1, 1, 6),
-(59, 61, 1, 191, 2, '1 - 1', '', 7, 1, 0, 0),
-(60, 61, 1, 4431, 3, '1 - 1 - 1', '', 7, 1, 1, 5),
-(61, 64, 1, 488, 3, '1 - 1 - 1', '', 7, 1, 0, 0),
-(62, 64, 1, 15, 3, '1.5 - 1.5 - 1.5', '', 10, 1, 1, 5),
-(63, 65, 1, 69, 3, '1 - 1 - 1', '', 7, 1, 1, 5),
-(64, 68, 1, 11, 3, '1 - 1 - 1', '', 7, 1, 0, 0),
-(66, 68, 3, 1438, 3, '1 - 1 - 1', 's', 7, 1, 0, 0),
-(67, 69, 1, 191, 2, '1 - 1', '', 7, 1, 0, 0),
-(68, 69, 4, 360, 2, '1 - 1', 'vial', 10, 1, 1, 6),
-(69, 69, 1, 767, 3, '1 - 1 - 1', '', 7, 1, 1, 0),
-(70, 68, 1, 69, 3, '1 - 1 - 1', '', 7, 1, 0, 0),
-(74, 68, 1, 838, 3, '1 - 1 - 1', '', 7, 1, 0, 0),
-(76, 68, 1, 63, 3, '1 - 1 - 1', '', 7, 1, 0, 0),
-(77, 68, 1, 9, 3, '1 - 1 - 1', '', 7, 1, 0, 0),
-(78, 68, 1, 488, 3, '1 - 1 - 1', '', 7, 1, 0, 0),
-(79, 68, 1, 60, 3, '1 - 1 - 1', '', 7, 1, 0, 0),
-(80, 68, 1, 11, 3, '1 - 1 - 1', '', 7, 1, 0, 0),
-(81, 69, 1, 4431, 3, '1 - 1 - 1', '', 7, 1, 0, 0),
-(82, 70, 1, 19, 3, '1.5 - 1.5 - 1.5', '', 7, 1, 0, 0),
-(86, 73, 1, 25, 3, '1.5 - 1.5 - 1.5', '', 7, 1, 1, 21),
-(87, 73, 1, 840, 3, '1 - 1 - 1', '', 7, 1, 0, 0),
-(88, 73, 1, 672, 3, '1 - 1 - 1', '', 7, 1, 0, 0),
-(89, 75, 1, 12, 3, '1 - 1 - 1', '', 7, 1, 0, 0),
-(90, 78, 1, 30, 3, '1 - 1 - 1', '', 7, 1, 1, 0),
-(91, 80, 1, 141, 3, '1 - 1 - 1', '', 7, 1, 1, 0),
-(92, 80, 1, 15, 2, '1 - 1', '', 0, 5, 1, 0),
-(93, 80, 1, 7294, 2, '1 - 1', '', 1, 3, 2, 0),
-(94, 80, 1, 7347, -3, '', '', 7, 1, 0, 5),
-(97, 82, 1, 7351, 1, '1', '', 7, 1, 0, 14),
-(98, 82, 1, 7, 1, '1', '', 7, 1, 0, 15),
-(99, 82, 1, 30, 1, '1', '', 7, 1, 0, 16),
-(100, 82, 1, 484, 1, '1', '', 7, 6, 0, 21),
-(101, 82, 1, 906, 1, '1', '', 7, 1, 0, 0),
-(102, 83, 1, 4367, 3, '1 - 1 - 1', '', 7, 1, 0, 0),
-(103, 83, 2, 2152, 2, '1 - 1', '', 7, 2, 0, 0),
-(104, 83, 10, 1307, 1, '1', 'puff', 7, 2, 0, 15),
-(105, 83, 6, 7041, 3, '12 - 12 - 12', 'u', 7, 1, 0, 0),
-(106, 84, 1, 4367, 3, '1 - 1 - 1', '', 7, 1, 0, 0),
-(107, 84, 2, 2152, 2, '1 - 1', '', 7, 2, 0, 0),
-(108, 84, 10, 1307, 1, '1', 'puff', 7, 2, 0, 15),
-(109, 84, 6, 7041, 3, '12 - 12 - 12', 'u', 7, 1, 0, 0),
-(110, 84, 1, 19, 2, '0.5 - 0.5', '', 7, 1, 1, 0),
-(111, 84, 1, 52, 2, '1 - 1', '', 0, 5, 2, 0),
-(112, 84, 1, 5, 1, '1', '', 7, 1, 0, 15),
-(113, 84, 1, 15, 1, '1', '', 0, 5, 0, 16),
-(114, 85, 1, 4367, 3, '1 - 1 - 1', '', 7, 1, 0, 0),
-(115, 85, 2, 2152, 2, '1 - 1', '', 7, 2, 0, 0),
-(116, 85, 10, 1307, 1, '1', 'puff', 7, 2, 0, 15),
-(117, 85, 6, 7041, 3, '12 - 12 - 12', 'u', 7, 1, 0, 0),
-(118, 86, 1, 15, 2, '1 - 1', '', 0, 5, 0, 0),
-(119, 87, 1, 15, -2, 'vg` †mvU KI`', '', 7, 1, 0, 0),
-(120, 87, 1, 26, -2, 'vg` †mvU KI', '', 0, 5, 2, 15),
-(121, 87, 1, 7360, -2, 'A‡a©K K‡i GKevi Lv‡eb', '', 1, 3, 0, 0),
-(122, 87, 2, 7361, 2, '1/2 - 1/2', '', 0, 5, 0, 0),
-(123, 87, 10, 1307, 1, '1', 'puff', 7, 2, 0, 15),
-(124, 87, 6, 7041, 3, '12 - 12 - 12', 'u', 7, 1, 0, 0),
-(125, 87, 1, 7362, 2, '1/2 - 1/2', '', 7, 1, 1, 0),
-(126, 87, 5, 7363, 3, '1 - 1 - 1', '', 5, 1, 1, 9),
-(127, 88, 1, 7365, 4, '1/2 - 1/2 - 1/2 - 1/2', '', 7, 1, 0, 23),
-(128, 88, 1, 4367, 3, '1 - 1 - 1', '', 7, 1, 0, 0),
-(129, 88, 2, 2152, 2, '1 - 1', '', 7, 2, 0, 0),
-(130, 88, 10, 1307, 1, '1', 'puff', 7, 2, 0, 15),
-(131, 88, 6, 7041, 3, '12 - 12 - 12', 'u', 7, 1, 0, 0),
-(132, 88, 1, 5, 1, '1', '', 7, 1, 0, 15),
-(133, 88, 1, 52, 2, '1 - 1', '', 0, 5, 2, 0),
-(134, 88, 1, 19, 2, '0.5 - 0.5', '', 7, 1, 1, 0),
-(135, 89, 1, 15, 2, '1/2 - 1/2', '', 0, 5, 1, 0),
-(136, 89, 2, 58, 2, '1 - 1', '', 0, 5, 2, 0),
-(137, 89, 1, 20, 2, '1 - 1', '', 7, 1, 0, 0),
-(138, 89, 3, 289, 2, '1 - 1', 's', 1, 3, 0, 0);
+INSERT INTO `drug_prescription` (`id`, `appointMentID`, `drugTypeID`, `drugID`, `drugTimeID`, `drugDoseUnit`, `drugWhenID`, `drugAdviceID`) VALUES
+(1, 128, 1, 15, 2, '', 1, 0),
+(2, 128, 1, 1872, -1, '', 0, 0),
+(3, 128, 1, 11, 3, '', 0, 0),
+(4, 156, 1, 5, 3, '', 0, 0),
+(5, 157, 1, 5, 3, '', 0, 0),
+(6, 162, 1, 15, 2, '', 1, 0),
+(7, 162, 2, 58, 2, '', 2, 0),
+(8, 162, 6, 7390, 2, 'u', 0, 23),
+(9, 162, 1, 2091, 1, '', 0, 8),
+(11, 162, 29, 319, 2, '', 0, 17),
+(12, 162, 1, 521, 1, '', 0, 1),
+(13, 162, 1, 7391, 1, '', 13, 0),
+(14, 162, 10, 7393, -3, 'puff', 0, 38),
+(15, 163, 1, 1098, 2, '', 0, 0),
+(16, 164, 1, 1098, 2, '', 0, 0),
+(17, 170, 1, 762, 3, '', 0, 0),
+(18, 171, 1, 19, 3, '', 0, 0),
+(19, 171, 2, 58, 3, '', 0, 0),
+(20, 171, 3, 2, 3, 's', 0, 0),
+(21, 171, 4, 353, 3, 'ampl', 0, 0),
+(22, 171, 6, 358, 3, '', 0, 0),
+(23, 171, 10, 7394, 3, 'puff', 0, 0),
+(24, 171, 7, 7395, 3, 'd', 0, 0),
+(25, 171, 1, 74, 3, '', 0, 0),
+(26, 171, 1, 25, 3, '', 0, 0),
+(27, 171, 1, 65, 3, '', 0, 0),
+(28, 171, 1, 3381, 3, '', 0, 0),
+(29, 171, 1, 49, 3, '', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -8864,7 +9242,7 @@ CREATE TABLE IF NOT EXISTS `history` (
   `name` varchar(255) NOT NULL,
   `shortName` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=20 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=28 ;
 
 --
 -- Dumping data for table `history`
@@ -8889,7 +9267,12 @@ INSERT INTO `history` (`id`, `typeCode`, `name`, `shortName`) VALUES
 (16, 'OBS', 'hghfg', 'hghfg'),
 (17, 'OBS', 'undefined', 'undefined'),
 (18, 'MH', 'Frog', 'Frog'),
-(19, 'Heart', 'level', 'level');
+(19, 'Heart', 'level', 'level'),
+(20, 'MH', 'Post coital bleeding', 'Post coital bleeding'),
+(23, 'RISK', 'Smoking', 'Smoking'),
+(25, 'RISK', 'Test', 'Test'),
+(26, 'ALLERGY', 'Dust', 'Dust'),
+(27, 'OBS', 'EDD', 'EDD');
 
 -- --------------------------------------------------------
 
@@ -8902,7 +9285,7 @@ CREATE TABLE IF NOT EXISTS `history_option` (
   `historyID` int(11) NOT NULL,
   `optionName` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=25 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=28 ;
 
 --
 -- Dumping data for table `history_option`
@@ -8922,7 +9305,10 @@ INSERT INTO `history_option` (`id`, `historyID`, `optionName`) VALUES
 (21, 12, '3'),
 (22, 18, 'A'),
 (23, 18, 'B'),
-(24, 18, 'C');
+(24, 18, 'C'),
+(25, 21, 'Yes'),
+(26, 21, 'No'),
+(27, 26, 'Yes');
 
 -- --------------------------------------------------------
 
@@ -8935,7 +9321,7 @@ CREATE TABLE IF NOT EXISTS `history_prescription` (
   `appointMentID` int(11) NOT NULL,
   `patientHistoryID` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=51 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=74 ;
 
 --
 -- Dumping data for table `history_prescription`
@@ -8978,7 +9364,24 @@ INSERT INTO `history_prescription` (`id`, `appointMentID`, `patientHistoryID`) V
 (43, 44, 12),
 (44, 44, 13),
 (47, 67, 18),
-(50, 67, 17);
+(50, 67, 17),
+(51, 98, 9),
+(52, 101, 20),
+(53, 132, 22),
+(54, 131, 23),
+(55, 134, 24),
+(56, 134, 25),
+(57, 155, 2),
+(58, 155, 5),
+(59, 155, 26),
+(62, 156, 9),
+(67, 156, 14),
+(68, 157, 9),
+(69, 162, 27),
+(70, 162, 29),
+(71, 162, 30),
+(72, 170, 22),
+(73, 171, 23);
 
 -- --------------------------------------------------------
 
@@ -8990,7 +9393,7 @@ CREATE TABLE IF NOT EXISTS `inv` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=878 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=879 ;
 
 --
 -- Dumping data for table `inv`
@@ -9763,7 +10166,8 @@ INSERT INTO `inv` (`id`, `name`) VALUES
 (874, 'Sputum Esinophil count'),
 (875, 'Sputum for AFB'),
 (876, 'Methacheline challegs test'),
-(877, 'Skin allergy test');
+(877, 'Skin allergy test'),
+(878, 'T3, T4, THS');
 
 -- --------------------------------------------------------
 
@@ -9778,7 +10182,7 @@ CREATE TABLE IF NOT EXISTS `inv_prescription` (
   `note` text NOT NULL,
   `checked` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=113 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=137 ;
 
 --
 -- Dumping data for table `inv_prescription`
@@ -9885,7 +10289,29 @@ INSERT INTO `inv_prescription` (`id`, `appointMentID`, `invID`, `note`, `checked
 (109, 89, 185, '', 0),
 (110, 89, 182, '', 0),
 (111, 89, 713, '', 0),
-(112, 89, 277, '', 0);
+(112, 89, 277, '', 0),
+(113, 98, 824, '', 0),
+(114, 98, 736, '', 0),
+(115, 98, 740, '', 0),
+(116, 98, 878, '', 0),
+(117, 99, 15, '', 0),
+(118, 99, 138, '', 0),
+(119, 101, 736, '', 0),
+(120, 101, 237, '', 0),
+(121, 101, 604, '', 0),
+(122, 102, 15, '', 0),
+(123, 107, 695, '', 0),
+(126, 107, 778, '', 0),
+(127, 128, 695, '', 0),
+(128, 149, 713, '', 0),
+(129, 149, 193, '', 0),
+(130, 149, 138, '', 0),
+(131, 162, 695, '', 0),
+(132, 162, 240, '', 0),
+(133, 162, 740, '', 0),
+(134, 170, 172, '', 0),
+(135, 171, 123, '', 0),
+(136, 171, 695, '', 0);
 
 -- --------------------------------------------------------
 
@@ -9931,36 +10357,30 @@ INSERT INTO `inv_report` (`id`, `invPrescribeID`, `result`, `status`) VALUES
 CREATE TABLE IF NOT EXISTS `menu` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `menuID` int(11) NOT NULL,
-  `menuURL` varchar(45) NOT NULL,
+  `menuURL` varchar(255) NOT NULL,
+  `defaultName` varchar(255) NOT NULL,
+  `inPrescription` tinyint(1) NOT NULL,
+  `displayOrder` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=22 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=28 ;
 
 --
 -- Dumping data for table `menu`
 --
 
-INSERT INTO `menu` (`id`, `menuID`, `menuURL`) VALUES
-(1, 1, '#/drugs'),
-(2, 2, '#/inv'),
-(3, 3, '#/complain'),
-(4, 4, '#/vital'),
-(5, 5, '#/advice'),
-(6, 6, '#/surgery'),
-(7, 7, '#/genInfo'),
-(8, 8, '#/diagnosis'),
-(9, 9, '#/pastHistory'),
-(10, 10, '#/parents'),
-(11, 11, '#/oldPrescription'),
-(12, 12, '#/testReports'),
-(13, 13, '#/riskFactors'),
-(14, 14, '#/history'),
-(15, 15, '#/obsHistory'),
-(16, 16, '#/settings'),
-(17, 17, '#/pastHistory'),
-(18, 18, '#/familyHisory'),
-(19, 19, '#/invReport'),
-(20, 20, '#/followUpChart'),
-(21, 21, '#/drugAdvisor');
+INSERT INTO `menu` (`id`, `menuID`, `menuURL`, `defaultName`, `inPrescription`, `displayOrder`) VALUES
+(11, 11, '#/oldPrescription', 'Old Prescription', 1, 7),
+(17, 17, '#/pastHistory', 'Past History', 1, 1),
+(18, 18, '#/familyHisory', 'Family History', 1, 2),
+(19, 19, '#/invReport', 'Inv Reports', 1, 3),
+(20, 20, '#/followUpChart', 'Follow Up Chart', 1, 4),
+(21, 21, '#/drugAdvisor', 'Drug Advisor', 1, 5),
+(22, 22, '#/drugHistory', 'Drug History', 1, 6),
+(23, 23, '#/history?histpryType=MH', 'MH', 2, 0),
+(24, 24, '#/history?histpryType=OBS', 'OBS', 2, 0),
+(25, 25, '#/history?histpryType=RISK', 'RISK', 2, 0),
+(26, 26, '#/history?histpryType=ALLERGY', 'ALLERGY', 2, 0),
+(27, 27, '#/history?histpryType=HABBIT', 'HABBIT', 2, 0);
 
 -- --------------------------------------------------------
 
@@ -9975,7 +10395,7 @@ CREATE TABLE IF NOT EXISTS `menusettings` (
   `menuHeader` varchar(45) NOT NULL,
   `order` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=35 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=125 ;
 
 --
 -- Dumping data for table `menusettings`
@@ -9984,8 +10404,8 @@ CREATE TABLE IF NOT EXISTS `menusettings` (
 INSERT INTO `menusettings` (`id`, `doctorID`, `menuID`, `menuHeader`, `order`) VALUES
 (4, 1, 2, 'Inv', 4),
 (5, 1, 4, 'O.E', 5),
-(6, 1, 14, 'M/H', 6),
-(7, 1, 15, 'Obs History', 7),
+(6, 1, 23, 'M/H', 22),
+(7, 1, 24, 'Obs History', 23),
 (8, 1, 5, 'Advice', 8),
 (9, 1, 11, 'Old Prescrption', 9),
 (11, 1, 17, 'Past Disease', 11),
@@ -10011,7 +10431,90 @@ INSERT INTO `menusettings` (`id`, `doctorID`, `menuID`, `menuHeader`, `order`) V
 (31, 4, 19, 'Inv Reports', 3),
 (32, 4, 20, 'Follow up chart', 4),
 (33, 4, 11, 'Old Prescription', 5),
-(34, 1, 21, 'Drug Advisor', 15);
+(34, 1, 21, 'Drug Advisor', 15),
+(35, 5, 9, 'Patient History', 1),
+(36, 5, 18, 'Family History', 2),
+(37, 5, 19, 'Inv Reports', 3),
+(38, 5, 20, 'Follow up chart', 4),
+(39, 5, 11, 'Old Prescription', 5),
+(40, 1, 22, 'Drug history', 15),
+(41, 6, 17, 'Patient History', 1),
+(42, 6, 18, 'Family History', 2),
+(43, 6, 14, 'M.H', 3),
+(44, 6, 15, 'OBS', 4),
+(45, 6, 19, 'Inv Reports', 5),
+(46, 6, 20, 'Follow Up Chart', 6),
+(47, 6, 21, 'Drug Advisor', 7),
+(48, 6, 22, 'Drug History', 8),
+(49, 6, 11, 'Old Prescription', 9),
+(50, 8, 17, 'Past History', 1),
+(51, 8, 18, 'Family History', 2),
+(52, 8, 19, 'Inv Reports', 3),
+(53, 8, 20, 'Follow up chart', 4),
+(54, 8, 21, 'Drug Advisor', 5),
+(55, 8, 22, 'Drug History', 6),
+(56, 8, 14, 'Risk Factor', 7),
+(57, 9, 17, 'Patient History', 1),
+(58, 9, 18, 'Family History', 2),
+(59, 9, 19, 'Inv Reports', 3),
+(60, 9, 20, 'Follow up chart', 4),
+(61, 9, 21, 'Drug Advisor', 5),
+(62, 9, 22, 'Drugs History', 6),
+(63, 9, 11, 'Old Prescription', 7),
+(64, 10, 17, 'Patient History', 1),
+(65, 10, 18, 'Family History', 2),
+(66, 10, 19, 'Inv Reports', 3),
+(67, 10, 20, 'Follow up chart', 4),
+(68, 10, 21, 'Drug Advisor', 5),
+(69, 10, 22, 'Drug History', 6),
+(77, 13, 11, 'Old Prescription', 7),
+(78, 13, 17, 'Past History', 1),
+(79, 13, 18, 'Family History', 2),
+(80, 13, 19, 'Inv Reports', 3),
+(81, 13, 20, 'Follow Up Chart', 4),
+(82, 13, 21, 'Drug Advisor', 5),
+(83, 13, 22, 'Drug History', 6),
+(84, 14, 17, 'Past History', 1),
+(85, 14, 18, 'Family History', 2),
+(86, 14, 19, 'Inv Reports', 3),
+(87, 14, 20, 'Follow Up Chart', 4),
+(88, 14, 21, 'Drug Advisor', 5),
+(89, 14, 22, 'Drug History', 6),
+(90, 14, 11, 'Old Prescription', 7),
+(91, 14, 14, 'Risk Factors', 8),
+(92, 2, 25, 'Risk Factor', 10),
+(93, 3, 25, 'Risk Factors', 6),
+(94, 3, 26, 'Allergic History', 7),
+(95, 3, 23, 'M.H', 8),
+(96, 3, 21, 'Drug Advisor', 9),
+(97, 3, 22, 'Drug History', 10),
+(98, 15, 17, 'Disease History', 1),
+(99, 15, 18, 'Family History', 2),
+(100, 15, 19, 'Inv Reports', 3),
+(101, 15, 20, 'Follow-up Chart', 4),
+(102, 15, 21, 'Drug Advisor', 5),
+(103, 15, 22, 'Drug History', 6),
+(104, 15, 23, 'M.H', 7),
+(105, 15, 24, 'OBS', 8),
+(106, 15, 25, 'Risk Factors', 9),
+(107, 15, 26, 'Allergic History', 10),
+(108, 15, 11, 'Old Prescription', 11),
+(109, 16, 17, 'Patient History', 1),
+(110, 16, 17, 'Family History', 2),
+(111, 16, 19, 'Inv Reports', 3),
+(112, 16, 20, 'Follow up chart', 4),
+(113, 16, 21, 'Drug Advisor', 5),
+(114, 16, 22, 'Drugs History', 6),
+(115, 16, 11, 'Old Prescription', 7),
+(116, 9, 25, 'Risk Factors', 8),
+(117, 17, 17, 'Patient History', 1),
+(118, 17, 18, 'Family History', 2),
+(119, 17, 19, 'Inv Reports', 3),
+(120, 17, 20, 'Follow up chart', 4),
+(121, 17, 21, 'Drug Advisor', 5),
+(122, 17, 22, 'Drug history', 6),
+(123, 17, 25, 'History', 7),
+(124, 17, 11, 'Old Presciption', 8);
 
 -- --------------------------------------------------------
 
@@ -10051,7 +10554,26 @@ INSERT INTO `next_visit` (`appointmentID`, `nextVisitType`, `date`, `numOfDay`, 
 (86, 1, '2015-07-22', 0, 0),
 (87, 2, '0000-00-00', 15, 1),
 (88, 2, '0000-00-00', 7, 1),
-(89, 2, '0000-00-00', 7, 1);
+(89, 2, '0000-00-00', 7, 1),
+(94, 1, '2015-08-30', 0, 0),
+(98, 2, '0000-00-00', 7, 1),
+(101, 2, '0000-00-00', 7, 1),
+(102, 2, '0000-00-00', 7, 1),
+(107, 2, '0000-00-00', 7, 1),
+(118, 1, '2015-09-24', 0, 0),
+(119, 2, '0000-00-00', 7, 1),
+(119, 2, '0000-00-00', 7, 1),
+(120, 2, '0000-00-00', 7, 1),
+(120, 2, '0000-00-00', 7, 1),
+(127, 2, '0000-00-00', 7, 1),
+(122, 1, '2015-09-30', 0, 0),
+(122, 2, '0000-00-00', 15, 1),
+(123, 1, '2015-09-30', 0, 0),
+(124, 2, '0000-00-00', 13, 1),
+(128, 2, '0000-00-00', 7, 1),
+(162, 2, '0000-00-00', 7, 1),
+(170, 2, '0000-00-00', 7, 1),
+(171, 2, '0000-00-00', 7, 1);
 
 -- --------------------------------------------------------
 
@@ -10068,23 +10590,26 @@ CREATE TABLE IF NOT EXISTS `patient` (
   `address` text NOT NULL,
   `phone` varchar(15) NOT NULL,
   PRIMARY KEY (`patientID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
 
 --
 -- Dumping data for table `patient`
 --
 
 INSERT INTO `patient` (`patientID`, `patientCode`, `name`, `age`, `sex`, `address`, `phone`) VALUES
-(1, '100000000', 'Shabnam Faira', '28', 'FEMALE', 'Kakrail', '01717228339'),
+(1, '100000000', 'Farzia Hoque Tisha', '28', 'FEMALE', 'Kakrail', '01717228339'),
 (2, '100000001', 'Shakkhar Saha', '12', 'MALE', 'Kakrail', '0155244940'),
 (3, '100000003', 'Faisal Khan', '33', 'MALE', 'Mirpur', '124'),
-(5, '100000004', 'Ripan Kibria', '66', 'MALE', 'Nikunja', '12'),
+(5, '100000004', 'Ripan Kibria', '28', 'MALE', 'Nikunja', '12'),
 (9, '100000016', 'Newton Sarker', '44', 'MALE', 'Laxmibazar', '123456'),
 (10, '100000040', 'Azizul Hakim', '28', 'MALE', 'Grandarea', '1234'),
 (11, '100000068', 'Oviget Das', '28', 'MALE', 'Mirpur', '456123'),
 (12, '100000069', 'Haresh Saha', '45', 'MALE', '', ''),
 (13, '100000070', 'Alia bhat', '24', 'FEMALE', '', ''),
-(14, '300000000', 'Arefin', '36', 'MALE', 'Dhanmondi', '');
+(14, '300000000', 'Arefin', '36', 'MALE', 'Dhanmondi', ''),
+(15, '1000000001', 'Mas_P1', '22', 'MALE', '', ''),
+(16, '1000000000', 'mas_new', '33', 'MALE', '', ''),
+(17, '100000071', 'Raj', '28', 'MALE', '', '');
 
 -- --------------------------------------------------------
 
@@ -10127,7 +10652,7 @@ CREATE TABLE IF NOT EXISTS `patient_family_history` (
   `type` varchar(255) NOT NULL,
   `detail` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 --
 -- Dumping data for table `patient_family_history`
@@ -10135,7 +10660,8 @@ CREATE TABLE IF NOT EXISTS `patient_family_history` (
 
 INSERT INTO `patient_family_history` (`id`, `patientID`, `diseaseID`, `relation`, `present`, `type`, `detail`) VALUES
 (7, 1, 263, 8, 'Yes', 'Other', 'test'),
-(8, 1, 10, 2, 'No', 'Consanguinity', 'Raj');
+(8, 1, 10, 2, 'No', 'Consanguinity', 'Raj'),
+(9, 2, 174, 1, 'Yes', 'Consanguinity', '');
 
 -- --------------------------------------------------------
 
@@ -10149,7 +10675,7 @@ CREATE TABLE IF NOT EXISTS `patient_history` (
   `historyID` int(11) NOT NULL,
   `historyResult` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=20 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=31 ;
 
 --
 -- Dumping data for table `patient_history`
@@ -10172,7 +10698,18 @@ INSERT INTO `patient_history` (`id`, `patientID`, `historyID`, `historyResult`) 
 (16, 13, 5, 'Test'),
 (17, 13, 18, 'A'),
 (18, 13, 11, '2'),
-(19, 13, 12, '2');
+(19, 13, 12, '2'),
+(20, 13, 21, 'Yes'),
+(21, 5, 22, 'C'),
+(22, 5, 23, 'C'),
+(23, 2, 23, 'yes'),
+(24, 1, 23, 'Game'),
+(25, 1, 25, 'GG'),
+(26, 5, 11, '2'),
+(27, 1, 6, '12/11/15'),
+(28, 1, 20, 'yes'),
+(29, 1, 26, 'Yes'),
+(30, 1, 27, '12/10/15');
 
 -- --------------------------------------------------------
 
@@ -10184,19 +10721,25 @@ CREATE TABLE IF NOT EXISTS `patient_past_disease` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `patientID` int(11) NOT NULL,
   `diseaseID` int(11) NOT NULL,
-  `startDate` date NOT NULL,
-  `endDate` varchar(45) NOT NULL,
+  `isPresent` tinyint(1) NOT NULL,
   `detail` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
 
 --
 -- Dumping data for table `patient_past_disease`
 --
 
-INSERT INTO `patient_past_disease` (`id`, `patientID`, `diseaseID`, `startDate`, `endDate`, `detail`) VALUES
-(5, 1, 65, '2015-06-17', '2015-06-27', ''),
-(6, 5, 1, '2015-07-05', '2015-07-10', '');
+INSERT INTO `patient_past_disease` (`id`, `patientID`, `diseaseID`, `isPresent`, `detail`) VALUES
+(5, 1, 65, 0, ''),
+(6, 5, 1, 0, 'gg'),
+(8, 5, 288, 0, 'Test'),
+(9, 5, 162, 0, 'No'),
+(10, 5, 82, 0, 'V'),
+(11, 5, 113, 1, 'QQ'),
+(12, 1, 34, 1, ''),
+(13, 2, 162, 0, ''),
+(14, 2, 270, 1, '');
 
 -- --------------------------------------------------------
 
@@ -10231,7 +10774,7 @@ CREATE TABLE IF NOT EXISTS `prescription_advice` (
   `appointMentID` int(11) NOT NULL,
   `adviceID` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=56 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=74 ;
 
 --
 -- Dumping data for table `prescription_advice`
@@ -10290,7 +10833,24 @@ INSERT INTO `prescription_advice` (`id`, `appointMentID`, `adviceID`) VALUES
 (52, 86, 75),
 (53, 87, 75),
 (54, 88, 75),
-(55, 89, 113);
+(55, 89, 113),
+(56, 98, 81),
+(57, 98, 113),
+(58, 99, 71),
+(59, 101, 71),
+(60, 102, 71),
+(61, 116, 164),
+(62, 128, 71),
+(63, 156, 71),
+(64, 156, 87),
+(65, 162, 113),
+(66, 162, 87),
+(67, 162, 88),
+(68, 162, 89),
+(69, 170, 71),
+(70, 170, 127),
+(72, 171, 113),
+(73, 171, 158);
 
 -- --------------------------------------------------------
 
@@ -10303,7 +10863,7 @@ CREATE TABLE IF NOT EXISTS `prescription_family_disease` (
   `appointMentID` int(11) NOT NULL,
   `familyDiseaseID` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=21 ;
 
 --
 -- Dumping data for table `prescription_family_disease`
@@ -10313,7 +10873,12 @@ INSERT INTO `prescription_family_disease` (`id`, `appointMentID`, `familyDisease
 (10, 50, 4),
 (13, 56, 8),
 (14, 56, 7),
-(15, 69, 8);
+(15, 69, 8),
+(16, 98, 8),
+(17, 98, 7),
+(18, 162, 7),
+(19, 162, 8),
+(20, 171, 9);
 
 -- --------------------------------------------------------
 
@@ -10326,7 +10891,7 @@ CREATE TABLE IF NOT EXISTS `prescription_past_disease` (
   `appointMentID` int(11) NOT NULL,
   `pastDiseaseID` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=22 ;
 
 --
 -- Dumping data for table `prescription_past_disease`
@@ -10336,7 +10901,18 @@ INSERT INTO `prescription_past_disease` (`id`, `appointMentID`, `pastDiseaseID`)
 (7, 56, 1),
 (8, 56, 5),
 (9, 69, 5),
-(10, 88, 6);
+(10, 88, 6),
+(11, 98, 5),
+(12, 133, 11),
+(13, 133, 8),
+(14, 133, 9),
+(15, 162, 5),
+(16, 162, 12),
+(17, 170, 8),
+(18, 170, 9),
+(19, 170, 11),
+(20, 171, 13),
+(21, 171, 14);
 
 -- --------------------------------------------------------
 
@@ -10349,7 +10925,7 @@ CREATE TABLE IF NOT EXISTS `prescription_reference` (
   `appointMentID` int(11) NOT NULL,
   `refferedDoctorID` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=20 ;
 
 --
 -- Dumping data for table `prescription_reference`
@@ -10366,7 +10942,14 @@ INSERT INTO `prescription_reference` (`id`, `appointMentID`, `refferedDoctorID`)
 (8, 83, 1),
 (9, 84, 4),
 (10, 87, 5),
-(11, 89, 5);
+(11, 89, 5),
+(12, 98, 1),
+(13, 101, 1),
+(14, 102, 1),
+(15, 107, 5),
+(16, 128, 5),
+(17, 162, 5),
+(19, 171, 5);
 
 -- --------------------------------------------------------
 
@@ -10432,21 +11015,27 @@ CREATE TABLE IF NOT EXISTS `settings_advice` (
   `diseaseID` int(11) NOT NULL,
   `adviceID` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
 
 --
--- Dumping data for table `settings_advice`
+-- Table structure for table `settings_dose_drug`
 --
 
-INSERT INTO `settings_advice` (`id`, `doctorID`, `diseaseID`, `adviceID`) VALUES
-(1, 1, 175, 97),
-(2, 1, 268, 71),
-(4, 1, 5, 122),
-(5, 1, 250, 122),
-(6, 1, 1, 71),
-(9, 1, 52, 71),
-(10, 1, 59, 142),
-(11, 3, 326, 75);
+CREATE TABLE IF NOT EXISTS `settings_dose_drug` (
+  `drugSettingID` int(11) NOT NULL,
+  `dose` varchar(100) DEFAULT NULL,
+  `numOfDay` int(11) DEFAULT NULL,
+  `durationType` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `settings_dose_drug`
+--
+
+INSERT INTO `settings_dose_drug` (`drugSettingID`, `dose`, `numOfDay`, `durationType`) VALUES
+(1, '1 - 1', NULL, 5);
 
 -- --------------------------------------------------------
 
@@ -10461,27 +11050,18 @@ CREATE TABLE IF NOT EXISTS `settings_drug` (
   `drugTypeID` int(11) NOT NULL,
   `drugID` int(11) NOT NULL,
   `drugTimeID` int(11) NOT NULL,
-  `drugDose` varchar(255) NOT NULL,
   `drugDoseUnit` varchar(255) NOT NULL,
-  `drugNoOfDay` int(11) NOT NULL,
-  `drugDayTypeID` int(11) NOT NULL,
   `drugWhenID` int(11) NOT NULL,
   `drugAdviceID` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `settings_drug`
 --
 
-INSERT INTO `settings_drug` (`id`, `doctorID`, `diseaseID`, `drugTypeID`, `drugID`, `drugTimeID`, `drugDose`, `drugDoseUnit`, `drugNoOfDay`, `drugDayTypeID`, `drugWhenID`, `drugAdviceID`) VALUES
-(2, 1, 174, 1, 15, 3, '1 - 1 - 1', '', 7, 1, 0, 0),
-(3, 1, 268, 8, 312, 3, '1 - 1 - 1', '', 7, 1, 1, 0),
-(6, 1, 5, 4, 360, 2, '1 - 1', 'vial', 10, 1, 1, 6),
-(8, 1, 250, 1, 41, 3, '1 - 1 - 1', '', 7, 1, 1, 1),
-(9, 1, 1, 1, 15, 3, '1 - 1 - 1', '', 7, 1, 1, 0),
-(10, 1, 5, 1, 767, 3, '1 - 1 - 1', '', 7, 1, 1, 0),
-(11, 3, 326, 1, 15, 2, '1 - 1', '', 0, 5, 5, 0);
+INSERT INTO `settings_drug` (`id`, `doctorID`, `diseaseID`, `drugTypeID`, `drugID`, `drugTimeID`, `drugDoseUnit`, `drugWhenID`, `drugAdviceID`) VALUES
+(1, 10, 5, 1, 1098, 2, '', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -10497,30 +11077,7 @@ CREATE TABLE IF NOT EXISTS `settings_inv` (
   `note` text NOT NULL,
   `checked` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=23 ;
-
---
--- Dumping data for table `settings_inv`
---
-
-INSERT INTO `settings_inv` (`id`, `doctorID`, `diseaseID`, `invID`, `note`, `checked`) VALUES
-(1, 1, 175, 713, '', 0),
-(2, 1, 175, 34, '', 0),
-(3, 1, 175, 782, 'undefined', 0),
-(4, 1, 175, 110, 'undefined', 0),
-(5, 1, 162, 138, '', 0),
-(6, 1, 255, 188, '', 0),
-(7, 1, 255, 138, 'test', 0),
-(8, 1, 268, 130, '', 0),
-(12, 1, 5, 123, '', 0),
-(13, 1, 250, 131, '', 0),
-(14, 1, 70, 787, '', 0),
-(17, 1, 5, 124, '', 0),
-(18, 3, 326, 749, '', 0),
-(19, 3, 326, 803, '', 0),
-(20, 3, 326, 809, '', 0),
-(21, 3, 326, 815, '', 0),
-(22, 3, 326, 323, '', 0);
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -10794,15 +11351,15 @@ CREATE TABLE IF NOT EXISTS `vital` (
   `shortName` varchar(255) NOT NULL,
   `vitalUnit` varchar(45) NOT NULL,
   PRIMARY KEY (`vitalId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=126 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=135 ;
 
 --
 -- Dumping data for table `vital`
 --
 
 INSERT INTO `vital` (`vitalId`, `vitalName`, `shortName`, `vitalUnit`) VALUES
-(1, 'Pulse', '', ''),
-(2, 'Blood Pressure', '', ''),
+(1, 'Pulse', 'Pulse', ''),
+(2, 'Blood Pressure', 'BP', ''),
 (3, 'Respiratory rate', '', ''),
 (4, 'Temperature', '', ''),
 (5, 'Nutritional status ', '', ''),
@@ -10881,7 +11438,7 @@ INSERT INTO `vital` (`vitalId`, `vitalName`, `shortName`, `vitalUnit`) VALUES
 (78, 'Locomotor System', '', ''),
 (79, 'Others', '', ''),
 (80, 'Animea', '', ''),
-(81, 'Weight', '', ''),
+(81, 'Weight', 'Wt', ''),
 (82, 'Height', '', ''),
 (83, 'Heart', '', ''),
 (84, 'Lungs', '', ''),
@@ -10925,7 +11482,16 @@ INSERT INTO `vital` (`vitalId`, `vitalName`, `shortName`, `vitalUnit`) VALUES
 (122, 'Cervical LN Lt', 'Cervical LN Lt', 'undefined'),
 (123, 'Supraclavicular LN Rt', 'Supraclavicular LN Rt', 'undefined'),
 (124, 'Supraclavicular LN Lt', 'Supraclavicular LN Lt', 'undefined'),
-(125, 'Tonsils', 'Tonsils', 'undefined');
+(125, 'Tonsils', 'Tonsils', 'undefined'),
+(126, 'Heart', 'Heart', 'undefined'),
+(127, 'Sputum', 'Sputum', 'undefined'),
+(128, 'Temp', 'Temp', 'undefined'),
+(129, 'H/C', 'H/C', 'undefined'),
+(130, 'LMP', 'LMP', 'undefined'),
+(131, 'Cu', 'Cu', 'undefined'),
+(132, 'P', 'P', 'undefined'),
+(133, 'LC', 'LC', 'undefined'),
+(134, 'ALC', 'ALC', 'undefined');
 
 -- --------------------------------------------------------
 
@@ -11054,7 +11620,7 @@ CREATE TABLE IF NOT EXISTS `vital_prescription` (
   `vitalID` int(11) NOT NULL,
   `vitalResult` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=71 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=98 ;
 
 --
 -- Dumping data for table `vital_prescription`
@@ -11128,7 +11694,34 @@ INSERT INTO `vital_prescription` (`id`, `appointMentID`, `vitalID`, `vitalResult
 (67, 89, 107, '120/80'),
 (68, 89, 1, '72'),
 (69, 89, 119, 'Palpable'),
-(70, 89, 84, 'Ronchi extensively');
+(70, 89, 84, 'Ronchi extensively'),
+(71, 98, 2, '120/80'),
+(72, 98, 84, 'Ronchi extensively'),
+(73, 98, 1, '72'),
+(74, 98, 81, '65'),
+(75, 101, 2, '120/80'),
+(76, 102, 2, '120/66'),
+(77, 107, 84, 'Ronchi extensively'),
+(78, 128, 84, '72 bit/min'),
+(79, 128, 2, '120/80 mmHg'),
+(80, 162, 2, '120/80'),
+(81, 162, 1, '72'),
+(82, 162, 4, '102'),
+(83, 162, 81, '65'),
+(84, 166, 81, '22'),
+(85, 166, 2, '120-80'),
+(86, 166, 1, '82'),
+(87, 166, 129, '200'),
+(88, 166, 130, '11-22-3333'),
+(89, 166, 128, '100'),
+(90, 166, 131, '1223'),
+(91, 166, 132, '123333'),
+(92, 166, 133, '22'),
+(93, 166, 134, '1111111111'),
+(94, 170, 2, '120/80'),
+(95, 171, 2, '120/80'),
+(96, 171, 1, '72'),
+(97, 171, 81, '58kg');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -1,0 +1,20 @@
+CREATE TABLE `doctor_drug` (
+  `doctorDrugID` int(11) NOT NULL AUTO_INCREMENT,
+  `doctorID` int(11) NOT NULL,
+  `drugID` int(11) NOT NULL,
+  `drugTimeID` int(11) NOT NULL,
+  `drugDoseUnit` varchar(255) NOT NULL,
+  `drugWhenID` int(11) NOT NULL,
+  `drugAdviceID` int(11) NOT NULL,
+  PRIMARY KEY (`doctorDrugID`)
+);
+
+CREATE TABLE `doctor_drug_dose` (
+  `doctorDrugDoseID` int(11) NOT NULL AUTO_INCREMENT,
+  `doctorDrugID` int(11) NOT NULL,
+  `dose` varchar(100) DEFAULT NULL,
+  `numOfDay` int(11) DEFAULT NULL,
+  `durationType` int(11) NOT NULL,
+  PRIMARY KEY (`doctorDrugDoseID`),
+  UNIQUE KEY `doctorDrugDoseID` (`doctorDrugDoseID`)
+);

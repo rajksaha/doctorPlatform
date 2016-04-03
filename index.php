@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" ng-app="ktrTablet">
+<html lang="en" ng-app="doctorPlatform">
 <head>
 
 
