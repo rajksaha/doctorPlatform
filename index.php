@@ -133,6 +133,7 @@
 	<!-- Input Validator -->
 	<!-- <script type="text/javascript" src="javascript/inputValidator/inputValidator.js"></script> -->
 	<script type="text/javascript" src="javascript/inputValidator/inputValidator.0.1.js"></script>
+	<!-- <script type="text/javascript" src="lib/javascript/angular-file-upload/angular-file-upload-shim.min.js"></script> -->
 
 
 </body>

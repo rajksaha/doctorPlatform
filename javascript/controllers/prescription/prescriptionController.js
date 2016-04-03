@@ -22,6 +22,23 @@ app.controller('PrescriptionController', function($scope, $http, $modal, $rootSc
 	
 	$scope.prescribedAdviceData = [];
 	
+	$scope.onFileSelect = function($files) {
+	    $scope.message = "";
+	    for (var i = 0; i < $files.length; i++) {
+	        var file = $files[i];
+	        console.log(file);
+	        $scope.upload = $upload.upload({
+	            url: 'php/upload.php',
+	            method: 'POST',               
+	            file: file
+	        }).success(function(data, status, headers, config) {
+	            $scope.message = data;                
+	        }).error(function(data, status) {
+	            $scope.message = data;
+	        });
+	    }
+	};
+	
 	
 	$scope.fixNextVisit = function (){
 		

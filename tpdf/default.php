@@ -56,7 +56,7 @@ $maxX = 60;
 $rightYaxis = $pdf->Show_diagnosis($appointmentID,$rightXaxis,$rightYaxis + 5,$size);
 $rightYaxis = $pdf->Show_med($appointmentID,$rightXaxis,$rightYaxis + 10,$size);
 $rightYaxis = $pdf->Show_advice($appointmentID,$rightXaxis,$rightYaxis + 5,$size - 2,$maxX);
-
+$pdf->Image('../images/rap.png',5,5,20);
 
 $leftYaxis=$pdf->Show_Complain($appointmentID,$leftXaxis,$leftYaxis + 3, $maxX , $size -3);
 $leftYaxis=$pdf->Show_History($appointmentID,$leftXaxis,$leftYaxis + 3, $maxX , $size -3, "MH");

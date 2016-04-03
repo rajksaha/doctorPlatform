@@ -99,7 +99,7 @@
     <div class="panel panel-primary col-md-12 mainPanelColor panel2" style="padding-top: 5px;height: 600px; overflow-y: scroll;">
     	<div class="row">
     		<div class="col-md-4">
-    		
+    		<input type="file" name="image" id="image" ng-file-select="onFileSelect($files)">
     		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding-top: 5px">
 	             	<div class="panel">	                 
 						<div class="prescriptionPanel-body">
