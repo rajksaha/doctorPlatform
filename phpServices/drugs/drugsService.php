@@ -195,7 +195,7 @@ else if($query_no==4){
 				WHERE d.doctorCode = '$username' AND dd.drugID = $drugID");
 	
 	$result = mysql_fetch_assoc($sql);
-	if($result){
+	if($result && $result['doctorDrugID'] != null){
 		$result['preiodicList'] = getDrugPreiodicList($result['doctorDrugID']);
 	}
 	

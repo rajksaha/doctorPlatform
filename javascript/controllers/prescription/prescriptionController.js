@@ -1724,12 +1724,19 @@ app.controller('PrescriptionController.PrescribeDrugsController', function($scop
 	            data: dataString,
 	            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 	        }).success(function (result) {
-	        	if(result){
+	        	if(result.length == undefined){
 	        		$scope.doctorDrugData = result;
 					$scope.drugData.preiodicList = $scope.doctorDrugData.preiodicList;
 					$scope.bringdrugsDayTypeList(false, item.typeID , $scope.doctorDrugData.drugTimeID);
 					$scope.bringdrugsWhatType(false, $scope.doctorDrugData.drugWhenID);
 					$scope.bringdrugsAdviceType(false, $scope.doctorDrugData.drugAdviceID);
+	        	}else{
+	    	    	$scope.drugData.delDrug = false;
+	    	    	$scope.drugData.editName = false;
+	    	    	$scope.drugData.preiodicList = [];
+	    	    	$scope.bringdrugsDayTypeList(true, 1 , 3);
+	    			$scope.bringdrugsWhatType(true, null);
+	    			$scope.bringdrugsAdviceType(true, null);
 	        	}
 	        });
 		  
