@@ -68,7 +68,7 @@
 	<script src="lib/javascript/jquery.superslides.js"></script>
 
 
-
+	<!-- <script type="text/javascript" src="lib/javascript/angular-file-upload/angular-file-upload-shim.min.js"> -->
 
 
     <!-- Angular -->
@@ -85,6 +85,7 @@
 	<script type="text/javascript" src="lib/javascript/ng-table.min.js"></script>
 	<script type="text/javascript" src="lib/javascript/ui-slider.js"></script>
     <script type="text/javascript" src="lib/javascript/ui-tinymce.js"></script>
+    <script type="text/javascript" src="lib/javascript/angular-file-upload/angular-file-upload.min.js">
 
 
 
@@ -124,6 +125,7 @@
     <script src="javascript/directives/scroller.js"></script>
     <script src="javascript/directives/ktrConfirmation.js"></script>
     <script src="javascript/directives/ktrOtaConfirmation.js"></script>
+    <!-- <script src="javascript/directives/raty.js"></script> -->
     <script src="javascript/directives/imageRepaint.js"></script>
     
 	<!-- <script src="lib/javascript/ui-bootstrap-0.11.2/ui-bootstrap-tpls-0.11.2.min.js"></script> -->
@@ -133,7 +135,6 @@
 	<!-- Input Validator -->
 	<!-- <script type="text/javascript" src="javascript/inputValidator/inputValidator.js"></script> -->
 	<script type="text/javascript" src="javascript/inputValidator/inputValidator.0.1.js"></script>
-	<!-- <script type="text/javascript" src="lib/javascript/angular-file-upload/angular-file-upload-shim.min.js"></script> -->
 
 
 </body>

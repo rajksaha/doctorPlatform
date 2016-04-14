@@ -1,4 +1,4 @@
-app.controller('PrescriptionController', function($scope, $http, $modal, $rootScope, limitToFilter, $location, $filter, $window, JsonService) {
+app.controller('PrescriptionController', function($scope, $http, $modal, $rootScope, limitToFilter, $location, $filter, $window, JsonService, $upload) {
 	
 	$scope.menuDataList = [];
 	$scope.patientData = {};
@@ -22,22 +22,73 @@ app.controller('PrescriptionController', function($scope, $http, $modal, $rootSc
 	
 	$scope.prescribedAdviceData = [];
 	
-	$scope.onFileSelect = function($files) {
-	    $scope.message = "";
-	    for (var i = 0; i < $files.length; i++) {
-	        var file = $files[i];
-	        console.log(file);
-	        $scope.upload = $upload.upload({
-	            url: 'php/upload.php',
-	            method: 'POST',               
-	            file: file
-	        }).success(function(data, status, headers, config) {
-	            $scope.message = data;                
-	        }).error(function(data, status) {
-	            $scope.message = data;
-	        });
-	    }
-	};
+    $scope.onFileSelect = function($files){
+        $scope.file = $files[0];
+
+        var fileSize = $scope.file.size / 1048576 ;
+        if(fileSize > 5){
+            $scope.showErrorMessage("Maximum file size limit is 5 MB");
+            return false;
+        }
+
+        $scope.uploading = true;
+        $scope.hasCsvError = false;
+
+        $upload.upload({
+            url : 'phpServices/prescription/savePhoto.php',
+            method: 'POST',
+            data : {},
+            file: $scope.file
+        }).then(function(result) {
+            $scope.uploading = false;
+            if(result.data.success == false) {
+                alert("error");
+            } else {
+                $scope.showSuccessMessage("Photo added successfully");
+            }
+        }, function(result) {
+            $scope.uploading = false;
+        }, function(evt) {
+
+        });
+    };
+	
+	/*$scope.uploadFile = function(){
+        var file = $scope.myFile;
+        console.log('file is ' );
+        console.dir(file);
+
+        var uploadUrl = "phpServices/prescription/savePhoto.php";
+        var text = $scope.name;
+        $scope.uploadFileToUrl(file, uploadUrl, text);
+   };
+   
+   $scope.uploadFileToUrl = function(file, uploadUrl, name){
+       var fd = new FormData();
+       fd.append('file', file);
+       fd.append('name', name);
+       $http.post(uploadUrl, fd, {
+           transformRequest: angular.identity,
+           headers: {'Content-Type': undefined,'Process-Data': false}
+       })
+       .success(function(e){
+          console.log("Success" + e);
+       })
+       .error(function(){
+          console.log("Success");
+       });
+   };
+	
+	$scope.onFileSelect = function(file) {
+	    if (!file) return;
+	    $upload.upload({
+	        url: '/upload.php'
+	        data: {file: file, username: $scope.username}
+	      }).then(function(resp) {
+	        // file is uploaded successfully
+	        console.log(resp.data);
+	      });    
+	  };*/
 	
 	
 	$scope.fixNextVisit = function (){

@@ -42,9 +42,12 @@ $pdf->AddPage();
 $pdf->AddFont('prolog','','prolog1.TTF',true);
 $pdf->SetFont('Times','',10);
 $pdf->SetFillColor(200,220,255);
-//$pdf->ShowDocInfo($user);
-$pdf->ShowPatInfo($patientCode, 73, $username);
-
+$res = getAppointmentInfo($appointmentID);
+$appData = mysql_fetch_assoc($res);
+$appType = $appData['appointmentType'];
+if($appType != 4){
+	$pdf->ShowPatInfo($patientCode, 73, $username);
+}
 $leftYaxis = 90;
 $rightYaxis = 90;
 $size = 12;

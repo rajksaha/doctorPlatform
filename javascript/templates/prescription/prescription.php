@@ -99,10 +99,16 @@
     <div class="panel panel-primary col-md-12 mainPanelColor panel2" style="padding-top: 5px;height: 600px; overflow-y: scroll;">
     	<div class="row">
     		<div class="col-md-4">
-    		<input type="file" name="image" id="image" ng-file-select="onFileSelect($files)">
     		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding-top: 5px">
 	             	<div class="panel">	                 
 						<div class="prescriptionPanel-body">
+							<img alt="patImg" src="images/patientImage/100000000.JPG" height="200px" width="100px">
+					        <!-- <span class="btn btn-sm btn-warning fileinput-button">
+								<input data-ng-file-select="onFileSelect($files)" class="form-control input-sm" type="file" name="csvFile" data-ng-click="resetInputFile()"/>
+							</span> -->
+							<span class="btn btn-default btn-file btn-block">
+								<i class="fa fa-upload"></i> Browse <input type="file" id="picture" class="form-control" name="picture"  data-ng-file-select="onFileSelect($files)" data-ng-click="resetInputFile()"/>
+							</span>
 							<div class="form-group">
 								<label>Next Visit</label> 
 								<span class="pull-right">

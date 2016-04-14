@@ -9,6 +9,7 @@ var app = angular.module('doctorPlatform', [
     'ui.bootstrap',
     'ui.event',
     'ui.calendar',
+    'angularFileUpload',
     
     // Google Analytics
     'angulartics',
