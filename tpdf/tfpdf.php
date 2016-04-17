@@ -2322,6 +2322,17 @@ function ShowPatInfo($patientCode,$yAxis, $appointmentID){
 	$this->SetXY(140, $yAxis);
 	$this->Write(5, "Date: $date");
 	
+	return $rec['patientImage'];
+	
+}
+
+function displayImage ($username, $patientImage,$xAxis, $yAxis, $size){
+	$doctorData = getDoctorInfo($username);
+	
+	if($doctorData['photoSupport'] == 1){
+		$this->Image('../'.$patientImage, $xAxis, $yAxis, $size);
+	}
+	
 }
 
 function Show_med($appointmentID, $xAxis, $yAxis, $size){

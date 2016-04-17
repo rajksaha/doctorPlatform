@@ -910,8 +910,8 @@ app.controller('PrescriptionController', function($scope, $http, $modal, $rootSc
             		$rootScope.defaultPdf = result[0].code;
             		$scope.openPdf(result[0].code);
             	}else{
-            		$rootScope.defaultPdf = "default.php";
-            		$scope.openPdf("default.php");
+            		$rootScope.defaultPdf = "default";
+            		$scope.openPdf("default");
             	}
             });
     	}else {
