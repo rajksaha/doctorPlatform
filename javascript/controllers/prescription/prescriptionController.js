@@ -40,12 +40,7 @@ app.controller('PrescriptionController', function($scope, $http, $modal, $rootSc
             data : {},
             file: $scope.file
         }).then(function(result) {
-            $scope.uploading = false;
-            if(result.data.success == false) {
-                alert("error");
-            } else {
-                $scope.showSuccessMessage("Photo added successfully");
-            }
+        	$scope.bringPatientInfo();
         }, function(result) {
             $scope.uploading = false;
         }, function(evt) {
@@ -53,42 +48,7 @@ app.controller('PrescriptionController', function($scope, $http, $modal, $rootSc
         });
     };
 	
-	/*$scope.uploadFile = function(){
-        var file = $scope.myFile;
-        console.log('file is ' );
-        console.dir(file);
 
-        var uploadUrl = "phpServices/prescription/savePhoto.php";
-        var text = $scope.name;
-        $scope.uploadFileToUrl(file, uploadUrl, text);
-   };
-   
-   $scope.uploadFileToUrl = function(file, uploadUrl, name){
-       var fd = new FormData();
-       fd.append('file', file);
-       fd.append('name', name);
-       $http.post(uploadUrl, fd, {
-           transformRequest: angular.identity,
-           headers: {'Content-Type': undefined,'Process-Data': false}
-       })
-       .success(function(e){
-          console.log("Success" + e);
-       })
-       .error(function(){
-          console.log("Success");
-       });
-   };
-	
-	$scope.onFileSelect = function(file) {
-	    if (!file) return;
-	    $upload.upload({
-	        url: '/upload.php'
-	        data: {file: file, username: $scope.username}
-	      }).then(function(resp) {
-	        // file is uploaded successfully
-	        console.log(resp.data);
-	      });    
-	  };*/
 	
 	
 	$scope.fixNextVisit = function (){
@@ -1227,6 +1187,7 @@ app.controller('PrescriptionController.PrescribeComplainController', function($s
 		
 		var entryFound = false;
 		var int = 0;
+		var complainList = [];
 		for (int; int < $scope.complainList.length; int++) {
 			var name = $scope.complainList[int].name;
 			var noOfDay = $scope.complainList[int].numOfDay.value;
@@ -1236,18 +1197,12 @@ app.controller('PrescriptionController.PrescribeComplainController', function($s
 			if(name){
 				entryFound = true;
 				if(dayType > 4){
-					noOfDay = null;
+					noOfDay = 0;
 				}
 				
-				var dataString = {'complainName': name , 'numOfDay' : noOfDay ,'dayType' :  dayType, 'note' : note, 'complainPrescribeID' : id, 'query' : 2};
-				
-		        $http({
-		            method: 'POST',
-		            url: "phpServices/complain/complainService.php",
-		            data: JSON.stringify(dataString),
-		            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-		        }).success(function (result) {
-		        });
+				var dataString = {'complainName': name , 'numOfDay' : noOfDay ,'dayType' :  dayType, 'note' : note, 'complainPrescribeID' : id};
+				complainList.push(dataString);
+		        
 			}
 			
 		}
@@ -1283,8 +1238,12 @@ app.controller('PrescriptionController.PrescribeComplainController', function($s
 				$scope.error = true;
 			}
 			
-		}else if(int == $scope.complainList.length){
-			$modalInstance.close();
+		}else{
+			
+			jQuery.post("phpServices/complain/complainAdderService.php",  {json: JSON.stringify(complainList)}, function(data){ 
+				$modalInstance.close();
+				});
+			
 		}
 		
 		
