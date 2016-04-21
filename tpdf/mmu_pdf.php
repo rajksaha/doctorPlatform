@@ -33,7 +33,7 @@ function Foot()
    $this->Image('foot.jpg',5,260,200);
 }
 
-function Show_med($appointmentID, $xAxis, $yAxis, $size){
+/* function Show_med($appointmentID, $xAxis, $yAxis, $size){
 
 	$resultData = getPresCribedDrugs($appointmentID);
 
@@ -143,7 +143,7 @@ function Show_med($appointmentID, $xAxis, $yAxis, $size){
 	
 	return $this->GetY();
 
-}
+} */
 
 function ShowPatInfo($patientCode,$yAxis,$username){
 	$this->SetFont('Times','',11);
@@ -264,7 +264,7 @@ $leftYaxis=$pdf->Show_Complain($appointmentID,$leftXaxis,$leftYaxis + 3, $maxX ,
 $leftYaxis=$pdf->Show_vital($appointmentID,$leftXaxis,$leftYaxis +3, $maxX , $size);
 $leftYaxis=$pdf->Show_History($appointmentID,$leftXaxis,$leftYaxis + 3, $maxX , $size -3, "RISK");
 $leftYaxis=$pdf->Show_inv($appointmentID,$leftXaxis,$leftYaxis + 3, $maxX , $size);
-$leftYaxis=$pdf->Show_Past_History($appointmentID,$leftXaxis,$leftYaxis + 3, $maxX, $size);
+$leftYaxis=$pdf->Show_Past_History($appointmentID,$leftXaxis,$leftYaxis + 3, $maxX, $size, 0);
 $leftYaxis=$pdf->Show_Family_History($appointmentID,$leftXaxis,$leftYaxis + 3, $maxX, $size);
 
 $pdf-> show_nextVisit($appointmentID,15,240,$size);
