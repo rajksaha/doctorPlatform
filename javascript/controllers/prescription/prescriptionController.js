@@ -24,13 +24,6 @@ app.controller('PrescriptionController', function($scope, $http, $modal, $rootSc
 	
     $scope.onFileSelect = function($files){
         $scope.file = $files[0];
-
-        var fileSize = $scope.file.size / 1048576 ;
-        if(fileSize > 5){
-            $scope.showErrorMessage("Maximum file size limit is 5 MB");
-            return false;
-        }
-
         $scope.uploading = true;
         $scope.hasCsvError = false;
 
@@ -1393,8 +1386,6 @@ app.controller('PrescriptionController.PrescribeDrugsController', function($scop
 		if(selectedTimesADay == -1){
 			$scope.drugData.preodicValue = preiodicList.length;
 			selectedTimesADay = 3;
-		}else if(selectedTimesADay == -2){
-			selectedTimesADay = 1;
 		}
 			
 		angular.forEach(preiodicList, function(preiodicData, key) {
@@ -1423,13 +1414,23 @@ app.controller('PrescriptionController.PrescribeDrugsController', function($scop
 		}
 		
 		
+		var sameAs = selectedTimesADay;
+		if(sameAs == -2){
+			selectedTimesADay = 1;
+		}
 		
 		for(var i = 0; i< selectedTimesADay; i++){
-			if($scope.enteredDrugDoseList.length > 0){
+			if($scope.enteredDrugDoseList.length > 0 && sameAs != -2){
 				var data = {"value" : $scope.enteredDrugDoseList[i]};
 				unit = $scope.enteredDrugDoseList[i];
-			}else{
+			}else if($scope.enteredDrugDoseList.length == 0 && sameAs != -2){
 				var data = {"value" : val};
+				unit = val;
+			}else if($scope.enteredDrugDoseList.length == 0 && sameAs == -2){
+				var data = {"value" : '', "isSameAs" : true};
+				unit = val;
+			}else if($scope.enteredDrugDoseList.length > 0 && sameAs == -2){
+				var data = {"value" : $scope.enteredDrugDoseList[i], "isSameAs" : true};
 				unit = val;
 			}
 			

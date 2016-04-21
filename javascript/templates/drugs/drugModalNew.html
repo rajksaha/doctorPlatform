@@ -71,7 +71,8 @@
 	                		<button data-ng-click="doseChanger( .5, preiodicData.doseDataList)" >+</button>
 	                 		<span data-ng-repeat="drugDose in preiodicData.doseDataList">
 	                 			<span data-ng-show="$index != 0 && $index % 3 == 0"><br></span>
-	                 			<input type="text" size="2" data-ng-model="drugDose.value">
+	                 			<input data-ng-if="!drugDose.isSameAs" type="text" size="2" data-ng-model="drugDose.value">
+	                 			<input data-ng-if="drugDose.isSameAs" type="text"  data-ng-model="drugDose.value">
 							</span>
 	                		<button data-ng-click="doseChanger( -.5, preiodicData.doseDataList)" >-</button>
 						</div>
