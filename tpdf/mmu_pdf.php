@@ -587,10 +587,6 @@ $appData = mysql_fetch_assoc($res);
 $appType = $appData['appointmentType'];
 if($appType != 4){
 	$patientImage = $pdf->ShowPatInfo($patientCode, 46, $username);
-	if($patientImage != null){
-		$pdf->displayImage($username, $patientImage,5,5,20);
-	}
-
 }
 $linestyle = array('width' => 20, 'cap' => 'butt', 'join' => 'miter', 'dash' => '', 'phase' => 0, 'color' => array(255, 0, 0));
 $pdf->Line(10, 53, 195, 53, $linestyle);
@@ -605,7 +601,8 @@ $rightXaxis = 90;
 $maxX = 60;
 $maxXForRight = 100;
 
-
+$gap = 5;
+$photoSize = 25;
 
 
 
@@ -616,7 +613,16 @@ $pdf-> show_nextVisit($appointmentID,$rightXaxis,$rightYaxis + 10 ,$size +2);
 
 $pdf->Line($rightXaxis - 10 , 55, $rightXaxis - 10, $rightYaxis + 20, $linestyle);
 
-$leftYaxis=$pdf->Show_Complain($appointmentID,$leftXaxis,$leftYaxis + 5, $maxX , $size);
+
+if($appType != 4){
+	
+	if($patientImage != null){
+		$pdf->displayImage($username, $patientImage,$leftXaxis,$leftYaxis,$photoSize);
+		$gap = $gap + $photoSize;
+	}
+}
+
+$leftYaxis=$pdf->Show_Complain($appointmentID,$leftXaxis,$leftYaxis + $gap, $maxX , $size);
 $leftYaxis=$pdf->Show_vital($appointmentID,$leftXaxis,$leftYaxis +5, $maxX , $size);
 $leftYaxis=$pdf->Show_History($appointmentID,$leftXaxis,$leftYaxis + 5, $maxX , $size, "RISK", "Risk Factors");
 
