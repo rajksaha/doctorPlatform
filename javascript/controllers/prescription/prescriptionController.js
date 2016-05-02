@@ -1618,6 +1618,9 @@ app.controller('PrescriptionController.PrescribeDrugsController', function($scop
 			drugPrescribeID = $scope.drugData.drugPrescribeID;
 		}
 		
+		if($scope.drugData.drugStr == undefined){
+			$scope.drugData.drugStr = '';
+		}
 		var dataString = 'drugType='+ drugType +'&drugName='+ drugName +'&drugStr='+ $scope.drugData.drugStr + '&drugTime='+ drugTime +'&doseUnit='+ doseUnit + '&drugWhen='+ drugWhen +'&drugAdvice='+ drugAdvice+ '&drugPrescribeID='+ drugPrescribeID +'&query=' + query;
 		
         $http({
@@ -1760,7 +1763,6 @@ app.controller('PrescriptionController.PrescribeDrugsController', function($scop
 					$scope.bringdrugsAdviceType(false, $scope.doctorDrugData.drugAdviceID);
 	        	}else{
 	    	    	$scope.drugData.delDrug = false;
-	    	    	$scope.drugData.editName = false;
 	    	    	$scope.drugData.preiodicList = [];
 	    	    	$scope.bringdrugsDayTypeList(true, 1 , 3);
 	    			$scope.bringdrugsWhatType(true, null);
@@ -1798,6 +1800,10 @@ app.controller('PrescriptionController.PrescribeDrugsController', function($scop
 			
 			
 			var query = 14;
+			
+			if($scope.drugData.drugStr == undefined){
+				$scope.drugData.drugStr = '';
+			}
 			
 			var dataString = 'drugType='+ drugType +'&drugName='+ drugName +'&drugStr='+ $scope.drugData.drugStr + '&drugTime='+ drugTime +'&doseUnit='+ doseUnit + '&drugWhen='+ drugWhen +'&drugAdvice='+ drugAdvice +'&query=' + query;
 			

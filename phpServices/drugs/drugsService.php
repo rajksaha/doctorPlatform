@@ -70,6 +70,29 @@ if($query_no== 1){
 	}
 	
 	echo json_encode($data);
+}else if($query_no==5){
+	
+	$drugPrescribeID = $_POST['drugPrescribeID'];
+	$drugType = $_POST['drugType'];
+	$drugStr = $_POST['drugStr'];
+	$drugName = $_POST['drugName'];
+	$drugID = getDrugIDByName($drugName, $drugType, $drugStr);
+	$drugTime = $_POST['drugTime'];
+	$doseUnit = $_POST['doseUnit'];
+	$drugWhen = $_POST['drugWhen'];
+	$drugAdvice = $_POST['drugAdvice'];
+	
+	$sql = "UPDATE `drug_prescription` SET  
+				`drugTypeID`='$drugType',
+				`drugID`='$drugID',
+				`drugTimeID`='$drugTime',
+				`drugDoseUnit`='$doseUnit',
+				`drugWhenID`='$drugWhen',
+				`drugAdviceID`='$drugAdvice' 
+			WHERE `id` = '$drugPrescribeID'";
+	
+	mysql_query($sql);
+	mysql_query("DELETE FROM `dose_period` WHERE `drugPrescribeID` = $drugPrescribeID");
 }else if($query_no==6){
 	
 	
@@ -101,29 +124,6 @@ else if($query_no==4){
 	echo json_encode($data);
             
 	
-}else if($query_no==5){
-	
-	$drugPrescribeID = $_POST['drugPrescribeID'];
-	$drugType = $_POST['drugType'];
-	$drugStr = $_POST['drugStr'];
-	$drugName = $_POST['drugName'];
-	$drugID = getDrugIDByName($drugName, $drugType, $drugStr);
-	$drugTime = $_POST['drugTime'];
-	$doseUnit = $_POST['doseUnit'];
-	$drugWhen = $_POST['drugWhen'];
-	$drugAdvice = $_POST['drugAdvice'];
-	
-	$sql = "UPDATE `drug_prescription` SET  
-				`drugTypeID`='$drugType',
-				`drugID`='$drugID',
-				`drugTimeID`='$drugTime',
-				`drugDoseUnit`='$doseUnit',
-				`drugWhenID`='$drugWhen',
-				`drugAdviceID`='$drugAdvice' 
-			WHERE `id` = '$drugPrescribeID'";
-	
-	mysql_query($sql);
-	mysql_query("DELETE FROM `dose_period` WHERE `drugPrescribeID` = $drugPrescribeID");
 }elseif ($query_no == 7){
 	$drugPrescribeID = $_POST['drugPrescribeID'];
 	
