@@ -1,7 +1,6 @@
 'use strict';
 
-var app = angular.module('ktrTablet', [
-    'roomPictureDirective',
+var app = angular.module('doctorPlatform', [
     // Third party libs declare here
 	  // We going to use ocLazyLoad with ui.router
     'ui.router',

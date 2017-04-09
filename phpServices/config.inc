@@ -1,7 +1,7 @@
 <?php
 
 $hostname = 'localhost';        // Your MySQL hostname. Usualy named as 'localhost', so you're NOT necessary to change this even this script has already online on the internet.
-$dbname   = 'doctorplatform'; // Your database name.
+$dbname   = 'doctorprescription'; // Your database name.
 $username = 'root';             // Your database username.
 $password = 'pass';                 // Your database password. If your database has no password, leave it empty.
 

@@ -15,6 +15,7 @@
 		
 		<button data-ng-show="docTorINVAdder" class="pull-right btn btn-info" data-ng-click="docTorINVAdder = !docTorINVAdder"><span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> ADD INV</button>
 </div> -->
+
 <section  data-ng-show="docTorINVSetter" class=" contacts row" id="generalInfoContact">
      <div  class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
          <div class="panel">	                 
@@ -38,22 +39,27 @@
      </div>
 </section>
 
-<div class="panel  col-md-12 filter-panel" style="padding-top: 20px">
-	<div class="list-item col-sm-4 col-md-4 col-lg-4" data-ng-repeat="inv in invSettingData" style="padding-bottom: 10px">
-		<span><a class="btn btn-danger btn-sm btnLanier"
-                 ktr-confirmation="delINVFromSetting(item)" 
-                 confirmation-message="Are you sure to remove?"
-                 confirmation-title="Confirmation"
-                 item="inv.invSettingID">
-                 <span class="glyphicons glyphicon glyphicon-remove" aria-hidden="true"></span>
-              </a>
-		</span>
-		<button class="btn btn-default" data-ng-model="none"   data-ng-click="addORDelINV(!inv.addedToPrescription,inv)">
-			<span class="glyphicon  glyphicon"  data-ng-class="{'glyphicon-check': inv.addedToPrescription == true,'glyphicon-unchecked': inv.addedToPrescription == false}"></span>
-		</button>
-		<span>{{inv.name}}</span>
-	</div>
-</div>
+<tabset class="form-group" >
+	<tab data-ng-repeat="category in invCategoryList"  heading="{{category.name}}" >
+		<div class="panel  col-md-12 filter-panel" style="padding-top: 20px">
+			<div class="list-item col-sm-3 col-md-3 col-lg-3" data-ng-repeat="inv in invSettingData | filter : {invCategoryID : category.invCategoryID}" style="padding: 10px">
+			<span><a class="btn btn-danger btn-sm btnLanier"
+					 ktr-confirmation="delINVFromSetting(item)"
+					 confirmation-message="Are you sure to remove?"
+					 confirmation-title="Confirmation"
+					 item="inv.invSettingID">
+					 <span class="glyphicons glyphicon glyphicon-remove" aria-hidden="true"></span>
+				  </a>
+			</span>
+				<button class="btn btn-default" data-ng-model="none"   data-ng-click="addORDelINV(!inv.addedToPrescription,inv)">
+					<span class="glyphicon  glyphicon"  data-ng-class="{'glyphicon-check': inv.addedToPrescription == true,'glyphicon-unchecked': inv.addedToPrescription == false}"></span>
+				</button>
+				<span>{{inv.name}}</span>
+			</div>
+		</div>
+	</tab>
+</tabset>
+
 
 <div class="row">
 	<div class="col-xs-12">

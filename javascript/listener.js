@@ -1,4 +1,4 @@
-app.run(function($rootScope, $http, $location, $analytics) {
+app.run(function($rootScope, $http, $location) {
 
 	(function() {
 		// Retrieve configuration values

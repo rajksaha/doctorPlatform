@@ -188,3 +188,6 @@
 	.page.ng-leave.ng-leave-active { 
 		opacity: 0;
 	}
+	.link{
+		cursor: pointer;
+	}

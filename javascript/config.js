@@ -2,13 +2,13 @@
 
 var httpHeaders;
 
-var jsVersion = "?v=007";
+var jsVersion = "?v=008";
 
 // This will store the original URL before login sequence
 var originalLocation = "/menu";
 
-app.config(function($stateProvider, $urlRouterProvider, $compileProvider, $controllerProvider, $filterProvider, $provide, $ocLazyLoadProvider, $analyticsProvider, datepickerConfig, datepickerPopupConfig) {
-	
+app.config(function( $stateProvider, $urlRouterProvider, $compileProvider, $controllerProvider, $filterProvider, $provide, $ocLazyLoadProvider, $analyticsProvider, datepickerConfig, datepickerPopupConfig) {
+
 	// turn off automatic tracking
 	$analyticsProvider.virtualPageviews(false);
 	
@@ -25,10 +25,6 @@ app.config(function($stateProvider, $urlRouterProvider, $compileProvider, $contr
             'container@' : {
                 templateUrl : 'javascript/templates/login.html',
                 controller : 'LoginController'
-            },
-            'footer' : {
-                templateUrl : 'javascript/templates/footer-lg.html',
-                controller : 'FooterController'
             }
         },
         resolve : {
@@ -36,7 +32,7 @@ app.config(function($stateProvider, $urlRouterProvider, $compileProvider, $contr
               // you can lazy load files for an existing module
               return $ocLazyLoad.load(
                 {
-                  name: 'ktrTablet',
+                  name: 'doctorPlatform',
                   files: ['javascript/controllers/login.js' + jsVersion, 'javascript/controllers/footer.js'  + jsVersion]
                 });
             }]
@@ -65,7 +61,7 @@ app.config(function($stateProvider, $urlRouterProvider, $compileProvider, $contr
               // you can lazy load files for an existing module
               return $ocLazyLoad.load(
                 {
-                  name: 'ktrTablet',
+                  name: 'doctorPlatform',
                   files: ['javascript/controllers/header.js' + jsVersion, 'javascript/controllers/footer.js' + jsVersion]
                 });
               }]
@@ -87,7 +83,7 @@ app.config(function($stateProvider, $urlRouterProvider, $compileProvider, $contr
               // you can lazy load files for an existing module
               return $ocLazyLoad.load(
                 {
-                  name: 'ktrTablet',
+                  name: 'doctorPlatform',
                   files: ['javascript/controllers/appointment/appoinment.js' ]
                 });
               }]
@@ -107,7 +103,7 @@ app.config(function($stateProvider, $urlRouterProvider, $compileProvider, $contr
             	loadMyService: ['$ocLazyLoad', function($ocLazyLoad) {
                     return $ocLazyLoad.load(
                     {
-                      name: 'ktrTablet',
+                      name: 'doctorPlatform',
                       files: ['javascript/services/jsonService.js' + jsVersion]
                     });
                   }],
@@ -115,7 +111,7 @@ app.config(function($stateProvider, $urlRouterProvider, $compileProvider, $contr
                   // you can lazy load files for an existing module
                   return $ocLazyLoad.load(
                     {
-                      name: 'ktrTablet',
+                      name: 'doctorPlatform',
                       files: ['javascript/controllers/prescription/prescriptionController.js' ]
                     });
                   }]
@@ -135,7 +131,7 @@ app.config(function($stateProvider, $urlRouterProvider, $compileProvider, $contr
             	loadMyService: ['$ocLazyLoad', function($ocLazyLoad) {
                     return $ocLazyLoad.load(
                     {
-                      name: 'ktrTablet',
+                      name: 'doctorPlatform',
                       files: ['javascript/services/jsonService.js' + jsVersion]
                     });
                   }],
@@ -143,7 +139,7 @@ app.config(function($stateProvider, $urlRouterProvider, $compileProvider, $contr
                   // you can lazy load files for an existing module
                   return $ocLazyLoad.load(
                     {
-                      name: 'ktrTablet',
+                      name: 'doctorPlatform',
                       files: ['javascript/controllers/drugs/drugs.js' ]
                     });
                   }]
@@ -164,7 +160,7 @@ app.config(function($stateProvider, $urlRouterProvider, $compileProvider, $contr
                   // you can lazy load files for an existing module
                   return $ocLazyLoad.load(
                     {
-                      name: 'ktrTablet',
+                      name: 'doctorPlatform',
                       files: ['javascript/controllers/inv/inv.js' ]
                     });
                   }]
@@ -184,7 +180,7 @@ app.config(function($stateProvider, $urlRouterProvider, $compileProvider, $contr
             	loadMyService: ['$ocLazyLoad', function($ocLazyLoad) {
                     return $ocLazyLoad.load(
                     {
-                      name: 'ktrTablet',
+                      name: 'doctorPlatform',
                       files: ['javascript/services/jsonService.js' + jsVersion]
                     });
                   }],
@@ -192,7 +188,7 @@ app.config(function($stateProvider, $urlRouterProvider, $compileProvider, $contr
                   // you can lazy load files for an existing module
                   return $ocLazyLoad.load(
                     {
-                      name: 'ktrTablet',
+                      name: 'doctorPlatform',
                       files: ['javascript/controllers/history/familyHisoryController.js' ]
                     });
                   }]
@@ -212,7 +208,7 @@ app.config(function($stateProvider, $urlRouterProvider, $compileProvider, $contr
             	loadMyService: ['$ocLazyLoad', function($ocLazyLoad) {
                     return $ocLazyLoad.load(
                     {
-                      name: 'ktrTablet',
+                      name: 'doctorPlatform',
                       files: ['javascript/services/jsonService.js' + jsVersion]
                     });
                   }],
@@ -220,7 +216,7 @@ app.config(function($stateProvider, $urlRouterProvider, $compileProvider, $contr
                   // you can lazy load files for an existing module
                   return $ocLazyLoad.load(
                     {
-                      name: 'ktrTablet',
+                      name: 'doctorPlatform',
                       files: ['javascript/controllers/history/pastHistoryController.js' ]
                     });
                   }]
@@ -241,7 +237,7 @@ app.config(function($stateProvider, $urlRouterProvider, $compileProvider, $contr
                   // you can lazy load files for an existing module
                   return $ocLazyLoad.load(
                     {
-                      name: 'ktrTablet',
+                      name: 'doctorPlatform',
                       files: ['javascript/controllers/genInfo/genInfo.js' ]
                     });
                   }]
@@ -262,7 +258,7 @@ app.config(function($stateProvider, $urlRouterProvider, $compileProvider, $contr
                   // you can lazy load files for an existing module
                   return $ocLazyLoad.load(
                     {
-                      name: 'ktrTablet',
+                      name: 'doctorPlatform',
                       files: ['javascript/controllers/vital/vital.js' ]
                     });
                   }]
@@ -283,7 +279,7 @@ app.config(function($stateProvider, $urlRouterProvider, $compileProvider, $contr
                   // you can lazy load files for an existing module
                   return $ocLazyLoad.load(
                     {
-                      name: 'ktrTablet',
+                      name: 'doctorPlatform',
                       files: ['javascript/controllers/history/history.js' ]
                     });
                   }]
@@ -304,7 +300,7 @@ app.config(function($stateProvider, $urlRouterProvider, $compileProvider, $contr
                   // you can lazy load files for an existing module
                   return $ocLazyLoad.load(
                     {
-                      name: 'ktrTablet',
+                      name: 'doctorPlatform',
                       files: ['javascript/controllers/advice/advice.js' ]
                     });
                   }]
@@ -325,7 +321,7 @@ app.config(function($stateProvider, $urlRouterProvider, $compileProvider, $contr
                   // you can lazy load files for an existing module
                   return $ocLazyLoad.load(
                     {
-                      name: 'ktrTablet',
+                      name: 'doctorPlatform',
                       files: ['javascript/controllers/diagnosis/diagnosisController.js' ]
                     });
                   }]
@@ -346,7 +342,7 @@ app.config(function($stateProvider, $urlRouterProvider, $compileProvider, $contr
                   // you can lazy load files for an existing module
                   return $ocLazyLoad.load(
                     {
-                      name: 'ktrTablet',
+                      name: 'doctorPlatform',
                       files: ['javascript/controllers/oldPrescription/oldPrescription.js' ]
                     });
                   }]
@@ -366,7 +362,7 @@ app.config(function($stateProvider, $urlRouterProvider, $compileProvider, $contr
             	loadMyService: ['$ocLazyLoad', function($ocLazyLoad) {
                     return $ocLazyLoad.load(
                     {
-                      name: 'ktrTablet',
+                      name: 'doctorPlatform',
                       files: ['javascript/services/jsonService.js' + jsVersion]
                     });
                   }],
@@ -374,7 +370,7 @@ app.config(function($stateProvider, $urlRouterProvider, $compileProvider, $contr
                   // you can lazy load files for an existing module
                   return $ocLazyLoad.load(
                     {
-                      name: 'ktrTablet',
+                      name: 'doctorPlatform',
                       files: ['javascript/controllers/settings/settingsController.js' ]
                     });
                   }]
@@ -395,7 +391,7 @@ app.config(function($stateProvider, $urlRouterProvider, $compileProvider, $contr
                   // you can lazy load files for an existing module
                   return $ocLazyLoad.load(
                     {
-                      name: 'ktrTablet',
+                      name: 'doctorPlatform',
                       files: ['javascript/controllers/invReport/invReportController.js' ]
                     });
                   }]
@@ -417,7 +413,7 @@ app.config(function($stateProvider, $urlRouterProvider, $compileProvider, $contr
                   // you can lazy load files for an existing module
                   return $ocLazyLoad.load(
                     {
-                      name: 'ktrTablet',
+                      name: 'doctorPlatform',
                       files: ['javascript/controllers/followUpChart/followUpChartController.js' ]
                     });
                   }]
@@ -438,7 +434,7 @@ app.config(function($stateProvider, $urlRouterProvider, $compileProvider, $contr
                   // you can lazy load files for an existing module
                   return $ocLazyLoad.load(
                     {
-                      name: 'ktrTablet',
+                      name: 'doctorPlatform',
                       files: ['javascript/controllers/drugHistory/drugHistoryController.js' ]
                     });
                   }]
@@ -459,7 +455,7 @@ app.config(function($stateProvider, $urlRouterProvider, $compileProvider, $contr
                   // you can lazy load files for an existing module
                   return $ocLazyLoad.load(
                     {
-                      name: 'ktrTablet',
+                      name: 'doctorPlatform',
                       files: ['javascript/controllers/drugAdvisor/drugAdvisorController.js' ]
                     });
                   }]
@@ -480,12 +476,54 @@ app.config(function($stateProvider, $urlRouterProvider, $compileProvider, $contr
                   // you can lazy load files for an existing module
                   return $ocLazyLoad.load(
                     {
-                      name: 'ktrTablet',
+                      name: 'doctorPlatform',
                       files: ['javascript/controllers/researchHome/researchHomeController.js' ]
                     });
                   }]
             }
         };
+    
+    var followUpSetup = {
+            name : 'root.followUpSetup',
+            url : '/followUpSetup',
+            views : {
+                'container@' : {
+                    templateUrl : 'javascript/templates/followUpSetup/followUpSetup.html',
+                    controller : 'FollowUpSetupController'
+                }
+            },
+            resolve : {
+                loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+                  // you can lazy load files for an existing module
+                  return $ocLazyLoad.load(
+                    {
+                      name: 'doctorPlatform',
+                      files: ['javascript/controllers/followUpSetup/followUpSetupController.js' ]
+                    });
+                  }]
+            }
+        };
+
+    var invCategory = {
+        name : 'root.invCategory',
+        url : '/invCategory',
+        views : {
+            'container@' : {
+                templateUrl : 'javascript/templates/invCategory/invCategory.html',
+                controller : 'InvCategoryController'
+            }
+        },
+        resolve : {
+            loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load(
+                    {
+                        name: 'doctorPlatform',
+                        files: ['javascript/controllers/invCategory/invCategoryController.js' ]
+                    });
+            }]
+        }
+    };
     
     
 	
@@ -510,6 +548,8 @@ app.config(function($stateProvider, $urlRouterProvider, $compileProvider, $contr
         .state(drugAdvisor)
         .state(drugHistory)
         .state(researchHome)
+        .state(followUpSetup)
+        .state(invCategory)
     	.state(appointment);
     
 

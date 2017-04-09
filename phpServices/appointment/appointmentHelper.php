@@ -52,6 +52,8 @@ if($query_no==2){
 	
 	mysql_query($sql);
 	
+	addFollowUpSetting($doctorID, mysql_insert_id());
+	
 	$data = addAppointMent($doctorCode, $patientCode, $appointmentType,$doctorID, $date, $time, $username);
 	
 	mysql_query("UPDATE `doctorsettings` SET `personCodeInitial`=  personCodeInitial + 1 WHERE doctorID = $doctorID");

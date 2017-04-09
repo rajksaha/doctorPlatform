@@ -89,4 +89,22 @@ WHERE p.patientCode = '$patientCode'";
 	
 	return $result;
 }
+
+function addFollowUpSetting($doctorID, $patientID){
+	
+	
+	$sql = "SELECT dfs.`followUpSerttingID`, dfs.`doctorID`, dfs.`invID`, i.name AS invName
+			FROM `doctor_followup_setteing` dfs
+			JOIN inv i ON i.id = dfs.invID
+			WHERE dfs.doctorID = '$doctorID'";
+	
+	$result=mysql_query($sql);
+	
+	while ($row=mysql_fetch_array($result)){
+		$invID = $row['invID'];
+		$innerSql = "INSERT INTO `patient_follow_up`(`patientID`, `doctorID`, `invID`) VALUES ($patientID,$doctorID, $invID)";
+		mysql_query($innerSql);
+	}
+	
+}
 ?>
