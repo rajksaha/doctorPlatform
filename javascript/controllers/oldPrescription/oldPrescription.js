@@ -237,7 +237,7 @@ app.controller('OldPrescriptionController', function($scope, $http, $modal, $roo
 	
     $scope.viewPrescription = function (data) {
     	
-    	
+    	$scope.bringPresCribedDiagnosis(data.appointmentID);
     	$scope.bringPresCribedDrugs(data.appointmentID);
     	$scope.bringPrescribedInv(data.appointmentID);
     	$scope.bringPrescribedAdvice(data.appointmentID);

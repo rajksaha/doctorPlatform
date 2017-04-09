@@ -1,4 +1,4 @@
-app.controller('PrescriptionController', function($scope, $http, $modal, $rootScope, limitToFilter, $location, $filter, $window, JsonService) {
+app.controller('PrescriptionController', function($scope, $http, $modal, $rootScope, limitToFilter, $location, $filter, $window, JsonService, $upload) {
 	
 	$scope.menuDataList = [];
 	$scope.patientData = {};
@@ -21,6 +21,27 @@ app.controller('PrescriptionController', function($scope, $http, $modal, $rootSc
 	$scope.prescribedVitalData = [];
 	
 	$scope.prescribedAdviceData = [];
+	
+    $scope.onFileSelect = function($files){
+        $scope.file = $files[0];
+        $scope.uploading = true;
+        $scope.hasCsvError = false;
+
+        $upload.upload({
+            url : 'phpServices/prescription/savePhoto.php',
+            method: 'POST',
+            data : {},
+            file: $scope.file
+        }).then(function(result) {
+        	$scope.bringPatientInfo();
+        }, function(result) {
+            $scope.uploading = false;
+        }, function(evt) {
+
+        });
+    };
+	
+
 	
 	
 	$scope.fixNextVisit = function (){
@@ -882,8 +903,8 @@ app.controller('PrescriptionController', function($scope, $http, $modal, $rootSc
             		$rootScope.defaultPdf = result[0].code;
             		$scope.openPdf(result[0].code);
             	}else{
-            		$rootScope.defaultPdf = "default.php";
-            		$scope.openPdf("default.php");
+            		$rootScope.defaultPdf = "default";
+            		$scope.openPdf("default");
             	}
             });
     	}else {
@@ -1159,6 +1180,7 @@ app.controller('PrescriptionController.PrescribeComplainController', function($s
 		
 		var entryFound = false;
 		var int = 0;
+		var complainList = [];
 		for (int; int < $scope.complainList.length; int++) {
 			var name = $scope.complainList[int].name;
 			var noOfDay = $scope.complainList[int].numOfDay.value;
@@ -1168,18 +1190,12 @@ app.controller('PrescriptionController.PrescribeComplainController', function($s
 			if(name){
 				entryFound = true;
 				if(dayType > 4){
-					noOfDay = null;
+					noOfDay = 0;
 				}
 				
-				var dataString = {'complainName': name , 'numOfDay' : noOfDay ,'dayType' :  dayType, 'note' : note, 'complainPrescribeID' : id, 'query' : 2};
-				
-		        $http({
-		            method: 'POST',
-		            url: "phpServices/complain/complainService.php",
-		            data: JSON.stringify(dataString),
-		            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-		        }).success(function (result) {
-		        });
+				var dataString = {'complainName': name , 'numOfDay' : noOfDay ,'dayType' :  dayType, 'note' : note, 'complainPrescribeID' : id};
+				complainList.push(dataString);
+		        
 			}
 			
 		}
@@ -1215,8 +1231,12 @@ app.controller('PrescriptionController.PrescribeComplainController', function($s
 				$scope.error = true;
 			}
 			
-		}else if(int == $scope.complainList.length){
-			$modalInstance.close();
+		}else{
+			
+			jQuery.post("phpServices/complain/complainAdderService.php",  {json: JSON.stringify(complainList)}, function(data){ 
+				$modalInstance.close();
+				});
+			
 		}
 		
 		
@@ -1366,8 +1386,6 @@ app.controller('PrescriptionController.PrescribeDrugsController', function($scop
 		if(selectedTimesADay == -1){
 			$scope.drugData.preodicValue = preiodicList.length;
 			selectedTimesADay = 3;
-		}else if(selectedTimesADay == -2){
-			selectedTimesADay = 1;
 		}
 			
 		angular.forEach(preiodicList, function(preiodicData, key) {
@@ -1396,13 +1414,23 @@ app.controller('PrescriptionController.PrescribeDrugsController', function($scop
 		}
 		
 		
+		var sameAs = selectedTimesADay;
+		if(sameAs == -2){
+			selectedTimesADay = 1;
+		}
 		
 		for(var i = 0; i< selectedTimesADay; i++){
-			if($scope.enteredDrugDoseList.length > 0){
+			if($scope.enteredDrugDoseList.length > 0 && sameAs != -2){
 				var data = {"value" : $scope.enteredDrugDoseList[i]};
 				unit = $scope.enteredDrugDoseList[i];
-			}else{
+			}else if($scope.enteredDrugDoseList.length == 0 && sameAs != -2){
 				var data = {"value" : val};
+				unit = val;
+			}else if($scope.enteredDrugDoseList.length == 0 && sameAs == -2){
+				var data = {"value" : '', "isSameAs" : true};
+				unit = val;
+			}else if($scope.enteredDrugDoseList.length > 0 && sameAs == -2){
+				var data = {"value" : $scope.enteredDrugDoseList[i], "isSameAs" : true};
 				unit = val;
 			}
 			
@@ -1590,6 +1618,9 @@ app.controller('PrescriptionController.PrescribeDrugsController', function($scop
 			drugPrescribeID = $scope.drugData.drugPrescribeID;
 		}
 		
+		if($scope.drugData.drugStr == undefined){
+			$scope.drugData.drugStr = '';
+		}
 		var dataString = 'drugType='+ drugType +'&drugName='+ drugName +'&drugStr='+ $scope.drugData.drugStr + '&drugTime='+ drugTime +'&doseUnit='+ doseUnit + '&drugWhen='+ drugWhen +'&drugAdvice='+ drugAdvice+ '&drugPrescribeID='+ drugPrescribeID +'&query=' + query;
 		
         $http({
@@ -1732,7 +1763,6 @@ app.controller('PrescriptionController.PrescribeDrugsController', function($scop
 					$scope.bringdrugsAdviceType(false, $scope.doctorDrugData.drugAdviceID);
 	        	}else{
 	    	    	$scope.drugData.delDrug = false;
-	    	    	$scope.drugData.editName = false;
 	    	    	$scope.drugData.preiodicList = [];
 	    	    	$scope.bringdrugsDayTypeList(true, 1 , 3);
 	    			$scope.bringdrugsWhatType(true, null);
@@ -1770,6 +1800,10 @@ app.controller('PrescriptionController.PrescribeDrugsController', function($scop
 			
 			
 			var query = 14;
+			
+			if($scope.drugData.drugStr == undefined){
+				$scope.drugData.drugStr = '';
+			}
 			
 			var dataString = 'drugType='+ drugType +'&drugName='+ drugName +'&drugStr='+ $scope.drugData.drugStr + '&drugTime='+ drugTime +'&doseUnit='+ doseUnit + '&drugWhen='+ drugWhen +'&drugAdvice='+ drugAdvice +'&query=' + query;
 			

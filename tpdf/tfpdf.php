@@ -2322,6 +2322,47 @@ function ShowPatInfo($patientCode,$yAxis, $appointmentID){
 	$this->SetXY(140, $yAxis);
 	$this->Write(5, "Date: $date");
 	
+	return $rec['patientImage'];
+	
+}
+
+function Show_Drug_History($appointmentID,$xAxis,$yAxis, $maxX , $size, $conentType , $hedearText){
+
+
+	$contentData = getContentDetail($appointmentID, $conentType);
+
+	if(mysql_num_rows($contentData) > 0){
+		$this->SetFont('Times','BI',$size + 1);
+		$this->SetXY($xAxis, $yAxis);
+		$this->MultiCell($maxX,5,$hedearText);
+		$yAxis += 6;
+
+	}if(mysql_num_rows($contentData) == 0){
+		return $yAxis - 5;
+	}
+
+	$this->SetFont('Times','',$size);
+
+	while($row=  mysql_fetch_array($contentData)){
+
+		$data = $row['detail'];
+
+		$yAxis =  $this->GetY();
+		$this->SetXY($xAxis, $yAxis);
+		$this->MultiCell($maxX,5,"$data");
+
+	}
+
+	return $this->GetY();
+}
+
+function displayImage ($username, $patientImage,$xAxis, $yAxis, $size){
+	$doctorData = getDoctorInfo($username);
+	
+	if($doctorData['photoSupport'] == 1){
+		$this->Image('../'.$patientImage, $xAxis, $yAxis, $size);
+	}
+	
 }
 
 function Show_med($appointmentID, $xAxis, $yAxis, $size){

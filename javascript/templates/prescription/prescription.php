@@ -81,7 +81,7 @@
 		
 		<div class="list-item col-sm-4 col-md-3 col-lg-3" data-ng-repeat="menuData in menuDataList" style="padding-bottom: 10px">
 			<span style="padding-left:20px">
-				<img ng-src="images/icon-c-stat-2.png" />
+				<img src="images/icon-c-stat-2.png" />
 				<span style="padding-left:12px;">
 					<a href="{{menuData.menuURL}}">{{menuData.menuHeader}}</a>
 					<a href="{{menuData.menuURL}}" class="pull-right" style="margin-right:10px"><img ng-src="images/edit1.png" width="18" height="18"/></a>
@@ -99,10 +99,19 @@
     <div class="panel panel-primary col-md-12 mainPanelColor panel2" style="padding-top: 5px;height: 600px; overflow-y: scroll;">
     	<div class="row">
     		<div class="col-md-4">
-    		
     		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding-top: 5px">
 	             	<div class="panel">	                 
 						<div class="prescriptionPanel-body">
+							<div data-ng-if="doctorData.photoSupport == 1">
+								<img alt="patImg" data-ng-if="patientData.patientImage != null" src="{{patientData.patientImage}}" height="160px" width="80px">
+								<span class="btn btn-default btn-file btn-block">
+									<i class="fa fa-upload"></i> 
+									<span data-ng-if="patientData.patientImage == null"> Add Patient Photo</span> 
+									<span data-ng-if="patientData.patientImage != null"> Change Patient Photo</span>
+									 <input type="file" id="picture" class="form-control" name="picture"  data-ng-file-select="onFileSelect($files)" data-ng-click="resetInputFile()"/>
+								</span>
+							</div>
+							
 							<div class="form-group">
 								<label>Next Visit</label> 
 								<span class="pull-right">
