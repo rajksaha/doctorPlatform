@@ -1061,7 +1061,6 @@ app.controller('PrescriptionController', function($scope, $http, $modal, $rootSc
 		            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 		        }).success(function (result) {
 		        	$scope.patientInfoEdit = false;
-		        	
 		        });
     		 
     	}else{
