@@ -2552,6 +2552,37 @@ function Show_inv($appointmentID, $xAxis,$yAxis,$maxX,$size) {
 	
 }
 
+    function showClinicalRecord($appointmentID, $xAxis,$yAxis,$maxX,$size) {
+
+        $this->SetFont('Times','',$size);
+
+        $resultData = getContentDetail($appointmentID, 'CLINICAL_RECORD');
+
+        if(mysql_num_rows($resultData) > 0){
+            $this->SetFont('Times','',$size +1);
+            $this->SetXY($xAxis, $yAxis);
+            $this->MultiCell(20,5,"Clicnical Record");
+            $yAxis += 6;
+
+        }if(mysql_num_rows($resultData) == 0){
+            return $yAxis - 5;
+        }
+
+        $var = 1;
+        $this->SetFont('Times','',$size);
+        while($row=  mysql_fetch_array($resultData)){
+
+            $data = $row['data'];
+            $yAxis =  $this->GetY();
+            $this->SetXY($xAxis, $yAxis);
+            $this->MultiCell($maxX,5,". $data");
+            $var++;
+        }
+
+        return $this->GetY();
+
+    }
+
 function   Show_vital($appointmentID,$xAxis, $yAxis, $maxX, $size){
 
 	

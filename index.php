@@ -2,16 +2,13 @@
 <html lang="en" ng-app="doctorPlatform">
 <head>
 
-
-
-
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
     <link type="text/css" href="lib/css/bootstrap.min.css" rel="stylesheet"/>
     <!--<link type="text/css" href="lib/css/bootstrap-theme.css" rel="stylesheet"/>-->
     <link href="lib/css/custom-icon.css" rel="stylesheet"/>
+    <link href="vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="lib/css/bootstrap-theme-ktr.css" rel="stylesheet"/>
     <link href="css/common/bottomUp.css" rel="stylesheet"/>
     <link href="vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
