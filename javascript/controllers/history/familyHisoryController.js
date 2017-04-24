@@ -160,7 +160,6 @@ app.controller('FamilyHisoryController', function($scope, $http, $modal, $rootSc
 	};
 	
 	$scope.cancelFamilyHistory  = function(){
-		
 		$scope.bringFamilyHistoryData();
 	};
 	

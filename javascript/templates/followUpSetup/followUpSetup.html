@@ -1,0 +1,20 @@
+<div class="col-md-6" >
+	<table class="table table-condensed table-bordered">
+		<tr>
+			<th> Inv Name</th>
+			<th> Action</th>
+		</tr>
+		<tr>
+			<td>
+				<input type="text" data-ng-model="followUpInvName" typeahead="invNameData.name for invNameData in getInvName($viewValue)"  class="form-control" placeholder="Add Inv to Follow up Setings" typeahead-on-select='onSelectInvName($item, $model, $label)'/>
+			</td>
+			<td>
+				<button class="btn btn-primary" data-ng-click="addInvToFollowUp(followUpInvName)"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+			</td>
+		</tr>
+		<tr data-ng-repeat="inv in followUpList">
+			<td><label>{{inv.invName}}</label></td>
+			<td><button class="btn btn-danger" data-ng-click="delete(inv.followUpSerttingID)"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button></td>
+		</tr>
+	</table>
+</div>

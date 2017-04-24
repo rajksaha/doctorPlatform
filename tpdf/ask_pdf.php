@@ -42,9 +42,9 @@ function Show_med($appointmentID, $xAxis, $yAxis, $size){
 	}
 	
 	if(mysql_num_rows($resultData) > 0){
-		$this->SetFont('Times','',$size + 1);
-		$this->SetXY($xAxis - 5, $yAxis);
-		$this->MultiCell(20,5,"Rx");
+		$this->SetFont('Times','B',$size + 3);
+		$this->SetXY($xAxis , $yAxis);
+		$this->MultiCell(40,5,"Rx");
 		$yAxis += 6;
 		
 	}if(mysql_num_rows($resultData) == 0){
@@ -55,89 +55,149 @@ function Show_med($appointmentID, $xAxis, $yAxis, $size){
 	$doseeCell = 40;
 	$durationCell = 70;
 	$whenCell = 15;
-	
+	$var = 1;
 	while($row=  mysql_fetch_array($resultData)){
 		
-		$this->SetFont('Times','',$size);
+		$this->SetFont('Times','',$size + 2);
 		
 		$drugType = $row['typeInitial'];
+		$drugTypeID = $row['drugTypeID'];
 		$drugName = $row['drugName'];
 		$drugStr = $row['drugStrength'];
-		$drugDose = $row['drugDose'];
+		$drugPrescribeID = $row['id'];
 		$drugTime = $row['drugTimeID'];
 		$drugDoseInitial = $row['drugDoseUnit'];
-		$drugNoDay = $row['drugNoOfDay'];
-		$drugNoDayType = $row['dayTypePdf'];
 		$drugWhen = $row['whenTypePdf'];
+		$drugWhenID = $row['drugWhenID'];
 		$drugAdvice = $row['adviceTypePdf'];
 		$drugAdviceID = $row['drugAdviceID'];
 		
 		
-		$yAxis =  $this->GetY() + 3;
+		$yAxis =  $this->GetY() + 2;
 		
 		$this->SetXY($xAxis, $yAxis);
 		if($drugStr  == ""){
-				$this->MultiCell($nameCell,5,".$drugType. $drugName");
+				$this->MultiCell($nameCell,5,"$var. $drugType. $drugName");
 		}else{
-			$this->MultiCell($nameCell,5,".$drugType. $drugName- $drugStr");
+			$this->MultiCell($nameCell,5,"$var. $drugType. $drugName- $drugStr");
 		}
-		
+		$var = $var + 1;
 		$xInnerAxis = $nameCell + 5;
 		
-		$this->SetFont('prolog','',$size-2);
+		$this->SetFont('prolog','',$size + 1);
 		
 		
 		
-		$this->SetXY($xAxis + 3, $yAxis + 5);
-		
+		$this->SetXY($xAxis + 5, $yAxis + 6);
+		$realY =  $this->GetY();
 		if($drugDoseInitial != ""){
+			if($drugTypeID == 3 || $drugTypeID == 15 || $drugTypeID == 41){
+				$drugDoseInitial = str_replace("s"," Pv PvgP ", $drugDoseInitial);
+			}else if($drugTypeID == 4){
+				$drugDoseInitial = str_replace("ampl","G¤cj", $drugDoseInitial);
+				$drugDoseInitial = str_replace("vial","fvqvj", $drugDoseInitial);
+			}else if($drugTypeID == 10 || $drugTypeID == 14){
+				$drugDoseInitial = str_replace("puff","cvd", $drugDoseInitial);
+			}else if($drugTypeID == 7){
+				$drugDoseInitial = str_replace("d","Wªc", $drugDoseInitial);
+			}else if($drugTypeID == 6){
+				$drugDoseInitial = str_replace("u","BDwbU", $drugDoseInitial);	
+			}else if($drugTypeID == 11){
+				$drugDoseInitial = str_replace("drp/min","Wªc/wgwbU", $drugDoseInitial);
 			
-			$drugDoseInitial = str_replace("ampl","GÂ¤cj", $drugDoseInitial);
-			$drugDoseInitial = str_replace("vial","fvqvj", $drugDoseInitial);
-			$drugDoseInitial = str_replace("s"," Pv PvgP ", $drugDoseInitial);
-			$drugDoseInitial = str_replace("d","WÂªc", $drugDoseInitial);
-			$drugDoseInitial = str_replace("puff","cvd", $drugDoseInitial);
-			
+			}
 		}
 		
-		$drugDose = str_replace("-","+", $drugDose);
-		if($drugTime == 1){
-			if($drugAdviceID == 14){
-				$drugDose =  "$drugDose + 0 + 0";
-			}else if ($drugAdviceID == 15){
-				$drugDose =  "0 + 0 + $drugDose";
+		$doseData = getPreiodicListforPdf($drugPrescribeID);
+		
+		
+		
+		if($drugTime != -1){
+				
+			$dose = mysql_fetch_assoc($doseData);
+			$drugDose = $dose['dose'];
+			$drugNoDay = $dose['numOfDay'];
+			$drugNoDayType = $dose['pdf'];
+				
+			$drugDose = str_replace("-","+", $drugDose);
+			if($drugTime == 1){
+				if($drugAdviceID == 14 || $drugWhenID == 11){
+					$drugDose =  "$drugDose + 0 + 0";
+				}else if ($drugAdviceID == 15 || $drugWhenID == 13){
+					$drugDose =  "0 + 0 + $drugDose";
+				}else if($drugAdviceID == 16 || $drugWhenID == 12){
+					$drugDose =  "0 + $drugDose + 0";
+				}else{
+					$drugDose =  "0 + 0 + $drugDose";
+				}
+					
+			}else if($drugTime == 2){
+				list($num,$type) = explode('+', $drugDose, 2);
+				$drugDose =  "$num + 0 + $type";
+			}
+				
+			
+			if($drugNoDay == 0){
+				$drugNoDay = "";
+			}
+			
+			$restOftheString = "- $drugWhen - $drugAdvice - $drugNoDay $drugNoDayType";
+			if($drugDoseInitial == ""){
+					
+				$this->MultiCell(110,5,"$drugDose $restOftheString|");
+			}else if($drugDose == ''){
+				
+				$this->MultiCell(110,5,"$drugDose $restOftheString|");
 			}else{
-				$drugDose =  "0 + $drugDose + 0";
-			}				
-			
-		}else if($drugTime == 2){
-			list($num,$type) = explode('+', $drugDose, 2);
-			$drugDose =  "$num + 0+ $type";
-		}
-		
-		if($drugNoDay == 0){
-			$drugNoDay = "";
-		}
-		$restOftheString = "$drugWhen $drugAdvice $drugNoDay $drugNoDayType";
-		//$xInnerAxis = $xInnerAxis + $doseeCell + 5;
-		//$this->SetXY($xAxis + $doseeCell, $yAxis + 5 );
-		//$this->MultiCell($durationCell,5,"$restOftheString |");
-		
-		
-		if($drugDoseInitial == ""){
-			
-			$this->MultiCell(100,5,"$drugDose $restOftheString |");
-		}else if($drugDose != ""){
-			$this->MultiCell(100,5,"($drugDose) $drugDoseInitial $restOftheString |");
+				$this->MultiCell(110,5,"($drugDose)$drugDoseInitial $restOftheString|");
+			}
 		}else{
-			$this->MultiCell(100,5,"$drugDoseInitial $restOftheString |");
+			$realY =  $yAxis;
+			 while ($dose = mysql_fetch_array($doseData)){
+				
+			 	$drugDose = $dose['dose'];
+			 	$drugNoDay = $dose['numOfDay'];
+			 	$drugNoDayType = $dose['pdf'];
+			 	
+			 	$drugDose = str_replace("-","+", $drugDose);
+				if($drugTime == 1){
+					if($drugAdviceID == 14){
+						$drugDose =  "$drugDose + 0 + 0";
+					}else if ($drugAdviceID == 15){
+						$drugDose =  "0 + 0 + $drugDose";
+					}else{
+						$drugDose =  "0 + $drugDose + 0";
+					}
+		
+				}else if($drugTime == 2){
+					list($num,$type) = explode('+', $drugDose, 2);
+					$drugDose =  "$num + 0 + $type";
+				}
+		
+				$yAxis =  $this->GetY();
+				$this->SetXY($xInnerAxis - 10, $yAxis);
+		
+				if($drugDoseInitial == ""){
+		
+					$this->MultiCell($doseeCell,5,"($drugDose)");
+				}else{
+					$this->MultiCell($doseeCell,5,"($drugDose) $drugDoseInitial");
+				}
+		
+				$xInnerAxis = $xInnerAxis + $doseeCell + 5;
+				$this->SetXY($xInnerAxis, $yAxis);
+				$this->MultiCell(20,5," $drugNoDay $drugNoDayType |");
+		
+				$xInnerAxis = $xInnerAxis - $doseeCell - 5;
+			}
+				
+			$restOftheString = "$drugWhen $drugAdvice";
+			$xInnerAxis = $xInnerAxis + $doseeCell ;
+			$this->SetXY($xInnerAxis, $realY);
+			$this->MultiCell($durationCell,10,"$restOftheString |");
+			
+			$this->SetY($yAxis + 5);
 		}
-		
-		
-		
-		
-		
-		
 		//$yAxis += 8;
 	}
 	
@@ -145,10 +205,13 @@ function Show_med($appointmentID, $xAxis, $yAxis, $size){
 
 }
 
-function ShowPatInfo($patientCode,$yAxis,$username){
-	$this->SetFont('Times','',11);
+function ShowPatInfo($patientCode,$yAxis, $appointmentID){
 	
-	$resultData = getPdfDetail($patientCode,$username);
+	$resultData = getPatientInformaition($patientCode);
+	
+	$visitData = getPdfDetail($patientCode, "shs");
+	
+	$rec1 = mysql_fetch_assoc($visitData);
 	
 	$rec = mysql_fetch_assoc($resultData);
 	
@@ -158,118 +221,206 @@ function ShowPatInfo($patientCode,$yAxis,$username){
 	
 	$sex = $rec['sex'];
 	
-	$visit = $rec['visitNo'];
+	$date = date('d-m-Y');
+	
+	$visit =  $rec1['visitNo'];
+	
+	$phone =  $rec1['phone'];
+	
+	$address =  $rec1['address'];
 	
 	$patientCode = $rec['patientCode'];
 	
-	$patientCode = substr($patientCode, -5);
 	
-	$date = date('d M, Y');
+	$this->SetXY(80,$yAxis + 10);
+	$this->Write(5, "ID No: $patientCode");
 	
-	$this->SetFont('Times','', 13);
+	$this->SetXY(160,$yAxis + 12);
+	//$this->Write(5, "Visit No: $visit");
 	
-	$this->SetXY(100,$yAxis);
-    $this->Write(5, "ID:$patientCode");
-    
-    //$this->SetXY(100,$yAxis-15);
-    //$this->Write(5, "Visit: $visit");
+	$this->SetXY(10,$yAxis + 10);
+	$this->Write(5, "Name: $name");
 	
-	$this->SetXY(15,$yAxis);
-	$this->Write(5, "Name :$name");
+	$this->SetXY(130, $yAxis + 10);
+	$this->Write(5, "Age: $age Yrs");
 	
-	$this->SetXY(130, $yAxis);
-	$this->Write(5, "Age: $age yrs");
-	
-	$this->SetXY(160, $yAxis);
+		
+	$this->SetXY(160, $yAxis + 10);
 	$this->Write(5, "Date: $date");
 	
-			//$this->SetXY(150,35);
-            //$this->Write(5, "ID:$phone");
-            //$x=  $this->GetX();
-            //$this->SetXY($x+5,35);
-            //$this->Write(5, "Visit:$num");
-            //$this->SetXY(32,$y);
-            //$this->Write(5, "$name");
-            //$this->SetXY(138, $y);
-            //$this->Write(5,"$age yrs");
-            //$this->SetXY(170, $y);
-            //$this->Write(5, "$date");
+		
+	return $rec['patientImage'];
 	
 }
+function showDocInfo($username, $yAxis, $size){
 
-function show_nextVisit($appointmentID,$xAxis,$yAxis,$size){
+	$resultData = getDoctorInfo($username);
 	
 	
-	$resultData = getPrescribedNextVisit($appointmentID);
-	
-	$rec = mysql_fetch_assoc($resultData);
-	
-	$nextVisitType = $rec['nextVisitType'];
-	
-	$this->SetXY($xAxis, $yAxis);
-	
-	//$this->SetFont('prolog','',$size + 2);
-	
-	if($nextVisitType == 2){
-		
-		
-		$numOfday = $rec['numOfDay'];
-		$dayType = $rec['pdf'];
-		$this->SetFont('prolog','',$size + 2);
-		$this->MultiCell(60,5, "$numOfday - $dayType ci Avevi Avm�eb|", 0);
-	}else if($nextVisitType == 1){
-		$date = $rec['date'];
-		$newDate = date("d-m-Y", strtotime($date));
-		$this->SetFont('prolog','',$size + 2);
-		$this->MultiCell(60,5, "$newDate w`b ci Avevi Avm�eb|", 0);
+
+	if($resultData['prescriptionStyle'] == 2){
+
+		$this->SetXY(15, $yAxis);
+		$this->SetFont('prolog','',$size + 4);
+		$contentData = getContentDetailForPres(3, "DOCTORPRINT", "LINE1");
+		$con = mysql_fetch_assoc($contentData);
+		$data = $con['code'];
+		$this->MultiCell(100,5, $data, 0);
+
+		$this->SetXY(130, $yAxis);
+		$this->SetFont('Times','B',$size + 3);
+		$this->MultiCell(100,5, "Prof. Md. Ali Hossain", 0);
+
+		$yAxis = $yAxis + 5;
+		$this->SetXY(15, $yAxis);
+		$this->SetFont('prolog','',$size);
+		$contentData = getContentDetailForPres(3, "DOCTORPRINT", "LINE2");
+		$con = mysql_fetch_assoc($contentData);
+		$data = $con['code'];
+		$this->MultiCell(100,5, $data, 0);
+		$this->SetXY(130, $yAxis);
+		$this->SetFont('Times','',$size);
+		$this->MultiCell(100,5, "MBBS FCPS(Med), MD(Chest)", 0);
+
+		$yAxis = $yAxis + 5;
+		$this->SetXY(15, $yAxis);
+		$this->SetFont('prolog','',$size);
+		$contentData = getContentDetailForPres(3, "DOCTORPRINT", "LINE3");
+		$con = mysql_fetch_assoc($contentData);
+		$data = $con['code'];
+		$this->MultiCell(100,5, $data, 0);
+		$this->SetXY(130, $yAxis);
+		$this->SetFont('Times','',$size);
+		$this->MultiCell(100,5, "Medicine Specialist and Pulmonologist", 0);
+
+		$yAxis = $yAxis + 5;
+		$this->SetXY(130, $yAxis);
+		$this->SetFont('Times','',$size);
+		$this->MultiCell(100,5, "BMDC Reg. No. A-15979", 0);
+
+		$yAxis = $yAxis + 5;
+		$linestyle = array('width' => 0.1, 'cap' => 'butt', 'join' => 'miter', 'dash' => '', 'phase' => 0, 'color' => array(255, 0, 0));
+		$this->Line(5, $yAxis +2 , 205, $yAxis +2, $linestyle);
+
+		$size =$size;
+		$yAxis = $yAxis + 5;
+		$this->SetXY(10, 235);
+		$this->SetFont('prolog','',$size );
+		$contentData = getContentDetailForPres(3, "DOCTORPRINT", "LINE4");
+		$con = mysql_fetch_assoc($contentData);
+		$data = $con['code'];
+		$this->MultiCell(60,5, $data, 0);
+
+		$yAxis = 245;
+		$this->Line(5, $yAxis, 205, $yAxis, $linestyle);
+
+		$yAxis = $yAxis + 2;
+		$this->SetXY(10, $yAxis);
+		$this->SetFont('Times','',$size - 1);
+		$this->Write(5, "Chamber: Lab Aid, Dhanmondi, Road No-4, House No-1, Dhanmondi, Dhaka-1205, Phone: 58610793 Ex: 618");
+
+		$yAxis = $yAxis + 6;
+		$this->SetXY(20, $yAxis);
+		$this->SetFont('prolog','',$size);
+		$contentData = getContentDetailForPres(3, "DOCTORPRINT", "LINE5");
+		$con = mysql_fetch_assoc($contentData);
+		$data = $con['code'];
+		$this->Write(5, $data);
+
+		$yAxis = $yAxis + 6;
+		$this->SetXY(20, $yAxis);
+		$contentData = getContentDetailForPres(3, "DOCTORPRINT", "LINE6");
+		$con = mysql_fetch_assoc($contentData);
+		$data = $con['code'];
+		$this->Write(5, $data);
+
+		$yAxis = $yAxis + 6;
+		$this->SetXY(20, $yAxis);
+		$contentData = getContentDetailForPres(3, "DOCTORPRINT", "LINE7");
+		$con = mysql_fetch_assoc($contentData);
+		$data = $con['code'];
+		$this->Write(5, $data);
+
+		$yAxis = $yAxis + 6;
+		$this->SetXY(20, $yAxis);
+		$contentData = getContentDetailForPres(3, "DOCTORPRINT", "LINE8");
+		$con = mysql_fetch_assoc($contentData);
+		$data = $con['code'];
+		$this->Write(5, $data);
+
+
 	}
-	
-	
-	
+
 }
-
-
-
-
-
 
 }
 
 $pdf = new PDF();
 $pdf->AddPage();
 $pdf->AddFont('prolog','','prolog1.TTF',true);
-$pdf->SetFont('Times','',10);
+$pdf->SetFont('Times', 'I', 12, '', 'false');
 $pdf->SetFillColor(200,220,255);
 
-$pdf->ShowPatInfo($patientCode,58,$username);
-$linestyle = array('width' => 0.1, 'cap' => 'butt', 'join' => 'miter', 'dash' => '', 'phase' => 0, 'color' => array(255, 0, 0));
-$pdf->Line(15, 65, 195, 65, $linestyle);
+$res = getAppointmentInfo($appointmentID);
+$appData = mysql_fetch_assoc($res);
+$appType = $appData['appointmentType'];
+if($appType != 4){
+	$patientImage = $pdf->ShowPatInfo($patientCode, 45, $username);
+}
+$linestyle = array('width' => 20, 'cap' => 'butt', 'join' => 'miter', 'dash' => '', 'phase' => 0, 'color' => array(255, 0, 0));
+$pdf->Line(5, 63, 205, 63, $linestyle);
+$pdf->Line(5, 53, 205, 53, $linestyle);
 
 $leftYaxis = 65;
-$rightYaxis = 100;
+$rightYaxis = 65;
 $size = 10;
 
 $leftXaxis = 15;
-$rightXaxis = 105;
+$rightXaxis = 80;
 $maxX = 60;
-$maxXForRight = 100;
+$maxXForRight = 120;
 
-$rightYaxis = $pdf->Show_diagnosis($appointmentID,$rightXaxis,$rightYaxis,$size);
+$gap = 5;
+$photoSize = 20;
 
-$rightYaxis = $pdf->Show_med($appointmentID,$rightXaxis,$rightYaxis + 2,$size+3);
+
+
+$rightYaxis = $pdf->Show_med($appointmentID,$rightXaxis, $rightYaxis,$size + 2);
 $rightYaxis = $pdf->Show_advice($appointmentID,$rightXaxis,$rightYaxis + 5,$size,$maxXForRight);
+$rightYaxis = $pdf-> show_nextVisit($appointmentID,$rightXaxis,$rightYaxis + 5 ,$size +2);
+$rightYaxis = $pdf->show_ref_doc($appointmentID,$rightXaxis,$rightYaxis + 5 ,$size +2);
+if($appType != 4){
+	
+	if($patientImage != null){
+		$pdf->displayImage($username, $patientImage,$leftXaxis,$leftYaxis,$photoSize);
+		$gap = $gap + $photoSize;
+	}
+}
 
+$leftYaxis=$pdf->Show_Complain($appointmentID,$leftXaxis,$leftYaxis + $gap, $maxX , $size);
+$leftYaxis=$pdf->Show_vital($appointmentID,$leftXaxis,$leftYaxis + 5, $maxX , $size);
+$leftYaxis=$pdf->Show_History($appointmentID,$leftXaxis,$leftYaxis +5, $maxX , $size, "RISK", "Risk Factors");
 
-$leftYaxis=$pdf->Show_Complain($appointmentID,$leftXaxis,$leftYaxis + 3, $maxX , $size);
-$leftYaxis=$pdf->Show_vital($appointmentID,$leftXaxis,$leftYaxis +3, $maxX , $size);
-$leftYaxis=$pdf->Show_inv($appointmentID,$leftXaxis,$leftYaxis + 3, $maxX , $size);
-$leftYaxis=$pdf->Show_Past_History($appointmentID,$leftXaxis,$leftYaxis + 3, $maxX, $size);
-$leftYaxis=$pdf->Show_Family_History($appointmentID,$leftXaxis,$leftYaxis + 3, $maxX, $size);
+$leftYaxis=$pdf->Show_Past_History($appointmentID,$leftXaxis,$leftYaxis + 5, $maxX, $size , 0 , "Past Disease");
+$leftYaxis=$pdf->Show_Past_History($appointmentID,$leftXaxis,$leftYaxis + 5, $maxX, $size , 1 , "Associated Illness");
+$leftYaxis=$pdf->Show_Family_History($appointmentID,$leftXaxis,$leftYaxis + 5, $maxX, $size);
+$leftYaxis=$pdf->Show_Drug_History($appointmentID,$leftXaxis,$leftYaxis + 5, $maxX, $size , "OLDDRUGS" , "Old Drugs");
+$leftYaxis=$pdf->Show_Drug_History($appointmentID,$leftXaxis,$leftYaxis + 5, $maxX, $size , "CURRDRUGS" , "Current Drugs");
+$leftYaxis=$pdf->Show_inv($appointmentID,$leftXaxis,$leftYaxis + 5 , $maxX , $size);
+$leftYaxis = $pdf->Show_diagnosis($appointmentID, $leftXaxis ,$leftYaxis + 5 ,$size , $maxX);
 
-$pdf-> show_nextVisit($appointmentID,15,240,$size);
+$leftYaxis=$pdf->showComment($appointmentID,$leftXaxis,$leftYaxis + 5, $maxX, $size);
 
-$pdf-> show_ref_doc($appointmentID,100,235,$size);
-$pdf->Line(15, 248, 195, 248, $linestyle);
+if($leftYaxis > $rightYaxis){
+	$rightYaxis = $leftYaxis;
+}
+$pdf->Line($rightXaxis - 5 , 65, $rightXaxis - 5, $rightYaxis, $linestyle);
+//$pdf->Line(5, $rightYaxis , 205, $rightYaxis , $linestyle);
+
+//$pdf-> show_diagnosis($appointmentID,15,55,$size);
+//$pdf-> show_ref_doc($appointmentID,15,260,$size);
+$pdf->showDocInfo($username, 15, $size + 2);
+//$pdf->Line(15, 248, 195, 248, $linestyle);
 $pdf->Output();
 
 ?>

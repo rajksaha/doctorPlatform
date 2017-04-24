@@ -1,6 +1,6 @@
 <?php
 $type = 'Core';
-$name = 'Times-Roman';
+$name = 'Times';
 $up = -100;
 $ut = 50;
 $cw = array(

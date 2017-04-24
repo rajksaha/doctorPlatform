@@ -37,7 +37,11 @@ if($query_no== 0){
 }else if($query_no==1){
 	
 	$historyID = $_POST['historyID'];
-	$sql = "SELECT `id` AS historyOptionID, `historyID`, `optionName` FROM `history_option` WHERE `historyID` = '$historyID'";
+    $queryString = $_POST['term'];
+
+	$sql = "SELECT `id` AS historyOptionID, `historyID`, `optionName` FROM `history_option` 
+            WHERE `historyID` = '$historyID'
+            AND `optionName` LIKE '%" . $queryString . "%' LIMIT 10";
 	$result=mysql_query($sql);
 	
 	$data = array();
@@ -129,19 +133,28 @@ else if($query_no==5){
 	
 	$historyID = $_POST['historyID'];
 	$historyResult = $_POST['historyResult'];
-	
+    insertIfNotExist($historyID, $historyResult);
 	mysql_query("INSERT INTO `patient_history`(`patientID`, `historyID`, `historyResult`) VALUES ('$patientID','$historyID','$historyResult')");
 	
 }elseif ($query_no == 11){
 	
 	$historyID = $_POST['historyID'];
 	$historyResult = $_POST['historyResult'];
-	
+    insertIfNotExist($historyID, $historyResult);
 	mysql_query("UPDATE `patient_history` SET `historyResult`= '$historyResult' WHERE `patientID` = '$patientID' AND `historyID`= '$historyID'");
 }elseif ($query_no == 12){
 	$historySettingID = $_POST['historySettingID'];
 	
 	mysql_query("DELETE FROM `doctor_history_settings` WHERE `id` = '$historySettingID'");
+}
+
+function insertIfNotExist($historyID, $historyResult){
+    $rec = mysql_query("SELECT `id`, `historyID`, `optionName` FROM `history_option` WHERE `historyID` = $historyID AND `optionName` = '$historyResult'");
+    $result = mysql_fetch_assoc($rec);
+    if($result['id'] == null || $result['id'] == 0){
+        $sql = "INSERT INTO `history_option`( `historyID`, `optionName`) VALUES ('$historyID','$historyResult')";
+        mysql_query($sql);
+    }
 }
 
 	

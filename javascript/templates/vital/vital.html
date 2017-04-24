@@ -18,50 +18,49 @@
 	<div>{{message}}</div>
 </div>
 	<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-		             <div class="panel">	                 
-		                 <div class="panel-body">
-		                 	
-		                    <div class="room-desc  form-group" >
-		                    	<label for="inputName">Vital Name</label>
-		                         <input type="text" data-ng-model="vitalData.vitalName" typeahead="vitalNameData.vitalName for vitalNameData in getVital($viewValue)"  class="form-control required" placeholder="Add vital to your settings" typeahead-on-select='onSelectVital($item, $model, $label)'/>
-		                         
-		                    </div>
-		                 </div>
-		             </div>
-		         </div>
+		 <div class="panel">
+			 <div class="panel-body">
+				<div class="room-desc  form-group" >
+					<label >Vital Name</label>
+					 <input type="text" data-ng-model="vitalData.vitalName" typeahead="vitalNameData.vitalName for vitalNameData in getVital($viewValue)"  class="form-control required" placeholder="Add vital to your settings" typeahead-on-select='onSelectVital($item, $model, $label)'/>
+
+				</div>
+			 </div>
+		 </div>
+	 </div>
 		         
-		         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-		             <div class="panel">	                 
-		                 <div class="panel-body">
-		                    <div class="room-desc  form-group">	
-		                         <label for="inputName">Prescription Display name</label><span class="pull-right"><input type="checkbox" data-ng-model="vitalSameAS" data-ng-click="vitalData.shortName = vitalData.vitalName">Same AS Vital Name</span> 
-		                         <input type="text" class="form-control input-sm required" data-ng-model="vitalData.shortName" maxlength="45" />
-		                    </div>
-		                 </div>
-		             </div>
-		         </div>
+	 <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+		 <div class="panel">
+			 <div class="panel-body">
+				<div class="room-desc  form-group">
+					 <label for="inputName">Prescription Display name</label><span class="pull-right"><input type="checkbox" data-ng-model="vitalSameAS" data-ng-click="vitalData.shortName = vitalData.vitalName">Same AS Vital Name</span>
+					 <input type="text" class="form-control input-sm required" data-ng-model="vitalData.shortName" maxlength="45" />
+				</div>
+			 </div>
+		 </div>
+	 </div>
 		         
-		         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-		             <div class="panel" >	                 
-		                 <div class="panel-body">
-		                     <div class="room-desc form-group">
-		                     	<label for="inputName"> Vital Unit</label>
-								<input type="text" class="form-control input-sm" data-ng-model="vitalData.unit" maxlength="16" placeholder="Unit" errmsg="Please enter vital Unit"/>
-		                     </div>
-		                 </div>
-		             </div>
-		         </div>
+	 <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+		 <div class="panel" >
+			 <div class="panel-body">
+				 <div class="room-desc form-group">
+					<label for="inputName"> Vital Unit</label>
+					<input type="text" class="form-control input-sm" data-ng-model="vitalData.unit" maxlength="16" placeholder="Unit" errmsg="Please enter vital Unit"/>
+				 </div>
+			 </div>
+		 </div>
+	 </div>
 		
-		<button class="pull-right btn btn-info" data-ng-click="addVitalToDoctorPref()">
-			<span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> ADD to List
-		</button>
+	<button class="pull-right btn btn-info" data-ng-click="addVitalToDoctorPref()">
+		<span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> ADD to List
+	</button>
 </div>
 
 <div class="row geninfo">
 	<div class="col-xs-12">
-		<div class="panel" style="margin-top:20px">  
+		<div class="panel" style="margin-top:20px">
 			<div class="panel-body" >
-				<div class="text-muted form-group">Vitals<button class="btn btn-success pull-right" data-ng-click="saveVital(prescribedVitalData)"><span class="glyphicon  glyphicon-floppy-save" aria-hidden="true"></span> Save & Continue</button></div>                             
+				<div class="text-muted form-group">Vitals<button class="btn btn-success pull-right" data-ng-click="saveVital(prescribedVitalData)"><span class="glyphicon  glyphicon-floppy-save" aria-hidden="true"></span> Save & Continue</button></div>
 					<div class="list-item col-sm-6 col-md-6 col-lg-6" data-ng-repeat="vital in prescribedVitalData">
 						<div>
 							<table class="table">
@@ -69,7 +68,7 @@
 									<tr>
 										<td width="10%">
 											<span><a class="btn btn-danger"
-									                 ktr-confirmation="deleteVitalFromSetting(item)" 
+									                 ktr-confirmation="deleteVitalFromSetting(item)"
 									                 confirmation-message="Are you sure to remove?"
 									                 confirmation-title="Confirmation"
 									                 item="vital.vitalSettingID">
@@ -98,7 +97,7 @@
 								</tbody>
 							</table>
 						</div>
-						
+
 					</div>
 					<button class="pull-right btn btn-success" data-ng-show="prescribedVitalData.length > 20" data-ng-click="saveVital(prescribedVitalData)"><span class="glyphicon  glyphicon-floppy-save" aria-hidden="true"></span> Save & Continue</button>
 			</div>

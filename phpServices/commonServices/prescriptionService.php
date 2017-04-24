@@ -104,20 +104,17 @@ function getPrescribedDiagnosis($appointmentID){
 			WHERE dia.`appointMentID`= '$appointmentID'";
 
 	$result=mysql_query($sql);
-	
-	
-
 	return $result;
 
 }
 
-function getPastDisease($appointmentID, $patientID, $isPresent){
+function getPastDisease($appointmentID, $patientID){
 
 	$sql = "SELECT pas.`id`, ppd.`appointMentID`, ppd.`pastDiseaseID` , d.name AS diseaseName,  pas.detail, pas.isPresent, ppd.id AS prescribedID, IF(ppd.id  IS NULL, false, true) AS addedToPres
 			FROM patient_past_disease pas
 			JOIN disease d ON pas.diseaseID = d.id
 			LEFT JOIN `prescription_past_disease` ppd ON ppd.pastDiseaseID = pas.id AND ppd .appointMentID = '$appointmentID'
-			WHERE pas.patientID = '$patientID' AND pas.isPresent = $isPresent";
+			WHERE pas.patientID = '$patientID'";
 
 	$result=mysql_query($sql);
 
@@ -185,7 +182,7 @@ function getPrescribedFamilyDisease($appointmentID){
 
 function getPrescribedNextVisit($appointmentID){
 
-	$sql = "SELECT nv.`appointmentID`, nv.`nextVisitType`, nv.`date`, nv.`numOfDay`, nv.`dayType`, ddt.pdf, ddt.english  
+	$sql = "SELECT nv.`appointmentID`, nv.`nextVisitType`, nv.`date`, nv.`numOfDay`, nv.`dayType`, ddt.pdf, ddt.english, ddt.bangla  
 			FROM `next_visit` nv
 			LEFT JOIN drugdaytype ddt ON nv.dayType = ddt.id
 			WHERE `appointmentID` =  '$appointmentID'";

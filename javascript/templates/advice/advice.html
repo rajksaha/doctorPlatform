@@ -1,4 +1,5 @@
-<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 		<h4>Advice</h4>
 	</div>
@@ -33,19 +34,38 @@
              <div class="panel-body">
              	<div class="text-muted form-group">Advice</div>	                    
                 <div class="room-desc">	
-                     <input type="text" data-ng-model="adviceAdderData.name" typeahead="adviceNameData.advice for adviceNameData in getAdvcieName($viewValue)"  class="form-control" placeholder="Add advice to Setting" typeahead-on-select='onSelectAdviceName($item, $model, $label)'/>
+<!--<head>
+    <script type="text/javascript" src="unicode/scripts/bijoy2uni.js"></script>
+    <script type="text/javascript" src="unicode/scripts/uni2bijoy.js"></script>
+    <script type="text/javascript" src="unicode/scripts/common.js"></script>
+    <script type="text/javascript" src="unicode/scripts/layout.js"></script>
+    <script type="text/javascript" src="unicode/scripts/js.js"></script>
+    <script type="text/javascript" src="unicode/scripts/js1.js"></script>
+    <script type="text/javascript" src="unicode/scripts/count.js"></script>
+    <script style="color: rgb(34, 34, 34);" type="text/javascript" src="unicode/scripts/loading.js"></script>
+	<script async src="../../pagead2.googlesyndication.com/pagead/js/f.txt"></script>
+<input readonly type="hidden" name="CharsTyped" size="2" style="font-weight:bold; border: 0px solid #2D69AE; color:#808080; text-align:left;">
+<input readonly type="hidden" name="WordsTyped" size="3" style="font-weight:bold; border: 1px solid #2D69AE; color:#808080; text-align:right;">
+<input readonly type="hidden" name="CharsLeft" size="8">
+<input readonly type="hidden" name="WordsLeft" size="8">
+</head>-->
+<textarea rows="1" id=EDT onKeyDown="return KeyBoardDown(event);" onBlur="InputLengthCheck();" onKeyUp="InputLengthCheck();" autofocus="autofocus" data-ng-model="adviceAdderData.name" typeahead="adviceNameData.advice for adviceNameData in getAdvcieName($viewValue)"  class="form-control" placeholder="Add advice to Setting" typeahead-on-select='onSelectAdviceName($item, $model, $label)'/></textarea>
                 </div>
              </div>
          </div>
      </div>
      
      <div class="form-group col-xs-12 col-sm-4" data-ng-show="adviceAdderData.lang == 1">
-     	<div class="panel">	                 
+     	<div class="panel">	         
+        
              <div class="panel-body">
-             	<div class="text-muted form-group">Bangla Print View:</div>	                    
+             	<div class="text-muted form-group">				
+					<br></div>	                    
                 <div class="room-desc">	
-                     <input type="text" data-ng-model="adviceAdderData.pdf"  class="form-control" placeholder="pdf version for bangla" />
-                </div>
+
+                     <textarea rows="1" id="CONVERTEDT" value="" data-ng-model="adviceAdderData.pdf"  class="form-control"  placeholder="PDF View এর জন্য Convert বাটন এ ক্লিক  করুন । " /></textarea>
+                </div>												<p align="right"><input class="btn btn-primary" onClick="ConvertToTextArea('CONVERTEDT');" type=button value="Convert" name=ConvertToAsciiButton></p>
+
              </div>
          </div>
 				
@@ -55,6 +75,7 @@
              <div class="panel-body">
              	<div class="text-muted form-group">Action</div>	                    
                 <div class="room-desc">	
+
                      <button  data-ng-click="prepareDoctorSettingData()" class="btn btn-primary" > <span class='glyphicon glyphicon glyphicon-plus' aria-hidden='true'></span> Add</button>
                 </div>
              </div>

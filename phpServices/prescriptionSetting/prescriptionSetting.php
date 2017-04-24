@@ -18,12 +18,14 @@ if($query_no == 0){
 
 	$diseaseID = $_POST['diseaseID'];
 	
-	$data = array();
 	$result = getDoctorsDrugSettingByDisease($username, $diseaseID);
-	
-	while ($row=mysql_fetch_array($result)){
-		array_push($data,$row);
-	}
+
+    $data = array();
+    while ($row=mysql_fetch_array($result)){
+        $drugPrescribeID = $row['id'];
+        $row['preiodicList'] = getPreiodicList($drugPrescribeID);
+        array_push($data,$row);
+    }
 	
 	echo json_encode($data);
 }
@@ -167,9 +169,24 @@ elseif ($query_no == 7){
 	$drugDayType = $_POST['durationType'];
 	$drugPrescribeID = $_POST['drugPrescribeID'];
 	
-	mysql_query("INSERT INTO `settings_dose_drug`(`drugSettingID`, `dose`, `numOfDay`, `durationType`) VALUES ($drugPrescribeID, '$drugDose', $drugNoOfDay, $drugNoDayType)");
+	mysql_query("INSERT INTO `settings_dose_drug`(`drugSettingID`, `dose`, `numOfDay`, `durationType`) VALUES ($drugPrescribeID, '$drugDose', $drugNoOfDay, $drugDayType)");
+
+	echo "INSERT INTO `settings_dose_drug`(`drugSettingID`, `dose`, `numOfDay`, `durationType`) VALUES ($drugPrescribeID, '$drugDose', $drugNoOfDay, $drugDayType)";
 
 }
 
+function getPreiodicList($drugPrescribeID){
 
+    $dose = mysql_query("SELECT dp.`drugSettingID`, dp.`dose`, dp.`numOfDay`, dp.`durationType`, ddt.`bangla`, ddt.`pdf`, ddt.`english`
+							FROM `settings_dose_drug`dp
+							JOIN drugdaytype ddt ON  dp.`durationType` = ddt.id
+							WHERE `drugSettingID` = $drugPrescribeID");
+
+    $data = array();
+    while ($row=mysql_fetch_array($dose)){
+        array_push($data,$row);
+    }
+
+    return $data;
+}
 ?>

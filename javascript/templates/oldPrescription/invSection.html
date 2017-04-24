@@ -1,0 +1,30 @@
+<div class="row">
+    <div class="col-sm-6 col-md-6 col-lg-6">
+        <div class="form-group">
+            <div class="form-group"><a href="" data-ng-click="invModal()"><label class="mainLabel">Investigation</label></a></div>
+        </div>
+        <div data-ng-repeat="invData in prescribedInvData">
+            <button class="btn btn-default" data-ng-model="none"   data-ng-click="addToPrescription(!invData.addedToPrescription, invData, 8)">
+                <span class="glyphicon  glyphicon"  data-ng-class="{'glyphicon-check': invData.addedToPrescription == true,'glyphicon-unchecked': invData.addedToPrescription != true}"></span>
+            </button>
+            <span>{{invData.invName}}</span>
+        </div>
+    </div>
+    <div class="col-sm-6 col-md-6 col-lg-6">
+        <div class="" data-ng-repeat="history in historyList">
+            <div data-ng-if="history.prescribedHistoryList.length > 0">
+                <label>{{history.headerName}}</label>
+                <div data-ng-repeat="data in history.prescribedHistoryList" >
+                    <button class="btn btn-default" data-ng-model="none"   data-ng-click="addToPrescription(!data.addedToPrescription, data, 2)">
+                        <span class="glyphicon  glyphicon"  data-ng-class="{'glyphicon-check': data.addedToPrescription == true,'glyphicon-unchecked': !data.addedToPrescription   || data.addedToPrescription == false}"></span>
+                    </button>
+                    <span>{{data.historyName}}: {{data.historyResult}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+

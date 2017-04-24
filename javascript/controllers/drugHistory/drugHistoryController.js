@@ -7,13 +7,10 @@ app.controller('DrugHistoryController', function($scope, $http, $modal, $rootSco
 	
 	$scope.init = function(){
 		$scope.bringCurrentDrugList();
-		
 		$scope.bringOldDrugList();
     };
     
 	$scope.bringCurrentDrugList = function (){
-		
-		
 		var dataString = {'status' : 1, 'query': 1};
 
         $http({

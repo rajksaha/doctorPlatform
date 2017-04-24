@@ -7,20 +7,27 @@
 
 		<div class="col-md-12 panel panel-primary mainPanelColor panel1">
 			<div class="col-md-3 appointmentPhoto">
-				<span style="padding-left:20px"><a href="javascript:" data-ng-click="addNewAppointment()"><img class="" src="images/forms.png"><span><br>New Appointment</span></a></span>
+				<span style="padding-left:20px"><a href="javascript:" data-ng-click="addNewAppointment()"><img class="" src="images/forms.png"><span><br>New Patients</span></a></span>
 			</div>
 		
 			<div class="col-md-3 appointmentPhoto">
-				<span style="padding-left:25px"><a href="javascript:" data-ng-click="followUpSearch = !followUpSearch"><img class=""  src="images/forms_11.png"><span ><br>F.U Appointment</span></a></span>
+				<span style="padding-left:25px"><a href="javascript:" data-ng-click="followUpSearch = !followUpSearch"><img class=""  src="images/forms_11.png"><span ><br>Follow up Patients</span></a></span>
 			</div>
 		
-			<div class="col-md-3 appointmentPhoto">
+			<div class="col-md-2 appointmentPhoto">
 				<span style="padding-left:25px"><a href="#/researchHome"><img class="" src="images/sym.png"><span ><br>Research</span></a></span>
 			</div>
 		
-			<div class="col-md-3 appointmentPhoto">
-				<span style="padding-left:25px"><a href="#/settings" ><img class=""  src="images/settings.png"><span><br>Setting</span></a></span>
+			<div class="col-md-2 appointmentPhoto">
+				<span style="padding-left:25px"><a href="#/settingSelection" ><img class=""  src="images/settings.png"><span><br>Setting</span></a></span>
 			</div>
+			
+			<div class="col-md-2 appointmentPhoto">
+				<span style="padding-left:4px"><a  href="phpServices/export.php" ><img class="" height="60px" width="60px"  src="images/SQL.png"><span align="right"><br>Database</span></a></span>
+			</div>
+
+			
+			
 		</div>
 	</div>
 			<section  data-ng-show="followUpSearch" class=" contacts row" id="generalInfoContact">
@@ -73,7 +80,7 @@
 						<div class="col-xs-12  col-lg-12" >
 			             	<div class="panelHead">	                 
 								<div class="panelHead-body">
-									<span>Today's Appointment List</span>
+									<span>Today's Patients List</span>
 									<span class="pull-right">Total:{{numberOfAppointment}}</span>
 								</div>
 							</div>
@@ -86,15 +93,24 @@
 								<div class="" data-ng-repeat="appointmentData in appointmentList" >
 									<div class="panelChild-body form-group" data-ng-show="appointmentData.status == 0"  >
 										<span class="textSpc" data-ng-click="letsPrescribe(appointmentData)" >{{$index + 1}} | {{appointmentData.name}} | {{appointmentData.age}} yrs  | {{appointmentData.address}} | {{appointmentData.time}}</span>
-										<span class="textSpc pull-right"><button class="btn btn-danger pull-right" data-ng-click="removeFromAppointment(appointmentData.appointmentID)" ><span class='glyphicon glyphicon glyphicon-minus' aria-hidden='true'></span> Remove From Appointment</button></span>
+										<span class="textSpc pull-right">{{appointmentData.appointmentTypeName}}</span>
+										
+										
+										<button class="btn btn-danger pull-right" 
+										ktr-confirmation="removeFromAppointment(appointmentData.appointmentID)" 
+										confirmation-message="Are you sure to remove?"
+										confirmation-title="Confirmation">
+										<span class='glyphicon glyphicon glyphicon-minus' aria-hidden='true'></span>
+										Remove from list
+										</button>
 									</div>
-									<div  class="panelVisited-body form-group " data-ng-show="appointmentData.status == 1">
-										<span class="textSpc" 
+									<div  class="panelVisited-body form-group " data-ng-show="appointmentData.status == 1"
 			                                            ktr-confirmation="letsPrescribe(item)" 
 			                                            confirmation-message="Want to re-visit this patient?"
 			                                            confirmation-title="Confirmation"
-			                                            item="appointmentData">{{$index + 1}} | {{appointmentData.name}} | {{appointmentData.age}} yrs  | {{appointmentData.address}}</span>
-										<span class="textSpc pull-right"><button class="btn btn-danger pull-right" data-ng-click="removeFromAppointmentList(appointmentData.appointmentID)" ><span class='glyphicon glyphicon glyphicon-minus' aria-hidden='true'></span> Remove From List</button></span>
+			                                            item="appointmentData">
+										<span class="textSpc">{{$index + 1}} | {{appointmentData.name}} | {{appointmentData.age}} yrs  | {{appointmentData.address}}</span>
+										<span class="textSpc pull-right">{{appointmentData.appointmentTypeName}}</span>
 									</div>
 								</div>
 							</div>

@@ -1,4 +1,4 @@
-app.run(function($rootScope, $http, $location, $analytics) {
+app.run(function($rootScope, $http, $location) {
 
 	(function() {
 		// Retrieve configuration values
@@ -123,6 +123,10 @@ app.run(function($rootScope, $http, $location, $analytics) {
 
         delete $rootScope.success;
         delete $rootScope.successMessage;
+    });
+
+    $rootScope.$on('event:hideMenu', function () {
+        $rootScope.hideMenu = !$rootScope.hideMenu;
     });
 
     /**

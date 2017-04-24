@@ -49,12 +49,16 @@ if($query_no==2){
 	
 }
 else if($query_no==3){
-	
-	
+    $requestedID = $_POST['requestedID'];
+    $result = mysql_query("SELECT `id`, `appointMentID`, `diseaseID`, `note` FROM diagnosis WHERE id = $requestedID");
+    $row = mysql_fetch_assoc($result);
+    echo insertPrescribedDiagnosis($appointmentID, $row['diseaseID'], $row['note']);
 }
 else if($query_no==4){
-	
-		
+    $requestedID = $_POST['requestedID'];
+    $sql = mysql_query("SELECT `contentDetailID`, `contentType`, `entityID`, `detail`, `code` FROM `contentdetail` WHERE contentDetailID = $requestedID");
+    $row = mysql_fetch_assoc($sql);
+    insertContentDetail($appointmentID, $row['contentType'], $row['detail'], null);
 }else if($query_no==5){
 	
 	

@@ -8,7 +8,7 @@ app.controller('PrescribeHistoryController', function($scope, $stateParams, $htt
 	$scope.typeCode = "";
 	$scope.addByName = false;
 	
-	$scope.pageNameList = ["M.H", "Obs History", "Risk Factors", "Allergic History", "Habbit"];
+	$scope.pageNameList = ["M.H", "Obs History", "Gynaecological History", "General History", "Immunization History"];
 	
 	$scope.bringHistoryDetail = function (){
 		
@@ -31,17 +31,17 @@ app.controller('PrescribeHistoryController', function($scope, $stateParams, $htt
         });
 	};
 	
-	if($stateParams.histpryType != undefined && $stateParams.histpryType != null) {
-		$scope.typeCode = $stateParams.histpryType;
+	if($stateParams.historyType != undefined && $stateParams.historyType != null) {
+		$scope.typeCode = $stateParams.historyType;
 		var num = 0;
 		
 		if($scope.typeCode == "OBS"){
 			num = 1;
-		}else if ($scope.typeCode == "RISK") {
+		}else if ($scope.typeCode == "GYNAE") {
 			num = 2;
-		}else if ($scope.typeCode == "ALLERGY") {
+		}else if ($scope.typeCode == "GENERAL") {
 			num = 3;
-		}else if ($scope.typeCode == "HABBIT") {
+		}else if ($scope.typeCode == "IMMUNIZATION") {
 			num = 4;
 		}
 		$scope.pageName = $scope.pageNameList[num];
@@ -52,7 +52,7 @@ app.controller('PrescribeHistoryController', function($scope, $stateParams, $htt
 	}
 	
     $scope.getHistory = function(term) {
-        
+
     	var dataString = 'query=5'+ '&name=' + term + '&typeCode=' + $scope.typeCode;
         
         return $http({
@@ -64,9 +64,6 @@ app.controller('PrescribeHistoryController', function($scope, $stateParams, $htt
         	$scope.historyData = result.data;
         	return limitToFilter($scope.historyData, 10);
         });
-
-        
-       // return $scope.products;
       };
       
 	  $scope.onSelectHistory = function(item, model, label){
@@ -78,12 +75,8 @@ app.controller('PrescribeHistoryController', function($scope, $stateParams, $htt
 	$scope.addHistoryToDoctorPref = function (){
 		
 		if(validator.validateForm("#historySetting","#lblMsg",null)) {
-			
-			
 			if($scope.addByName == false){
-				
 				var dataString = 'query=6'+ '&historyName=' + $scope.historySetteingData.historyName + '&shortName=' + $scope.historySetteingData.shortName +  '&typeCode=' + $scope.typeCode;
-
 		        $http({
 		            method: 'POST',
 		            url: "phpServices/history/historyHelperService.php",
@@ -94,12 +87,9 @@ app.controller('PrescribeHistoryController', function($scope, $stateParams, $htt
 		        });
 				
 			}else{
-				
 				$scope.addToDoctorPreference($scope.historySetteingData.historyID);
 			}
-			
-			
-			
+
 		}else{
 			alert("what");
 		}

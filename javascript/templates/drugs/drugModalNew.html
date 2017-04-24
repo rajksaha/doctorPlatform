@@ -1,124 +1,113 @@
 <div class="modal-header modalHead ">
-	<h4 class="modal-title">Add Drugs</h4>
+	<h4 class="modal-title">Add Drugs
+		<button class="btn btnLanier btn-warning pull-right" data-ng-show="drugData.drugName" data-ng-click="saveToDoctorDrugSetting()" >
+			<span class="glyphicon glyphicon glyphicon-floppy-save" aria-hidden="true"> Save To Setting</span>
+		</button></h4>
 </div>
 <div class="modal-body modalBody"  style="position:relative; z-index:1;">
 	<div class="alert alert-danger alert-dismissable" data-ng-show="error">
-        <div>{{errorMessage}}</div>
-        <div id="lblMsg_modal"></div>
-    </div>
+		<div>{{errorMessage}}</div>
+		<div id="lblMsg_modal"></div>
+	</div>
 
 	<div  class="row step4Width" id="validateReq">
-	
+
 		<div class="form-group col-xs-12 col-sm-12">
-   				<div class="form-group col-xs-4 col-sm-4">
-	   				<label>Type </label>
-	   				<select  class="form-control" id="drugTypeAdder" data-ng-model="drugData.drugType" data-ng-change="timeChanger(drugData.addMood,drugData.drugType, drugData.timesADay.code, 3)" data-ng-options="drugType.name for drugType in drugTypeList" />
-				</div>
-				<div class="form-group col-xs-6 col-sm-6" id="drugName">
-	   				<label>Drug Name <span class="red" >*</span></label> 
-					<input type="text" errmsg="Please Enter Drug Name" data-ng-model="drugData.drugName" typeahead="drugNameList.displayName for drugNameList in getDrugName($viewValue)"  class="form-control required" placeholder="Add Drugs" typeahead-on-select='onSelectDrugName($item, $model, $label)'/>
-					<span id="drugDelete" data-ng-show="drugData.editName" ><a class="btn btn-danger btn-sm btnLanier"
-		                  ktr-confirmation="deleteDrugFromDB()" 
-		                  confirmation-message="Are you sure to remove?"
-		                  confirmation-title="Confirmation">
+			<div class="form-group col-xs-4 col-sm-4">
+				<label>Type </label>
+				<select  class="form-control" id="drugTypeAdder" data-ng-model="drugData.drugType" data-ng-change="timeChanger(drugData.addMood,drugData.drugType, drugData.timesADay.code, 3)" data-ng-options="drugType.name for drugType in drugTypeList" />
+			</div>
+			<div class="form-group col-xs-6 col-sm-6" id="drugName">
+				<label>Drug Name <span class="red" >*</span></label>
+				<input type="text" errmsg="Please Enter Drug Name" data-ng-model="drugData.drugName" typeahead="drugNameList.displayName for drugNameList in getDrugName($viewValue)"  class="form-control required" placeholder="Add Drugs" typeahead-on-select='onSelectDrugName($item, $model, $label)'/>
+				<span id="drugDelete" data-ng-show="drugData.editName" ><a class="btn btn-danger btn-sm btnLanier"
+																		   ktr-confirmation="deleteDrugFromDB()"
+																		   confirmation-message="Are you sure to remove?"
+																		   confirmation-title="Confirmation">
 		                  <span class="glyphicons glyphicon glyphicon-trash" aria-hidden="true"></span>
 		               </a>
 					</span>
-					<button id="drugEdit" class="btn btn-primary" data-ng-show="drugData.editName" data-ng-click="editDrugName(drugsName)">
-						<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-					</button>
-				</div>
-				<div class="form-group col-xs-2 col-sm-2">
-					<label>Dose Initial</label> 
-					<span data-ng-model="drugData.doseUnitInitial" data-ng-show="!drugData.drugType.optionalUnitInitial">{{drugData.drugType.unitInitial || "No intial"}}</span>
-					<div data-ng-show="drugData.drugType.optionalUnitInitial" >
-						<input type="checkbox" data-ng-model="drugData.doseUnitInitial" data-ng-checked="!drugData.optionalInitial" ng-click="drugData.optionalInitial = !drugData.optionalInitial">
-						{{drugData.drugType.unitInitial}}
-						&nbsp;&nbsp;
-						<input type="checkbox" data-ng-model="drugData.doseOptionalUnitInitial" data-ng-checked="drugData.optionalInitial" ng-click="drugData.optionalInitial = !drugData.optionalInitial">
-						{{drugData.drugType.optionalUnitInitial}} 
-					</div>
-				</div>
-		</div>
-		
-		
-		<div class="form-group col-xs-12 col-sm-12" >
-				<div class="form-group col-xs-6 col-sm-6">
-					<label>Times a day</label> 
-					<select  class="form-control" data-ng-model="drugData.timesADay" data-ng-options="drugTime.name for drugTime in drugtimesADay" data-ng-change="timeChanger(drugData.addMood,drugData.drugType, drugData.timesADay.code, 3)" />
-					<select class="form-control" data-ng-show="drugData.timesADay.code == -1" data-ng-model="drugData.preodicValue"  data-ng-change="timeChanger(drugData.addMood,drugData.drugType, drugData.timesADay.code, drugData.preodicValue)" >
-						<option value="2">2</option>
-                     	<option value="3">3</option>
-                     	<option value="4">4</option>
-					</select>
-				</div>
-				
-				<div class="form-group col-xs-6 col-sm-6">
-					<label>When</label> 
-					<select  class="form-control" data-ng-model="drugData.whatType" data-ng-options="drugTime.bangla || '--Select--' for drugTime in drugWhatTypeList" />
-				</div>
-				
-				
-				
+				<button id="drugEdit" class="btn btn-primary" data-ng-show="drugData.editName" data-ng-click="editDrugName(drugsName)">
+					<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+				</button>
 			</div>
-			
-			
-				<div class="form-group col-xs-12 col-sm-12">
-					
-					<div data-ng-repeat="preiodicData in drugData.preiodicList" class="row">
-						<div class="form-group col-xs-6">
-							<label>Interval Wise Dose</label><br>
-	                		<button data-ng-click="doseChanger( .5, preiodicData.doseDataList)" >+</button>
-	                 		<span data-ng-repeat="drugDose in preiodicData.doseDataList">
+			<div class="form-group col-xs-2 col-sm-2">
+				<label>Dose Initial</label>
+				<span data-ng-model="drugData.doseUnitInitial" data-ng-show="!drugData.drugType.optionalUnitInitial">{{drugData.drugType.unitInitial || "No intial"}}</span>
+				<div data-ng-show="drugData.drugType.optionalUnitInitial" >
+					<input type="checkbox" data-ng-model="drugData.doseUnitInitial" data-ng-checked="!drugData.optionalInitial" ng-click="drugData.optionalInitial = !drugData.optionalInitial">
+					{{drugData.drugType.unitInitial}}
+					&nbsp;&nbsp;
+					<input type="checkbox" data-ng-model="drugData.doseOptionalUnitInitial" data-ng-checked="drugData.optionalInitial" ng-click="drugData.optionalInitial = !drugData.optionalInitial">
+					{{drugData.drugType.optionalUnitInitial}}
+				</div>
+			</div>
+		</div>
+
+
+		<div class="form-group col-xs-12 col-sm-12" >
+			<div class="form-group col-xs-6 col-sm-6">
+				<label>Times a day</label>
+				<select  class="form-control" data-ng-model="drugData.timesADay" data-ng-options="drugTime.name for drugTime in drugtimesADay" data-ng-change="timeChanger(drugData.addMood,drugData.drugType, drugData.timesADay.code, 3)" />
+				<select class="form-control" data-ng-show="drugData.timesADay.code == -1" data-ng-model="drugData.preodicValue"  data-ng-change="timeChanger(drugData.addMood,drugData.drugType, drugData.timesADay.code, drugData.preodicValue)" >
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+				</select>
+			</div>
+
+			<div class="form-group col-xs-6 col-sm-6">
+				<label>When</label>
+				<select  class="form-control" data-ng-model="drugData.whatType" data-ng-options="drugTime.bangla || '--Select--' for drugTime in drugWhatTypeList" />
+			</div>
+
+
+
+		</div>
+
+
+		<div class="form-group col-xs-12 col-sm-12">
+
+			<div data-ng-repeat="preiodicData in drugData.preiodicList" class="row">
+				<div class="form-group col-xs-6">
+					<label>Interval Wise Dose</label><br>
+					<button data-ng-click="doseChanger( .5, preiodicData.doseDataList)" >+</button>
+					<span data-ng-repeat="drugDose in preiodicData.doseDataList">
 	                 			<span data-ng-show="$index != 0 && $index % 3 == 0"><br></span>
 	                 			<input data-ng-if="!drugDose.isSameAs" type="text" size="2" data-ng-model="drugDose.value">
 	                 			<input data-ng-if="drugDose.isSameAs" type="text"  data-ng-model="drugDose.value">
 							</span>
-	                		<button data-ng-click="doseChanger( -.5, preiodicData.doseDataList)" >-</button>
-						</div>
-						
-						<div class="form-group col-xs-3">
-							<label>Duration num</label>
-	                		<select class="form-control"  data-ng-model="preiodicData.dataNumOFDay"  data-ng-show="preiodicData.durationDayType.id < 4" data-ng-options="drugDay.name for drugDay in preiodicData.drugNumOfDayList">
-	                		</select>
-						</div>
-						
-						<div class="form-group col-xs-3">
-	                		<label>Duration Type</label>
-							<select class="form-control"   data-ng-model="preiodicData.durationDayType"data-ng-options="drugTime.bangla for drugTime in preiodicData.drugDayTypeList">
-							</select>
-						</div>
-                		
-                		
-               		</div>
-               		
-               		<!-- <div data-ng-show="drugData.timesADay.code == -1">
-						<div data-ng-repeat="drugPeriodRow in drugPeriodicDoseList" class="predoicRow">
-							<span data-ng-repeat="drugPeriodCol in drugPeriodRow.predoicRow" class="predoicCol">
-								<input type="text" size="5" data-ng-model="drugPeriodCol.predoicCol.value">
-							</span>
-							<select  class="form-control" data-ng-model="drugPeriodRow.numOFDay"  data-ng-show="drugPeriodRow.dayType.id != 5" data-ng-options="drugDay.name for drugDay in drugNumOfDayList" />
-							<select  class="form-control" data-ng-model="drugPeriodRow.dayType" data-ng-options="drugTime.bangla for drugTime in drugDayTypeList" />
-						</div>
-					</div>
-					
-					<div data-ng-show="drugData.timesADay.code == -2">
-                    		<input class="form-control" type="text"  data-ng-model="drugData.sameAsDose">
-					</div> -->
+					<button data-ng-click="doseChanger( -.5, preiodicData.doseDataList)" >-</button>
 				</div>
-				
-										
-			<div class="form-group col-xs-12 col-sm-12 ">
-				<label>Drug Adivice</label> 
-					<select class="form-control" data-ng-model="drugData.adviceType" data-ng-options="drugTime.bangla || '--Select--' for drugTime in drugAdviceTypeList" />
+
+				<div class="form-group col-xs-3">
+					<label>Duration num</label>
+					<select class="form-control"  data-ng-model="preiodicData.dataNumOFDay"  data-ng-show="preiodicData.durationDayType.id < 5" data-ng-options="drugDay.name for drugDay in preiodicData.drugNumOfDayList">
+					</select>
+				</div>
+
+				<div class="form-group col-xs-3">
+					<label>Duration Type</label>
+					<select class="form-control"   data-ng-model="preiodicData.durationDayType"data-ng-options="drugTime.bangla for drugTime in preiodicData.drugDayTypeList">
+					</select>
+				</div>
+
+
 			</div>
-			
+
+		</div>
+
+
+		<div class="form-group col-xs-12 col-sm-12 ">
+			<label>Drug Adivice</label>
+			<select class="form-control" data-ng-model="drugData.adviceType" data-ng-options="drugTime.bangla || '--Select--' for drugTime in drugAdviceTypeList" />
+		</div>
+
 	</div>
-    	
-	
+
+
 </div>
 <div class="modal-footer modalFoot">
-	<button class="btn btnLanier btn-info" data-ng-show="drugData.drugName" data-ng-click="saveToDoctorDrugSetting()" ><span class="glyphicon glyphicon glyphicon-floppy-save" aria-hidden="true"></span> Save To Setting</button>
 	<button class="btn btnLanier btn-success" data-ng-click="saveDrug(true)" ><span class="glyphicons glyphicon glyphicon-floppy-save" aria-hidden="true"></span> Save & Add Other</button>
 	<button class="btn btnLanier btn-success" data-ng-click="saveDrug(false)" ><span class="glyphicons glyphicon glyphicon-floppy-save" aria-hidden="true"></span> Save </button>
 	<button class="btn btnLanier btn-danger" data-ng-click="cancelDrug()" ><span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span> Cancel</button>

@@ -3,8 +3,13 @@ app.controller('DrugAdvisorController', function($scope, $http, $modal, $rootSco
 	$scope.drugAdviceList = [];
 	$scope.drugWhenList = [];
 	$scope.masterUpdate = true;
-	
-	
+
+
+    $scope.convertToUniCode = function (data) {
+        var str = ConvertToASCII(ConvertFrom, data.bangla);
+        data.pdf = str;
+    };
+
 	$scope.init = function(){
 		$scope.bringDrugAdviceList();
 		
@@ -147,3 +152,47 @@ app.controller('DrugAdvisorController', function($scope, $http, $modal, $rootSco
 
     $scope.init();
 });
+
+function ConvertToASCII(ConvertTo, line)
+{
+    var conversion_map = uni2bijoy_string_conversion_map;
+    if(ConvertTo=="bijoy")
+        conversion_map = uni2bijoy_string_conversion_map;
+    else if(ConvertTo=="somewherein")
+        conversion_map = uni2somewherein_string_conversion_map;
+    else if(ConvertTo=="boisakhi")
+        conversion_map = uni2boisakhi_string_conversion_map;
+
+    var myRegExp;
+    myRegExp = new RegExp("ো", "g");
+    line = line.replace(myRegExp, "ো");
+    myRegExp = new RegExp("ৌ", "g");
+    line = line.replace(myRegExp, "ৌ");
+
+    line = ReArrangeUnicodeText(line);
+
+    for (var unic in conversion_map)
+    {
+        myRegExp = new RegExp(unic, "g");
+        line = line.replace(myRegExp, conversion_map[unic]);
+    }
+
+	/*
+	 if(ConvertTo=="bijoy" || ConvertTo=="somewherein")
+	 {
+	 var temp_map = {
+	 "‘":"Ô",
+	 "’":"Õ",
+	 "“":"Ò",
+	 "”":"Ó"
+	 };
+	 for (var unic in temp_map)
+	 {
+	 myRegExp = new RegExp(unic, "g");
+	 line = line.replace(myRegExp, temp_map[unic]);
+	 }
+	 }
+
+	 */
+    return line;
+}

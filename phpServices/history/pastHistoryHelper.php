@@ -27,9 +27,7 @@ $query_no=  mysql_real_escape_string($_POST['query']);
 
 
 if($query_no== 0){
-	
-	$isPresent = $_POST['isPresent'];
-	$result = getPastDisease($appointmentID, $patientID, $isPresent);
+	$result = getPastDisease($appointmentID, $patientID);
 	
 	$data = array();
 	while ($row=mysql_fetch_array($result)){

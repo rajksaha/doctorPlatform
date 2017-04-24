@@ -1,0 +1,28 @@
+<div class="modal-header modalHead ">
+    <h4 class="modal-title">Patient's Follow Up</h4>
+</div>
+<div class="modal-body modalBody"  style="position:relative; z-index:1;">
+    <div class="alert alert-danger alert-dismissable" data-ng-show="error">
+        <div>{{errorMessage}}</div>
+        <div id="lblMsg_modal"></div>
+    </div>
+
+
+    <div  class="row step4Width" id="validateReq">
+        <div class="form-group col-xs-12 col-sm-12">
+            <label>Select Follow up Date: <span class="red" >*</span></label>
+            <!--<input type="text"  class="form-control required" datepicker-popup="dd/MM/yyyy" close-text="Close" ng-model="followUp.entryDate" is-open="false"/>-->
+            <input type="text"  data-ng-model="followUp.entryDate"  class="form-control form-control-date input-sm"  maxlength="100"
+                   datepicker-popup="dd/MM/yyyy" close-text="Close" is_open="dt1" ng-focus="dt1 = true" ng-click="dt1 = true" >
+        </div>
+        <div class="form-group col-xs-6 col-sm-6" data-ng-repeat="report in followUp.followUpList">
+            <label>{{report.invName}}</label>
+            <input type="text" class="form-control" data-ng-model="report.data" placeholder="Findings.....">
+        </div>
+    </div>
+
+</div>
+<div class="modal-footer modalFoot">
+    <button class="btn btnLanier btn-success" data-ng-click="save()" ><span class="glyphicons glyphicon glyphicon-floppy-save" aria-hidden="true"></span> Save</button>
+    <button class="btn btnLanier btn-danger" data-ng-click="cancel()" ><span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span> Cancel</button>
+</div>

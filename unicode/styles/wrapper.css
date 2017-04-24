@@ -1,0 +1,56 @@
+/* ------------------------------------ *
+ CSS
+ Sunday, July 01, 2012 2:20:07 AM
+ HAPedit 3.1.11.111
+ * ------------------------------------ */
+
+
+.wrapper {
+    WIDTH: 970px
+}
+
+#left {
+    WIDTH: 239px
+}
+
+
+#menu .dropdown {
+    WIDTH: 140px
+}
+#menu .columns2 {
+    WIDTH: 280px
+}
+#menu .columns3 {
+    WIDTH: 420px
+}
+#menu .columns4 {
+    WIDTH: 560px
+}
+DIV.wrap {
+    TEXT-ALIGN: left; MARGIN: 0px auto; WIDTH: 220px
+}
+DIV#top DIV#nav {          BORDER: #FF0000 1px solid;
+    MARGIN: 22px 0px 0px; WIDTH: 220px; FLOAT: left; HEIGHT: 52px; CLEAR: both
+}
+DIV#header_hotslider DIV.wrap {
+    BACKGROUND: #000000; HEIGHT: 150px
+}
+DIV#header_hotslider DIV#slide-holder {
+    POSITION: absolute; WIDTH: 220px; HEIGHT: 150px
+}
+DIV#header_hotslider DIV#slide-holder DIV#slide-runner {
+    POSITION: absolute; WIDTH: 200px; HEIGHT: 130px; OVERFLOW: hidden; TOP: 10px; LEFT: 10px
+}
+DIV#header_hotslider DIV#slide-holder DIV#slide-controls {
+    POSITION: absolute; WIDTH: 200px; DISPLAY: none; BACKGROUND: url(modules/mod_hot_image_slider/images/slide-bg.html) 0px 0px; HEIGHT: 46px; TOP: 10px; LEFT: 0px
+}
+DIV#header_hotslider DIV#slide-holder DIV#slide-controls DIV#slide-nav {
+    DISPLAY: none; FLOAT: right
+}
+P.textdesc {
+    LINE-HEIGHT: 16px; TEXT-TRANSFORM: uppercase; MARGIN: 15px 0px 0px 20px; DISPLAY: inline; FLOAT: left; COLOR: #ffffff; FONT-SIZE: 14px; OVERFLOW: hidden
+}
+DIV#header_hotslider DIV#slide-holder DIV#slide-controls DIV#slide-nav A {
+    BACKGROUND-IMAGE: url(modules/mod_hot_image_slider/images/slide-nav-green.html); POSITION: relative; COLOR: #fff; TOP: 11px
+}
+

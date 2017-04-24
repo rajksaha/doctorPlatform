@@ -1,0 +1,33 @@
+<div class="text-muted form-group"><a href="javascript:" data-ng-click="addDrugsToPrescription()"><label class="mainLabel">RX</label></a></div>
+<div class="room-desc form-group" data-ng-repeat="drugPres in prescribedDrugList">
+    <table id="" class="table">
+        <tbody>
+        <tr class="" >
+            <td  style="width: 10%">
+                <a class="link" data-ng-click="deletePrescribedDrug(drugPres.id)">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                </a>
+                <a class="link" aria-hidden="true" data-ng-click="editDrugsFromPresciption(drugPres)">
+                    <i class="fa fa-pencil"> </i>
+                </a>
+            </td>
+            <td style="width: 20%">
+                <span>{{drugPres.typeInitial}}. {{drugPres.drugName}} - {{drugPres.drugStrength}}</span>
+            </td>
+            <td  style="width: 30%" >
+                <div data-ng-repeat="drugDose in drugPres.preiodicList">
+                    <span>{{drugDose.dose}} <span class="pull-right"> {{drugDose.numOfDay}}  {{drugDose.bangla}} </span></span>
+                </div>
+            </td>
+            <td   style="width: 20%">
+                <span>{{drugPres.whenTypeName}}</span>
+            </td>
+            <td   style="width: 20%">
+                <span>{{drugPres.adviceTypeName}}</span>
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+</div>
+</div>

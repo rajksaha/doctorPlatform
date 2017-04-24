@@ -1,0 +1,45 @@
+<div class="row">
+
+    <div class="col-sm-6 col-md-6 col-lg-6">
+
+        <div data-ng-if="pastDiseaseList.length > 0">
+            <label>Past Disease</label>
+            <div data-ng-repeat="data in pastDiseaseList" >
+                <span class="glyphicon glyphicon-remove" aria-hidden="true" data-ng-click="deletePastHistory(data.id)"></span> <span>{{data.diseaseName}}</span>
+            </div>
+        </div>
+
+        <div data-ng-if="familyDiseaseList.length > 0">
+            <label>Family Disease</label>
+            <div data-ng-repeat="data in familyDiseaseList" >
+                <span class="glyphicon glyphicon-remove" aria-hidden="true" data-ng-click="deleteFamilyHistory(data.id)"></span>
+                <span>{{data.diseaseName}}</span> - <span>{{data.relationName}}</span>
+            </div>
+        </div>
+
+        <div data-ng-if="familyDiseaseList.length > 0">
+            <label>Drug Disease</label>
+            <div data-ng-repeat="drug in drugHistory" >
+                <label>{{drug.headerName}}</label>
+                <div data-ng-repeat="data in drug.prescribedDrugList">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true" data-ng-click="removeDrugHistory(data)"></span> <span>{{data.detail}}</span>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+    <div class="col-sm-6 col-md-6 col-lg-6">
+        <div class="" data-ng-repeat="history in historyList">
+            <div data-ng-if="history.prescribedHistoryList.length > 0">
+                <label>{{history.headerName}}</label>
+                <div data-ng-repeat="data in history.prescribedHistoryList" >
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true" data-ng-click="deleteHistory(data)"></span>
+                    <span>{{data.historyName}}: {{data.historyResult}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

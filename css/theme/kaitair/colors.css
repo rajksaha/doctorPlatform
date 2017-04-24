@@ -81,19 +81,6 @@ body {
 #infoText{}
 
 /*------------- Modal Colors ------------*/
-.modalHead{
-	background-color:#a8e0e0!important;
-}
-.modalHead .modal-title{}
-.modalBody, .modalBody .panel-body {
-	background: #CCFFFF!important;
-}
-.modalFoot{
-	background-color:#a8e0e0;
-}
-.booking-tble table td{
-	background-color: #99CCFF; 
-}
 
 /*------------------- table--------------- */
 /* general table settings */

@@ -31,7 +31,12 @@ if($query_no== 0){
 	
 }else if($query_no==1){
 	$vitalID = $_POST['vitalID'];
-	$sql = "SELECT `id`, `vitalId`, `name` FROM `vital_option` WHERE `vitalId` = '$vitalID'";
+    $queryString = $_POST['term'];
+	$sql = "SELECT `id`, `vitalId`, `name` 
+            FROM `vital_option` 
+            WHERE `vitalId` = '$vitalID'
+            AND `name` LIKE '%" . $queryString . "%' LIMIT 10";
+
 	$result=mysql_query($sql);
 	
 	$data = array();
@@ -51,13 +56,14 @@ if($query_no== 0){
 }else if($query_no==3){
 	$vitalID = $_POST['vitalID'];
 	$vitalResult = $_POST['vitalResult'];
-	
+	insertIfNotExist($vitalID, $vitalResult);
 	insertPrescribedVital($appointmentID, $vitalID, $vitalResult);
 	
 }else if($query_no==4){
 	
 	$vitalID = $_POST['vitalID'];
 	$vitalResult = $_POST['vitalResult'];
+    insertIfNotExist($vitalID, $vitalResult);
 	$sql = "UPDATE `vital_prescription` SET `vitalResult`='$vitalResult' WHERE `appointMentID` = '$appointmentID' AND `vitalID` = '$vitalID'";
 	if(mysql_query($sql)){
 		return true;
@@ -106,6 +112,15 @@ else if($query_no==5){
 	$vitalSettingID = $_POST['vitalSettingID'];
 	$sql = mysql_query("DELETE FROM `doctor_vital_settings` WHERE `id` = '$vitalSettingID'");
 	
+}
+
+function insertIfNotExist($vitalID, $vitalResult){
+    $rec = mysql_query("SELECT `id`, `vitalId`, `name` FROM `vital_option` WHERE `vitalId` = '$vitalID' AND `name` = '$vitalResult'");
+    $result = mysql_fetch_assoc($rec);
+    if($result['id'] == null || $result['id'] == 0){
+        $sql = "INSERT INTO `vital_option`( `vitalId`, `name`) VALUES ('$vitalID','$vitalResult')";
+        mysql_query($sql);
+    }
 }
 	
 ?>

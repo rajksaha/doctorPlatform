@@ -1,0 +1,83 @@
+#right {
+    WIDTH: 217px; MARGIN-LEFT: -455px; BORDER: #FFFFFF 0px solid;
+}
+
+#right {
+    FLOAT: left; OVERFLOW: hidden
+}
+#right .module {
+    MARGIN-BOTTOM: 15px
+}
+
+#right DIV.last {
+    MARGIN-BOTTOM: 0px
+}
+
+#right DIV.mod-rounded {
+    MARGIN-LEFT: 15px; MARGIN-RIGHT: 15px
+}
+
+
+.column-right DIV.content-wrapper-t2 {
+    BACKGROUND-POSITION: 100% -146px
+}
+.column-right DIV.content-wrapper-2 {
+    BACKGROUND-IMAGE: url(../images/content_wrapper_edges_with.html)
+}
+.column-right DIV.content-wrapper-b2 {
+    BACKGROUND-POSITION: 100% -188px
+}
+
+.column-right DIV.content-wrapper-2 {
+    PADDING-RIGHT: 0px
+}
+
+
+
+
+#right DIV.mod-sidebar {
+    PADDING-RIGHT: 2px
+}
+#right DIV.mod-sidebar UL.menu A.level1 {
+    BACKGROUND-POSITION: 0px 0px
+}
+#right DIV.mod-sidebar UL.menu SPAN.level1 {
+    BACKGROUND-POSITION: 0px 0px
+}
+
+#right DIV.mod-sidebar DIV.box-t2 {
+    BACKGROUND-POSITION: 0px 0px
+}
+#right DIV.mod-sidebar DIV.box-1 {
+    BACKGROUND-POSITION: 0px 0px
+}
+#right DIV.mod-sidebar DIV.box-b2 {
+    BACKGROUND-POSITION: 0px 0px
+}
+
+#right DIV.mod-sidebar H3.header {
+    PADDING-RIGHT: 10px; BACKGROUND: url(../images/module_rounded_grey_corners.html) no-repeat 100% -135px
+}
+
+#right DIV.mod-sidebar DIV.badge {
+    RIGHT: 1px
+}
+
+#right DIV.mod-polaroid {
+    MARGIN-TOP: 30px; MARGIN-LEFT: 15px; MARGIN-RIGHT: 15px
+}
+
+#right DIV.mod-postit {
+    MARGIN-LEFT: 15px; MARGIN-RIGHT: 15px
+}
+
+
+
+.rightbanner  {
+    width: 150PX;
+    MARGIN-TOP: 5px;
+}
+
+
+/* CSS Document */
+

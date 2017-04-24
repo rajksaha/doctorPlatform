@@ -39,6 +39,11 @@ app.controller('HeaderController', function($scope, $rootScope, $location, $time
 	        });
 	       
 	 };
+
+	 $scope.toggoleButton = function () {
+		$rootScope.hideMenu = !$rootScope.hideMenu;
+         $rootScope.$broadcast('event:hideMenu');
+     };
     
 
     (function(){

@@ -34,7 +34,6 @@
 		</span>
 		<div class="col-md-12 panel panel-primary mainPanelColor panel1" style="padding-top: 12px;padding-bottom: 10px">
 			<div class="col-md-2 patinetInfo form-group">
-				
 				<span data-ng-show="!patientInfoEdit" >Name: <span >{{patientData.name}}</span></span>
 				<input data-ng-show="patientInfoEdit" data-ng-model="patientData.name" class="form-control required" />	
 			</div>
@@ -82,7 +81,7 @@
 		<div class="list-item col-sm-4 col-md-3 col-lg-3" data-ng-repeat="menuData in menuDataList" style="padding-bottom: 10px">
 			<span style="padding-left:20px">
 				<img src="images/icon-c-stat-2.png" />
-				<span style="padding-left:12px;">
+				<span style="padding-left:12px;" data-ng-repeat="menuData in menuDataList">
 					<a href="{{menuData.menuURL}}">{{menuData.menuHeader}}</a>
 					<a href="{{menuData.menuURL}}" class="pull-right" style="margin-right:10px"><img ng-src="images/edit1.png" width="18" height="18"/></a>
 				</span>
@@ -103,7 +102,7 @@
 	             	<div class="panel">	                 
 						<div class="prescriptionPanel-body">
 							<div data-ng-if="doctorData.photoSupport == 1">
-								<img alt="patImg" data-ng-if="patientData.patientImage != null" src="{{patientData.patientImage}}" height="160px" width="80px">
+								<img alt="patImg" data-ng-if="patientData.patientImage != null" src="{{patientData.patientImage}}" height="120px" width="100px">
 								<span class="btn btn-default btn-file btn-block">
 									<i class="fa fa-upload"></i> 
 									<span data-ng-if="patientData.patientImage == null"> Add Patient Photo</span> 
@@ -135,7 +134,6 @@
 								</select>
 								<select class="form-control"   data-ng-model="nextVisitData.dayType" data-ng-options="drugTime.english for drugTime in dayTypeList" data-ng-change="nextVisitData.needSaveButton = true">
 								</select>
-								
 							</div>
 						</div>
 					</div>
@@ -144,7 +142,7 @@
     			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 	             	<div class="panel">	                 
 						<div class="prescriptionPanel-body">
-							<div class="form-group"><a href="javascript:" data-ng-click="addCCToPrescription()"><label class="mainLabel">C.C</label></a></div>
+							<div class="form-group"><a href="javascript:" data-ng-click="addCCToPrescription()"><label class="mainLabel">Chief Complaints</label></a></div>
 								<table class="table">
 									<tr data-ng-repeat="copmplainData in prescribedComplainData" >
 										<td style="width: 10%">
@@ -176,7 +174,7 @@
 				</div>
     			
     			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" data-ng-repeat="history in historyList">
-	             	<div class="panel">	                 
+	             	<div class="panel">
 						<div class="prescriptionPanel-body">
 							<div class="form-group"><label class="mainLabel">{{history.headerName}}</label></div>
 								<table class="table">
@@ -184,7 +182,7 @@
 										<td style="width: 5%">
 											<span>
 												<a class="btn btn-danger btn-sm btnLanier"
-									                  ktr-confirmation="deleteHistory(item)" 
+									                  ktr-confirmation="deleteHistory(item)"
 									                  confirmation-message="Are you sure to remove?"
 									                  confirmation-title="Confirmation"
 									                  item="data">
@@ -232,7 +230,7 @@
     			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" >
 	             	<div class="panel">	                 
 						<div class="prescriptionPanel-body">
-							<div class="form-group"><a href="#/vital"><label class="mainLabel">O.E</label></a></div>
+							<div class="form-group"><a href="#/vital"><label class="mainLabel">On Examination</label></a></div>
 								<table class="table">
 									<tr data-ng-repeat="vitalData in prescribedVitalData" >
 										<td style="width: 5%">
@@ -260,7 +258,7 @@
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 	             	<div class="panel">	                 
 						<div class="prescriptionPanel-body">
-							<div class="form-group"><a href="#/inv"><label class="mainLabel">INV</label></a></div>
+							<div class="form-group"><a href="#/inv"><label class="mainLabel">Investigation</label></a></div>
 								<table class="table">
 									<tr data-ng-repeat="invData in prescribedInvData">
 										<td style="width: 5%">
@@ -318,7 +316,7 @@
 										<td style="width: 5%">
 											<span>
 												<a class="btn btn-danger btn-sm"
-									                  ktr-confirmation="deleteFamilyHistory(item)" 
+									                  ktr-confirmation="deleteFamilyHistory(item)"
 									                  confirmation-message="Are you sure to remove?"
 									                  confirmation-title="Confirmation"
 									                  item="data.id">
@@ -329,7 +327,7 @@
 				    					<td style="width: 50%">
 				    						<span>{{data.diseaseName}}</span>
 										</td>
-										
+
 										<td style="width: 45%">
 				    						<span>{{data.relationName}}</span>
 										</td>
@@ -366,7 +364,7 @@
 	             	<div class="panel">	                 
 						<div class="prescriptionPanel-body">
 							<div class="form-group">
-								<span class="pull-let"><label>Comment :</label></span>
+								<span class="pull-let"><label>Clinical Note:</label></span>
 								<span class="pull-right">
 									<button  class="btn btnLanier btn-success" title="Save" data-ng-click="updateCommentText()">
 										<span class="glyphicons glyphicon glyphicon-floppy-save" aria-hidden="true"></span>
@@ -389,58 +387,12 @@
 	             	<div class="panel">	                 
 						<div class="prescriptionPanel-body">
 							<div class="form-group"><a href="javascript:" data-ng-click="performDiganosis(diagnosisData)" ><label class="mainLabel">Diagnosis </label></a><span > {{diagnosisData.diseaseName}}</span></div>
-							
 						</div>
 					</div>
 				</div>
 	                 
 				
-				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding-top: 5px">
-	             <div class="panel">	                 
-	                 <div class="prescriptionPanel-body">
-	                 
-	                 	<div class="text-muted form-group"><a href="javascript:" data-ng-click="addDrugsToPrescription()"><label class="mainLabel">RX</label></a></div>
-	                    <div class="room-desc form-group" data-ng-repeat="drugPres in prescribedDrugList">	
-							<table id="" class="table">
-								<tbody>
-									<tr class="" >
-										<td  style="width: 5%">
-											<a class="btn btn-danger btn-sm btnLanier"
-												ktr-confirmation="deletePrescribedDrug(item)" 
-												confirmation-message="Are you sure to remove?"
-												confirmation-title="Confirmation"
-												item="drugPres.id">
-												<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-											</a>			
-										</td>
-										<td style="width: 5%">
-												<button class="btn btn-info btn-sm" data-ng-click="editDrugsFromPresciption(drugPres)">
-													<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-												</button>
-										</td>
-										<td style="width: 20%">
-											<span>{{drugPres.typeInitial}}. {{drugPres.drugName}} - {{drugPres.drugStrength}}</span>
-										</td>
-										<td  style="width: 30%" >
-											<div data-ng-repeat="drugDose in drugPres.preiodicList">
-												<span>{{drugDose.dose}} <span class="pull-right"> {{drugDose.numOfDay}}  {{drugDose.bangla}} </span></span>
-											</div>
-											
-										</td>
-										<td   style="width: 20%">
-											<span>{{drugPres.whenTypeName}}</span>
-										</td>
-										<td   style="width: 20%">
-											<span>{{drugPres.adviceTypeName}}</span>
-										</td>
-										
-									</tr>
-								</tbody>
-							</table>
-	                    </div>
-	                 </div>
-	             </div>
-	         </div>
+
 				
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 	             	<div class="panel">	                 

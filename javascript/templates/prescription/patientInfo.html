@@ -1,0 +1,53 @@
+<div class="col-sm-4 col-md-4 col-lg-4 form-group">
+    <label data-ng-show="!patientInfoEdit" >Name: <span >{{patientData.name}}</span></label>
+    <input data-ng-show="patientInfoEdit" data-ng-model="patientData.name" class="form-control required input-sm" />
+</div>
+<div class="col-sm-4 col-md-4 col-lg-4 form-group">
+    <label data-ng-show="!patientInfoEdit" >Address: {{patientData.address}}</label>
+    <input data-ng-show="patientInfoEdit" data-ng-model="patientData.address" class="form-control input-sm" maxlength="100" placeholder="Address" />
+</div>
+<div class="col-sm-4 col-md-4 col-lg-4 form-group">
+    <label data-ng-show="!patientInfoEdit">Phone: {{patientData.phone}}</label>
+    <input data-ng-show="patientInfoEdit" data-ng-model="patientData.phone" class="form-control phnnr input-sm" maxlength="16" placeholder="Phone"/>
+</div>
+<div class="col-sm-4 col-md-4 col-lg-4 form-group">
+    <label data-ng-show="!patientInfoEdit">Reffered by: {{patientData.phone}}</label>
+    <input data-ng-show="patientInfoEdit" data-ng-model="patientData.phone" class="form-control phnnr input-sm" maxlength="16" placeholder="Phone"/>
+</div>
+
+
+<div class="col-sm-4 col-md-4 col-lg-4 form-group">
+    <label data-ng-show="!patientInfoEdit" >Age: {{patientData.age}} yrs</label>
+    <input data-ng-show="patientInfoEdit" data-ng-model="patientData.age" class="form-control required input-sm" />
+</div>
+<div class="col-sm-4 col-md-4 col-lg-4 form-group">
+    <label data-ng-show="!patientInfoEdit" >Gender: {{patientData.sex}}</label>
+    <select data-ng-show="patientInfoEdit" data-ng-model="patientData.sex" class="form-control input-sm">
+        <option value="MALE">Male</option>
+        <option value="FEMALE">Female</option>
+        <option value="OTHER">Other</option>
+    </select>
+</div>
+<div class="col-sm-4 col-md-4 col-lg-4 form-group">
+    <label data-ng-show="!patientInfoEdit" >Occupation: {{patientData.patientCode}}</label>
+    <input data-ng-show="patientInfoEdit" data-ng-model="patientData.patientCode" size="5" class="form-control input-sm"  disabled="disabled"/>
+</div>
+<div class="col-sm-4 col-md-4 col-lg-4 form-group">
+    <label data-ng-show="!patientInfoEdit" >Patient ID: {{patientData.patientCode}}</label>
+    <input data-ng-show="patientInfoEdit" data-ng-model="patientData.patientCode" size="5" class="form-control input-sm"  disabled="disabled"/>
+</div>
+<div class="col-sm-4 col-md-4 col-lg-4">
+    <button class="btn btn-success text-center" data-ng-show="patientInfoEdit" data-ng-click="savePatientInfo(patientData)">
+        <i  class="fa fa-floppy-o"  > Save</i>
+    </button>
+    <button class="btn btn-danger text-center" data-ng-show="patientInfoEdit" data-ng-click="patientInfoEdit = false">
+        <i  class="fa fa-ban"> Cancel</i>
+    </button>
+    <button class="btn btn-info text-center" data-ng-show="!patientInfoEdit" data-ng-click="patientInfoEdit = true">
+        <i  class="fa fa-pencil"> Edit</i>
+    </button>
+
+    <a data-ng-show="!patientInfoEdit" class="btn btn-info" href="#/appointment"><span class="glyphicon glyphicon-th-list" aria-hidden="true"> Appointment</span></a>
+
+    <button  data-ng-show="!patientInfoEdit" class="btn btn-info" data-ng-click="print()"><span class="glyphicon glyphicon-print" aria-hidden="true"> Print</span></button>
+</div>

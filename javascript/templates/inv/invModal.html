@@ -1,0 +1,130 @@
+<head>
+    <script type="text/javascript" src="unicode/scripts/bijoy2uni.js"></script>
+    <script type="text/javascript" src="unicode/scripts/uni2bijoy.js"></script>
+    <script type="text/javascript" src="unicode/scripts/common.js"></script>
+    <script type="text/javascript" src="unicode/scripts/layout.js"></script>
+    <script type="text/javascript" src="unicode/scripts/js.js"></script>
+    <script type="text/javascript" src="unicode/scripts/js1.js"></script>
+    <script type="text/javascript" src="unicode/scripts/count.js"></script>
+    <script style="color: rgb(34, 34, 34);" type="text/javascript" src="unicode/scripts/loading.js"></script>
+	<script async src="../../pagead2.googlesyndication.com/pagead/js/f.txt"></script>
+<input readonly type="hidden" name="CharsTyped" size="2" style="font-weight:bold; border: 0px solid #2D69AE; color:#808080; text-align:left;">
+<input readonly type="hidden" name="WordsTyped" size="3" style="font-weight:bold; border: 1px solid #2D69AE; color:#808080; text-align:right;">
+<input readonly type="hidden" name="CharsLeft" size="8">
+<input readonly type="hidden" name="WordsLeft" size="8">
+</head>
+<div class="large big">
+    <div class="modal-header row">
+        <div class="col-sm-9 col-md-9 col-lg-9">
+            <h4 class="modal-title">Investigation</h4>
+        </div>
+        <div class="col-sm-3 col-md-3 col-lg-3">
+            <button class="btn btn-info pull-right" data-ng-click="docTorINVSetter = !docTorINVSetter"><span class="glyphicon glyphicon glyphicon-wrench" aria-hidden="true"></span> Setteing</button>
+        </div>
+    </div>
+    <div class="modal-body modalBody"  style="position:relative; z-index:1;">
+        <div class="alert alert-danger alert-dismissable" data-ng-show="error">
+            <div>{{errorMessage}}</div>
+            <div id="lblMsg_modal"></div>
+        </div>
+
+
+        <div  class="row" id="validateReq">
+            <section  data-ng-show="docTorINVSetter" class=" contacts row" id="generalInfoContact">
+                <div  class="col-sm-9 col-md-9 col-lg-9">
+                    <div class="panel">
+                        <div class="panel-body">
+                            <div class="text-muted form-group">By Name</div>
+                            <div class="room-desc">
+                                <input type="text" data-ng-model="invName" typeahead="invNameData.name for invNameData in getInvName($viewValue)"  class="form-control" placeholder="Add Inv to Setting" typeahead-on-select='onSelectInvName($item, $model, $label)'/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div  class="col-sm-3 col-md-3 col-lg-3">
+                    <div class="panel">
+                        <div class="panel-body">
+                            <div class="text-muted form-group">Action</div>
+                            <div class="room-desc">
+                                <button  data-ng-click="addToDoctorPreference()" class="btn btn-primary" > <span class='glyphicon glyphicon glyphicon-plus' aria-hidden='true'></span> Add To Setting</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <tabset class="form-group" >
+                    <tab data-ng-repeat="category in invCategoryList"  heading="{{category.name}}" >
+                        <div class="row">
+                            <div class="list-item col-sm-3 col-md-3 col-lg-3" data-ng-repeat="inv in invSettingData | filter : {categoryID : category.invCategoryID}">
+                                <span class="glyphicons glyphicon glyphicon-remove" aria-hidden="true" data-ng-click="delINVFromSetting(inv.invSettingID)"></span>
+                                <button class="btn btn-default" data-ng-model="none"   data-ng-click="addORDelINV(!inv.addedToPrescription,inv)">
+                                    <span class="glyphicon  glyphicon"  data-ng-class="{'glyphicon-check': inv.addedToPrescription == true,'glyphicon-unchecked': inv.addedToPrescription == false}"></span>
+                                </button>
+                                <span style="font-size: 11px !important;">{{inv.name}}</span>
+                            </div>
+                        </div>
+                    </tab>
+                </tabset>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <div class="text-muted form-group">Prescribed INV
+                    <span class="pull-right">
+                        <span>
+                            <button  style="padding-left:12px;" class="btn btn-info" data-ng-click="addInvToPrescription()">
+                                <span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> Add
+                            </button>
+                        </span>
+                    </span>
+                </div>
+                <div id="appList" scroller="addMoreItems()">
+                    <table class="table table-condensed table-bordered">
+                        <thead>
+                        <tr >
+                            <th width="5%"><strong>Sl.</strong></th>
+                            <th width="40%"><strong>Inv Name</strong></th>
+                            <th width="40%"><strong>Note</strong></th>
+                            <th width="15%"><strong>Action</strong></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr data-ng-repeat="invData in prescribedInvData">
+                            <td>
+                                {{$index + 1}}
+                            </td>
+
+                            <td >
+                                <span>{{invData.invName}}</span>
+                            </td>
+                            <td >
+                                <span>{{invData.note}}</span>
+                            </td>
+                            <td >
+                                <button class="btn btn-primary" data-ng-click="editFromPresciption(invData)">
+                                    <span class="fa fa-pencil"></span>
+                                </button>
+                                <span class="btn btn-danger btn-sm btnLanier fa fa-trash" data-ng-click="deleteInvFromPresciption(invData.id)"></span>
+                                </a>
+                                </span>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+    </div>
+    <div class="modal-footer modalFoot">
+        <button class="btn btnLanier btn-success" data-ng-click="prescription(1)" ><span class="fa fa-thumbs-o-up " aria-hidden="true"></span> Done</button>
+    </div>
+</div>

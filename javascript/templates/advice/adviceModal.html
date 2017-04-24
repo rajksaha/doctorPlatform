@@ -1,0 +1,80 @@
+<head>
+    <script type="text/javascript" src="unicode/scripts/bijoy2uni.js"></script>
+    <script type="text/javascript" src="unicode/scripts/uni2bijoy.js"></script>
+    <script type="text/javascript" src="unicode/scripts/common.js"></script>
+    <script type="text/javascript" src="unicode/scripts/layout.js"></script>
+    <script type="text/javascript" src="unicode/scripts/js.js"></script>
+    <script type="text/javascript" src="unicode/scripts/js1.js"></script>
+    <script type="text/javascript" src="unicode/scripts/count.js"></script>
+<input readonly type="hidden" name="CharsTyped" size="2" style="font-weight:bold; border: 0px solid #2D69AE; color:#808080; text-align:left;">
+<input readonly type="hidden" name="WordsTyped" size="3" style="font-weight:bold; border: 1px solid #2D69AE; color:#808080; text-align:right;">
+<input readonly type="hidden" name="CharsLeft" size="8">
+<input readonly type="hidden" name="WordsLeft" size="8">
+</head>
+<div class="large big">
+    <div class="modal-header row">
+        <div class="col-sm-9 col-md-9 col-lg-9">
+            <h4 class="modal-title">Advice</h4>
+        </div>
+        <div class="col-sm-3 col-md-3 col-lg-3">
+            <button class="btn btn-info pull-right" data-ng-click="docTorAdviceAdder = !docTorAdviceAdder"><span class="glyphicon glyphicon glyphicon-wrench" aria-hidden="true"></span> Setteing</button>
+        </div>
+    </div>
+    <div class="modal-body modalBody">
+        <div class="alert alert-danger alert-dismissable" data-ng-show="error">
+            <div>{{errorMessage}}</div>
+            <div id="lblMsg_modal"></div>
+        </div>
+
+
+        <div  class="row" id="validateReq">
+            <section  data-ng-show="docTorAdviceAdder" class=" contacts row" id="generalInfoContact">
+                <div  class="col-xs-12 col-sm-12 col-md-10 col-lg-2">
+                    <div class="panel">
+                        <div class="panel-body">
+                            <div class="text-muted form-group">Language</div>
+                            <div class="room-desc">
+                                <select data-ng-model="adviceAdderData.lang" class="form-control">
+                                    <option value="0">English</option>
+                                    <option value="1" >Bangla</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div  class="col-xs-12 col-lg-4">
+                    <div class="panel">
+                        <div class="panel-body">
+                            <div class="text-muted form-group">Advice</div>
+                            <div class="room-desc">
+                                <input id="EDT" typeahead="adviceNameData.advice for adviceNameData in getAdvcieName($viewValue)"  data-ng-model="adviceAdderData.name" class="form-control" placeholder="Add advice to Setting" typeahead-on-select='onSelectAdviceName($item, $model, $label)' ng-change="convertToTextArea(adviceAdderData)">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div   class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
+                    <div class="panel">
+                        <div class="panel-body">
+                            <div class="text-muted form-group">Action</div>
+                            <div class="room-desc">
+                                <button  data-ng-click="prepareDoctorSettingData()" class="btn btn-primary" > <span class='glyphicon glyphicon glyphicon-plus' aria-hidden='true'></span> Add</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div data-ng-show="!docTorAdviceAdder" class="col-sm-12 col-md-12 col-lg-12">
+                <div class="list-item col-sm-3 col-md-3 col-lg-3" data-ng-repeat="advice in advcieSettingData">
+                    <span data-ng-click="delAdviceFromSetting(advice.adviceSettingID)" class="glyphicons glyphicon glyphicon-remove" aria-hidden="true"></span>
+                    <span class="glyphicon  glyphicon"  data-ng-click="deciderAdvice(!advice.addedToPrescription,advice)" data-ng-class="{'glyphicon-check': advice.addedToPrescription == true,'glyphicon-unchecked': advice.addedToPrescription == false}"></span>
+                    <span>{{advice.advice}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer modalFoot">
+            <button class="btn btnLanier btn-success" data-ng-click="prescription()" ><span class="fa fa-thumbs-o-up " aria-hidden="true"></span> Done</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,55 @@
+<div class="generic-container" >
+    <div class="panel panel-default">
+        <div class="panel-heading clearfix">
+            <div class="col-sm-3 col-md-3 col-lg-3">
+                <h4>Inv Category Management</h4>
+            </div>
+            <div class="col-sm-2 col-md-2 col-lg-2">
+                Per Page : <input class="form-control" data-ng-model="pageInfo.perPage" data-ng-change="bringInvCategoryData()">
+            </div>
+            <div class="col-sm-2 col-md-2 col-lg-2">
+                From : <input class="form-control" data-ng-model="pageInfo.from" data-ng-change="bringInvCategoryData()">
+            </div>
+            <div class="col-sm-2 col-md-2 col-lg-2">
+                To : <input class="form-control" data-ng-model="pageInfo.to" disabled>
+            </div>
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+            </div>
+        </div>
+        <div class="panel-body" id="validateReq">
+            <div class="alert alert-danger alert-dismissable" data-ng-show="hasError">
+                <div>{{errorMessage}}</div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3 col-md-3 col-lg-3 form-group" >
+                    <label>Inv Name</label>
+                </div>
+                <div class="col-sm-3 col-md-3 col-lg-3 form-group" >
+                    <label>Category </label>
+                </div>
+                <div class="col-sm-3 col-md-3 col-lg-3 form-group" >
+                    <label>Inv Name </label>
+                </div>
+                <div class="col-sm-3 col-md-3 col-lg-3 form-group" >
+                    <label>Category</label>
+                </div>
+                <hr>
+                <div data-ng-repeat="inv in invList">
+                    <div class="col-sm-3 col-md-3 col-lg-3 form-group" data-ng-click="inv.ediName = true">
+                        <label data-ng-hide="inv.ediName">{{inv.name}} :</label>
+                        <input type="text" class="form-control required" data-ng-model="inv.name" data-ng-show="inv.ediName">
+                    </div>
+                    <div class="col-sm-3 col-md-3 col-lg-3 form-group" >
+                        <select class="form-control required" data-ng-model="inv.categoryID" data-ng-options="category.invCategoryID as category.name for category in invCategoryList">
+                            <option value="">--Select--</option>
+                        </select>
+                    </div>
+
+                </div>
+            </div>
+            <div class="panel-footer">
+                <a  style="padding-left:12px;" class="btn btn-success pull-right" data-ng-click="save()"><i class="fa fa-floppy-o" > Save & Next</i></a>
+            </div>
+        </div>
+    </div>
+</div>

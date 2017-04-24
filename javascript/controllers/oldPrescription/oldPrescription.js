@@ -36,7 +36,9 @@ app.controller('OldPrescriptionController', function($scope, $http, $modal, $roo
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).success(function (result) {
         	$scope.oldAppoinmentList = result;
-        	$scope.numberOfPrescription = $scope.oldAppoinmentList.length;
+        	if($scope.oldAppoinmentList.length > 0){
+                $scope.viewPrescription($scope.oldAppoinmentList[0]);
+			}
         });
     };
     
@@ -107,6 +109,20 @@ app.controller('OldPrescriptionController', function($scope, $http, $modal, $roo
         });
 		
 	};
+
+    $scope.getComplainString = function (complain) {
+
+        var data = complain.symptomName;
+
+        if(complain.durationID < 5){
+            data = data + " " + complain.durationNum + " " + complain.durationType
+        }
+        if(complain.durationID == 7){
+            data = data + " " + complain.durationType
+        }
+
+        return data;
+    };
 	
 	$scope.prescribedComplainData = [];
 	
@@ -155,23 +171,6 @@ app.controller('OldPrescriptionController', function($scope, $http, $modal, $roo
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).success(function (result) {
         	$scope.prescribedOBSData = result;
-        });
-		
-	};
-	
-	$scope.prescribedDiagnosisData = [];
-	
-	$scope.bringPrescribedDiagnosis = function(appointmentID){
-		
-		var dataString = "query=6" + '&appointmentID=' + appointmentID;
-
-        $http({
-            method: 'POST',
-            url: "phpServices/commonServices/prescriptionDetailService.php",
-            data: dataString,
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-        }).success(function (result) {
-        	$scope.prescribedDiagnosisData = result;
         });
 		
 	};
@@ -243,20 +242,34 @@ app.controller('OldPrescriptionController', function($scope, $http, $modal, $roo
     	$scope.bringPrescribedAdvice(data.appointmentID);
     	$scope.bringPrescribedVital(data.appointmentID);
     	$scope.bringPrescribedComplain(data.appointmentID);
-    	$scope.bringPrescribedOBS(data.appointmentID, data.patientID);
     	$scope.bringPrescribedHistory(data.appointmentID, data.patientID);
-    	
+        $scope.bringPrescribedComment(data.appointmentID);
+
     	$scope.showPrescriptionView = true;
     	$scope.prescriptionViewDate = data.date;
     };
-    
+
+    $scope.bringPrescribedComment = function (appointmentID){
+
+        var dataString = "query=11" + '&appointmentID=' + appointmentID + '&contentType=' + 'COMMENT';
+
+        $http({
+            method: 'POST',
+            url: "phpServices/commonServices/prescriptionDetailService.php",
+            data: dataString,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (result) {
+            if(result && result.length > 0){
+                $scope.commentData= result[0];
+            }
+        });
+    };
+
     $scope.addToPrescription = function (state, requestedData, queryNo){
     	
     	requestedData.addedToPrescription = state;
     	if(state){
-    		
     		var dataString = "query="+ queryNo + '&requestedID=' + requestedData.id;
-
             $http({
                 method: 'POST',
                 url: "phpServices/oldPrescription/oldPrescription.php",
@@ -267,9 +280,67 @@ app.controller('OldPrescriptionController', function($scope, $http, $modal, $roo
             });
     	}else{
     		alert("Please remove it from Prescription Page");
-    		
     		requestedData.addedToPrescription = !state;
     	}
+    };
+
+    $scope.masterAddToPrescription = function (state, requestedData){
+
+        requestedData.addedToPrescription = state;
+        if(state){
+            angular.forEach($scope.prescribedComplainData, function(value, key) {
+                $scope.addToPrescription(!value.addedToPrescription, value, 10);
+            });
+            angular.forEach($scope.prescribedVitalData, function(value, key) {
+                $scope.addToPrescription(!value.addedToPrescription, value, 1);
+            });
+            angular.forEach($scope.prescribedInvData, function(value, key) {
+                $scope.addToPrescription(!value.addedToPrescription, value, 8);
+            });
+
+            angular.forEach($scope.prescribedDrugList, function(value, key) {
+                $scope.addToPrescription(!value.addedToPrescription, value, 7);
+            });
+            angular.forEach($scope.prescribedAdviceData, function(value, key) {
+                $scope.addToPrescription(!value.addedToPrescription, value, 9);
+            });
+
+            $scope.addDiagnosisToPrescription();
+            $scope.addCommentToPrescription();
+
+
+        }else{
+            alert("Please remove it from Prescription Page");
+            requestedData.addedToPrescription = !state;
+        }
+    };
+
+    $scope.addDiagnosisToPrescription = function () {
+
+        var dataString = "query="+ 3 + '&requestedID=' + $scope.diagnosisData.id;
+        $http({
+            method: 'POST',
+            url: "phpServices/oldPrescription/oldPrescription.php",
+            data: dataString,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (result) {
+            $scope.diagnosisData.addedToPrescription = true;
+        });
+
+    };
+
+    $scope.addCommentToPrescription = function () {
+
+        var dataString = "query="+ 4 + '&requestedID=' + $scope.commentData.contentDetailID;
+        $http({
+            method: 'POST',
+            url: "phpServices/oldPrescription/oldPrescription.php",
+            data: dataString,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (result) {
+            $scope.commentData.addedToPrescription = true;
+        });
+
     };
 
 	$scope.inIt = function (){

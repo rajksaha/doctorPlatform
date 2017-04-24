@@ -1,0 +1,11 @@
+<div class="form-group"><a href="" data-ng-click="adviceModal()"><label class="mainLabel">Advice</label></a></div>
+<div class="row">
+    <div class="col-sm-6 col-md-6 col-lg-6" data-ng-repeat="adiviceData in prescribedAdviceData">
+        <button class="btn btn-default" data-ng-model="none"   data-ng-click="addToPrescription(!adiviceData.addedToPrescription, adiviceData, 9)">
+            <span class="glyphicon  glyphicon"  data-ng-class="{'glyphicon-check': adiviceData.addedToPrescription == true,'glyphicon-unchecked': !adiviceData.addedToPrescription  || data.addedToPrescription == false}"></span>
+        </button>
+        <span>{{adiviceData.advice}}</span>
+
+    </div>
+</div>
+

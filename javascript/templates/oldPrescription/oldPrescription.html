@@ -3,261 +3,59 @@
 		<span class="headerText">Old Presriptions</span>
 	</div>
 	<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-		<span class="headerText" data-ng-show="showPrescriptionView" >Visited Date: {{prescriptionViewDate | date:'d-M-yyyy'}}</span>
+		<span class="headerText" >{{patientData.name}}</span>
 	</div>
 	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 		<span class="pull-right">
 			<a style="padding-left:12px;" class="btn btn-info" href="#/prescription"><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"> Back</span></a>
 		</span>
-		<button class="btn btn-danger pull-right" data-ng-show="showPrescriptionView" data-ng-click="showPrescriptionView = fasle;">
-			<span class="glyphicon glyphicon-eye-close" aria-hidden="true"> Close</span>
-		</button>
 	</div>
 </div>
- <br></br>
-<div class="panel  col-md-12 filter-panel" id="validateReq" style="padding-top: 10px;padding-left: 20px;padding-right: 20px;">
-	<div class="row">
-		<div class="col-md-12 panel panel-primary mainPanelColor panel1" style="padding-top: 12px;padding-bottom: 10px">
-			<div class="col-md-2 patinetInfo form-group">
-				
-				<span data-ng-show="!patientInfoEdit" >Name: <span >{{patientData.name}}</span></span>
-				<input data-ng-show="patientInfoEdit" data-ng-model="patientData.name" class="form-control required" />	
-			</div>
-			<div class="col-md-2 patinetInfo form-group">
-				<span data-ng-show="!patientInfoEdit" >Age: {{patientData.age}} yrs</span>
-				<input data-ng-show="patientInfoEdit" data-ng-model="patientData.age" class="form-control required" />
-			</div>
-			
-			<div class="col-md-2 patinetInfo form-group">
-				<span data-ng-show="!patientInfoEdit" >Gender: {{patientData.sex}}</span>
-				
-				<select data-ng-show="patientInfoEdit" data-ng-model="patientData.sex" class="form-control">
-					<option value="MALE">Male</option>
-					<option value="FEMALE">Female</option>
-					<option value="OTHER">Other</option>
-				</select>
-			</div>
-			
-			<div class="col-md-2 patinetInfo form-group">
-				<span data-ng-show="!patientInfoEdit">Phone: {{patientData.phone}}</span>
-				<input data-ng-show="patientInfoEdit" data-ng-model="patientData.phone" class="form-control phnnr" maxlength="16"/>
-			</div>
-			
-			<div class="col-md-2 patinetInfo form-group">
-				<span data-ng-show="!patientInfoEdit" >Address: {{patientData.address}}</span>
-				<input data-ng-show="patientInfoEdit" data-ng-model="patientData.address" class="form-control" maxlength="100" />
-			</div>
-			
-			<div class="col-md-2 patinetInfo form-group">
-				<span data-ng-show="!patientInfoEdit" >Code: {{patientData.patientCode}}</span>
-				<input data-ng-show="patientInfoEdit" data-ng-model="patientData.patientCode" size="5" class="form-control"  disabled="disabled"/>
-			</div>
-			
-		</div>
-		
-		
+ <br>
+
+<div class="row">
+
+	<div class="col-sm-2 col-md-2 col-lg-2">
+		<table class="table table-responsive">
+			<thead>
+				<tr>
+					<th>Copy</th>
+					<th>Date</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr data-ng-repeat="data in oldAppoinmentList">
+					<td>
+						<button class="btn btn-default" data-ng-model="none"   data-ng-click="masterAddToPrescription(!data.addedToPrescription, data)">
+							<span class="glyphicon  glyphicon"  data-ng-class="{'glyphicon-check': data.addedToPrescription == true,'glyphicon-unchecked': data.addedToPrescription != true}"></span>
+						</button>
+					</td>
+					<td><span class="textSpc" data-ng-click="viewPrescription(data)">{{data.date | date:'d-M-yyyy'}}</span></td>
+				</tr>
+			</tbody>
+		</table>
 	</div>
-</div>
 
-<div class="panel col-md-12 appointment" data-ng-show="!showPrescriptionView">
-				<div class="col-md-12 panel panel-primary mainPanelColor panel1" style="padding-top: 12px;padding-bottom: 12px">
-					<div  style="padding-top: 25px;">
-					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" >
-		             	<div class="panelHead">	                 
-							<div class="panelHead-body">
-								<span>Old Prescriptions</span>
-								<span class="pull-right">Total:{{numberOfPrescription}}</span>
-							</div>
-						</div>
-					</div>
-					
-				</div>
-			
-				<div>
-					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="height: 400px; overflow-y: scroll;" >
-		             	<div class="panelChild">	                 
-							<div class="" data-ng-repeat="data in oldAppoinmentList" >
-								<div class="panelChild-body form-group" data-ng-click="viewPrescription(data)">
-									<span class="textSpc">{{data.date | date:'d-M-yyyy'}}</span>
-									<span class="textSpc pull-right">{{data.appointmentTypeName}}</span>
-								</div>
-							</div>
-						</div>
-					</div>
-						
-				</div>
-				</div>
-				
+
+	<div class='col-sm-10 col-md-10 col-lg-10' data-ng-show="showPrescriptionView">
+
+		<div class="row">
+			<div class="verticalLine col-sm-6 col-md-6 col-lg-6">
+				<div ng-include="'javascript/templates/oldPrescription/complainAndVital.html'"></div>
+				<div ng-include="'javascript/templates/oldPrescription/invSection.html'"></div>
+				<div ng-include="'javascript/templates/oldPrescription/history.html'"></div>
 			</div>
-
-
-<div class="panel  col-md-12 filter-panel" data-ng-show="showPrescriptionView">
-
-
-    
-    <div class="panel panel-primary col-md-12 mainPanelColor panel2" style="padding-top: 5px;height: 600px; overflow-y: scroll;">
-    	<div class="row">
-    		<div class="col-md-4">
-    			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding-top: 5px">
-	             	<div class="panel">	                 
-						<div class="prescriptionPanel-body">
-							<div class="form-group"><a href="javascript:">C.C</a></div>
-								<table class="table">
-									<tr data-ng-repeat="data in prescribedComplainData" >
-										<td style="width: 10%">
-												<button class="btn btn-default" data-ng-model="none"   data-ng-click="addToPrescription(!data.addedToPrescription, data, 10)">
-													<span class="glyphicon  glyphicon"  data-ng-class="{'glyphicon-check': data.addedToPrescription == true,'glyphicon-unchecked': !data.addedToPrescription || data.addedToPrescription == false}"></span>
-												</button>
-										</td>
-				    					<td style="width: 50%">
-				    						<span>{{data.symptomName}}</span>
-										</td>
-										<td style="width: 40%">
-											<span>{{data.durationNum}} {{data.durationType}}</span>
-										</td>
-								</table>
-						</div>
-					</div>
+			<div class="verticalLine col-sm-6 col-md-11 col-lg-6" >
+				<div class="form-group">
+					<button class="btn btn-default" data-ng-model="none"   data-ng-click="addDiagnosisToPrescription()">
+						<span class="glyphicon  glyphicon"  data-ng-class="{'glyphicon-check': diagnosisData.addedToPrescription == true,'glyphicon-unchecked': !diagnosisData.addedToPrescription  || data.addedToPrescription == false}"></span>
+					</button>
+					<span >Diagnosis :  {{diagnosisData.diseaseName}}</span>
 				</div>
-				
-				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-	             	<div class="panel">	                 
-						<div class="prescriptionPanel-body">
-							<div class="form-group"><a href="javascript:"><label>O.E</label></a></div>
-								<table class="table">
-									<tr data-ng-repeat="data in prescribedVitalData" >
-										<td style="width: 5%">
-											<button class="btn btn-default" data-ng-model="none"   data-ng-click="addToPrescription(!data.addedToPrescription, data, 1)">
-												<span class="glyphicon  glyphicon"  data-ng-class="{'glyphicon-check': data.addedToPrescription == true,'glyphicon-unchecked': !data.addedToPrescription   || data.addedToPrescription == false}"></span>
-											</button>
-										</td>
-				    					<td style="width: 45%">
-				    						<span>{{data.vitalDisplayName}}</span>
-										</td>
-										<td style="width: 50%">
-											<span>{{data.vitalResult}}</span>
-										</td>
-								</table>
-						</div>
-					</div>
-				</div>
-				
-				
-				
-				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" data-ng-repeat="history in historyList">
-	             	<div class="panel">	                 
-						<div class="prescriptionPanel-body">
-							<div class="form-group"><label class="mainLabel">{{history.headerName}}</label></div>
-								<table class="table">
-									<tr data-ng-repeat="data in history.prescribedHistoryList" >
-										<td style="width: 5%">
-											<button class="btn btn-default" data-ng-model="none"   data-ng-click="addToPrescription(!data.addedToPrescription, data, 2)">
-											<span class="glyphicon  glyphicon"  data-ng-class="{'glyphicon-check': data.addedToPrescription == true,'glyphicon-unchecked': !data.addedToPrescription   || data.addedToPrescription == false}"></span>
-										</button>
-										</td>
-				    					<td style="width: 45%">
-				    						<span>{{data.historyName}}</span>
-										</td>
-										<td style="width: 50%">
-											<span>{{data.historyResult}}</span>
-										</td>
-								</table>
-						</div>
-					</div>
-				</div>
-				
-				
-				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-	             	<div class="panel">	                 
-						<div class="prescriptionPanel-body">
-							<div class="form-group"><a href="javascript:"><label>INV</label></a></div>
-								<table class="table">
-									<tr data-ng-repeat="data in prescribedInvData">
-										<td style="width: 5%">
-											<button class="btn btn-default" data-ng-model="none"   data-ng-click="addToPrescription(!data.addedToPrescription, data, 8)">
-												<span class="glyphicon  glyphicon"  data-ng-class="{'glyphicon-check': data.addedToPrescription == true,'glyphicon-unchecked': !data.addedToPrescription  || data.addedToPrescription == false}"></span>
-											</button>
-										</td>
-				    					<td style="width: 95%">
-				    						<span>{{data.invName}}</span>
-										</td>
-									</tr>
-								</table>
-						</div>
-					</div>
-				</div>
-    		</div>
-    		<div class="col-md-8">
-    			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding-top: 5px">
-	             	<div class="panel">	                 
-						<div class="prescriptionPanel-body">
-							<div class="form-group"><a href="javascript:" ><label>Diagnosis </label></a><span > {{diagnosisData.diseaseName}}</span></div>
-							
-						</div>
-					</div>
-				</div>
-	    		
-	    		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding-top: 5px">
-	             <div class="panel">	                 
-	                 <div class="prescriptionPanel-body">
-	                 
-	                 	<div class="text-muted form-group"><a href="javascript:" ><label>RX</label></a></div>
-	                    <div class="room-desc form-group" data-ng-repeat="drugPres in prescribedDrugList">	
-							<table id="" class="table">
-								<tbody>
-									<tr class="" >
-										<td  style="width: 5%">
-											<button class="btn btn-default" data-ng-model="none"   data-ng-click="addToPrescription(!drugPres.addedToPrescription,drugPres, 7)">
-												<span class="glyphicon  glyphicon"  data-ng-class="{'glyphicon-check': drugPres.addedToPrescription == true,'glyphicon-unchecked': !drugPres.addedToPrescription  || drugPres.addedToPrescription == false}"></span>
-											</button>			
-										</td>
-										<td style="width: 20%">
-											<span>{{drugPres.typeInitial}}. {{drugPres.drugName}} - {{drugPres.drugStrength}}</span>
-										</td>
-										<td  style="width: 30%" >
-											<div data-ng-repeat="drugDose in drugPres.preiodicList">
-												<span>{{drugDose.dose}} <span class="pull-right"> {{drugDose.numOfDay}}  {{drugDose.bangla}} </span></span>
-											</div>
-											
-										</td>
-										<td   style="width: 20%">
-											<span>{{drugPres.whenTypeName}}</span>
-										</td>
-										<td   style="width: 20%">
-											<span>{{drugPres.adviceTypeName}}</span>
-										</td>
-										
-									</tr>
-								</tbody>
-							</table>
-	                    </div>
-	                 </div>
-	             </div>
-	         </div>
-	         
-	         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-	             	<div class="panel">	                 
-						<div class="prescriptionPanel-body">
-							<div class="form-group"><a href="javascript:"><label>Advice</label></a></div>
-								<table id="" class="table">
-									<tbody>
-										<tr data-ng-repeat="data in prescribedAdviceData" style="height:50px;">
-											<td style="width: 10%">
-												<button class="btn btn-default" data-ng-model="none"   data-ng-click="addToPrescription(!data.addedToPrescription, data, 9)">
-													<span class="glyphicon  glyphicon"  data-ng-class="{'glyphicon-check': data.addedToPrescription == true,'glyphicon-unchecked': !data.addedToPrescription  || data.addedToPrescription == false}"></span>
-												</button>
-											</td>
-											<td style="width: 90%">
-												<span>{{data.advice}}</span>
-											</td>
-											
-										</tr>
-									</tbody>
-								</table>
-						</div>
-					</div>
-				</div>
-    		</div>
+				<div ng-include="'javascript/templates/oldPrescription/drugInfo.html'"></div>
+				<div ng-include="'javascript/templates/oldPrescription/advice.html'"></div>
+			</div>
 		</div>
 	</div>
+
 </div>

@@ -1,0 +1,9 @@
+<div class="form-group"><a href="" data-ng-click="adviceModal()"><label class="mainLabel">Advice</label></a></div>
+<div class="row">
+    <div class="col-sm-6 col-md-6 col-lg-6" data-ng-repeat="adiviceData in prescribedAdviceData" style="height:50px;">
+        <span class="glyphicon glyphicon-remove" aria-hidden="true" data-ng-click="deleteAdviceFromPresciption(adiviceData.adviceID)"></span>
+        <span>{{adiviceData.advice}}</span>
+
+    </div>
+</div>
+

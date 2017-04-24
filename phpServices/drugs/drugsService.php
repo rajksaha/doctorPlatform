@@ -185,6 +185,7 @@ else if($query_no==4){
 	$drugPrescribeID = $_POST['drugPrescribeID'];
 	
 	mysql_query("INSERT INTO `dose_period`(`drugPrescribeID`, `dose`, `numOfDay`, `durationType`) VALUES ($drugPrescribeID,'$drugDose', $drugNoOfDay ,'$drugDayType')");
+
 }else if($query_no == 13){
 	
 	$drugID = $_POST['drugID'];

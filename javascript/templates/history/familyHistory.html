@@ -1,0 +1,66 @@
+<div class="row">
+	<div class="col-sm-12 col-md-12 col-lg-12">
+		<div class="text-muted form-group">Family History
+			<button  data-ng-show="addMoreButton" style="padding-left:12px;" class="btn btn-info pull-right" data-ng-click="addFamilyHistory()">
+				<span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> Add
+			</button>
+		</div>
+		<table class="table table-condensed table-bordered" id="validateReq">
+			<thead class="">
+			<tr >
+			<tr >
+				<th width="25%"><strong>Disease Name</strong></th>
+				<th width="15%"><strong>Relation</strong></th>
+				<th width="15%"><strong>Type</strong></th>
+				<th width="20%"><strong>Details</strong></th>
+				<th width="10%"><strong>Present</strong></th>
+				<th width="10%"><strong>Action</strong></th>
+			</tr>
+			</tr>
+			</thead>
+			<tbody >
+			<tr class="" data-ng-repeat="data in history.itemList">
+				<td >
+					<span data-ng-show="!data.editMode">{{data.diseaseName}}</span>
+					<div class="form-group">
+						<input data-ng-show="data.editMode" type="text" ng-model="data.diseaseName" typeahead="diagnosisNameData.name for diagnosisNameData in getDisease($viewValue)"  class="form-control required" placeholder="Disease" typeahead-on-select='onSelectDisease($item, $model, $label)'/>
+					</div>
+
+				</td>
+				<td >
+					<span data-ng-show="!data.editMode" >{{data.relationName}}</span>
+					<select data-ng-show="data.editMode" data-ng-model="data.relation" class="form-control" data-ng-options="relation.name for relation in relationList">
+					</select>
+				</td>
+				<td >
+					<span data-ng-show="!data.editMode" >{{data.type}}</span>
+					<select data-ng-show="data.editMode" data-ng-model="data.type" class="form-control">
+						<option value="Consanguinity">Consanguinity</option>
+						<option value="Genetic">Genetic</option>
+						<option value="Other">Other</option>
+					</select>
+				</td>
+				<td>
+					<span data-ng-show="!data.editMode" >{{data.detail}}</span>
+					<input data-ng-show="data.editMode" type="text" data-ng-model="data.detail"  class="form-control" placeholder="Detail" />
+				</td>
+
+				<td>
+					<span data-ng-show="!data.editMode" >{{data.present}}</span>
+					<select data-ng-show="data.editMode" data-ng-model="data.present" class="form-control">
+						<option value="Yes">Yes</option>
+						<option value="No">No</option>
+					</select>
+				</td>
+				<td >
+					<i title="Save" class="fa fa-floppy-o" data-ng-show="data.editMode" data-ng-click="saveFamilyHistory(data)"></i>
+					<i title="Cancel" class="fa fa-ban" data-ng-show="data.editMode" data-ng-click="cancelFamilyHistory(data)"></i>
+					<i title="Edit"  class="fa fa-pencil"data-ng-show="!data.editMode && !data.otherEditMode" data-ng-click="editFamilyHistory(data)"></i>
+					<i title="Delete" class="fa fa-trash" data-ng-show="!data.editMode && !data.otherEditMode" data-ng-click="deleteFamilyHistory(data.id)"></i>
+					<i title="Add to Prescription" data-ng-model="none"   data-ng-show="!data.editMode && !data.otherEditMode" data-ng-click="addToPresFamily(data)" class="glyphicon"  data-ng-class="{'glyphicon-unchecked': data.addedToPres == false,'glyphicon-check': data.addedToPres != false}"></i>
+				</td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

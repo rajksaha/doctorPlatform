@@ -1,0 +1,22 @@
+<div class="modal-header modalHead ">
+    <h4 class="modal-title">Inv</h4>
+</div>
+<div class="modal-body modalBody"  style="position:relative; z-index:1;">
+    <div class="alert alert-danger alert-dismissable" data-ng-show="error">
+        <div>{{errorMessage}}</div>
+        <div id="lblMsg_modal"></div>
+    </div>
+
+
+    <div  class="row step4Width" id="validateReq">
+        <div class="form-group col-xs-12 col-sm-12">
+            <label>Inv Name: <span class="red" >*</span></label>
+            <input maxlength="100" errmsg="Please Select Inv Name" type="text" data-ng-model="invData.name" typeahead="invsttingNameData.name for invsttingNameData in getInvName($viewValue)"  class="form-control required" placeholder="Add Inv" typeahead-on-select='onSelectInvName($item, $model, $label)'/>
+        </div>
+    </div>
+
+</div>
+<div class="modal-footer modalFoot">
+    <button class="btn btnLanier btn-success" data-ng-click="save()" ><span class="glyphicons glyphicon glyphicon-floppy-save" aria-hidden="true"></span> Save</button>
+    <button class="btn btnLanier btn-danger" data-ng-click="cancel()" ><span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span> Cancel</button>
+</div>

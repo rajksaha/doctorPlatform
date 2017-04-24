@@ -1,0 +1,24 @@
+<div class="row">
+    <div class="col-sm-6 col-md-6 col-lg-6">
+        <div class="form-group">
+            <a href="javascript:" data-ng-click="addCCToPrescription()"><label class="mainLabel">Chief Complaints</label></a>
+        </div>
+        <div data-ng-repeat="complain in prescribedComplainData">
+            <span class="glyphicon glyphicon-pencil link" aria-hidden="true" data-ng-click="editFromPresciption(complain)"></span>
+            <span class=" glyphicon glyphicon-remove" aria-hidden="true" data-ng-click="deleteCCFromPresciption(complain.id)"></span>
+            <span>{{getComplainString(complain)}}</span>
+        </div>
+    </div>
+    <div class="col-sm-6 col-md-6 col-lg-6">
+        <div class="form-group"><a href="javascript:" data-ng-click="addVital()"><label class="mainLabel">On Examination</label></a></div>
+        <div data-ng-repeat="vitalData in prescribedVitalData">
+            <span class="glyphicon glyphicon-remove" aria-hidden="true" data-ng-click="deleteVitalFromPrescibtion(vitalData.id)"></span>
+            <span>{{vitalData.vitalDisplayName}} : {{vitalData.vitalResult}}</span>
+        </div>
+
+    </div>
+
+
+</div>
+
+

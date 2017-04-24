@@ -86,6 +86,8 @@ function insertPrescribedHistory($appointmentID, $patientHistoryID ){
 
 function insertPrescribedDiagnosis($appointmentID, $diseaseID, $note){
 	$sql = mysql_query("INSERT INTO `diagnosis`( `appointMentID`, `diseaseID`, `note`) VALUES ('$appointmentID', '$diseaseID','$note')");
+
+	return "INSERT INTO `diagnosis`( `appointMentID`, `diseaseID`, `note`) VALUES ('$appointmentID', '$diseaseID','$note')";
 }
 
 function addToDoctorSetting($appointmentID ,$doctorID, $diseaseID){
@@ -159,9 +161,6 @@ function insertSingleDrugsToSetting($doctorID, $diseaseID, $drugID, $drugType, $
 	mysql_query("INSERT INTO `settings_drug`(`doctorID`, `diseaseID`, `drugTypeID`, `drugID`, `drugTimeID`, `drugDoseUnit`, `drugWhenID`, `drugAdviceID`) 
 			VALUES
 			('$doctorID', '$diseaseID', '$drugType', '$drugID', '$drugTime', '$doseUnit', '$drugWhen', '$drugAdvice')");
-	
-	
-	
 	return mysql_insert_id();
 	
 }
@@ -201,7 +200,7 @@ function insertPastHistory($patientID, $diseaseID, $isPresent, $detail){
 function insertContentDetail($entityID, $entityType, $detail, $code){
 	
 	mysql_query("INSERT INTO `contentdetail`(`contentType`, `entityID`, `detail`, `code`) VALUES ('$entityType', $entityID,'$detail','$code')");
-	
+
 	return mysql_insert_id();
 }
 

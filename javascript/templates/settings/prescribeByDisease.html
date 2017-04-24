@@ -1,0 +1,196 @@
+<section  class=" contacts row" id="generalInfoContact">
+     <div  class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
+         <div class="panel">	                 
+             <div class="panel-body">
+             	<div class="text-muted form-group">Disease Name</div>	                    
+                <div class="room-desc">	
+                      <input type="text" ng-model="diagnosisData.diseaseName" typeahead="diagnosisNameData.name for diagnosisNameData in getDisease($viewValue)"  class="form-control required" placeholder="Disease" typeahead-on-select='onSelectDisease($item, $model, $label)'/>
+                </div>
+             </div>
+         </div>
+     </div>
+     <div  class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
+         <div class="panel">	                 
+             <div class="panel-body">
+             	<div class="text-muted form-group">Action</div>	                    
+                <div class="room-desc">	
+                     <button  data-ng-click="bringSettings()" class="btn btn-primary" > <span class='glyphicon glyphicon-eye-open' aria-hidden='true'></span> View</button>
+                </div>
+             </div>
+         </div>
+     </div>
+</section>
+
+
+<div class="generic-container" data-ng-show="diseaseSelected">
+	<div class="panel panel-default">
+		<div class="panel-heading clearfix">
+			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+				<h4>Template</h4>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+				<span class="pull-right">
+					<!--<a  style="padding-left:12px;" class="btn btn-info" data-ng-click="addFollowUpINV()"><i class="fa fa-plus" > Add to settings</i></a>
+					<a  style="padding-left:12px;" class="btn btn-info" data-ng-click="addFollowUp()"><i class="fa fa-plus" > Add report</i></a>-->
+				</span>
+			</div>
+		</div>
+		<div class="panel-body">
+
+			<div class="row">
+				<div class="col-sm-2 col-md-2 col-lg-2">
+					<label class="link" data-ng-click="modalForInv()">Inv</label>
+					<div data-ng-repeat="invData in invSettingList">
+						<span class="glyphicons glyphicon glyphicon-trash link" aria-hidden="true" data-ng-click="deleteInvFromSetting(invData.id)"></span>
+						<span>{{invData.invName}}</span>
+					</div>
+				</div>
+				<div class="col-sm-4 col-md-4 col-lg-4 verticalLine">
+					<label class="link" data-ng-click="modalForAdvice()" >Advice</label>
+					<div data-ng-repeat="advice in advieSettingList">
+						<span class="glyphicons glyphicon glyphicon-trash link" aria-hidden="true" data-ng-click="delAdviceFromSetting(advice.id)"></span>
+						<span>{{advice.advice}}</span>
+					</div>
+				</div>
+				<div class="col-sm-6 col-md-6 col-lg-6 verticalLine">
+					<label class="link" data-ng-click="modalForDrugs()">Drugs</label>
+					<div data-ng-repeat="drugPres in drugSettingList">
+						<span class="glyphicons glyphicon glyphicon-trash link" aria-hidden="true" data-ng-click="deleteDrugsFromSetting(drugPres.id)"></span>
+						<span>{{drugPres.typeInitial}}. {{drugPres.drugName}} - {{drugPres.drugStrength}}</span>
+						<span data-ng-repeat="drugDose in drugPres.preiodicList">
+							{{drugDose.dose}} {{drugDose.numOfDay}} {{drugDose.bangla}}
+						</span>
+						<span>{{drugPres.whenTypeName}} {{drugPres.adviceTypeName}}</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--
+<div class="row geninfo">
+				<div class="col-xs-12">
+					<div class="panel" style="margin-top:20px">  
+						<div class="panel-body" >
+							<div class="text-muted form-group">Selected Drugs <span class="pull-right"><button class="btn btn-primary" data-ng-click="modalForDrugs()" data-ng-show="masterDiseaseData.diseaseID"><span class='glyphicon glyphicon glyphicon-plus' aria-hidden='true'></span> Add</button> </span></div>                             
+							<div id="appList" >
+								<table id="content-data-list" class="table table-condensed table-bordered">
+									<thead>
+										<tr >
+											<th width="10%"><strong>Sl.</strong></th>
+											<th width="20%"><strong>Name</strong></th>
+											<th width="10%"><strong>Dose</strong></th>
+											<th width="10%"><strong>Times A day</strong></th>
+											<th width="15%"><strong>When</strong></th>
+											<th width="15%"><strong>How to</strong></th>
+											<th width="10%"><strong>Action</strong></th>									
+										</tr>
+									</thead>
+									<tbody>
+										<tr class="" data-ng-repeat="drugPres in drugSettingList" style="height: 50px;cursor: pointer;">
+											<td class="nowrap" >
+												{{$index + 1}}
+											</td>
+												
+											<td >
+												<span>{{drugPres.typeInitial}}. {{drugPres.drugName}} </span>
+											</td>
+											<td  >
+												<span>{{drugPres.drugDose}}</span>
+											</td>
+											<td ng-if="drugPres.drugNoOfDay > 0">
+												<span>{{drugPres.drugNoOfDay}} -  {{drugPres.dayTypeName}}</span>
+											</td>
+											<td ng-if="drugPres.drugNoOfDay < 1">
+												<span>{{drugPres.dayTypeName}}</span>
+											</td>
+											<td  >
+												<span>{{drugPres.whenTypeName}}</span>
+											</td>
+											<td  >
+												<span>{{drugPres.adviceTypeName}}</span>
+											</td>
+											<td  >
+												<button class="btn btn-primary" data-ng-click="editPresCribedDrug(drugPres)" data-ng-show="false"><span class="glyphicon glyphicon-floppy-open" aria-hidden="true"></span></button>
+												<a class="btn btn-danger btn-sm btnLanier"
+		                                            ktr-confirmation="deleteDrugsFromSetting(item)" 
+		                                            confirmation-message="Are you sure to remove?"
+		                                            confirmation-title="Confirmation"
+		                                            item="drugPres.id">
+		                                            <span class="glyphicons glyphicon glyphicon-trash" aria-hidden="true"></span>
+	                                          </a>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			
+<div class="row geninfo" data-ng-show="true">
+	<div class="col-xs-12">
+		<div class="panel" style="margin-top:20px">  
+			<div class="panel-body" >
+				<div class="text-muted form-group">Selected INV <span class="pull-right"><button class="btn btn-primary" data-ng-click="modalForInv()" data-ng-show="masterDiseaseData.diseaseID" ><span class='glyphicon glyphicon glyphicon-plus' aria-hidden='true'></span> Add</button> </span></div>                             
+				<div id="appList" scroller="addMoreItems()">
+					<table id="content-data-list" class="table table-condensed table-bordered">
+						<thead>
+							<tr >
+								<th width="5%"><strong>Sl.</strong></th>
+								<th width="40%"><strong>Inv Name</strong></th>
+								<th width="40%"><strong>Note</strong></th>
+								<th width="15%"><strong>Action</strong></th>									
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="" data-ng-repeat="invData in invSettingList" style="height: 50px;cursor: pointer;">
+								<td class="nowrap" >
+									{{$index + 1}}
+								</td>
+									
+								<td >
+									<span>{{invData.invName}}</span>
+								</td>
+								<td >
+									<span>{{invData.note}}</span>
+								</td>
+								<td >
+									<button class="btn btn-primary" data-ng-click="editFromPresciption(invData)" data-ng-show="false">
+										<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+									</button>
+									<span><a class="btn btn-danger btn-sm btnLanier"
+							                  ktr-confirmation="deleteInvFromSetting(item)" 
+							                  confirmation-message="Are you sure to remove?"
+							                  confirmation-title="Confirmation"
+							                  item="invData.id">
+							                  <span class="glyphicons glyphicon glyphicon-trash" aria-hidden="true"></span>
+							               </a>
+									</span>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="panel  col-md-12 filter-panel" style="padding-top: 20px">
+<div class="text-muted form-group">Selected Advice <span class="pull-right"><button class="btn btn-primary" data-ng-click="modalForAdvice()" data-ng-show="masterDiseaseData.diseaseID"><span class='glyphicon glyphicon glyphicon-plus' aria-hidden='true'  ></span> Add</button> </span></div>
+	<div class="list-item col-sm-4 col-md-4 col-lg-4" data-ng-repeat="advice in advieSettingList" style="padding-bottom: 10px">
+		<span><a class="btn btn-danger btn-sm btnLanier"
+                  ktr-confirmation="delAdviceFromSetting(item)" 
+                  confirmation-message="Are you sure to remove?"
+                  confirmation-title="Confirmation"
+                  item="advice.id">
+                  <span class="glyphicons glyphicon glyphicon-remove" aria-hidden="true"></span>
+               </a>
+		</span>
+		<span>{{advice.advice}}</span>
+	</div>
+</div>-->

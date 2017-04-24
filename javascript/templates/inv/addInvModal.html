@@ -6,6 +6,9 @@
         <div>{{errorMessage}}</div>
         <div id="lblMsg_modal"></div>
     </div>
+	<div class="alert alert-success alert-dismissable" data-ng-show="success">
+		<div>{{errorMessage}}</div>
+	</div>
 
 
     	<div  class="row step4Width" id="validateReq">
@@ -22,6 +25,7 @@
 	
 </div>
 <div class="modal-footer modalFoot">
-	<button class="btn btnLanier btn-success" data-ng-click="save()" ><span class="glyphicons glyphicon glyphicon-floppy-save" aria-hidden="true"></span> Save</button>
+	<button class="btn btnLanier btn-success" data-ng-click="save(true)" ><span class="fa fa-plus-square-o" aria-hidden="true"></span> Save and Another</button>
+	<button class="btn btnLanier btn-success" data-ng-click="save(false)" ><span class="glyphicons glyphicon glyphicon-floppy-save" aria-hidden="true"></span> Save</button>
 	<button class="btn btnLanier btn-danger" data-ng-click="cancel()" ><span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span> Cancel</button>
 </div>

@@ -10,8 +10,6 @@ if (!isset($_SESSION['username'])) {
 }
 $username=$_SESSION['username'];
 $date=date("Y-m-d");
-$appointmentID = $_SESSION['appointmentID'];
-//$query_no=  mysql_real_escape_string($_POST['query']);
 
 $json = file_get_contents('php://input');
 $dataObject = json_decode($json);
@@ -43,8 +41,6 @@ if($query_no==1){
 	$bangla = $dataObject->bangla;
 	$pdf = $dataObject->pdf;
 	
-	//$asciiString = mb_convert_encoding($bangla, "ISO-8859-1", "UTF-8");
-	
 	mysql_query("INSERT INTO `drugadvicetype`(`doctorType`, `bangla`, `english`, `pdf`) VALUES (0,'$bangla','','$pdf')");
 	
 	
@@ -70,8 +66,6 @@ if($query_no==1){
 	
 	$bangla = $dataObject->bangla;
 	$pdf = $dataObject->pdf;
-	
-	//$asciiString = mb_convert_encoding($bangla, "ISO-8859-1", "UTF-8");
 	
 	mysql_query("INSERT INTO `drugwhentype`(`bangla`, `english`, `pdf`) VALUES ('$bangla', '' , '$pdf' )");
 	

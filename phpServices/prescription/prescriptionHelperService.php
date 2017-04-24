@@ -25,7 +25,7 @@ if($query_no== 0){
 	
 }else if($query_no==1){
 	$sql = "SELECT 
-				ms.menuHeader, ms.order, m.menuURL, ds.category, m.inPrescription, m.defaultName
+				ms.menuHeader, ms.order, m.menuURL, ds.category, m.inPrescription, m.defaultName, m.isPopUp, m.functionName
 			FROM `menusettings` ms
 			JOIN doctor doc ON ms.doctorID = doc.doctorID
 			JOIN  doctorsettings ds ON ds.doctorID = doc.doctorID
@@ -97,8 +97,7 @@ else if($query_no==4){
 	
 }elseif ($query_no == 7){
 	
-	$nextVisitDate = mysql_real_escape_string($_POST['nextVisitDate']);
-	
+	$nextVisitDate = $_POST['nextVisitDate'];
 	$numOfDay = $_POST['numOfDay'];
 	$dayType = $_POST['dayType'];
 	$nextVisitType = $_POST['nextVisitType'];

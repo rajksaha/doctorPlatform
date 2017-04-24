@@ -1,0 +1,27 @@
+<div class="row">
+    <div class="col-sm-6 col-md-6 col-lg-6">
+        <div class="form-group">
+            <a href="javascript:" data-ng-click="addCCToPrescription()"><label class="mainLabel">Chief Complaints</label></a>
+        </div>
+        <div data-ng-repeat="complain in prescribedComplainData">
+            <button class="btn btn-default" data-ng-model="none"   data-ng-click="addToPrescription(!complain.addedToPrescription, complain, 10)">
+                <span class="glyphicon  glyphicon"  data-ng-class="{'glyphicon-check': complain.addedToPrescription == true,'glyphicon-unchecked': complain.addedToPrescription != true}"></span>
+            </button>
+            <span>{{getComplainString(complain)}}</span>
+        </div>
+    </div>
+    <div class="col-sm-6 col-md-6 col-lg-6">
+        <div class="form-group"><a href="javascript:" data-ng-click="addVital()"><label class="mainLabel">On Examination</label></a></div>
+        <div data-ng-repeat="vitalData in prescribedVitalData">
+            <button class="btn btn-default" data-ng-model="none"   data-ng-click="addToPrescription(!vitalData.addedToPrescription, vitalData, 1)">
+                <span class="glyphicon  glyphicon"  data-ng-class="{'glyphicon-check': vitalData.addedToPrescription == true,'glyphicon-unchecked': !vitalData.addedToPrescription   || vitalData.addedToPrescription == false}"></span>
+            </button>
+            <span>{{vitalData.vitalDisplayName}} : {{vitalData.vitalResult}}</span>
+        </div>
+
+    </div>
+
+
+</div>
+
+

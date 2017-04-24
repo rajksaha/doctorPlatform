@@ -1,0 +1,114 @@
+<div class="row">
+	<div class="col-sm-9 col-md-9 col-lg-9">
+		<h4> {{pageName}} </h4>
+	</div>
+	<div class="col-sm-3 col-md-3 col-lg-3">
+		<button class="btn btn-info pull-right" data-ng-click="docHistorySetting = !docHistorySetting"><span class="glyphicon glyphicon glyphicon-wrench" aria-hidden="true"></span> Setting</button>
+	</div>
+</div>
+<hr>
+<div class="row" id="historySetting" data-ng-show="docHistorySetting">
+
+	<div class="col-sm-6 col-md-6 col-lg-6">
+		 <div class="panel">
+			 <div class="panel-body">
+				<div class="room-desc  form-group" >
+					<label >{{pageName}} Name</label>
+					 <input type="text" data-ng-model="historySetteingData.historyName" typeahead="historyData.name for historyData in getHistory($viewValue)"  class="form-control" placeholder="Search {{pageName}}" typeahead-on-select='onSelectHistory($item, $model, $label)'/>
+				</div>
+			 </div>
+		 </div>
+	 </div>
+	 <div class="col-sm-6 col-md-6 col-lg-6">
+		 <div class="panel">
+			 <div class="panel-body">
+				<div class="room-desc  form-group">
+					 <label>Display name</label><span class="pull-right"><input type="checkbox" data-ng-model="historySetteingData.historySameAS" data-ng-click="historySetteingData.shortName = historySetteingData.historyName">Same as</span>
+					 <input type="text" class="form-control input-sm typeahead" data-ng-model="historySetteingData.shortName" maxlength="45" />
+				</div>
+			 </div>
+		 </div>
+	 </div>
+	<button class="pull-right btn btn-info" data-ng-disabled="!historySetteingData.historyName" data-ng-click="addHistoryToDoctorPref()">
+		<span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> Add To List
+	</button>
+</div>
+
+<div class="row" data-ng-show="!docHistorySetting">
+	<div class="col-sm-3 col-md-3 col-lg-3" data-ng-repeat="history in paientHistoryList">
+		<div>
+			<span class="glyphicons glyphicon glyphicon-remove" aria-hidden="true" data-ng-click="deleteHistoryFromSetting(history.historySettingID)"></span>
+			<label>{{history.name}}</label>
+			<div class="input-group">
+				<input type="text" data-ng-model="history.historyResult" typeahead="historyOption.optionName for historyOption in bringHistoryOption(history, $viewValue)"  class="form-control" placeholder="Add detail" typeahead-on-select='onSelectInvName($item, $model, $label)'/>
+				<span class="glyphicon  input-group-addon"  data-ng-show="history.historyResult" data-ng-click="history.addToPrescription = !history.addToPrescription" data-ng-class="{'glyphicon-check': history.addToPrescription == true,'glyphicon-unchecked': !history.addToPrescription || history.addToPrescription == false}"></span>
+			</div>
+		</div>
+	</div>
+	<hr>
+	<div class="row">
+		<div class="col-sm-9 col-md-9 col-lg-9">
+		</div>
+		<div class="col-sm-3 col-md-3 col-lg-3">
+			<button class="pull-right btn btn-success" data-ng-click="saveHistory()"><span class="glyphicon  glyphicon-floppy-save" aria-hidden="true"></span> Save </button></span>
+		</div>
+	</div>
+</div>
+
+<!--
+<div class="row">
+	<div class="col-xs-12">
+		<div class="panel" style="margin-top:20px">
+			<div class="panel-body" >
+				<div class="text-muted form-group">{{pageName}}<span><button class="pull-right btn btn-success" data-ng-click="saveHistory()"><span class="glyphicon  glyphicon-floppy-save" aria-hidden="true"></span> Save & Continue</button></span></div>
+					<div class="list-item col-sm-6 col-md-6 col-lg-6" data-ng-repeat="history in paientHistoryList">
+						<div>
+							<table class="table">
+								<tbody>
+									<tr>
+										<td width="10%">
+											<span>
+												<a class="btn btn-danger"
+													 ktr-confirmation="deleteHistoyFromSetting(item)"
+													 confirmation-message="Are you sure to remove?"
+													 confirmation-title="Confirmation"
+													 item="history.historySettingID">
+													 <span class="glyphicons glyphicon glyphicon-remove" aria-hidden="true"></span>
+												  </a>
+											</span>
+										</td>
+										<td width="10%">
+											<button class="btn btn-default" data-ng-model="none"   data-ng-show="history.historyResult" data-ng-click="history.addToPrescription = !history.addToPrescription">
+												<span class="glyphicon  glyphicon"  data-ng-class="{'glyphicon-check': history.addToPrescription == true,'glyphicon-unchecked': !history.addToPrescription || history.addToPrescription == false}"></span>
+											</button>
+										</td>
+										<td width="20%">{{history.name}}</td>
+										<td width="50%">
+											<input type="text" class="form-control" data-ng-model="history.historyResult">
+											<select size="5" class="form-control" data-ng-model="history.optionSelector" data-ng-show="history.optionListON" ng-options="historyOption.optionName for historyOption in history.optionList" data-ng-click="performHistory(history)"></select>
+											<input type="text" class="form-control" data-ng-show="history.optionAdderON" data-ng-model="history.optionAdder">
+
+											<button class="btn btn-success"data-ng-show="history.optionAdderON" data-ng-click="addHistoryOption(history)">
+												<span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> Add Options
+											</button>
+
+											<button class="btn btn-danger" data-ng-show="history.optionAdderON" data-ng-click="history.optionAdderON = false">
+												<span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span> Cancel
+											</button>
+										</td>
+										<td width="10%">
+											<button class="btn btn-info" data-ng-click="bringHistoryOption(history)" class="btn btn-primary">
+												<span class='glyphicon glyphicon glyphicon-plus' aria-hidden='true'></span>
+											</button>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+					</div>
+					<button class="pull-right" data-ng-show="paientHistoryList.length > 20" data-ng-click="saveHistory(paientHistoryList)">Save</button>
+			</div>
+		</div>
+	</div>
+</div>-->

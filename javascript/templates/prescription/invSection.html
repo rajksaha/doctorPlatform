@@ -1,0 +1,23 @@
+<div class="row">
+    <div class="col-sm-6 col-md-6 col-lg-6">
+        <div class="form-group">
+            <div class="form-group"><a href="" data-ng-click="invModal()"><label class="mainLabel">Investigation</label></a></div>
+        </div>
+        <div data-ng-repeat="invData in prescribedInvData">
+            <span class=" glyphicon glyphicon-remove" aria-hidden="true" data-ng-click="deleteInvFromPresciption(invData.id)"></span>
+            <span>{{invData.invName}}</span>
+        </div>
+    </div>
+    <div class="col-sm-6 col-md-6 col-lg-6">
+        <div class="form-group"><a href="#/followUpChart"><label class="mainLabel">Clinical Record</label></a></div>
+        <div data-ng-repeat="clinical in clinicalRecordList">
+            <span class="glyphicon glyphicon-remove" aria-hidden="true" data-ng-click="deleteVitalFromPrescibtion(vitalData.id)"></span>
+            <span>{{clinical.code}} : {{clinical.detail}}</span>
+        </div>
+
+    </div>
+
+
+</div>
+
+

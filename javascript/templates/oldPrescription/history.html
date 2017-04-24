@@ -1,0 +1,18 @@
+<div class="row">
+
+    <div class="col-sm-6 col-md-6 col-lg-6">
+
+        <h4>Clinical Note
+            <button class="btn btn-default pull-right" data-ng-model="none"   data-ng-click="addCommentToPrescription()">
+                <span class="glyphicon  glyphicon"  data-ng-class="{'glyphicon-check': commentData.addedToPrescription == true,'glyphicon-unchecked': !commentData.addedToPrescription  || commentData.addedToPrescription == false}"></span>
+            </button>
+        </h4>
+        <span><textarea rows="8" style="width: 100%" data-ng-model="commentData.detail">{{commentData.detail}}</textarea></span>
+
+
+
+    </div>
+    <div class="col-sm-6 col-md-6 col-lg-6">
+    </div>
+</div>
+

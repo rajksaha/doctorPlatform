@@ -1,0 +1,30 @@
+<div class="text-muted form-group"><a href="javascript:" data-ng-click="addDrugsToPrescription()"><label class="mainLabel">RX</label></a></div>
+<div class="room-desc form-group" data-ng-repeat="drugPres in prescribedDrugList">
+    <table id="" class="table">
+        <tbody>
+        <tr class="" >
+            <td  style="width: 10%">
+                <button class="btn btn-default" data-ng-model="none"   data-ng-click="addToPrescription(!drugPres.addedToPrescription,drugPres, 7)">
+                    <span class="glyphicon  glyphicon"  data-ng-class="{'glyphicon-check': drugPres.addedToPrescription == true,'glyphicon-unchecked': !drugPres.addedToPrescription  || drugPres.addedToPrescription == false}"></span>
+                </button>
+            </td>
+            <td style="width: 20%">
+                <span>{{drugPres.typeInitial}}. {{drugPres.drugName}} - {{drugPres.drugStrength}}</span>
+            </td>
+            <td  style="width: 30%" >
+                <div data-ng-repeat="drugDose in drugPres.preiodicList">
+                    <span>{{drugDose.dose}} <span class="pull-right"> {{drugDose.numOfDay}}  {{drugDose.bangla}} </span></span>
+                </div>
+            </td>
+            <td   style="width: 20%">
+                <span>{{drugPres.whenTypeName}}</span>
+            </td>
+            <td   style="width: 20%">
+                <span>{{drugPres.adviceTypeName}}</span>
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+</div>
+</div>
