@@ -71,7 +71,7 @@ app.config(function( $stateProvider, $urlRouterProvider, $compileProvider, $cont
         url : '/appointment',
         views : {
             'container@' : {
-                templateUrl : 'javascript/templates/appointment/appointment.php',
+                templateUrl : 'javascript/templates/appointment/appointment.html',
                 controller : 'AppointmentController'
             }
         },

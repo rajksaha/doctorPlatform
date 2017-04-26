@@ -9,7 +9,15 @@ app.controller('AppointmentController', function($scope, $http, $modal, $rootSco
  	$scope.patientName = "";
  	$scope.addAppointMentData = {};
  	
- 	
+
+ 	$scope.changePage = function (page) {
+
+ 	    if(page == 3){
+            $location.path("/researchHome");
+        }else if(page == 4){
+            $location.path("/settingSelection");
+        }
+    };
  	
     $scope.bringDoctorInfo = function (){
     	
@@ -282,14 +290,25 @@ app.controller('AppointmentController.AddNewPatientController', function($scope,
 	$scope.error = false;
 	$scope.errorMessage = "";
 	$scope.patientData.sex = "MALE";
+    $scope.patientData.occupation = "NA";
 	$scope.patientData.phone = "";
 	$scope.patientData.address = "";
+    $scope.patientData.referredBy = "";
 	
 	$scope.createNewPatient = function (){
 		
 		if(validator.validateForm("#validateReq","#lblMsg_modal",null)) {
-			var dataString = 'doctorCode='+ data.addAppointAdderData.doctorCode + '&dotorPatInitial='+ data.addAppointAdderData.personCodeInitial +'&doctorID='+ $scope.doctorData.doctorID +
-			'&name='+ $scope.patientData.name +'&age='+ $scope.patientData.age +'&address='+ $scope.patientData.address + '&sex=' + $scope.patientData.sex +'&phone='+ $scope.patientData.phone +'&query=2';
+			var dataString = 'doctorCode='+ data.addAppointAdderData.doctorCode +
+                '&dotorPatInitial='+ data.addAppointAdderData.personCodeInitial +
+                '&doctorID='+ $scope.doctorData.doctorID +
+			    '&name='+ $scope.patientData.name +
+                '&age='+ $scope.patientData.age +
+                '&address='+ $scope.patientData.address +
+                '&sex=' + $scope.patientData.sex +
+                '&phone='+ $scope.patientData.phone +
+                '&occupation='+ $scope.patientData.occupation +
+                '&referredBy='+ $scope.patientData.referredBy +
+                '&query=2';
 
 	        $http({
 	            method: 'POST',

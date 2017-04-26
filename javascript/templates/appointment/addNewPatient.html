@@ -8,18 +8,18 @@
     </div>
 
 
-    	<div  class="row step4Width" id="validateReq">
+    	<div  class="row" id="validateReq">
    			<div class="form-group col-xs-12 col-sm-12">
    				<label>Patient  Name: <span class="red" >*</span></label>
    				<input type="text" class="form-control required" data-ng-model="patientData.name" errmsg="Please enter patient name" maxlength="40">
 			</div>
 			
-			<div class="form-group col-xs-12 col-sm-12" >
+			<div class="form-group col-sm-12 col-md-6 col-lg-6" >
 				<label>Age: <span class="red" >*</span></label> 
 				<input class="form-control decimal" type="text" maxlength="6" data-ng-model="patientData.age" errmsg="Please enter patient age">
 			</div>
 			
-			<div class="form-group col-xs-12 col-sm-12 ">
+			<div class="form-group col-sm-12 col-md-6 col-lg-6">
 				<label>Gender:</label> 
 				<select data-ng-model="patientData.sex" class="form-control">
 					<option value="MALE">Male</option>
@@ -27,15 +27,32 @@
 					<option value="OTHER">Other</option>
 				</select>
 			</div>
+
+			<div class="form-group col-sm-12 col-md-6 col-lg-6">
+				<label>Occupation:</label>
+				<select data-ng-model="patientData.occupation" class="form-control">
+					<option value="HOUSEEWIFE">Housewife</option>
+					<option value="SERVICE">Service</option>
+					<option value="BUSINESS">Business</option>
+					<option value="STUDENT">Student</option>
+					<option value="NA">N/A</option>
+				</select>
+			</div>
+
 			
-			<div class="form-group col-xs-12 col-sm-12">
+			<div class="form-group col-sm-12 col-md-6 col-lg-6">
 				<label>Phone:</label> 
 				<input class="form-control phnnr" type="text" maxlength="16" data-ng-model="patientData.phone">
 			</div>
 			
-			<div class="form-group col-xs-12 col-sm-12 ">
+			<div class="form-group col-sm-12 col-md-6 col-lg-6">
 				<label>Address:</label> 
 				<input class="form-control" type="text" maxlength="100" data-ng-model="patientData.address">
+			</div>
+
+			<div class="form-group col-sm-12 col-md-6 col-lg-6">
+				<label>Referred By:</label>
+				<input class="form-control" type="text" maxlength="16" data-ng-model="patientData.referredBy">
 			</div>
     	</div>
 	

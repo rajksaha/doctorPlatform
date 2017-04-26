@@ -1048,11 +1048,20 @@ app.controller('PrescriptionController', function($scope, $http, $modal, $rootSc
 			$scope.bringAppoinmentInfo();
 	     });
     };
-    
+    $scope.patientInfoEdit = false;
     $scope.savePatientInfo = function(patientData){
-    	
+        $scope.cancelPatientInfo();
+
     	if(validator.validateForm("#validateReq","#lblMsg",null)) {
-    		var dataString = 'name='+ patientData.name +'&age='+ patientData.age +'&address='+ patientData.address + '&sex=' + patientData.sex +'&phone='+ patientData.phone+ '&id='+ patientData.patientID +'&query=16';
+    		var dataString = 'name='+ patientData.name +
+				'&age='+ patientData.age +
+				'&address='+ patientData.address +
+				'&sex=' + patientData.sex +
+				'&phone='+ patientData.phone+
+                '&occupation='+ patientData.occupation +
+                '&referredBy='+ patientData.referredBy +
+				'&id='+ patientData.patientID +
+				'&query=16';
     		
     		 $http({
 		            method: 'POST',
@@ -1060,13 +1069,13 @@ app.controller('PrescriptionController', function($scope, $http, $modal, $rootSc
 		            data: dataString,
 		            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 		        }).success(function (result) {
-		        	$scope.patientInfoEdit = false;
+                    $scope.cancelPatientInfo();
 		        });
     		 
     	}else{
     		alert("Please Select all required fields properly");
     	}
-    	
+
     };
 
     $scope.cancelPatientInfo = function(){

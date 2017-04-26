@@ -11,8 +11,8 @@
     <input data-ng-show="patientInfoEdit" data-ng-model="patientData.phone" class="form-control phnnr input-sm" maxlength="16" placeholder="Phone"/>
 </div>
 <div class="col-sm-4 col-md-4 col-lg-4 form-group">
-    <label data-ng-show="!patientInfoEdit">Reffered by: {{patientData.phone}}</label>
-    <input data-ng-show="patientInfoEdit" data-ng-model="patientData.phone" class="form-control phnnr input-sm" maxlength="16" placeholder="Phone"/>
+    <label data-ng-show="!patientInfoEdit">Reffered by: {{patientData.referredBy}}</label>
+    <input data-ng-show="patientInfoEdit" data-ng-model="patientData.referredBy" class="form-control phnnr input-sm" maxlength="16" placeholder="Phone"/>
 </div>
 
 
@@ -29,8 +29,15 @@
     </select>
 </div>
 <div class="col-sm-4 col-md-4 col-lg-4 form-group">
-    <label data-ng-show="!patientInfoEdit" >Occupation: {{patientData.patientCode}}</label>
-    <input data-ng-show="patientInfoEdit" data-ng-model="patientData.patientCode" size="5" class="form-control input-sm"  disabled="disabled"/>
+    What D F : {{patientInfoEdit}}
+    <label data-ng-show="!patientInfoEdit" >Occupation: {{patientData.occupation}}</label>
+    <select data-ng-show="patientInfoEdit" data-ng-model="patientData.occupation" class="form-control input-sm">
+        <option value="HOUSEEWIFE">Housewife</option>
+        <option value="SERVICE">Service</option>
+        <option value="BUSINESS">Business</option>
+        <option value="STUDENT">Student</option>
+        <option value="NA">N/A</option>
+    </select>
 </div>
 <div class="col-sm-4 col-md-4 col-lg-4 form-group">
     <label data-ng-show="!patientInfoEdit" >Patient ID: {{patientData.patientCode}}</label>

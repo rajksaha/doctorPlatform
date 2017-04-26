@@ -52,11 +52,9 @@ function getAppointmentInfo($appointmentID){
 
 function getPatientInformaition($patientCode){
 	
-	$sql = "SELECT p.`patientID` , p.`patientCode` , p.`name` , p.`age` , p.`sex` , p.`address` ,p.`phone`,  pd.`type`, pd.`tri`, pd.`triStatus`, 
-	pd.`edb`, pd.id AS patientDetailID, cd.detail as patientImage
+	$sql = "SELECT p.`patientID` , p.`patientCode` , p.`name` , p.`age` , p.`sex` , p.`address` ,p.`phone`,  p.`referredBy`, p.`occupation`, cd.detail as patientImage
 	FROM `patient` p
 	LEFT JOIN contentdetail cd ON cd.contentType = 'PATIENTIMG'  AND cd.entityID = '$patientCode'
-	LEFT join patient_detail pd ON p.`patientID` = pd.`patientID`
 	WHERE `patientCode` = '$patientCode'"  ;
 	
 	$result=mysql_query($sql);

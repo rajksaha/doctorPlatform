@@ -2,12 +2,7 @@
 	/*### Application Global CSS ###*/	
 	
 	
-	body {
-		background-color :#66CCFF;		
-		background:#FFFCEF;
-		background-size: cover; 
-	}
-	
+
 	/* Body Color and Shades*/	
 	
 	.app-logo { 
@@ -27,8 +22,7 @@
 	/* Logout button */
 	
 	.hLogout { font-size: 1.15em; border-left: 1px solid #555555 !important; }	
-	.hLogout:link, .hLogout:visted { color: #f26b42; text-decoration: none; }
-	.hLogout:hover, .hLogout:focus { color: #fff; text-decoration: none; }	
+	.hLogout:hover, .hLogout:focus { color: #fff; text-decoration: none; }
 	.hLogout > i { }
 
 	/* Help */

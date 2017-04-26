@@ -58,11 +58,11 @@
         </div>
 
         <div class="row" data-ng-show="!vitalSetting">
-            <div class="col-sm-3 col-md-3 col-lg-3" data-ng-repeat="vital in prescribedVitalData">
+            <div class="col-sm-6 col-md-6 col-lg-6" data-ng-repeat="vital in prescribedVitalData">
                 <div>
                     <span class="glyphicons glyphicon glyphicon-remove" aria-hidden="true" data-ng-click="deleteVitalFromSetting(vital.vitalSettingID)"></span>
-                    <label>{{vital.vitalName}}</label>
-                    <input type="text" data-ng-model="vital.vitalResult" typeahead="vitalOption.name for vitalOption in getVitalOption(vital, $viewValue)"  class="form-control" placeholder="Add Inv to Setting" typeahead-on-select='onSelectInvName($item, $model, $label)'/>
+                    <span>{{vital.vitalName}}</span>
+                    <input type="text" data-ng-model="vital.vitalResult" typeahead="vitalOption.name for vitalOption in getVitalOption(vital, $viewValue)"  class="form-control" typeahead-on-select='onSelectInvName($item, $model, $label)'/>
                 </div>
             </div>
         </div>

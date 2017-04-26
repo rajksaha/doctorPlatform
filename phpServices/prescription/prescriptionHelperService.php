@@ -211,8 +211,10 @@ elseif ($query_no == 15){
 	$sex= $_POST['sex'];
 	$phone = $_POST['phone'];
 	$id = $_POST['id'];
+    $occupation = $_POST['occupation'];
+    $referredBy = $_POST['referredBy'];
 	
-	mysql_query("UPDATE `patient` SET `name`='$name',`age`='$age',`sex`='$sex',`address`='$address',`phone`='$phone' WHERE `patientID` = '$id'");
+	mysql_query("UPDATE `patient` SET `name`='$name',`age`='$age',`sex`='$sex',`address`='$address',`phone`='$phone',`referredBy`='$referredBy',`occupation`='$occupation' WHERE `patientID` = '$id'");
 	
 }elseif ($query_no == 17){
 

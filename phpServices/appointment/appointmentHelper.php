@@ -45,10 +45,12 @@ if($query_no==2){
 	$age = $_POST['age'];
 	$sex= $_POST['sex'];
 	$phone = $_POST['phone'];
+    $occupation = $_POST['occupation'];
+    $referredBy = $_POST['referredBy'];
 	
 	$appointmentType =  0;
 	
-	$sql="INSERT INTO `patient`( `patientCode`, `name`, `age`, `sex`, `address`, `phone`) VALUES ( '$patientCode', '$name', '$age' , '$sex', '$address', '$phone')";
+	$sql="INSERT INTO `patient`( `patientCode`, `name`, `age`, `sex`, `address`, `phone`, `occupation`, `referredBy`) VALUES ( '$patientCode', '$name', '$age' , '$sex', '$address', '$phone', '$occupation', '$referredBy')";
 	
 	mysql_query($sql);
 	
